@@ -1291,3 +1291,23 @@
   .section.registration.s5-registration-cta { min-height: 75svh; }
   .s5-registration-cta h2 { font-size: clamp(39px, 9vw, 59px); }
 }
+
+/* HERO ONLY — centered new Sentinel S5 camera render */
+.section.hero .s5-product-image {
+  top: 0;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  width: min(82vw, 1080px);
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center center;
+  transform: translateX(-50%);
+}
+@media (max-width: 760px) {
+  .section.hero .s5-product-image {
+    width: 112vw;
+    height: 100%;
+  }
+}
