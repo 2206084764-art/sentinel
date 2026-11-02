@@ -1109,3 +1109,135 @@
     transition: none;
   }
 }
+
+
+/* =======================================================
+   SECTION 03 — THREE WAYS / ISOLATED VISUAL DESIGN
+   Applies ONLY to section#features.three-ways.
+   No markup, shared navigation, or JS changes required.
+   ======================================================= */
+.section.three-ways {
+  isolation: isolate;
+  min-height: 100svh;
+  padding: clamp(112px, 10vw, 150px) clamp(24px, 5.2vw, 92px) 80px;
+  text-align: center;
+  background: radial-gradient(ellipse 54% 37% at 50% 79%, rgba(144,216,50,.16), transparent 74%),
+    radial-gradient(ellipse 50% 49% at 50% 25%, rgba(50,104,66,.17), transparent 73%),
+    linear-gradient(180deg, #050907 0%, #08120f 62%, #040706 100%);
+}
+.section.three-ways .three-ways-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 30%, rgba(146,237,77,.025) 53%, transparent 76%);
+}
+.section.three-ways .three-ways-head,
+.section.three-ways .three-ways-stage,
+.section.three-ways .three-ways-footer {
+  position: relative;
+  z-index: 2;
+}
+.section.three-ways .three-ways-head { max-width: 1020px; margin: 0 auto 54px; }
+.section.three-ways .three-ways-kicker {
+  color: #bbef72; font-size: 12px; font-weight: 700; letter-spacing: .27em;
+  margin-bottom: 26px;
+}
+.section.three-ways .three-ways-kicker span { color: #f5fff0; }
+.section.three-ways .three-ways-title {
+  margin: 0 auto 22px;
+  font-size: clamp(47px, 6.15vw, 96px);
+  line-height: 1.03; letter-spacing: -.065em; font-weight: 850;
+}
+.section.three-ways .three-ways-desc {
+  max-width: 690px; margin: 0 auto 28px; color: #bbc9bf;
+  font-size: clamp(15px, 1.23vw, 19px); line-height: 1.65;
+}
+.section.three-ways .three-ways-cta {
+  display: inline-flex; align-items: center; gap: 18px;
+  padding: 12px 21px; border: 1px solid rgba(184,255,70,.65);
+  border-radius: 100px; color: #d6ff9c; font-size: 13px; font-weight: 750;
+  transition: background .25s, color .25s, transform .25s;
+}
+.section.three-ways .three-ways-cta:hover {
+  background: #b8ff46; color: #0d1509; transform: translateY(-3px);
+}
+.section.three-ways .three-ways-stage {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  align-items: center; gap: clamp(14px, 2vw, 28px);
+  max-width: 1300px; margin: 0 auto; perspective: 1200px;
+}
+.section.three-ways .three-ways-ring {
+  position: absolute; z-index: -1; left: 50%; bottom: -35px;
+  width: min(80%, 940px); height: 128px;
+  transform: translateX(-50%) rotateX(66deg);
+  border: 2px solid rgba(184,255,70,.35); border-radius: 50%;
+  box-shadow: 0 0 24px rgba(168,250,70,.24), 0 0 90px rgba(148,236,66,.2), inset 0 0 36px rgba(184,255,70,.15);
+  background: radial-gradient(ellipse at center, rgba(139,227,65,.11), transparent 70%);
+  pointer-events: none;
+}
+.section.three-ways .way-card {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  min-height: 425px; padding: clamp(19px, 2.2vw, 31px);
+  text-align: left; overflow: hidden;
+  border: 1px solid rgba(159,198,151,.36); border-radius: 23px;
+  color: #f4f8f1;
+  background: linear-gradient(150deg, rgba(36,55,46,.96), rgba(8,15,13,.98) 54%, rgba(8,15,12,.99));
+  box-shadow: 0 24px 56px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter: blur(14px);
+  transition: transform .9s cubic-bezier(.22,1,.36,1), opacity .9s ease,
+    border-color .3s ease, box-shadow .3s ease;
+}
+.section.three-ways .way-card-center {
+  min-height: 477px; margin-top: -26px;
+  border-color: rgba(184,255,70,.66);
+  background: linear-gradient(155deg, rgba(48,72,49,.98), rgba(10,19,14,.99) 55%, #070c09);
+}
+.section.three-ways .way-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.section.three-ways .way-index { color: #b8ff46; font-size: 13px; font-weight: 800; letter-spacing: .2em; }
+.section.three-ways .way-card h3 {
+  margin: 0 0 22px; font-size: clamp(23px, 2.1vw, 32px);
+  font-weight: 750; line-height: 1.14; letter-spacing: -.04em;
+}
+.section.three-ways .way-image { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 13px; background: #0a130e; border: 1px solid rgba(184,255,70,.17); }
+.section.three-ways .way-image img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.section.three-ways .way-points { margin: 22px 0 0; padding-left: 19px; color: #c6d4c9; font-size: 14px; line-height: 1.65; }
+.section.three-ways .way-points li + li { margin-top: 7px; }
+.section.three-ways .way-points li::marker { color: #b8ff46; }
+.section.three-ways .three-ways-footer { margin-top: 83px; color: rgba(211,234,216,.55); font-size: 11px; font-weight: 650; letter-spacing: .27em; }
+@media (hover:hover) and (pointer:fine) {
+  .section.three-ways.in .way-card:hover {
+    transform: translateY(-12px) scale(1.015);
+    border-color: #b8ff46;
+    box-shadow: 0 30px 72px rgba(0,0,0,.62), 0 0 32px rgba(184,255,70,.16);
+  }
+  .section.three-ways .way-card:hover .way-image img { transform: scale(1.055); }
+}
+.section.three-ways .way-card:focus-visible,
+.section.three-ways .three-ways-cta:focus-visible {
+  outline: 2px solid #b8ff46; outline-offset: 5px;
+}
+@media (max-width: 950px) {
+  .section.three-ways .three-ways-stage { gap: 12px; }
+  .section.three-ways .way-card { padding: 18px; min-height: 385px; }
+  .section.three-ways .way-card-center { min-height: 413px; margin-top: -14px; }
+  .section.three-ways .way-card h3 { font-size: 21px; }
+  .section.three-ways .way-points { font-size: 12px; }
+}
+@media (max-width: 700px) {
+  .section.three-ways { padding: 105px 20px 70px; }
+  .section.three-ways .three-ways-head { margin-bottom: 36px; }
+  .section.three-ways .three-ways-title { font-size: clamp(43px, 10vw, 65px); }
+  .section.three-ways .three-ways-stage { grid-template-columns: 1fr; gap: 20px; max-width: 460px; }
+  .section.three-ways .way-card, .section.three-ways .way-card-center {
+    min-height: 0; margin-top: 0; padding: 23px;
+  }
+  .section.three-ways .way-card h3 { font-size: 27px; }
+  .section.three-ways .three-ways-ring { width: 96%; bottom: -20px; height: 80px; }
+  .section.three-ways .three-ways-footer { margin-top: 60px; font-size: 10px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .section.three-ways .way-card, .section.three-ways .way-image img,
+  .section.three-ways .three-ways-cta { transition: none; }
+  .section.three-ways .way-card { opacity: 1; transform: none; }
+}
