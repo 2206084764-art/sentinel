@@ -1,0 +1,1117 @@
+/* Streamax shared company chrome — scoped to prevent changes to main content */
+.sx-header,.sx-subnav,.sx-footer {box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#fff;}
+.sx-header *, .sx-subnav *, .sx-footer * {box-sizing:border-box;}
+.sx-header{position:fixed;z-index:20000;top:0;left:0;right:0;height:82px;background:#000;border-bottom:1px solid #252b26;}
+.sx-header-inner{max-width:1780px;margin:auto;height:100%;padding:0 clamp(20px,4vw,65px);display:flex;gap:clamp(15px,3vw,47px);align-items:center;}
+.sx-logo{width:clamp(155px,14vw,235px);flex-shrink:0;display:flex;align-items:center;}
+.sx-logo img{display:block;width:100%;height:auto;object-fit:contain;}
+.sx-nav{display:flex;align-items:center;gap:clamp(16px,2.25vw,40px);height:100%;margin:auto;}
+.sx-nav-item{position:relative;display:flex;align-items:center;height:100%;}
+.sx-nav-item>a{text-decoration:none;color:#fafafa;font-size:clamp(13px,1vw,17px);font-weight:650;white-space:nowrap;}
+.sx-nav-item:hover>a,.sx-nav-item:focus-within>a{color:#b2dc05;}
+.sx-dropdown{position:absolute;top:100%;left:-18px;min-width:220px;display:none;flex-direction:column;padding:10px 0;border:1px solid #354134;border-radius:0 0 12px 12px;background:#0b100c;box-shadow:0 20px 35px #000a;}
+.sx-nav-item:hover .sx-dropdown,.sx-nav-item:focus-within .sx-dropdown{display:flex;}
+.sx-dropdown a,.sx-language-menu a{display:block;text-decoration:none;color:#eee;padding:11px 20px;font-size:13px;white-space:nowrap;}
+.sx-dropdown a:hover,.sx-language-menu a:hover{background:#192518;color:#b2dc05;}
+.sx-right{display:flex;align-items:center;gap:18px;margin-left:auto;}
+.sx-contact{border:1px solid #a8d500;border-radius:100px;min-height:49px;display:flex;align-items:center;gap:12px;text-decoration:none;color:#b8e425;font-size:15px;font-weight:bold;white-space:nowrap;padding:3px 23px 3px 3px;}
+.sx-contact:hover{background:#a8d500;color:#071000;}
+.sx-contact img{width:46px;height:46px;object-fit:contain;}
+.sx-languages{position:relative;}
+.sx-globe,.sx-menu-btn{border:0;color:white;background:transparent;cursor:pointer;}
+.sx-globe{width:36px;height:40px;display:grid;place-items:center;}
+.sx-language-menu{display:none;position:absolute;right:0;top:43px;min-width:155px;background:#0b100c;border:1px solid #354134;border-radius:12px;overflow:hidden;}
+.sx-languages:hover .sx-language-menu,.sx-languages:focus-within .sx-language-menu,.sx-languages.open .sx-language-menu{display:block;}
+.sx-menu-btn{display:none;font-size:24px;}
+.sx-subnav{position:relative;z-index:100;max-width:665px;width:max-content;margin:98px auto 0;padding:8px 9px 8px 25px;display:flex;gap:34px;align-items:center;border-radius:100px;background:#0b100df0;border:1px solid #3e493c;}
+.sx-subnav a{text-decoration:none;color:white;font-size:13px;white-space:nowrap;}
+.sx-sub-brand{font-weight:750;letter-spacing:.07em;}.sx-sub-brand span{color:#b2dc05;}
+.sx-sub-links{display:flex;gap:28px;}.sx-sub-links a:hover{color:#b2dc05;}
+.sx-subnav .sx-sub-register{background:#b2dc05;color:#080b04;border-radius:100px;padding:13px 21px;font-weight:750;}
+/* Source footer: preserve all links and sections with a scoped layout */
+.sx-footer{background:#090b0a;border-top:1px solid #293029;padding:60px clamp(22px,5vw,80px) 25px;}
+.sx-footer .wrap1600{max-width:1550px;margin:auto;}
+.sx-footer a{text-decoration:none;color:inherit;}.sx-footer a:hover{color:#b2dc05;}
+.sx-footer .footer_top{display:grid;grid-template-columns:minmax(250px,30%) 1fr;gap:40px;}
+.sx-footer .footer_top .right{display:flex;flex-wrap:wrap;gap:25px;justify-content:space-between;}
+.sx-footer dl{margin:0 0 25px;}.sx-footer dt{font-size:20px;font-weight:650;margin-bottom:23px;}
+.sx-footer dd{margin:0;color:#b5bdb6;font-size:13px;line-height:1.8;}
+.sx-footer dd a{display:block;margin-bottom:10px;}
+.sx-footer h3{font-size:24px;margin:0 0 35px;}
+.sx-footer .footer_mind{border-top:1px solid #292f2a;border-bottom:1px solid #292f2a;margin:30px 0;padding:25px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.sx-footer .footer_mind .left{font-size:17px;}.sx-footer .footer_mind .right{display:flex;align-items:center;gap:18px;}
+.sx-footer svg.icon{width:23px;height:23px;}.sx-footer .footer_bottom{text-align:left;display:flex;flex-direction:column;gap:20px;}
+.sx-footer .f_logo img{display:block;width:200px;height:auto;}.sx-footer .footer_bottom .a{display:flex;flex-wrap:wrap;gap:25px;color:#b5bdb6;font-size:13px;}
+.sx-footer .footer_bottom .p,.sx-footer .icp-row{font-size:12px;color:#899289;}.sx-footer .icp-row{margin-top:18px;}
+@media(max-width:1050px){.sx-menu-btn{display:block;}.sx-nav{display:none;position:absolute;top:82px;left:0;right:0;background:#090d0a;height:auto;max-height:75vh;overflow:auto;padding:15px 30px;flex-direction:column;align-items:stretch;gap:0;}.sx-nav.open{display:flex;}.sx-nav-item{display:block;height:auto;}.sx-nav-item>a{display:block;padding:12px 0;}.sx-dropdown{position:static;display:flex;width:100%;box-shadow:none;margin-bottom:10px;}}
+@media(max-width:700px){.sx-header{height:70px;}.sx-header-inner{padding:0 14px;gap:10px;}.sx-logo{width:125px;}.sx-contact{font-size:12px;padding-right:9px;gap:5px;}.sx-contact img{width:32px;height:32px;}.sx-right{gap:6px;}.sx-nav{top:70px;}.sx-subnav{margin-top:84px;gap:9px;padding:7px 10px;max-width:calc(100% - 20px);}.sx-subnav a{font-size:10px;}.sx-sub-links{gap:10px;}.sx-subnav .sx-sub-register{padding:10px 9px;}.sx-footer .footer_top{grid-template-columns:1fr;}.sx-footer .footer_mind{flex-direction:column;align-items:flex-start;}}
+
+
+/* ===== FOOTER: Image 1 Style ===== */
+
+/* 背景改为纯黑 */
+.sx-footer {
+  background: #000;
+  border-top: 1px solid #202020;
+  padding: 55px 44px 35px;
+}
+
+.sx-footer .wrap1600 {
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+/* 六栏布局 */
+.sx-footer .footer_top {
+  display: grid;
+  grid-template-columns: 27% 1fr;
+  gap: 45px;
+}
+
+.sx-footer .footer_top .right {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 30px;
+}
+
+/* 栏目标题改成荧光绿色 */
+.sx-footer dt,
+.sx-footer h3 {
+  color: #b3eb00;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* 电话号码 */
+.sx-footer h3 {
+  margin-bottom: 25px;
+}
+
+/* 地址和链接 */
+.sx-footer dd {
+  color: #858585;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.sx-footer dd a {
+  margin-bottom: 12px;
+}
+
+/* 社交媒体区域 */
+.sx-footer .footer_mind {
+  margin: 40px 0 0;
+  padding: 30px 0;
+  border-top: 1px solid #292929;
+  border-bottom: 1px solid #292929;
+}
+
+.sx-footer .footer_mind .left {
+  color: #858585;
+  font-size: 25px;
+}
+
+.sx-footer svg.icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* 底部Logo与法律信息居中 */
+.sx-footer .footer_bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 65px;
+  gap: 45px;
+}
+
+.sx-footer .f_logo img {
+  width: 255px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.sx-footer .footer_bottom .a {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  font-size: 18px;
+  color: #858585;
+}
+
+.sx-footer .footer_bottom .p,
+.sx-footer .icp-row {
+  color: #858585;
+  text-align: center;
+}
+
+/* 平板与手机适配 */
+@media (max-width: 1050px) {
+  .sx-footer .footer_top {
+    grid-template-columns: 1fr;
+  }
+
+  .sx-footer .footer_top .right {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sx-footer {
+    padding: 35px 20px;
+  }
+
+  .sx-footer dt,
+  .sx-footer h3 {
+    font-size: 22px;
+  }
+
+  .sx-footer dd {
+    font-size: 14px;
+  }
+
+  .sx-footer .footer_mind .left {
+    font-size: 17px;
+  }
+
+  .sx-footer .footer_bottom .a {
+    gap: 18px;
+    font-size: 13px;
+  }
+
+  .sx-footer .f_logo img {
+    width: 200px;
+  }
+}
+
+
+
+/* 当前页面使用 sx 类名时的修正 */
+
+
+
+/* Get in Touch 按钮 */
+.sx-contact {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 235px;
+  height: 54px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 16px 0 45px;
+  margin-left: 38px;
+
+  border: 1.5px solid #b3eb00;
+  border-radius: 999px;
+  background: #000;
+
+  color: #b3eb00;
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* 左侧机器人头像 */
+.sx-contact img {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  max-width: none;
+
+  left: -52px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  margin: 0;
+  object-fit: contain;
+}
+
+
+.sx-subnav {
+  margin-left: auto;
+  margin-right: 65px;
+}
+
+@media (max-width: 1350px) {
+  .sx-subnav {
+    margin-right: 32px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sx-contact img {
+    width: 43px;
+    height: 43px;
+    margin-left: -22px;
+  }
+
+  .sx-subnav {
+    margin-right: 12px;
+  }
+}
+
+
+
+@media(max-width:700px){.sx-contact img{left:-23px;margin-left:0;width:43px;height:43px}.sx-contact{width:auto;min-width:128px;height:42px;margin-left:22px;padding-left:28px;font-size:12px}}
+
+
+/* ===== S5 HERO VISUAL REFINEMENT ===== */
+
+/* 摄像头向左移动 */
+.s5-center-hero .s5-product-image {
+  transform: translateX(-10%);
+  animation: none;
+}
+
+/* 标题玻璃更通透、稍微下移 */
+.s5-center-hero .s5-glass-title {
+  bottom: 25%;
+
+  background: linear-gradient(
+    145deg,
+    rgba(208,255,193,0.11),
+    rgba(36,72,42,0.15) 50%,
+    rgba(4,18,11,0.24)
+  );
+
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+
+  border: 1px solid rgba(240,255,225,0.4);
+
+  box-shadow:
+    0 18px 65px rgba(0,0,0,0.22),
+    inset 0 2px 2px rgba(255,255,255,0.42),
+    0 0 35px rgba(176,255,79,0.12);
+}
+
+/* 信息玻璃降低绿色实色感 */
+.s5-center-hero .s5-glass-info {
+  background: linear-gradient(
+    160deg,
+    rgba(180,235,165,0.09),
+    rgba(18,45,27,0.20),
+    rgba(4,13,10,0.36)
+  );
+
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+
+  border: 1px solid rgba(230,255,218,0.33);
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,0.24),
+    inset 0 1px 2px rgba(255,255,255,0.28);
+}
+
+/* 背景磨砂层更轻 */
+.s5-center-hero .s5-glass-back {
+  background: linear-gradient(
+    155deg,
+    rgba(195,255,155,0.05),
+    rgba(30,68,36,0.10),
+    rgba(3,14,9,0.08)
+  );
+}
+
+
+/* ======================================
+   S5 HERO — 图片尺寸与双层玻璃修正
+   ====================================== */
+
+/* 首页整体高度 */
+.section.hero {
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #010503;
+}
+
+/* 首屏内容区域 */
+.section.hero .s5-center-hero {
+  position: relative;
+  width: 100%;
+  min-height: 760px;
+  height: calc(100svh - 170px);
+  max-height: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* 图片容器：居中 */
+.section.hero .s5-product-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+
+/* ===== 首屏背景图：铺满宽度 ===== */
+.section.hero .s5-product-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.section.hero .s5-product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+  max-height: none;
+  margin: 0;
+
+  object-fit: cover;
+  object-position: center 42%;
+
+  transform: none;
+  animation: none;
+}
+
+
+/* 只保留两个玻璃框 */
+.section.hero .s5-glass-back {
+  display: none;
+}
+
+/* 标题玻璃：上面一层 */
+.section.hero .s5-glass-title {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  right: auto;
+  bottom: 27%;
+  width: min(78vw, 1280px);
+  transform: translateX(-50%);
+  padding: 20px 28px 25px;
+  border-radius: 40px;
+}
+
+/* 标题字号及完整显示 */
+.section.hero .s5-glass-title h1 {
+  font-size: clamp(50px, 5.6vw, 93px);
+  line-height: 1.05;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* 第二层信息玻璃 */
+.section.hero .s5-glass-info {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  right: auto;
+  bottom: 7%;
+  width: min(73vw, 1200px);
+  transform: translateX(-50%);
+  padding: 20px 26px;
+  border-radius: 34px;
+}
+
+/* 信息内容紧凑，保证全部出现 */
+.section.hero .s5-glass-info h2 {
+  font-size: clamp(23px, 2.5vw, 38px);
+  line-height: 1.12;
+  margin: 0 0 9px;
+}
+
+.section.hero .s5-glass-info p {
+  font-size: clamp(14px, 1.05vw, 17px);
+  margin: 0 0 14px;
+  max-width: none;
+}
+
+.section.hero .s5-launch-row {
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+/* 滚动提示 */
+.section.hero .s5-scroll-indicator {
+  bottom: 1%;
+  z-index: 8;
+}
+
+/* 手机适配 */
+@media (max-width: 700px) {
+  .section.hero .s5-center-hero {
+    height: auto;
+    min-height: 780px;
+  }
+
+  .section.hero .s5-product-image {
+    width: 125vw;
+    max-height: none;
+    margin-top: 15px;
+  }
+
+  .section.hero .s5-glass-title {
+    width: 94%;
+    bottom: 45%;
+    padding: 20px 12px;
+  }
+
+  .section.hero .s5-glass-title h1 {
+    font-size: clamp(35px, 9vw, 54px);
+    white-space: normal;
+  }
+
+  .section.hero .s5-glass-info {
+    width: 92%;
+    bottom: 8%;
+    padding: 22px 16px;
+  }
+
+  .section.hero .s5-launch-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+
+/* ====================================
+   S5 HERO — 双层玻璃排版修正
+   目标：P2 参考图效果
+   ==================================== */
+
+/* 首屏容器 */
+.section.hero .s5-center-hero {
+  position: relative;
+  min-height: 760px;
+  height: calc(100svh - 170px);
+}
+
+/* 第一层：标题磨砂玻璃 */
+.section.hero .s5-glass-title {
+  position: absolute;
+  z-index: 4;
+
+  left: 50%;
+  right: auto;
+  bottom: 29%;
+  width: min(80vw, 1320px);
+
+  transform: translateX(-50%);
+  padding: 22px 35px 65px;
+
+  border-radius: 42px;
+  text-align: center;
+}
+
+/* 第一层内部标题 */
+.section.hero .s5-glass-title h1 {
+  font-size: clamp(55px, 6.3vw, 108px);
+  line-height: 1.08;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* 第二层：信息玻璃 */
+.section.hero .s5-glass-info {
+  position: absolute;
+  z-index: 5;
+
+  left: 50%;
+  right: auto;
+  bottom: 7%;
+  width: min(75vw, 1240px);
+
+  transform: translateX(-50%);
+  padding: 19px 32px 24px;
+
+  border-radius: 35px;
+  text-align: center;
+}
+
+/* 副标题 */
+.section.hero .s5-glass-info h2 {
+  font-size: clamp(25px, 2.6vw, 42px);
+  line-height: 1.15;
+  margin-bottom: 9px;
+}
+
+/* 产品介绍 */
+.section.hero .s5-glass-info p {
+  font-size: clamp(14px, 1.1vw, 18px);
+  margin-bottom: 16px;
+  max-width: none;
+}
+
+/* 日期、按钮水平排列 */
+.section.hero .s5-launch-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: nowrap;
+}
+
+/* 不显示第三层底板 */
+.section.hero .s5-glass-back {
+  display: none;
+}
+
+
+/* 标题玻璃的半透明质感 */
+.section.hero .s5-glass-title {
+  background: linear-gradient(
+    155deg,
+    rgba(184,255,155,0.15),
+    rgba(19,48,28,0.24) 52%,
+    rgba(4,15,10,0.39)
+  );
+
+  backdrop-filter: blur(20px) saturate(1.25);
+  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+
+  border: 1px solid rgba(230,255,214,0.35);
+
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,0.35),
+    0 0 38px rgba(167,255,55,0.17),
+    0 22px 60px rgba(0,0,0,0.24);
+}
+
+/* 第二层玻璃比第一层稍深 */
+.section.hero .s5-glass-info {
+  background: linear-gradient(
+    155deg,
+    rgba(169,235,151,0.13),
+    rgba(16,38,24,0.32),
+    rgba(3,12,8,0.49)
+  );
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(220,255,208,0.28);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.26),
+    0 0 32px rgba(162,255,50,0.11);
+}
+
+
+/* ===== S5 透视磨砂 + 滚动动画 ===== */
+
+.section.hero .s5-center-hero {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* 只保留两个磨砂框 */
+.section.hero .s5-glass-back {
+  display: none !important;
+}
+
+/* 第一层：标题玻璃 */
+.section.hero .s5-glass-title {
+  transform-origin: center top;
+  transform:
+    translateX(-50%)
+    translateY(var(--s5-title-y, 0px))
+    rotateX(-7deg)
+    scale(var(--s5-title-scale, 1));
+
+  opacity: var(--s5-glass-opacity, 1);
+
+  background: linear-gradient(
+    180deg,
+    rgba(199, 255, 176, 0.36) 0%,
+    rgba(101, 164, 93, 0.22) 38%,
+    rgba(22, 52, 33, 0.12) 72%,
+    rgba(9, 27, 17, 0.03) 100%
+  );
+
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+
+  border: 1px solid rgba(230, 255, 215, 0.35);
+
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,0.5),
+    0 22px 65px rgba(0,0,0,0.2),
+    0 0 55px rgba(166,255,71,0.13);
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 67%,
+    rgba(0,0,0,0.7) 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 67%,
+    rgba(0,0,0,0.7) 88%,
+    transparent 100%
+  );
+}
+
+/* 第二层：发布信息玻璃 */
+.section.hero .s5-glass-info {
+  transform-origin: center top;
+  transform:
+    translateX(-50%)
+    translateY(var(--s5-info-y, 0px))
+    rotateX(-4deg)
+    scale(var(--s5-info-scale, 1));
+
+  opacity: var(--s5-glass-opacity, 1);
+
+  background: linear-gradient(
+    180deg,
+    rgba(180, 235, 162, 0.29) 0%,
+    rgba(70, 129, 76, 0.17) 40%,
+    rgba(15, 43, 27, 0.12) 72%,
+    rgba(3, 18, 10, 0.04) 100%
+  );
+
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+
+  border: 1px solid rgba(222,255,204,0.32);
+
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,0.4),
+    0 18px 50px rgba(0,0,0,0.17);
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 82%,
+    rgba(0,0,0,0.72) 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 82%,
+    rgba(0,0,0,0.72) 93%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section.hero .s5-glass-title,
+  .section.hero .s5-glass-info {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   SENTINEL S5 HERO — Layered Frosted Glass
+   ========================================= */
+
+.s5-center-hero {
+  --s5-title-y: 0px;
+  --s5-info-y: 0px;
+
+  --s5-title-scale: 1;
+  --s5-info-scale: 1;
+
+  --s5-title-opacity: 1;
+  --s5-info-opacity: 1;
+
+  --s5-title-blur: 0px;
+  --s5-info-blur: 0px;
+}
+
+/* 产品图区域保持在中上位置 */
+.s5-product-layer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: -40px;
+}
+
+.s5-product-image {
+  display: block;
+  width: min(78vw, 1180px);
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 第一层大标题玻璃 */
+.s5-glass-title {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, 1420px);
+  margin: 0 auto;
+  padding: 28px 50px 56px;
+  border-radius: 42px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.16) 0%,
+      rgba(255,255,255,0.08) 18%,
+      rgba(120,255,60,0.10) 55%,
+      rgba(8,18,10,0.18) 100%
+    );
+
+  border: 1px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 14px 38px rgba(0,0,0,0.28),
+    0 0 40px rgba(168,255,66,0.12);
+
+  transform: translateY(var(--s5-title-y)) scale(var(--s5-title-scale));
+  opacity: var(--s5-title-opacity);
+  filter: blur(var(--s5-title-blur));
+  transition:
+    transform 0.12s linear,
+    opacity 0.12s linear,
+    filter 0.12s linear;
+}
+
+/* 顶部更实 */
+.s5-glass-title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.18) 0%,
+      rgba(255,255,255,0.04) 22%,
+      rgba(0,0,0,0) 55%
+    );
+  pointer-events: none;
+}
+
+/* 下方更虚一点 */
+.s5-glass-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.10) 26%,
+      rgba(190,255,90,0.10) 58%,
+      rgba(20,40,18,0.20) 100%
+    );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  pointer-events: none;
+}
+
+.s5-glass-title h1 {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: clamp(82px, 8.8vw, 168px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+}
+
+.s5-glass-title h1 .gradient-white {
+  color: #eef2f5;
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.08),
+    0 10px 30px rgba(0,0,0,0.35);
+}
+
+.s5-glass-title h1 .gradient-green {
+  color: #b8ef46;
+  text-shadow:
+    0 0 24px rgba(180,255,60,0.12),
+    0 10px 30px rgba(0,0,0,0.35);
+}
+
+.s5-center-eyebrow {
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  color: #d5ec82;
+  margin-bottom: 14px;
+}
+
+/* 第二层信息玻璃：往上叠一点，盖住标题底部 */
+.s5-glass-info {
+  position: relative;
+  z-index: 3;
+  width: min(86vw, 1320px);
+  margin: -56px auto 0;
+  padding: 44px 44px 34px;
+  border-radius: 38px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.14) 0%,
+      rgba(255,255,255,0.06) 18%,
+      rgba(120,255,60,0.08) 52%,
+      rgba(6,16,8,0.20) 100%
+    );
+
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.28),
+    0 0 24px rgba(168,255,66,0.10);
+
+  transform: translateY(var(--s5-info-y)) scale(var(--s5-info-scale));
+  opacity: var(--s5-info-opacity);
+  filter: blur(var(--s5-info-blur));
+  transition:
+    transform 0.12s linear,
+    opacity 0.12s linear,
+    filter 0.12s linear;
+}
+
+/* 关键：上边缘做弥散遮挡，形成“挡住标题底部”的感觉 */
+.s5-glass-info::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: -30px;
+  height: 90px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.34) 0%,
+      rgba(255,255,255,0.14) 28%,
+      rgba(255,255,255,0.04) 58%,
+      rgba(255,255,255,0) 100%
+    );
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* 下层玻璃本身更虚一点 */
+.s5-glass-info::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.08) 0%,
+      rgba(255,255,255,0.02) 35%,
+      rgba(0,0,0,0.03) 100%
+    );
+  pointer-events: none;
+}
+
+.s5-glass-info h2 {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: clamp(36px, 3.5vw, 64px);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.s5-glass-info p {
+  margin: 0 auto 26px;
+  max-width: 980px;
+  text-align: center;
+  font-size: clamp(18px, 1.4vw, 28px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.88);
+}
+
+.s5-launch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 42px;
+  flex-wrap: wrap;
+}
+
+.s5-launch-label,
+.s5-launch-date {
+  text-align: left;
+}
+
+.s5-launch-date strong {
+  display: block;
+  font-size: clamp(44px, 3vw, 72px);
+  line-height: 1;
+}
+
+.s5-launch-date span {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.88);
+}
+
+/* 滚动提示 */
+.s5-scroll-indicator {
+  position: relative;
+  z-index: 4;
+  margin-top: 22px;
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.1em;
+  font-size: 14px;
+}
+
+/* 小屏幕 */
+@media (max-width: 900px) {
+  .s5-glass-title {
+    padding: 24px 22px 48px;
+    border-radius: 28px;
+  }
+
+  .s5-glass-info {
+    width: min(92vw, 1320px);
+    margin-top: -34px;
+    padding: 28px 22px 24px;
+    border-radius: 26px;
+  }
+
+  .s5-glass-title h1 {
+    font-size: clamp(54px, 11vw, 92px);
+  }
+
+  .s5-glass-info h2 {
+    font-size: clamp(28px, 5vw, 42px);
+  }
+
+  .s5-launch-row {
+    gap: 20px;
+  }
+}
+
+
+
+
+/* =========================================
+   S5 — Mouse Scroll Indicator
+   ========================================= */
+
+.section.hero .s5-scroll-indicator {
+  position: absolute !important;
+  bottom: 8px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  margin: 0 !important;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* 鼠标外框 */
+.s5-mouse-icon {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid #B8FF46;
+  border-radius: 13px;
+  box-shadow: 0 0 12px rgba(184,255,70,0.2);
+}
+
+/* 鼠标滚轮 */
+.s5-mouse-wheel {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 3px;
+  height: 7px;
+  background: #B8FF46;
+  border-radius: 3px;
+  transform: translateX(-50%);
+  animation: s5WheelScroll 1.7s infinite ease-in-out;
+}
+
+/* 文字 */
+.s5-scroll-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+/* 下箭头 */
+.s5-scroll-arrow {
+  color: #B8FF46;
+  font-size: 21px;
+  line-height: 12px;
+  animation: s5ArrowDown 1.7s infinite ease-in-out;
+}
+
+@keyframes s5WheelScroll {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  75% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+
+@keyframes s5ArrowDown {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s5-mouse-wheel,
+  .s5-scroll-arrow {
+    animation: none;
+  }
+}
