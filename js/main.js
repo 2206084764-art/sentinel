@@ -149,26 +149,15 @@ if (dayRange && nightTint) {
 
 
 /* =========================================
-   04 — 注册表单
+   04 — 外部注册入口（待提供正式 URL）
    ========================================= */
-
-const registerForm = document.getElementById("register-form");
-
-if (registerForm) {
-  registerForm.addEventListener("submit", event => {
+document.querySelectorAll('[data-registration-pending="true"]').forEach(link => {
+  link.addEventListener("click", event => {
     event.preventDefault();
-
-    if (!registerForm.reportValidity()) return;
-
-    const feedback = document.getElementById("feedback");
-
-    if (feedback) {
-      feedback.textContent =
-        "Prototype preview — the form is valid, but no registration was submitted.";
-    }
+    const notice = document.getElementById("registration-notice");
+    if (notice) notice.textContent = "Registration link coming soon.";
   });
-}
-
+});
 
 /* =========================================
    05 — 页面渐显动画
