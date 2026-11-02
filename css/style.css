@@ -1241,3 +1241,53 @@
   .section.three-ways .three-ways-cta { transition: none; }
   .section.three-ways .way-card { opacity: 1; transform: none; }
 }
+
+
+/* ===== FINAL PAGE ONLY — EXTERNAL REGISTRATION CTA ===== */
+.section.registration.s5-registration-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 85svh;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 76%, rgba(141,225,40,.16), transparent 60%),
+    linear-gradient(180deg,#07110c 0%,#040907 100%);
+}
+.s5-registration-cta .s5-registration-content {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+}
+.s5-registration-cta .eyebrow { justify-content: center; }
+.s5-registration-cta h2 {
+  font-size: clamp(42px, 5.3vw, 83px);
+  line-height: 1.09;
+  letter-spacing: -.055em;
+  margin-bottom: 30px;
+}
+.s5-registration-cta .s5-registration-desc {
+  margin: 0 auto 26px;
+  max-width: 720px;
+  color: #c5d1c8;
+  font-size: clamp(16px, 1.6vw, 21px);
+  line-height: 1.65;
+}
+.s5-registration-cta .s5-registration-meta {
+  margin: 0 auto 33px;
+  color: #f0f7ef;
+  font-size: clamp(13px,1.3vw,17px);
+  letter-spacing: .035em;
+}
+.s5-registration-cta .s5-external-register {
+  min-width: 215px;
+  justify-content: center;
+}
+.s5-registration-cta .s5-registration-notice {
+  margin: 18px auto 0;
+  color: #9fae9f;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .section.registration.s5-registration-cta { min-height: 75svh; }
+  .s5-registration-cta h2 { font-size: clamp(39px, 9vw, 59px); }
+}
