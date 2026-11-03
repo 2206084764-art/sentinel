@@ -146,21 +146,19 @@
 <article class="fe-row" id="behaviour" aria-labelledby="fe-title-02">
 <div class="fe-index"><small>Behaviour Detection</small><strong aria-hidden="true">02</strong></div>
 <div class="fe-body"><div class="fe-copy"><h2 id="fe-title-02">Focus on activity<br><em>that matters.</em></h2><div><p class="fe-description">Behaviour-based detection helps distinguish routine movement from activity that may need attention near the fuel tank.</p><p class="fe-benefits">Beyond motion alone.<br>Video context for event review.</p><a class="fe-cta" href="#register">See the Demonstration at Launch <span aria-hidden="true">↗</span></a></div></div><style>
-#behaviour .behaviour-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-#behaviour .behaviour-pair figure{margin:0;min-width:0;border:1px solid #555d61;border-radius:10px;overflow:hidden;background:#111518}
-#behaviour .behaviour-pair figure:last-child{border-color:#b8ff46}
-#features #behaviour .behaviour-pair img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:left center}
-#behaviour .behaviour-pair figcaption{padding:17px 18px 19px}
-#behaviour .behaviour-pair strong{display:block;font-size:18px;color:#f1f3ed;line-height:1.2;margin-bottom:7px}
-#behaviour .behaviour-pair figure:last-child strong{color:#b8ff46}
-#behaviour .behaviour-pair span{display:block;font-size:12px;color:#a8b0b2;line-height:1.5}
-@media(max-width:600px){#behaviour .behaviour-pair{grid-template-columns:1fr;gap:18px}#features #behaviour .behaviour-pair img{aspect-ratio:16/9;object-position:center}#behaviour .behaviour-pair figcaption{padding:13px 15px}}
+#behaviour .pose-visual{border:1px solid #748a32;border-radius:10px;overflow:hidden;background:#0b1118}
+#features #behaviour .pose-visual img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:contain}
+#behaviour .pose-labels{display:grid;grid-template-columns:1fr 1fr;background:#101619}
+#behaviour .pose-labels div{padding:18px 20px}
+#behaviour .pose-labels div+div{border-left:1px solid #5a6b31}
+#behaviour .pose-labels strong{display:block;font-size:18px;color:#f2f3ed;line-height:1.25;margin-bottom:6px}
+#behaviour .pose-labels div+div strong{color:#b8ff46}
+#behaviour .pose-labels span{font-size:12px;color:#abb5b8;line-height:1.5;display:block}
+@media(max-width:600px){#behaviour .pose-labels div{padding:12px 10px}#behaviour .pose-labels strong{font-size:14px}#behaviour .pose-labels span{font-size:10px}}
 </style>
-<div class="behaviour-pair">
-<figure><img src="assets/images/behaviour-passing-v2.svg" width="1774" height="887" alt="Concept scene: a person with a pixelated face walks past the parked truck, without touching the fuel tank" loading="lazy" decoding="async"><figcaption><strong>Routine movement</strong><span>Walking past. No interaction with the fuel tank.</span></figcaption></figure>
-<figure><img src="assets/images/night-compare-day-v2.svg" width="1774" height="887" alt="Concept fuel-theft scene: person with pixelated face crouches beside the tank with a hose and fuel container" loading="lazy" decoding="async"><figcaption><strong>Fuel theft scenario</strong><span>Crouching at the tank. Hose and fuel container visible.</span></figcaption></figure>
-</div>
-<p class="fe-caption">AI-generated scenarios illustrating behaviour differences; not actual camera footage or a detection-performance test.</p></div>
+<div class="pose-visual"><img src="assets/images/behaviour-pose-v3.svg" alt="Concept comparison with human pose keypoints and limb connections: walking past on the left, crouching beside the tank with a hose and container on the right; both faces pixelated" width="1774" height="887" loading="lazy" decoding="async">
+<div class="pose-labels"><div><strong>Routine movement</strong><span>Walking past · No interaction with the tank</span></div><div><strong>Fuel theft scenario</strong><span>At the fuel tank · Different posture and activity</span></div></div></div>
+<p class="fe-caption">AI-generated concept with illustrative pose overlays, styled after the supplied demonstration video. Not actual detection output.</p></div>
 </article>
 <article class="fe-row" id="night" aria-labelledby="fe-title-03">
 <div class="fe-index"><small>Night Visibility</small><strong aria-hidden="true">03</strong></div>
