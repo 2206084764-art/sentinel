@@ -111,208 +111,55 @@
      SECTION 03 — THREE WAYS
      ========================================= -->
 
-<section class="section three-ways" id="features">
-
-  <!-- 背景氛围 -->
-  <div class="three-ways-bg"></div>
-
-  <!-- 标题区域 -->
-  <div class="three-ways-head">
-
-    <div class="three-ways-kicker">
-      STREAMAX SENTINEL <span>S5</span>
-    </div>
-
-    <h2 class="three-ways-title">
-      <span class="gradient-white">
-        Always-on protection,
-      </span>
-      <br>
-      <span class="gradient-green">
-        in three ways.
-      </span>
-    </h2>
-
-    <p class="three-ways-desc">
-      Sentinel S5 helps fleets stay aware of parked-truck
-      activity through AOV monitoring, behaviour-based
-      detection, and night-time visibility.
-    </p>
-
-    <a href="#register" class="three-ways-cta">
-      Discover at Launch
-      <span>↗</span>
-    </a>
-
-  </div>
-
-  <!-- 三张悬浮卡片 -->
-  <div class="three-ways-stage">
-
-    <!-- 底部绿色发光圆环 -->
-    <div class="three-ways-ring"></div>
-
-    <!-- 01 左侧卡片 -->
-    <a
-      class="way-card way-card-left"
-      href="#explore"
-      data-feature-link="aov"
-    >
-
-      <div class="way-card-head">
-        <span class="way-index">01</span>
-      </div>
-
-      <h3>
-        Monitoring<br>
-        beyond ignition-off.
-      </h3>
-
-      <div class="way-image">
-        <img
-          src="assets/images/image-05.webp"
-          alt="AOV day and night monitoring"
-        >
-      </div>
-
-      <ul class="way-points">
-        <li>Built for vehicle downtime.</li>
-        <li>Powered by the vehicle.</li>
-      </ul>
-
-    </a>
-
-    <!-- 02 中间卡片 -->
-    <a
-      class="way-card way-card-center"
-      href="#explore"
-      data-feature-link="behaviour"
-    >
-
-      <div class="way-card-head">
-        <span class="way-index">02</span>
-      </div>
-
-      <h3>
-        Focus on activity<br>
-        that matters.
-      </h3>
-
-      <div class="way-image">
-        <img
-          src="assets/images/image-06.webp"
-          alt="Routine movement versus activity near fuel tank"
-        >
-      </div>
-
-      <ul class="way-points">
-        <li>Beyond motion alone.</li>
-        <li>Video context for event review.</li>
-      </ul>
-
-    </a>
-
-    <!-- 03 右侧卡片 -->
-    <a
-      class="way-card way-card-right"
-      href="#explore"
-      data-feature-link="night"
-    >
-
-      <div class="way-card-head">
-        <span class="way-index">03</span>
-      </div>
-
-      <h3>
-        Visibility<br>
-        after dark.
-      </h3>
-
-      <div class="way-image">
-        <img
-          src="assets/images/image-07.webp"
-          alt="Black Light Ultra night-time monitoring"
-        >
-      </div>
-
-      <ul class="way-points">
-        <li>Low-light human detection.</li>
-        <li>Video context after dark.</li>
-      </ul>
-
-    </a>
-
-  </div>
-
-  <!-- 底部文字 -->
-  <div class="three-ways-footer">
-    PARKED TODAY. PROTECTED TOMORROW.
-  </div>
-
+<style>
+#features.feature-editorial{display:block;padding:0 5%;background:#0b0d0f;color:#f4f3ef;min-height:0;overflow:hidden}
+#features .fe-heading{max-width:1680px;margin:auto;padding:66px 0 30px;font-size:13px;letter-spacing:.16em;color:#b8ff46}
+#features .fe-row{display:grid;grid-template-columns:22% minmax(0,1fr);max-width:1680px;margin:auto;border-bottom:1px solid #666b6e;padding:52px 0 60px;gap:3%;scroll-margin-top:130px}
+#features .fe-index{position:relative;overflow:hidden;min-width:0}
+#features .fe-index small{display:block;font-size:clamp(15px,1.4vw,23px);font-weight:650}
+#features .fe-index strong{display:block;font-size:clamp(120px,20vw,340px);font-weight:850;line-height:.95;letter-spacing:-.09em;background:linear-gradient(#f7f4ec 15%,#dbdcd8 55%,#53595b);background-clip:text;-webkit-background-clip:text;color:transparent;margin:30px 0 -25px}
+#features .fe-body{min-width:0}
+#features .fe-copy{display:grid;grid-template-columns:1.1fr 1fr;gap:6%;align-items:start;margin-bottom:30px}
+#features .fe-copy h2{font-size:clamp(27px,3vw,52px);font-weight:750;line-height:1.08;letter-spacing:-.04em;margin:0}
+#features .fe-copy h2 em{color:#b8ff46;font-style:normal}
+#features .fe-description{font-size:clamp(14px,1.15vw,18px);line-height:1.6;color:#b5b9b9;margin:0 0 17px}
+#features .fe-benefits{font-size:13px;line-height:1.7;color:#e1e4df;margin:0 0 18px}
+#features .fe-cta{display:inline-flex;gap:23px;align-items:center;color:#b8ff46;text-decoration:none;border-bottom:1px solid #b8ff46;padding:8px 0;font-size:14px;font-weight:650}
+#features .fe-cta:hover{color:#fff;border-color:#fff}
+#features .fe-media{position:relative;aspect-ratio:16/8.2;background:#10151a;overflow:hidden}
+#features .fe-media iframe,#features .fe-media video,#features .fe-media img{display:block;border:0;width:100%;height:100%;object-fit:cover}
+#features .fe-media iframe{position:absolute;inset:0}
+#features .fe-status{position:absolute;z-index:2;left:22px;right:22px;bottom:18px;display:flex;justify-content:space-between;gap:12px;color:#e8ece7;font-size:11px;letter-spacing:.09em;pointer-events:none}
+#features .fe-status span{background:#0b0d0fce;padding:9px 12px}
+#features .fe-status b{color:#b8ff46;font-weight:500}
+#features .fe-caption{color:#969d9f;font-size:12px;margin:12px 0 0}
+#features a:focus-visible{outline:2px solid #b8ff46;outline-offset:6px}
+@media(min-width:1200px){#features .fe-index{display:flex;flex-direction:column;justify-content:space-between}#features .fe-index strong{margin-bottom:-38px}}
+@media(max-width:760px){#features.feature-editorial{padding:0 22px}#features .fe-heading{padding:38px 0 10px}#features .fe-row{grid-template-columns:1fr;padding:30px 0 38px;gap:24px}#features .fe-index{display:flex;align-items:center;gap:20px}#features .fe-index small{order:2}#features .fe-index strong{font-size:78px;margin:0;letter-spacing:-.07em;line-height:1}#features .fe-copy{grid-template-columns:1fr;gap:20px}#features .fe-copy h2{font-size:35px}#features .fe-media{aspect-ratio:4/3}#features .fe-status{left:10px;right:10px;bottom:10px;font-size:9px;letter-spacing:0}#features .fe-status span{padding:7px}}
+</style>
+<section class="feature-editorial" id="features" aria-label="Three ways to monitor parked trucks">
+<p class="fe-heading">SENTINEL S5 / THREE WAYS TO STAY AWARE</p>
+<article class="fe-row" id="explore" aria-labelledby="fe-title-01">
+<div class="fe-index"><small>AOV Monitoring</small><strong aria-hidden="true">01</strong></div>
+<div class="fe-body"><div class="fe-copy"><h2 id="fe-title-01">Monitoring beyond<br><em>ignition-off.</em></h2><div><p class="fe-description">Sentinel S5 uses low-power AOV monitoring to maintain visibility around parked trucks after the engine is switched off.</p><p class="fe-benefits">Built for vehicle downtime.<br>Powered by the vehicle.</p><a class="fe-cta" href="#register">Discover AOV at the Launch <span aria-hidden="true">↗</span></a></div></div><div class="fe-media"><img src="source-materials/Sentinel%20%E7%B4%A0%E6%9D%90/assets/images/aov-still.webp" alt="Parked truck AOV monitoring scene"><iframe id="fe-aov-scene" src="source-materials/Sentinel%20%E7%B4%A0%E6%9D%90/assets/3d/truck-day-night.html" title="Parked truck with animated day and night cycle" loading="lazy"></iframe><div class="fe-status"><span>ENGINE OFF</span><span><b>● AOV MONITORING</b> · <i id="fe-phase" style="font-style:normal">DAY / NIGHT</i></span></div></div><p class="fe-caption">Day / night concept visualisation.</p></div>
+</article>
+<article class="fe-row" id="behaviour" aria-labelledby="fe-title-02">
+<div class="fe-index"><small>Behaviour Detection</small><strong aria-hidden="true">02</strong></div>
+<div class="fe-body"><div class="fe-copy"><h2 id="fe-title-02">Focus on activity<br><em>that matters.</em></h2><div><p class="fe-description">Behaviour-based detection helps distinguish routine movement from activity that may need attention near the fuel tank.</p><p class="fe-benefits">Beyond motion alone.<br>Video context for event review.</p><a class="fe-cta" href="#register">See the Demonstration at Launch <span aria-hidden="true">↗</span></a></div></div><div class="fe-media"><video controls muted playsinline loop preload="none" poster="source-materials/Sentinel%20%E7%B4%A0%E6%9D%90/assets/images/ai-still.webp" aria-label="Behaviour detection demonstration"><source src="source-materials/Sentinel%20%E7%B4%A0%E6%9D%90/assets/videos/ai-pose.mp4" type="video/mp4"></video></div><p class="fe-caption">Explore behaviour-based detection in the complete launch demonstration.</p></div>
+</article>
+<article class="fe-row" id="night" aria-labelledby="fe-title-03">
+<div class="fe-index"><small>Night Visibility</small><strong aria-hidden="true">03</strong></div>
+<div class="fe-body"><div class="fe-copy"><h2 id="fe-title-03">Visibility<br><em>after dark.</em></h2><div><p class="fe-description">Black Light Ultra supports human detection in low-light conditions, helping fleet teams review activity around parked vehicles at night.</p><p class="fe-benefits">Low-light human detection.<br>Video context after dark.</p><a class="fe-cta" href="#register">Watch the Night Demo at Launch <span aria-hidden="true">↗</span></a></div></div><div class="fe-media"><img src="source-materials/Sentinel%20%E7%B4%A0%E6%9D%90/assets/images/nv-ultra.webp" alt="Black Light Ultra low-light sample from the supplied material" loading="lazy"><div class="fe-status"><span>BLACK LIGHT ULTRA</span><span><b>LOW-LIGHT HUMAN DETECTION</b></span></div></div><p class="fe-caption">Night-time sample from the supplied product material.</p></div>
+</article>
 </section>
+<script>
+window.addEventListener('message',function(event){
+const scene=document.getElementById('fe-aov-scene');
+if(!scene||event.source!==scene.contentWindow||event.origin!==location.origin||event.data?.type!=='dn')return;
+document.getElementById('fe-phase').textContent=event.data.phase==='night'?'NIGHT':'DAY';
+});
+</script>
 
-
-<section class="section explore" id="explore">
-
-
-<div class="section-inner">
-<div class="intro appear">
-<div class="eyebrow" style="justify-content:center">
-          EXPLORE THE TECHNOLOGY
-        </div>
-<h2>
-<span class="gradient-white">One truck. </span>
-<span class="gradient-green">Three ways to see.</span>
-</h2>
-<p class="lead">
-          Explore the scenarios. See the complete demonstrations
-          at the online product launch.
-        </p>
-</div>
-<div class="tabs" role="tablist">
-<button aria-selected="true" class="tab active" data-tab="aov" role="tab">
-          01 · AOV Monitoring
-        </button>
-<button aria-selected="false" class="tab" data-tab="behaviour" role="tab">
-          02 · Behaviour Detection
-        </button>
-<button aria-selected="false" class="tab" data-tab="night" role="tab">
-          03 · Night Visibility
-        </button>
-</div>
-<div class="explore-layout">
-<div>
-<div class="number" id="detail-number">01 / AOV MONITORING</div>
-<h3 id="detail-title">Monitoring beyond ignition-off.</h3>
-<p id="detail-desc">
-            Sentinel S5 uses low-power AOV monitoring to maintain visibility
-            around parked trucks after the engine is switched off.
-          </p>
-<div class="feature-bullets" id="detail-bullets">
-<span>Built for vehicle downtime.</span>
-<span>Powered by the vehicle.</span>
-</div>
-<p id="detail-outro">Discover how AOV works at the launch.</p>
-<a class="button" href="#register">Register Now ↗</a>
-</div>
-<div>
-<div class="visual-panel">
-<img alt="AOV day and night concept" id="feature-image" src="assets/images/image-05.webp"/>
-<div class="visual-night-overlay" id="night-tint"></div>
-<div class="visual-footer">
-<span id="visual-label">DAY / NIGHT · CONCEPT PREVIEW</span>
-<span>● SENTINEL S5</span>
-</div>
-</div>
-<div class="aov-range" id="aov-control">
-<span>DAY</span>
-<input aria-label="Day and night preview" id="day-range" max="100" min="0" type="range" value="50"/>
-<span>NIGHT</span>
-</div>
-</div>
-</div>
-</div>
-</section>
 <section class="section registration s5-registration-cta" id="register">
   <div class="section-inner s5-registration-content appear">
     <div class="eyebrow">JOIN THE ONLINE PRODUCT LAUNCH</div>
