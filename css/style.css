@@ -1476,3 +1476,7 @@
   .section.hero .s5-poster-event p { margin: 5px 0 12px; }
   .section.hero .s5-poster-cta { min-width: 180px; padding: 13px 23px; }
 }
+
+.sx-header .sx-contact {
+  transform: translateX(12px);
+}
