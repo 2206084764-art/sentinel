@@ -1,0 +1,503 @@
+{
+  "\u7d20\u6750/Sentinel Keynote HTML/6-IntentAI.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/ai-still.jpg",
+      "Videos/ai-pose.mp4"
+    ],
+    "controls": [
+      "  if(window.__faStream && cur!==1) window.__faStream.reset();",
+      "  if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "function toggleAnim(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-toggle'},'*');}catch(_){} } }",
+      "function toggleSteal(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-steal'},'*');}catch(_){} } }",
+      "function toggleWire(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-wire'},'*');}catch(_){} } }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "  else if((e.key==='r'||e.key==='R') && cur===1){e.preventDefault();if(window.__faStream)window.__faStream.toggle();}",
+      "  else if((e.key==='r'||e.key==='R') && cur===2){e.preventDefault();toggleAnim();}",
+      "  else if((e.key==='t'||e.key==='T') && cur===2){e.preventDefault();toggleSteal();}",
+      "  else if((e.key==='s'||e.key==='S') && cur===2){e.preventDefault();toggleWire();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "  else if(d.type==='deck-key' && cur===1){ if(d.key==='r'||d.key==='R'){ if(window.__faStream) window.__faStream.toggle(); } }",
+      "  function start(){ if(timer) return; push(); timer=setInterval(push,1150); paint(); }",
+      "  function stop(){ clearInterval(timer); timer=null; paint(); }",
+      "  window.__faStream={ toggle(){ timer?stop():start(); }, reset:reset };",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3-TheAnswer.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/bg-beam.jpg"
+    ],
+    "controls": [
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/Sentinel-Marketing.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap",
+      "https://www.streamax.com/category/contactform.html"
+    ],
+    "media": [
+      "Images/ai-still.jpg",
+      "Images/cases/alert-night.jpg",
+      "Images/hero-truck.jpg",
+      "Images/nv-blacklight.jpg",
+      "Images/nv-iphone.jpg",
+      "Images/nv-ultra.jpg",
+      "Images/sentinel-side.png",
+      "Images/streamax.png",
+      "Videos/case-ampenet.mp4",
+      "Videos/case-caught.mp4",
+      "Videos/theft-cctv.mp4"
+    ],
+    "controls": [
+      "      hint.textContent=(window.I18N?I18N.t('Drag to orbit the model'):'Drag to orbit the model');",
+      "    try{ frame.contentWindow.postMessage({type: kind==='steal' ? 'runner-steal' : 'runner-toggle'},'*'); }catch(_){}",
+      "    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); send(r.dataset.run); } });",
+      "  window.addEventListener('message',e=>{",
+      "    const d=e.data||{};",
+      "      if(d.running){ var _h = p==='Stealing' ? 'Watch the cone at the fuel tank' : 'Passing by \u2014 Sentinel stays quiet'; hint.textContent = window.I18N?I18N.t(_h):_h; }",
+      "      if(p!=='Stealing'){ tag.classList.remove('alert'); tag.lastChild.textContent=window.I18N?I18N.t('POSTURE DETECTION \u00b7 LIVE'):'POSTURE DETECTION \u00b7 LIVE'; }",
+      "      var _tg = d.red ? 'ALERT \u00b7 INTENT DETECTED' : 'POSTURE DETECTION \u00b7 LIVE'; tag.lastChild.textContent = window.I18N?I18N.t(_tg):_tg;",
+      "    try{ f.contentWindow.postMessage({type:'sent-toggle',unit:+b.dataset.unit},'*'); }catch(_){}",
+      "    try{ f.contentWindow.postMessage({type:'iot-set',mode:b.dataset.mode},'*'); }catch(_){}",
+      "    const tr = window.I18N ? I18N.t : (x=>x);",
+      "    try{ f.contentWindow.postMessage({type:'iot-lang',rtl:rtl,labels:LBL.map(p=>[tr(p[0]),tr(p[1])])},'*'); }catch(_){}",
+      "    setTimeout(()=>{ factEl.innerHTML=(window.I18N?I18N.t(FACTS[fi%FACTS.length]):FACTS[fi%FACTS.length]); fi++; factEl.classList.add('in'); },260);",
+      "    pct.textContent=(window.I18N?I18N.t('PREPARING'):'PREPARING')+' \u00b7 '+p+'%';",
+      "    bar.style.width='100%'; pct.textContent=(window.I18N?I18N.t('READY'):'READY');",
+      "      window.scrollTo(0,0);",
+      "    f.addEventListener('error',()=>{ window.__bootFail(); ok(); });",
+      "    v.addEventListener('error',()=>{ window.__bootFail(); ok(); });",
+      "  window.__bootFail=()=>{ failed++; };",
+      "  phone.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); play(); } });",
+      "  const rawSuf=el.dataset.suffix||''; const suf=(window.I18N?I18N.t(rawSuf):rawSuf);"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/11-Summary.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [],
+    "controls": [
+      "  function setActive(){ moons.forEach((m,i)=>m.classList.toggle('active', i===idx)); }",
+      "function navNext(){ try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "  try{ planet3d.contentWindow.postMessage({type:'pose',x:+rx.value,y:+ry.value,z:+rz.value},'*'); }catch(_){}",
+      "  if(t && (t.tagName==='INPUT'||t.tagName==='BUTTON') && e.key.indexOf('Arrow')===0) return;",
+      "  if(e.key==='p'||e.key==='P'){ tuner.classList.toggle('hide'); return; }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/0-Cover.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [
+      "Branding/streamax.png",
+      "Images/hero-truck.jpg"
+    ],
+    "controls": [
+      "window.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>document.getElementById('canvas').setAttribute('data-step','1'),250);});",
+      "function navNext(){ try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/9-IoTSynergies.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [],
+    "controls": [
+      "function toggleMode(){ try{ iot3d.contentWindow.postMessage({type:'iot-mode'},'*'); }catch(_){} }",
+      "function toggleWire(){ try{ iot3d.contentWindow.postMessage({type:'iot-wire'},'*'); }catch(_){} }",
+      "function navNext(){ try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "  if(e.key==='s'||e.key==='S'){e.preventDefault();toggleMode();}",
+      "  else if(e.key==='r'||e.key==='R'){e.preventDefault();toggleWire();}",
+      "  else if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/Player\u70b9\u6211\u70b9\u6211.html": {
+    "external": [],
+    "media": [],
+    "controls": [
+      "function sendNav(dir){ try{ stage.contentWindow.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){ dir==='next'?nextF():prevF(); } }",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();sendNav('next');}",
+      "  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();sendNav('prev');}",
+      "  else if(e.key.toLowerCase()==='r'){try{stage.contentWindow.postMessage({type:'deck-key',key:'r'},'*');}catch(_){}}",
+      "  else if(e.key.toLowerCase()==='t'){try{stage.contentWindow.postMessage({type:'deck-key',key:'t'},'*');}catch(_){}}",
+      "  else if(e.key.toLowerCase()==='s'){try{stage.contentWindow.postMessage({type:'deck-key',key:'s'},'*');}catch(_){}}",
+      "  else if(e.key.toLowerCase()==='l'){listOverlay.classList.toggle('show');}",
+      "  else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}",
+      "  else if(e.key==='Escape'){listOverlay.classList.remove('show');}"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/4-Sentinel.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [],
+    "controls": [
+      "  else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "  else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "window.addEventListener('message',e=>{",
+      "  const d=e.data||{};",
+      "  const k=(e.key||'').toLowerCase();",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "    if(step===2){ const w=mountWin(); if(w) w.postMessage({type:'sent-toggle',unit:1},'*'); }",
+      "    else { const w=globeWin(); if(w) w.postMessage({type:'s5rewind'},'*'); }   /* page 1 keeps the globe rewind */",
+      "  else if(k==='t'){ if(step===2){ const w=mountWin(); if(w) w.postMessage({type:'sent-toggle',unit:2},'*'); } }"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/10-EasyInstall.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [
+      "Images/truck-xray.png"
+    ],
+    "controls": [
+      "function navNext(){ try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/7-BlackLightUltra.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/nv-blacklight.jpg",
+      "Images/nv-iphone.jpg",
+      "Images/nv-ultra.jpg"
+    ],
+    "controls": [
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/12-GlobalCases.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/cases/cap1.jpg",
+      "Images/cases/cap2.jpg",
+      "Images/cases/cap3.jpg",
+      "Images/cases/cap4.jpg",
+      "Images/cases/cap5.jpg",
+      "Images/cases/cap6.jpg",
+      "Images/cases/cap7.jpg",
+      "Images/cases/cap8.jpg",
+      "Images/cases/cap9.jpg",
+      "Images/cases/poster-ampenet.jpg",
+      "Videos/case-ampenet.mp4",
+      "Videos/case-caught.mp4"
+    ],
+    "controls": [
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} } }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} } }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/1-PainPoints.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap"
+    ],
+    "media": [
+      "Images/theft-cargo.jpg",
+      "Images/theft-fuel.jpg",
+      "Images/world-dots.png",
+      "Videos/theft-cctv.mp4",
+      "cctv.mp4"
+    ],
+    "controls": [
+      "  function startAll(){",
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/5-AOV.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/aov-still.jpg",
+      "Videos/aov-loop.mp4"
+    ],
+    "controls": [
+      "  if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/8-AllInOne.html": {
+    "external": [
+      "http://www.w3.org/2000/svg",
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    ],
+    "media": [
+      "Images/sentinel-front.png"
+    ],
+    "controls": [
+      "function navNext(){ if(!revealed){ reveal(); return; } try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }",
+      "  try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/2-TheGap.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap"
+    ],
+    "media": [],
+    "controls": [
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/13-ReleasePlan.html": {
+    "external": [
+      "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+    ],
+    "media": [
+      "Images/hero-truck.jpg"
+    ],
+    "controls": [
+      "function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }",
+      "function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }",
+      "  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}",
+      "  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });",
+      "window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/truck-sentinel-runner.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function start(){",
+      "function setMode(m){",
+      "function postState(){ try{parent.postMessage({type:'runner-state',running:running,path:currentPath},'*');}catch(_){} }",
+      "function startPath(name){",
+      "  applyRunPose(0); postState(); try{parent.postMessage({type:'runner-red',red:false},'*');}catch(_){}",
+      "function toggleWander(){ if(!started) return; if(currentPath!=='Wandering'){ startPath('Wandering'); } else { running=!running; postState(); } }",
+      "function toggleSteal(){ if(!started) return; if(currentPath!=='Stealing'){ startPath('Stealing'); } else { running=!running; postState(); } }",
+      "function setWireframe(on){ wireMode=on; [truckPaint,truckGlass,sentMat,manMat,fuelMat].forEach(m=>{ if(m) m.wireframe=on; }); }",
+      "window.addEventListener('keydown',e=>{",
+      "  if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleWander(); }",
+      "  else if(e.key==='t'||e.key==='T'){ e.preventDefault(); toggleSteal(); }",
+      "  else if(e.key==='s'||e.key==='S'){ e.preventDefault(); setWireframe(!wireMode); }",
+      "  else if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){",
+      "    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';",
+      "    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "  if(red && currentPath==='Stealing' && !stealAlerted){ stealAlerted=true; try{parent.postMessage({type:'runner-red',red:true},'*');}catch(_){} }"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/sentinel-soc.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.6/build/index.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "    window.__anchors=anchors;",
+      "    try{ parent.postMessage({type:'soc-ready'},'*'); }catch(_){}",
+      "function setMode(mode){",
+      "  if(window.__anchors && t-__pt>90){ __pt=t;",
+      "    for(const k in window.__anchors){ window.__anchors[k].getWorldPosition(v); v.project(camera);",
+      "    try{ parent.postMessage({type:'soc-anchors', pts:out},'*'); }catch(_){}"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/fuel-sensor-wire.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function setMode(mode){",
+      "      if(dv>need){need=dv;window.__why='V rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}",
+      "      if(dh>need){need=dh;window.__why='H rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/truck-sentinel-mount.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function start(){",
+      "function setMode(m){",
+      "function setUnit(i,on){",
+      "  try{ parent.postMessage({type:'sent-state',units:shown.slice()},'*'); }catch(_){}",
+      "function toggleUnit(i){ if(!pyramids.length) return; setUnit(i,!shown[i]); }",
+      "window.addEventListener('keydown',e=>{",
+      "  if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleUnit(0); return; }",
+      "  if(e.key==='t'||e.key==='T'){ e.preventDefault(); toggleUnit(1); return; }",
+      "  if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){",
+      "    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';",
+      "    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/truck-day-night.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function start(){",
+      "function setMode(m){",
+      "function setUnit(i,on){",
+      "  try{ parent.postMessage({type:'sent-state',units:shown.slice()},'*'); }catch(_){}",
+      "function toggleUnit(i){ if(!pyramids.length) return; setUnit(i,!shown[i]); }",
+      "window.addEventListener('keydown',e=>{",
+      "  if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleUnit(0); return; }",
+      "  if(e.key==='t'||e.key==='T'){ e.preventDefault(); toggleUnit(1); return; }",
+      "  if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){",
+      "    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';",
+      "    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "(function dayNight(){",
+      "      try{ parent.postMessage({type:'dn', t:day, phase:phase},'*'); }catch(_){}",
+      "  window.__dn={cfg:CFG, sky, arc, sun, moon, camera, controls, frame};"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/globe-only.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": []
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/truck64-iot.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function setMode(m){",
+      "  try{ parent.postMessage({type:'iot-state', mode:iotMode},'*'); }catch(_){}",
+      "function toggleMode(){ applyMode(iotMode==='particles'?'solid':'particles'); }",
+      "function toggleWire(){ applyMode(iotMode==='wireframe'?'solid':'wireframe'); }",
+      "window.addEventListener('keydown',e=>{",
+      "  if(e.key==='s'||e.key==='S'){ e.preventDefault(); toggleMode(); }",
+      "  else if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleWire(); }",
+      "  else if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){",
+      "    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';",
+      "    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}",
+      "window.addEventListener('message',e=>{ const d=e.data||{};"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/cctv-camera-wire.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function setMode(mode){"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/camera-pod-wire.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "function setMode(mode){",
+      "      if(dv>need){need=dv;window.__why='V rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}",
+      "      if(dh>need){need=dh;window.__why='H rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/sentinel-only.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.6/build/index.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "  try{ parent.postMessage({type:'s5ready'},'*'); }catch(_){}",
+      "function setMorph(m){ if(!ready) return;",
+      "  try{ parent.postMessage({type:'s5morph',deployed:targetM>0.5},'*'); }catch(_){}",
+      "function toggle(){ /* static model \u2014 no disassemble */ }",
+      "  if(e.key==='r'||e.key==='R'){ return; }        /* R = rewind to globe */",
+      "  try{ parent.postMessage({type:'s5key',key:e.key},'*'); }catch(_){}} );",
+      "window.addEventListener('message',e=>{ const d=e.data||{};",
+      "function setPose(xDeg,yDeg,zDeg){ const D=Math.PI/180;",
+      "window.addEventListener('message',e=>{ const d=e.data||{}; if(d&&d.type==='pose') setPose(+d.x||0, +d.y||0, +d.z||0); });"
+    ]
+  },
+  "\u7d20\u6750/Sentinel Keynote HTML/3D/globe-sentinel.html": {
+    "external": [
+      "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.6/build/index.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+      "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+    ],
+    "media": [],
+    "controls": [
+      "  try{ parent.postMessage({type:'s5ready'},'*'); }catch(_){}",
+      "function setMorph(m){ if(!ready) return;",
+      "  try{ parent.postMessage({type:'s5morph',deployed:targetM>0.5},'*'); }catch(_){}",
+      "function toggle(){ if(targetM<0.5){ setMorph(1); } else { setMorph(0); } }",
+      "  if(e.key==='r'||e.key==='R'){ setMorph(0); return; }        /* R = rewind to globe */",
+      "  try{ parent.postMessage({type:'s5key',key:e.key},'*'); }catch(_){}} );",
+      "window.addEventListener('message',e=>{ const d=e.data||{};"
+    ]
+  }
+}

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truck + Sentinel + Sensors — 3D</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:320px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#49b6e8;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:212px;
+    max-height:calc(100vh - 32px); overflow-y:auto; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #controls .row{ display:flex; align-items:center; gap:8px; justify-content:space-between; }
+  #controls .row > span{ white-space:nowrap; }
+  #controls select{ flex:1; font-size:12px; padding:3px 4px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:#1a1d22; color:#e7eaed; cursor:pointer; }
+  #controls input[type=range]{ flex:1; width:96px; }
+  #controls input[type=color]{ width:26px; height:20px; border:none; background:none; padding:0; cursor:pointer; }
+  #controls button{ font:inherit; font-size:12px; padding:6px 8px; border-radius:7px; border:1px solid rgba(255,255,255,0.15); background:#1f6fb0; color:#fff; cursor:pointer; }
+  #controls .sec{ margin-top:2px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.1); font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:#7f868e; }
+  #dreadout{ font-size:10.5px; color:#8b929a; line-height:1.5; font-variant-numeric:tabular-nums; word-break:break-word; }
+  #loading{ position:absolute; inset:0; display:flex; flex-direction:column; gap:10px; align-items:center; justify-content:center; color:#9aa4b0; z-index:20; letter-spacing:.5px; }
+  #bar{ width:220px; height:4px; border-radius:2px; background:rgba(255,255,255,0.1); overflow:hidden; }
+  #bar i{ display:block; height:100%; width:0%; background:linear-gradient(90deg,#49b6e8,#9aca3c); }
+  #hint{ position:absolute; bottom:20px; left:0; right:0; text-align:center; z-index:10; pointer-events:none; color:#cfd6de; font-size:13px; }
+  #hint .p{ display:inline-block; animation:pp 1.6s ease-in-out infinite; } @keyframes pp{0%,100%{opacity:.5}50%{opacity:1}}
+  #info,#controls,#hint,#loading{display:none!important;}
+  html,body{background:transparent!important;}
+  #labels{position:fixed;inset:0;pointer-events:none;z-index:30;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .slabel{position:absolute;--off:7vh;background:rgba(8,12,20,.86);border:1px solid var(--c,#2AF598);border-radius:1vh;padding:.7vh 1.1vh;white-space:nowrap;backdrop-filter:blur(8px);box-shadow:0 .8vh 2.4vh rgba(0,0,0,.55);}
+  .slabel.above{transform:translate(-50%,calc(-100% - var(--off)));}
+  .slabel.below{transform:translate(-50%,var(--off));}
+  .slabel .nm{font-size:1.5vh;font-weight:800;color:var(--c,#2AF598);letter-spacing:.02em;}
+  .slabel .inf{font-size:1.3vh;color:rgba(255,255,255,.85);margin-top:.35vh;font-variant-numeric:tabular-nums;}
+  .slabel::before{content:'';position:absolute;left:50%;width:0;border-left:1.5px dashed var(--c,#2AF598);opacity:.72;}
+  .slabel.above::before{top:100%;height:var(--off);}
+  .slabel.below::before{bottom:100%;height:var(--off);}
+  .slabel::after{content:'';position:absolute;left:50%;width:.85vh;height:.85vh;border-radius:50%;background:var(--c,#2AF598);box-shadow:0 0 1.2vh var(--c,#2AF598);transform:translate(-50%,-50%);}
+  .slabel.above::after{top:calc(100% + var(--off));}
+  .slabel.below::after{bottom:calc(100% + var(--off));}
+</style>
+</head>
+<body>
+<div id="loading"><div>Loading truck model…</div><div id="bar"><i id="fill"></i></div></div>
+<div id="info">
+  <h1><span class="b">Truck</span> + <span class="g">Sentinel</span> &amp; Sensors</h1>
+  <p><span class="k">Place</span> the Sentinel and 4 sensors anywhere on the truck</p>
+  <p><span class="k">Drag</span> rotate · <span class="k">Scroll</span> zoom · <span class="k">Right-drag</span> pan</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate" checked> Auto-rotate</label>
+  <div class="row"><span>Mode</span>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="wireframe">Wireframe</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+  <div class="row"><input type="color" id="paint" value="#b01f27"> <span>Body paint</span></div>
+  <label><input type="checkbox" id="lights" checked> Lights on</label>
+  <div class="row"><span>Pt size</span><input type="range" id="psize" min="0.006" max="0.04" step="0.002" value="0.014"></div>
+
+  <div class="sec">Devices — place on truck</div>
+  <div class="row"><span>Item</span>
+    <select id="itemSel">
+      <option value="0">Sentinel</option>
+      <option value="1">Fuel sensor</option>
+      <option value="2">Tire-pressure sensor</option>
+      <option value="3">Temperature sensor</option>
+      <option value="4">Cargo-door sensor</option>
+    </select>
+  </div>
+  <button id="placeBtn">🎯 Place on truck: OFF</button>
+  <div class="row"><span>Yaw</span><input type="range" id="dyaw" min="-180" max="180" step="1" value="0"></div>
+  <div class="row"><span>Pitch</span><input type="range" id="dpitch" min="-180" max="180" step="1" value="0"></div>
+  <div class="row"><span>Roll</span><input type="range" id="droll" min="-180" max="180" step="1" value="0"></div>
+  <div class="row"><span>Size</span><input type="range" id="dsize" min="0.2" max="3" step="0.05" value="1"></div>
+  <label><input type="checkbox" id="visChk" checked> Item visible</label>
+  <button id="copyBtn">⧉ Copy item transform</button>
+  <div id="dreadout">—</div>
+  <div class="sep" style="height:1px;background:rgba(255,255,255,0.08)"></div>
+  <div id="pcount" style="font-size:11px;color:#6b7178;"></div>
+</div>
+<div id="hint"><span class="p">Pick an item, hit “Place on truck”, then drag it onto the truck</span></div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+import { TessellateModifier } from 'three/addons/modifiers/TessellateModifier.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+
+const TRUCK_GLB_URL='./models/e1b81b2d393cc10d.glb';
+const SENT_GLB_URL ='./models/bffe2948bc9e72ea.glb';
+
+/* ---- baked device placements (relative to the truck). Fill from “Copy item transform”. ---- */
+const BAKED={
+  sentinel:{ pos:[0.609,1.469,2.313], rot:[1.3090,1.6581,0.0000], scale:0.200 },
+  fuel:{     pos:[0.492,0.477,0.467], rot:[0.0000,0.0000,0.0000], scale:0.500 },
+  tire:{     pos:[0.611,0.492,1.489], rot:[-0.0873,-0.0524,-1.4661], scale:0.300 },
+  temp:{     pos:[0.506,1.844,1.116], rot:[0.0000,0.0000,0.0000], scale:0.550 },
+  cargo:{    pos:[0.024,1.725,-3.302], rot:[0.0000,0.0000,0.0000], scale:1.000 },
+};
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true }); renderer.setClearColor(0x000000,0);
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,760);
+  r.addColorStop(0,'#20252c'); r.addColorStop(0.6,'#0f1216'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+const darkBg=new THREE.Color(0x080b10);
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(6,3.6,7.5);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=3; controls.maxDistance=40; controls.maxPolarAngle=Math.PI*0.52;
+controls.target.set(0,1.7,0); controls.autoRotate=false; controls.autoRotateSpeed=0.5;
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x20262e,0.5));
+const key=new THREE.DirectionalLight(0xffffff,2.3); key.position.set(8,13,9); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=60;
+key.shadow.camera.left=-11; key.shadow.camera.right=11; key.shadow.camera.top=11; key.shadow.camera.bottom=-11;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xbcd6ff,0.7); fill.position.set(-9,5,-6); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,120,60,Math.PI/8,0.5,1.2); rim.position.set(-6,10,-12); scene.add(rim);
+
+/* ---------- Truck materials ---------- */
+const paintMat  = new THREE.MeshPhysicalMaterial({ color:0x1a4d30, metalness:0.6, roughness:0.28, clearcoat:1.0, clearcoatRoughness:0.15, envMapIntensity:1.2 });
+const chromeMat = new THREE.MeshStandardMaterial({ color:0xeef2f5, metalness:1.0, roughness:0.12, envMapIntensity:1.6 });
+const glossBlack= new THREE.MeshPhysicalMaterial({ color:0x0e1114, metalness:0.7, roughness:0.18, clearcoat:0.9 });
+const matteBlack= new THREE.MeshStandardMaterial({ color:0x14171a, metalness:0.2, roughness:0.8 });
+const tyreMat   = new THREE.MeshStandardMaterial({ color:0x0c0e10, metalness:0.05, roughness:0.9 });
+const hubMat    = new THREE.MeshStandardMaterial({ color:0xcfd4d8, metalness:1.0, roughness:0.22 });
+const glassMat  = new THREE.MeshPhysicalMaterial({ color:0x162431, metalness:0, roughness:0.05, transmission:0.9, transparent:true, opacity:0.6, ior:1.5, thickness:0.3, envMapIntensity:1.4, side:THREE.DoubleSide });
+const amberMat  = new THREE.MeshStandardMaterial({ color:0xffa030, emissive:0xff6a00, emissiveIntensity:1.0, roughness:0.4 });
+const whiteLED  = new THREE.MeshStandardMaterial({ color:0xffffff, emissive:0xfff2d0, emissiveIntensity:1.1, roughness:0.3 });
+const trimMetal = new THREE.MeshStandardMaterial({ color:0x9aa0a6, metalness:0.85, roughness:0.4 });
+function pickMat(name){
+  const n=(name||'').toLowerCase();
+  if(/wind|full_glass|(^|_)glass/.test(n)) return glassMat;
+  if(/tyre|tire/.test(n)) return tyreMat;
+  if(/hub/.test(n)) return hubMat;
+  if(/wheel/.test(n)) return glossBlack;
+  if(/signal/.test(n)) return amberMat;
+  if(/light_emit|light/.test(n)) return whiteLED;
+  if(/door_knob|glossy|chrome/.test(n)) return chromeMat;
+  if(/gloss_black|deep_black/.test(n)) return glossBlack;
+  if(/flat_black|diffuse_black/.test(n)) return matteBlack;
+  if(/bodycolour|head_paint|material\.001/.test(n)) return paintMat;
+  return trimMetal;
+}
+
+/* ---------- world state ---------- */
+const device=new THREE.Group(); scene.add(device);         // truck + attached devices (raycast/placement space)
+let truckRoot=null, truckScale=1, loaded=false;
+const truckMeshes=[];                                       // raycast targets for placement
+
+/* ---------- Load the truck ---------- */
+new GLTFLoader().load(TRUCK_GLB_URL,(gltf)=>{
+  const root=gltf.scene; root.updateMatrixWorld(true);
+  root.traverse(o=>{ if(o.isMesh){ o.castShadow=o.receiveShadow=true; o.material=pickMat((o.material&&o.material.name)||o.name||''); }});
+  const bb=new THREE.Box3().setFromObject(root), size=bb.getSize(new THREE.Vector3()), ctr=bb.getCenter(new THREE.Vector3());
+  const s=6.8/Math.max(size.x,size.y,size.z); truckScale=s;
+  root.scale.setScalar(s); root.position.set(-ctr.x*s, -bb.min.y*s, -ctr.z*s);
+  root.updateMatrix(); truckRoot=root;
+  root.traverse(o=>{ if(o.isMesh) truckMeshes.push(o); });   // raycast targets for device placement
+  device.add(root);
+  buildDevices();                 // sentinel + 4 sensors + comm lines
+  loaded=true;
+  document.getElementById('loading').style.display='none';
+  var m0=new URLSearchParams(location.search).get('mode');
+  if(m0==='wireframe'||m0==='particles') applyMode(m0);
+},(ev)=>{ if(ev.total) document.getElementById('fill').style.width=(100*ev.loaded/ev.total).toFixed(0)+'%'; },
+ ()=>{ document.getElementById('loading').firstElementChild.textContent='Could not parse the embedded model.'; });
+
+/* ======================================================================
+   Placeable devices: Sentinel + 4 sensors
+   ====================================================================== */
+const D2R=Math.PI/180, R2D=180/Math.PI;
+function labelMat(hex, emi){ return new THREE.MeshStandardMaterial({ color:hex, emissive:emi||0x000000, emissiveIntensity:emi?0.6:0, metalness:0.5, roughness:0.45 }); }
+const bodyDark=new THREE.MeshStandardMaterial({ color:0x2b2f34, metalness:0.6, roughness:0.45 });
+const metalCap=new THREE.MeshStandardMaterial({ color:0xb8bec4, metalness:1.0, roughness:0.3 });
+
+function makeFuelSensor(){                 // amber probe head + flange + rod
+  const g=new THREE.Group();
+  const head=new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.10,20), labelMat(0xffb43a,0xd06a00)); head.position.y=0.16; g.add(head);
+  const flange=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.03,20), metalCap); flange.position.y=0.09; g.add(flange);
+  const rod=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.02,0.34,12), metalCap); rod.position.y=-0.08; g.add(rod);
+  g.traverse(o=>o.castShadow=true); return g;
+}
+function makeTirePressure(){               // blue hex cap on a valve stem
+  const g=new THREE.Group();
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.06,0.05,6), labelMat(0x3aa0ff,0x1050a0)); cap.position.y=0.06; g.add(cap);
+  const stem=new THREE.Mesh(new THREE.CylinderGeometry(0.022,0.022,0.10,12), metalCap); stem.position.y=-0.01; g.add(stem);
+  g.traverse(o=>o.castShadow=true); return g;
+}
+function makeTempSensor(){                 // red housing + thin probe
+  const g=new THREE.Group();
+  const box=new THREE.Mesh(new THREE.BoxGeometry(0.13,0.10,0.09), labelMat(0xff4436,0xa01008)); box.position.y=0.09; g.add(box);
+  const probe=new THREE.Mesh(new THREE.CylinderGeometry(0.012,0.012,0.16,10), metalCap); probe.position.y=-0.03; g.add(probe);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(0.02,10,8), metalCap); tip.position.y=-0.11; g.add(tip);
+  g.traverse(o=>o.castShadow=true); return g;
+}
+function makeCargoDoor(){                   // green contact sensor + magnet block
+  const g=new THREE.Group();
+  const b1=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.14,0.05), labelMat(0x49c96a,0x0d7a2a)); b1.position.set(-0.045,0.07,0); g.add(b1);
+  const b2=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.10,0.05), bodyDark); b2.position.set(0.045,0.05,0); g.add(b2);
+  const led=new THREE.Mesh(new THREE.SphereGeometry(0.012,8,8), new THREE.MeshStandardMaterial({color:0x8dffb0,emissive:0x30d060,emissiveIntensity:1.2})); led.position.set(-0.045,0.15,0.02); g.add(led);
+  g.traverse(o=>o.castShadow=true); return g;
+}
+
+/* item registry: key, label, factory, default transform (device/world coords) */
+const ITEMS=[
+  { key:'sentinel', label:'Sentinel',              size:0.6,  pos:[0.00,1.62,2.55], make:null },  // GLB, filled async
+  { key:'fuel',     label:'Fuel sensor',           size:1.0,  pos:[-0.86,0.60,0.35], make:makeFuelSensor },
+  { key:'tire',     label:'Tire-pressure sensor',  size:1.0,  pos:[-0.58,0.34,2.41], make:makeTirePressure },
+  { key:'temp',     label:'Temperature sensor',    size:1.0,  pos:[0.78,1.35,-0.80], make:makeTempSensor },
+  { key:'cargo',    label:'Cargo-door sensor',     size:1.0,  pos:[0.00,1.05,-3.35], make:makeCargoDoor },
+];
+
+function applyItem(it){                    // push its state onto its group
+  const g=it.group; if(!g) return;
+  g.position.fromArray(it.p); g.rotation.set(it.r[0]*D2R, it.r[1]*D2R, it.r[2]*D2R); g.scale.setScalar(it.s);
+  g.visible=it.vis;
+}
+function buildDevices(){
+  for(const it of ITEMS){
+    const g=new THREE.Group(); g.rotation.order='YXZ'; it.group=g;
+    if(it.make){ g.add(it.make()); } // sensors: procedural now; sentinel added on GLB load
+    // initial transform: baked override or default
+    const b=BAKED[it.key];
+    it.p = b? b.pos.slice() : it.pos.slice();
+    it.r = b? b.rot.map(v=>v*R2D) : [0,0,0];
+    it.s = b? b.scale : it.size;
+    it.vis=true;
+    device.add(g); applyItem(it);
+  }
+  // Sentinel — FULL model, semi_truck_3d.html-style single physical body material + glass detection
+  const sentBody =new THREE.MeshPhysicalMaterial({ color:0x33383e, metalness:0.9, roughness:0.34, clearcoat:0.6, clearcoatRoughness:0.25, envMapIntensity:1.2 });
+  const sentGlass=new THREE.MeshPhysicalMaterial({ color:0x11161c, metalness:0, roughness:0.05, transmission:0.9, transparent:true, opacity:0.65, ior:1.5, thickness:0.3, envMapIntensity:1.4, side:THREE.DoubleSide });
+  new GLTFLoader().load(SENT_GLB_URL,(gl)=>{
+    const r=gl.scene, bb=new THREE.Box3().setFromObject(r);
+    const sc=1/Math.max(bb.max.x-bb.min.x, bb.max.y-bb.min.y, bb.max.z-bb.min.z);  // unit-size; item.s scales up
+    r.scale.setScalar(sc);
+    const b2=new THREE.Box3().setFromObject(r); r.position.sub(b2.getCenter(new THREE.Vector3()));
+    r.traverse(o=>{ if(o.isMesh){ o.castShadow=o.receiveShadow=true;
+      o.material=/glass|lens|phong2/i.test((o.material&&o.material.name)||o.name||'') ? sentGlass : sentBody; } });
+    ITEMS[0].group.add(r);
+  });
+  buildCommLines();               // animated dashed links: each sensor → Sentinel
+  selectItem(0);
+}
+
+/* ---------- comm links: thin DASHED WIRE, flowing toward the Sentinel (Line2 = real width) ----------
+   Slightly thicker than a 1px line, far slimmer than the tube. Point order is [sensor, Sentinel]
+   with dashOffset decreasing, so the dashes crawl toward the Sentinel (the far end). */
+const COMM_COLOR=0x5ec8ff, COMM_LW=2.5, COMM_DASH=0.22, COMM_GAP=0.14, COMM_SPEED=0.9;
+let commMat=null, commTime=0; const commLines=[];
+const _S=new THREE.Vector3(), _T=new THREE.Vector3();
+function buildCommLines(){
+  commMat=new LineMaterial({ color:COMM_COLOR, linewidth:COMM_LW, dashed:true, dashScale:1,
+    dashSize:COMM_DASH, gapSize:COMM_GAP, transparent:true, opacity:0.95, depthWrite:false });
+  commMat.resolution.set(innerWidth, innerHeight);           // required for pixel line width
+  for(let i=1;i<ITEMS.length;i++){                           // ITEMS[1..4] = the sensors
+    const g=new LineGeometry(); g.setPositions([0,0,0, 0,0,0]);
+    const line=new Line2(g, commMat); line.computeLineDistances(); line.frustumCulled=false; line.renderOrder=3;
+    scene.add(line); commLines.push({ line, item:ITEMS[i] });
+  }
+}
+function updateCommLines(dt){
+  if(!commMat) return;
+  commTime+=dt;
+  commMat.dashOffset = -((commTime*COMM_SPEED) % (COMM_DASH+COMM_GAP));   // flow toward index0 = the Sentinel
+  const sent=ITEMS[0];
+  const ok = sent.group && sent.vis && sent.group.children.length>0;
+  if(!ok){ for(const c of commLines) c.line.visible=false; return; }
+  sent.group.getWorldPosition(_T);
+  for(const {line,item} of commLines){
+    const show=item.vis && item.group && iotMode!=='solid'; line.visible=show; if(!show) continue;
+    item.group.getWorldPosition(_S);
+    line.geometry.setPositions([_S.x,_S.y,_S.z, _T.x,_T.y,_T.z]);   // index0=sensor, index1=Sentinel → dashes flow toward the Sentinel
+    line.computeLineDistances();
+  }
+}
+
+/* ---------- device selection + sliders ---------- */
+const itemSel=document.getElementById('itemSel'), placeBtn=document.getElementById('placeBtn'),
+      dyawEl=document.getElementById('dyaw'), dpitchEl=document.getElementById('dpitch'), drollEl=document.getElementById('droll'),
+      dsizeEl=document.getElementById('dsize'), visChk=document.getElementById('visChk'),
+      dreadEl=document.getElementById('dreadout'), copyBtn=document.getElementById('copyBtn');
+let active=0;
+function selectItem(i){ active=i; const it=ITEMS[i];
+  dyawEl.value=Math.round(it.r[1]); dpitchEl.value=Math.round(it.r[0]); drollEl.value=Math.round(it.r[2]);
+  dsizeEl.value=it.s.toFixed(2); visChk.checked=it.vis; updateReadout();
+}
+function updateReadout(){ const it=ITEMS[active]; const p=it.p;
+  dreadEl.textContent=`${it.label}: pos ${p[0].toFixed(2)}, ${p[1].toFixed(2)}, ${p[2].toFixed(2)}  ·  yaw ${dyawEl.value}° pitch ${dpitchEl.value}° roll ${drollEl.value}°  ·  ×${(+dsizeEl.value).toFixed(2)}`;
+}
+itemSel.onchange=()=>selectItem(+itemSel.value);
+function slidersToItem(){ const it=ITEMS[active];
+  it.r=[+dpitchEl.value, +dyawEl.value, +drollEl.value]; it.s=+dsizeEl.value; applyItem(it); updateReadout(); }
+[dyawEl,dpitchEl,drollEl,dsizeEl].forEach(el=>el.addEventListener('input',slidersToItem));
+visChk.onchange=()=>{ ITEMS[active].vis=visChk.checked; applyItem(ITEMS[active]); };
+copyBtn.onclick=(e)=>{ e.stopPropagation(); const it=ITEMS[active];
+  const rr=it.r.map(d=>(d*D2R).toFixed(4));
+  const snip=`  ${it.key}:{ pos:[${it.p.map(v=>v.toFixed(3)).join(',')}], rot:[${rr.join(',')}], scale:${it.s.toFixed(3)} },`;
+  const ok=()=>{ copyBtn.textContent='✓ Copied — send it to me'; setTimeout(()=>copyBtn.textContent='⧉ Copy item transform',1600); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(snip).then(ok).catch(()=>{console.log(snip);ok();}); }
+  else { console.log(snip); ok(); }
+};
+
+/* ---------- mouse placement (raycast the truck) ---------- */
+const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+let placeMode=false, dragging=false;
+function ndcFrom(cx,cy){ const r=renderer.domElement.getBoundingClientRect(); ndc.x=((cx-r.left)/r.width)*2-1; ndc.y=-((cy-r.top)/r.height)*2+1; }
+function placeAt(cx,cy){ const it=ITEMS[active]; if(!it.group||!truckMeshes.length) return;
+  ndcFrom(cx,cy); ray.setFromCamera(ndc,camera);
+  const hits=ray.intersectObjects(truckMeshes,true);
+  if(hits.length){ const h=hits[0]; const n=new THREE.Vector3(0,1,0);
+    if(h.face){ n.copy(h.face.normal).transformDirection(h.object.matrixWorld).normalize(); }
+    const wp=h.point.clone().addScaledVector(n, 0.06*it.s);
+    device.worldToLocal(wp);                          // → device space (item's parent)
+    it.p=[wp.x,wp.y,wp.z]; applyItem(it); updateReadout();
+  }
+}
+placeBtn.onclick=(e)=>{ e.stopPropagation(); placeMode=!placeMode;
+  placeBtn.textContent='🎯 Place on truck: '+(placeMode?'ON — drag the truck':'OFF');
+  placeBtn.style.background=placeMode?'#b5701f':'#1f6fb0'; controls.enabled=!placeMode;
+  renderer.domElement.style.cursor=placeMode?'crosshair':'';
+  document.getElementById('hint').innerHTML = placeMode
+    ? '<span class="p">🎯 Drag on the truck to position · scroll to push it IN / OUT (inside the truck)</span>'
+    : '<span class="p">Pick an item, hit “Place on truck”, then drag it onto the truck</span>';
+};
+renderer.domElement.addEventListener('pointerdown',e=>{ if(placeMode && loaded){ dragging=true;
+  try{renderer.domElement.setPointerCapture(e.pointerId);}catch(_){} placeAt(e.clientX,e.clientY); }});
+renderer.domElement.addEventListener('pointermove',e=>{ if(placeMode && dragging) placeAt(e.clientX,e.clientY); });
+renderer.domElement.addEventListener('pointerup',e=>{ if(placeMode){ dragging=false; try{renderer.domElement.releasePointerCapture(e.pointerId);}catch(_){} }});
+// scroll = move the active item along the view ray → push it INTO / out of the truck body (free depth)
+renderer.domElement.addEventListener('wheel',e=>{
+  if(!placeMode || !loaded) return; e.preventDefault();
+  const it=ITEMS[active]; if(!it.group) return;
+  const fwd=new THREE.Vector3(); camera.getWorldDirection(fwd);        // into the screen (away from viewer)
+  const step=(e.deltaY>0?1:-1)*0.05;                                   // scroll down → push into the truck
+  it.p=[it.p[0]+fwd.x*step, it.p[1]+fwd.y*step, it.p[2]+fwd.z*step];
+  applyItem(it); updateReadout();
+}, {passive:false});
+
+/* ---------- Ground ---------- */
+const FY=0.0;
+const mirror=new Reflector(new THREE.PlaneGeometry(120,120),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,2), textureHeight:innerHeight*Math.min(devicePixelRatio,2), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; mirror.position.y=FY; scene.add(mirror);
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(120,120), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.55, roughness:0.36, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=FY+0.001; scene.add(gloss);
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(40,40), new THREE.ShadowMaterial({ opacity:0.42 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=FY+0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher);
+const groundEls=[mirror,gloss,shadowCatcher]; groundEls.forEach(e=>e.visible=false);
+
+/* ---------- Particle mode ---------- */
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function area(geo){ const p=geo.attributes.position; if(!p) return 0; let A=0; const idx=geo.index;
+  const tri=(i,j,k)=>{ _a.fromBufferAttribute(p,i);_b.fromBufferAttribute(p,j);_c.fromBufferAttribute(p,k);
+    _ab.subVectors(_b,_a);_ac.subVectors(_c,_a); A+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else{ for(let i=0;i<p.count;i+=3) tri(i,i+1,i+2); } return A; }
+let particleCloud=null; const white=new THREE.Color(0xffffff);
+function buildParticles(){                                    // sample ONLY the truck — devices stay solid
+  scene.updateMatrixWorld(true);
+  const items=[]; let tot=0; const tp=new THREE.Vector3(),tq=new THREE.Quaternion(),ts=new THREE.Vector3();
+  (truckRoot||device).traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    o.matrixWorld.decompose(tp,tq,ts); const sa=(Math.abs(ts.x)+Math.abs(ts.y)+Math.abs(ts.z))/3;
+    const A=area(o.geometry)*sa*sa; if(A>0){ items.push({o,A}); tot+=A; } });
+  const TARGET=170000, pos=[], col=[]; const p=new THREE.Vector3(), C=new THREE.Color();
+  for(const {o,A} of items){ let n=Math.max(6,Math.round(TARGET*A/tot));
+    let smp; try{ smp=new MeshSurfaceSampler(o).build(); }catch(e){ continue; }
+    const mc=(o.material&&o.material.color)||white;
+    for(let i=0;i<n;i++){ smp.sample(p); p.applyMatrix4(o.matrixWorld);
+      C.copy(mc); if((C.r+C.g+C.b)/3<0.15) C.lerp(white,0.5); else C.lerp(white, Math.random()*0.25);
+      pos.push(p.x,p.y,p.z); col.push(C.r,C.g,C.b); } }
+  const bg=new THREE.BufferGeometry();
+  bg.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  bg.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  particleCloud=new THREE.Points(bg,new THREE.PointsMaterial({ size:parseFloat(psizeEl.value), vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, depthWrite:true }));
+  scene.add(particleCloud);
+}
+function invalidateParticles(){ if(particleCloud){ scene.remove(particleCloud); particleCloud.geometry.dispose(); particleCloud=null; if(modeEl.value==='particles') setMode('particles'); } }
+
+/* ---------- Modes ---------- */
+const modeEl=document.getElementById('mode'), psizeEl=document.getElementById('psize'),
+      pcountEl=document.getElementById('pcount'), paintEl=document.getElementById('paint'),
+      lightsEl=document.getElementById('lights');
+function allWire(on){ device.traverse(o=>{ if(o.isMesh && o.material) o.material.wireframe=on; }); }
+function setMode(m){
+  if(!loaded){ return; }
+  allWire(false); if(truckRoot) truckRoot.visible=true; if(particleCloud) particleCloud.visible=false;
+  scene.background=null; groundEls.forEach(e=>e.visible=false); pcountEl.textContent='';
+  if(m==='wireframe'){ allWire(true); }
+  else if(m==='particles'){ if(!particleCloud){ pcountEl.textContent='sampling…'; buildParticles(); }
+    particleCloud.visible=true; if(truckRoot) truckRoot.visible=false;   // hide only the truck; devices stay solid
+    pcountEl.textContent=particleCloud.geometry.attributes.position.count.toLocaleString()+' particles'; }
+}
+modeEl.onchange=()=>setMode(modeEl.value);
+paintEl.oninput=()=>{ paintMat.color.set(paintEl.value); if(modeEl.value==='particles') invalidateParticles(); };
+lightsEl.onchange=()=>{ const v=lightsEl.checked?1:0; amberMat.emissiveIntensity=1.0*v; whiteLED.emissiveIntensity=1.1*v; };
+psizeEl.oninput=()=>{ if(particleCloud) particleCloud.material.size=parseFloat(psizeEl.value); };
+document.getElementById('autoRotate').onchange=e=>controls.autoRotate=e.target.checked;
+
+const IOT_SHIFT=0.09; // fraction of width to nudge the truck to the RIGHT
+/* Web embeds sit in a tall column rather than a 16:9 slide, so the truck is
+   lifted to sit optically centred instead of hugging the floor of the box. */
+let IOT_WEB=false, IOT_RTL=false;   // RTL pages mirror the column, so mirror the shift
+function applyViewShift(){ camera.aspect=innerWidth/innerHeight;
+  const dx = (IOT_RTL?1:-1)*innerWidth*IOT_SHIFT;   // keeps the cab off the outer edge
+  const dy = IOT_WEB ? innerHeight*0.13 : 0;        // lifts the truck off the floor of a tall box
+  camera.setViewOffset(innerWidth, innerHeight, dx, dy, innerWidth, innerHeight); }
+applyViewShift();
+addEventListener('resize', ()=>{ applyViewShift(); renderer.setSize(innerWidth,innerHeight); if(commMat) commMat.resolution.set(innerWidth,innerHeight); });
+/* ---------- S / R: solid <-> particle <-> wireframe (Sentinel always solid) ---------- */
+let iotMode='solid';
+const accWire=[]; let accWireBuilt=false;
+function buildAccessoryWires(){          // dense wire overlay per sensor (fuel/tire/temp/door); Sentinel excluded
+  if(accWireBuilt) return; accWireBuilt=true;
+  for(let i=1;i<ITEMS.length;i++){ const g=ITEMS[i].group; if(!g) continue;
+    g.traverse(o=>{ if(o.isMesh && o.geometry){
+      let geo;
+      try{ const base=o.geometry.index? o.geometry.toNonIndexed(): o.geometry.clone();
+           base.computeBoundingSphere(); const r=(base.boundingSphere&&base.boundingSphere.radius)||0.1;
+           geo=new TessellateModifier(Math.max(0.006,r*0.24), 4).modify(base); }
+      catch(e){ geo=o.geometry; }
+      const wf=new THREE.LineSegments(new THREE.WireframeGeometry(geo),
+        new THREE.LineBasicMaterial({ color:0xFF3B30, transparent:true, opacity:0.95, depthTest:true }));
+      wf.visible=false; o.add(wf); accWire.push(wf);
+    }});
+  }
+}
+let truckWireMats=null;
+function truckWireMaterials(){           // unique materials used by the truck body
+  if(truckWireMats) return truckWireMats;
+  truckWireMats=new Set();
+  if(truckRoot) truckRoot.traverse(o=>{ if(o.isMesh && o.material){ (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>truckWireMats.add(m)); } });
+  return truckWireMats;
+}
+const WIRE_NEON=new THREE.Color(0xFFFFFF);
+function wireframeApply(on){             // truck -> WHITE wireframe; accessories keep their wires; Sentinel stays solid
+  truckWireMaterials().forEach(m=>{
+    if(on){
+      if(!m.__wsaved){ m.__wcolor=m.color?m.color.clone():null; m.__wemis=m.emissive?m.emissive.clone():null; m.__wei=(m.emissiveIntensity!==undefined)?m.emissiveIntensity:null; m.__wsaved=true; }
+      m.wireframe=true;
+      if(m.color) m.color.copy(WIRE_NEON);
+      if(m.emissive){ m.emissive.copy(WIRE_NEON); m.emissiveIntensity=0.95; }
+    } else {
+      m.wireframe=false;
+      if(m.__wsaved){ if(m.__wcolor&&m.color) m.color.copy(m.__wcolor); if(m.__wemis&&m.emissive) m.emissive.copy(m.__wemis); if(m.__wei!==null&&m.emissiveIntensity!==undefined) m.emissiveIntensity=m.__wei; }
+    }
+  });
+  for(let i=1;i<ITEMS.length;i++){ const g=ITEMS[i].group; if(g) g.traverse(o=>{ if(o.isMesh&&o.material) o.material.wireframe=on; }); }
+  accWire.forEach(w=>w.visible=on);
+}
+function applyMode(mode){
+  if(!loaded) return;
+  iotMode=mode;
+  setMode('solid'); wireframeApply(false);            // reset to solid, clear any wireframe/particles
+  if(mode==='particles'){ setMode('particles'); if(particleCloud){ particleCloud.material.size=0.011; particleCloud.material.needsUpdate=true; } }
+  else if(mode==='wireframe'){ buildAccessoryWires(); wireframeApply(true); }
+  try{ parent.postMessage({type:'iot-state', mode:iotMode},'*'); }catch(_){}
+}
+function toggleMode(){ applyMode(iotMode==='particles'?'solid':'particles'); }
+function toggleWire(){ applyMode(iotMode==='wireframe'?'solid':'wireframe'); }
+
+/* ---------- floating telemetry labels: appear per accessory in particle mode ---------- */
+const LABELS=[
+  {idx:1, name:'Fuel Sensor',     info:'Tank 156 L \u00b7 \u22120.2 L/h',   c:'#FFC53D', pos:'above'},
+  {idx:2, name:'Tire Pressure',   info:'Axle 2-R 8.4 bar \u00b7 39\u00b0C', c:'#009EFD', pos:'below'},
+  {idx:3, name:'Temp & Humidity', info:'Cargo 4.2\u00b0C \u00b7 RH 58%',    c:'#FF3B30', pos:'above'},
+  {idx:4, name:'Cargo Door',      info:'Closed \u00b7 sealed 02:14',        c:'#FF7A1A', pos:'above'},
+];
+const labelWrap=document.createElement('div'); labelWrap.id='labels'; labelWrap.style.display='none'; document.body.appendChild(labelWrap);
+for(const L of LABELS){ const el=document.createElement('div'); el.className='slabel '+L.pos; el.style.setProperty('--c',L.c);
+  el.innerHTML='<div class="nm">'+L.name+'</div><div class="inf">'+L.info+'</div>'; labelWrap.appendChild(el); L.el=el; }
+const _lv=new THREE.Vector3();
+function updateLabels(){
+  const show=(iotMode==='particles');       // labels only in particle mode
+  labelWrap.style.display=show?'block':'none';
+  if(!show) return;
+  const w=renderer.domElement.clientWidth, h=renderer.domElement.clientHeight;
+  for(const L of LABELS){ const it=ITEMS[L.idx], el=L.el;
+    if(!it||!it.group){ el.style.display='none'; continue; }
+    it.group.getWorldPosition(_lv); _lv.project(camera);
+    if(_lv.z>1 || _lv.x<-1.35 || _lv.x>1.35 || _lv.y<-1.35 || _lv.y>1.35){ el.style.display='none'; continue; }
+    el.style.display='block';
+    el.style.left=((_lv.x*0.5+0.5)*w).toFixed(1)+'px';
+    el.style.top=((-_lv.y*0.5+0.5)*h).toFixed(1)+'px';
+  }
+}
+
+const clock=new THREE.Clock();
+(function animate(){ requestAnimationFrame(animate); const dt=Math.min(0.05,clock.getDelta()); updateCommLines(dt); controls.update(); renderer.render(scene,camera); updateLabels(); })();
+window.addEventListener('keydown',e=>{
+  if(e.key==='s'||e.key==='S'){ e.preventDefault(); toggleMode(); }
+  else if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleWire(); }
+  else if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){
+    e.preventDefault();
+    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';
+    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}
+  }
+});
+window.addEventListener('message',e=>{ const d=e.data||{};
+  if(d&&d.type==='iot-set') applyMode(d.mode);
+  else if(d&&d.type==='iot-lang'){   // host sends its own translations
+    if(d.rtl!==undefined && d.rtl!==IOT_RTL){ IOT_RTL=!!d.rtl; if(IOT_WEB) applyViewShift(); }
+    if(!Array.isArray(d.labels)) return;
+    d.labels.forEach(function(pair,i){ var L=LABELS[i]; if(!L||!L.el) return;
+      L.el.innerHTML='<div class="nm">'+pair[0]+'</div><div class="inf">'+pair[1]+'</div>'; }); }
+  else if(d&&d.type==='iot-mode') toggleMode();
+  else if(d&&d.type==='iot-wire') toggleWire();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+player state playing, 1726, previous slide player disposed, -1728, 6, Sentinel_S5_Webinar_Mac_Animated_Demo.pptx, true

@@ -1,0 +1,223 @@
+{
+  "file": "Sentinel_S5_Webinar_Mac_Animated_Demo.pptx",
+  "bytes": 83119159,
+  "sha256": "0eba28185e6a6eb5d1dd86afd1f6e54ff60a4fc85486235503a6b6889c99a25b",
+  "errors": [],
+  "external_relationships": [],
+  "slides": [
+    {
+      "slide": 1,
+      "editable_text_shapes": 7,
+      "text_runs": 6,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 2,
+      "editable_text_shapes": 10,
+      "text_runs": 9,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 3,
+      "editable_text_shapes": 20,
+      "text_runs": 21,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 4,
+      "editable_text_shapes": 8,
+      "text_runs": 10,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 3,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 5,
+      "editable_text_shapes": 2,
+      "text_runs": 2,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 6,
+      "editable_text_shapes": 17,
+      "text_runs": 16,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 7,
+      "editable_text_shapes": 16,
+      "text_runs": 15,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 8,
+      "editable_text_shapes": 15,
+      "text_runs": 11,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 9,
+      "editable_text_shapes": 19,
+      "text_runs": 17,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 10,
+      "editable_text_shapes": 9,
+      "text_runs": 11,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 11,
+      "editable_text_shapes": 27,
+      "text_runs": 21,
+      "video_objects": 0,
+      "connectors": 5,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 12,
+      "editable_text_shapes": 18,
+      "text_runs": 16,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 13,
+      "editable_text_shapes": 11,
+      "text_runs": 11,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 14,
+      "editable_text_shapes": 18,
+      "text_runs": 18,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 15,
+      "editable_text_shapes": 13,
+      "text_runs": 13,
+      "video_objects": 0,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    },
+    {
+      "slide": 16,
+      "editable_text_shapes": 6,
+      "text_runs": 7,
+      "video_objects": 1,
+      "connectors": 0,
+      "entrance_effects": 0,
+      "empty_media_action_ids": 0
+    }
+  ],
+  "videos": [
+    {
+      "slide": 5,
+      "package_part": "ppt/media/media1.mp4",
+      "embedded": true,
+      "bytes": 43713379,
+      "backup_match": [
+        "product-reveal.mp4"
+      ]
+    },
+    {
+      "slide": 7,
+      "package_part": "ppt/media/media2.mp4",
+      "embedded": true,
+      "bytes": 3091662,
+      "backup_match": [
+        "aov-demo.mp4"
+      ]
+    },
+    {
+      "slide": 9,
+      "package_part": "ppt/media/media3.mp4",
+      "embedded": true,
+      "bytes": 5804557,
+      "backup_match": [
+        "ai-detection.mp4"
+      ]
+    },
+    {
+      "slide": 10,
+      "package_part": "ppt/media/media4.mp4",
+      "embedded": true,
+      "bytes": 1165005,
+      "backup_match": [
+        "installation.mp4"
+      ]
+    },
+    {
+      "slide": 12,
+      "package_part": "ppt/media/media5.mp4",
+      "embedded": true,
+      "bytes": 13021356,
+      "backup_match": [
+        "iot-installation.mp4"
+      ]
+    },
+    {
+      "slide": 16,
+      "package_part": "ppt/media/media6.mp4",
+      "embedded": true,
+      "bytes": 14289838,
+      "backup_match": [
+        "product-rotation.mp4"
+      ]
+    }
+  ],
+  "sources": {
+    "Sentinel_S5_Webinar_Outline_EN_No_Timestamps.pptx": {
+      "sha256": "341e8ceb8a59bda4aba711a4369d8023f4a3716751fdeb5f9cd750c44a5ba8f6",
+      "unchanged": true
+    },
+    "Sentinel-Product-Presentation.pptx": {
+      "sha256": "4900373fe40176ec0d4ea977deeb486fe6affaa89325a543aab736263c1332a5",
+      "unchanged": true
+    }
+  },
+  "xml_parts": 82,
+  "slide_count": 16,
+  "embedded_videos": 6,
+  "status": "PASS"
+}

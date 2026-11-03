@@ -1,0 +1,1107 @@
+
+:root{font-family:Arial,Helvetica,sans-serif;color:#f5f6ef;background:#090c0a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;padding-top:110px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3,p{margin:0}
+h3{font-weight:500;letter-spacing:-.035em}
+button,input{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #9ac026;outline-offset:4px}
+#main-content{min-height:calc(100svh - 110px)}
+
+
+@keyframes displayN {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+body.black_page {
+background: #000;
+}
+
+.cf::before,
+.cf::after {
+content: "";
+display: table;
+}
+.cf::after {
+clear: both;
+}
+
+.flex {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+}
+.flexWrap {
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+}
+.alignCenter {
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+}
+.justifyCenter {
+-webkit-box-pack: center;
+-ms-flex-pack: center;
+justify-content: center;
+}
+
+.wrap1600 {
+width: 1600px;
+margin-left: auto;
+margin-right: auto;
+}
+@media only screen and (max-width: 1700px) {
+.wrap1600 { width: 90%; }}
+@media only screen and (max-width: 1200px) {
+.wrap1600 { width: 90%; }}
+
+.fnt16 {
+font-size: 16px;
+}
+
+#streamaxHeader,
+#streamaxHeader * {
+box-sizing: border-box;
+}
+
+#streamaxHeader q::before,
+#streamaxHeader q::after {
+content: "";
+}
+
+#streamaxHeader.header {
+--header-height: 110px;
+--header-height-small: 60px;
+--streamax-green: #9ac026;
+--streamax-black: #040401;
+position: fixed !important;
+top: 0 !important;
+left: 0 !important;
+z-index: 9999 !important;
+width: 100% !important;
+height: var(--header-height) !important;
+background: var(--streamax-black) !important;
+border-bottom: 1px solid rgba(255,255,255,.14) !important;
+transform: translateY(0);
+transition: height .3s ease, background .3s ease, transform .3s ease !important;
+font-family: Harmony, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+#streamaxHeader.header.hideHeader {
+transform: translateY(-100%) !important;
+}
+
+#streamaxHeader.header.scrollHeader {
+height: var(--header-height-small) !important;
+background: var(--streamax-black) !important;
+}
+
+#streamaxHeader.header:hover {
+background: var(--streamax-black) !important;
+}
+
+#streamaxHeader .wrap1600 {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+justify-content: space-between !important;
+position: relative !important;
+}
+
+#streamaxHeader .logo {
+width: 165px !important;
+height: 100% !important;
+line-height: normal !important;
+float: none !important;
+text-align: left !important;
+display: flex !important;
+align-items: center !important;
+flex: 0 0 165px !important;
+}
+
+#streamaxHeader .logo a {
+display: inline-flex !important;
+align-items: center !important;
+height: 100% !important;
+width: 100% !important;
+}
+
+#streamaxHeader .logo img {
+display: block !important;
+width: 165px !important;
+height: auto !important;
+max-width: none !important;
+object-fit: contain !important;
+vertical-align: middle !important;
+}
+
+#streamaxHeader .b_logo {
+display: none !important;
+}
+#streamaxHeader .w_logo {
+display: block !important;
+}
+
+#streamaxHeader .right {
+float: none !important;
+display: flex !important;
+align-items: center !important;
+justify-content: flex-end !important;
+height: 100% !important;
+min-width: 0 !important;
+}
+
+#streamaxHeader .nav_con {
+height: 100% !important;
+display: block !important;
+position: relative !important;
+}
+
+#streamaxHeader .nav {
+height: 100% !important;
+margin: 0 52px 0 0 !important;
+padding: 0 !important;
+display: flex !important;
+align-items: center !important;
+flex-wrap: nowrap !important;
+}
+
+#streamaxHeader .nav li {
+position: relative !important;
+z-index: 9 !important;
+list-style: none !important;
+height: var(--header-height) !important;
+line-height: var(--header-height) !important;
+margin: 0 28px !important;
+padding: 0 !important;
+text-align: center !important;
+transition: height .3s ease, line-height .3s ease !important;
+}
+
+#streamaxHeader.scrollHeader .nav li {
+height: var(--header-height-small) !important;
+line-height: var(--header-height-small) !important;
+}
+
+#streamaxHeader .TWnav {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+}
+
+#streamaxHeader .TWnav a {
+position: relative !important;
+display: inline-flex !important;
+align-items: center !important;
+justify-content: center !important;
+height: auto !important;
+padding: 0 !important;
+border-radius: 0 !important;
+color: #fff !important;
+background: transparent !important;
+font-size: 18px !important;
+font-weight: 400 !important;
+letter-spacing: .2px !important;
+text-transform: none !important;
+white-space: nowrap !important;
+text-decoration: none !important;
+line-height: 1.2 !important;
+transition: color .25s ease !important;
+}
+
+#streamaxHeader .nav li:hover .TWnav a,
+#streamaxHeader .nav li.hover .TWnav a {
+color: var(--streamax-green) !important;
+}
+
+#streamaxHeader .TWnav a span {
+position: absolute !important;
+left: 50% !important;
+bottom: -10px !important;
+display: inline-block !important;
+width: 0 !important;
+height: 2px !important;
+background: var(--streamax-green) !important;
+transform: translateX(-50%) !important;
+transition: width .35s ease !important;
+}
+
+#streamaxHeader .nav li:hover .TWnav a span,
+#streamaxHeader .nav li.hover .TWnav a span {
+width: 100% !important;
+}
+
+#streamaxHeader .erNav {
+display: none;
+position: absolute !important;
+top: 100% !important;
+left: 50% !important;
+transform: translateX(-50%) !important;
+width: max-content !important;
+min-width: 100% !important;
+padding: 0 !important;
+background: #000 !important;
+text-align: left !important;
+line-height: normal !important;
+border: 1px solid rgba(255,255,255,.08) !important;
+box-shadow: 0 18px 55px rgba(0,0,0,.38) !important;
+}
+
+#streamaxHeader .nav li:hover .erNav,
+#streamaxHeader .nav li.hover .erNav {
+display: block !important;
+animation: displayN .28s forwards !important;
+}
+
+#streamaxHeader .erNav a {
+display: block !important;
+height: auto !important;
+padding: 17px 22px !important;
+color: #fff !important;
+background: #000 !important;
+font-size: 16px !important;
+line-height: 1.2 !important;
+white-space: nowrap !important;
+text-decoration: none !important;
+transition: color .25s ease, background .25s ease !important;
+}
+
+#streamaxHeader .erNav a:hover {
+background: var(--streamax-green) !important;
+color: #fff !important;
+}
+
+#streamaxHeader .mo_nav,
+#streamaxHeader .TWnavBtn,
+#streamaxHeader .THnavBtn {
+display: none;
+}
+
+#streamaxHeader .nav-submenu__cover {
+display: none !important;
+}
+
+#streamaxHeader .lang_search {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+flex: 0 0 auto !important;
+}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+float: none !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 176px !important;
+height: 42px !important;
+margin: 0 20px 0 0 !important;
+padding: 0 !important;
+border: 1px solid var(--streamax-green) !important;
+border-radius: 999px !important;
+background: transparent !important;
+color: var(--streamax-green) !important;
+transition: background .25s ease, color .25s ease, border-color .25s ease !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn:hover {
+background: var(--streamax-green) !important;
+color: #fff !important;
+}
+
+#streamaxHeader .lang.mode_btn a {
+position: relative !important;
+z-index: 2 !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 100% !important;
+height: 100% !important;
+color: inherit !important;
+text-decoration: none !important;
+font-size: 17px !important;
+font-weight: 500 !important;
+line-height: 1 !important;
+white-space: nowrap !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+display: block !important;
+padding-left: 22px !important;
+line-height: 1 !important;
+}
+
+#streamaxHeader .frame-animation {
+position: absolute !important;
+z-index: 4 !important;
+
+left: -48px !important;
+top: -5px !important;
+
+width: 64px !important;
+height: 62px !important;
+
+background-image: url("https://www.streamax.com/static/en/img/ip.png?v=official") !important;
+background-repeat: no-repeat !important;
+background-position: 0 0 !important;
+background-size: 2048px 62px !important;
+
+transform: translateY(-50%) !important;
+transform-origin: center center !important;
+pointer-events: none !important;
+
+animation: streamaxRobotFrames 1.5s steps(32) infinite !important;
+}
+
+@keyframes streamaxRobotFrames {
+from {
+background-position-x: 0;
+}
+to {
+background-position-x: -2048px;
+}
+}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+width: 190px !important;
+height: 50px !important;
+border: 1px solid #9ac026 !important;
+border-radius: 999px !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn a {
+position: relative !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 100% !important;
+height: 100% !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+padding-left: 34px !important;
+}
+
+#streamaxHeader .change {
+position: relative !important;
+height: var(--header-height) !important;
+margin: 0 !important;
+padding: 0 !important;
+display: flex !important;
+align-items: center !important;
+cursor: pointer !important;
+transition: height .3s ease !important;
+}
+
+#streamaxHeader.scrollHeader .change {
+height: var(--header-height-small) !important;
+}
+
+#streamaxHeader .change svg {
+display: block !important;
+width: 28px !important;
+height: 28px !important;
+max-width: none !important;
+}
+
+#streamaxHeader .change svg path {
+fill: #fff !important;
+}
+
+#streamaxHeader .change_con {
+display: none;
+position: absolute !important;
+top: var(--header-height) !important;
+left: 50% !important;
+width: 110px !important;
+transform: translateX(-50%) !important;
+background: #000 !important;
+border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+#streamaxHeader.scrollHeader .change_con {
+top: var(--header-height-small) !important;
+}
+
+#streamaxHeader .change:hover .change_con {
+display: block !important;
+animation: displayN .28s forwards !important;
+}
+
+#streamaxHeader .change_con a {
+display: block !important;
+height: 40px !important;
+line-height: 40px !important;
+color: #fff !important;
+text-align: center !important;
+text-decoration: none !important;
+font-size: 14px !important;
+background: #000 !important;
+}
+
+#streamaxHeader .change_con a:hover {
+color: var(--streamax-green) !important;
+}
+
+#streamaxHeader .search,
+#streamaxHeader .search-drop-down {
+display: none !important;
+}
+
+#streamaxHeader .nav_btn {
+display: none;
+}
+
+@media only screen and (max-width: 1500px) {
+#streamaxHeader .nav {
+margin-right: 34px !important;
+}
+#streamaxHeader .nav li {
+margin: 0 18px !important;
+}
+#streamaxHeader .TWnav a {
+font-size: 16px !important;
+}
+#streamaxHeader .lang.mode_btn {
+width: 160px !important;
+}}
+
+@media only screen and (max-width: 1200px) {
+body.touch_body #streamaxHeader.header {
+height: var(--header-height-small) !important;
+}
+
+body.touch_body #streamaxHeader .wrap1600 {
+width: 90% !important;
+}
+
+body.touch_body #streamaxHeader .logo {
+flex-basis: 150px !important;
+width: 150px !important;
+}
+
+body.touch_body #streamaxHeader .logo img {
+width: 150px !important;
+}
+
+body.touch_body #streamaxHeader .right {
+height: 100% !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn {
+display: flex !important;
+position: relative !important;
+width: 28px !important;
+height: 60px !important;
+margin-left: 18px !important;
+align-items: center !important;
+cursor: pointer !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn span,
+body.touch_body #streamaxHeader .nav_btn span::before,
+body.touch_body #streamaxHeader .nav_btn span::after {
+content: "" !important;
+position: absolute !important;
+left: 0 !important;
+width: 28px !important;
+height: 2px !important;
+background: #fff !important;
+transition: transform .25s ease, top .25s ease, opacity .25s ease !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn span {
+top: 50% !important;
+}
+body.touch_body #streamaxHeader .nav_btn span::before {
+top: -8px !important;
+}
+body.touch_body #streamaxHeader .nav_btn span::after {
+top: 8px !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn.click span {
+background: transparent !important;
+}
+body.touch_body #streamaxHeader .nav_btn.click span::before {
+top: 0 !important;
+transform: rotate(45deg) !important;
+}
+body.touch_body #streamaxHeader .nav_btn.click span::after {
+top: 0 !important;
+transform: rotate(-45deg) !important;
+}
+
+body.touch_body #streamaxHeader .nav_con {
+display: none;
+position: fixed !important;
+top: var(--header-height-small) !important;
+left: 0 !important;
+right: 0 !important;
+bottom: 0 !important;
+width: 100% !important;
+height: calc(100vh - var(--header-height-small)) !important;
+background: #040401 !important;
+overflow-y: auto !important;
+z-index: 9998 !important;
+}
+
+body.touch_body #streamaxHeader .nav {
+display: block !important;
+width: 90% !important;
+height: auto !important;
+margin: 0 auto !important;
+padding: 0 !important;
+}
+
+body.touch_body #streamaxHeader .nav li {
+display: block !important;
+height: auto !important;
+line-height: 60px !important;
+margin: 0 !important;
+border-bottom: 1px solid #333 !important;
+text-align: left !important;
+}
+
+body.touch_body #streamaxHeader .TWnav {
+position: relative !important;
+min-height: 60px !important;
+display: block !important;
+}
+
+body.touch_body #streamaxHeader .TWnav a {
+display: block !important;
+padding: 0 64px 0 0 !important;
+line-height: 60px !important;
+font-size: 16px !important;
+}
+
+body.touch_body #streamaxHeader .TWnavBtn {
+display: block !important;
+position: absolute !important;
+top: 0 !important;
+right: 0 !important;
+width: 60px !important;
+height: 60px !important;
+z-index: 2 !important;
+}
+
+body.touch_body #streamaxHeader .TWnavBtn::after {
+content: "" !important;
+position: absolute !important;
+top: 50% !important;
+right: 20px !important;
+width: 10px !important;
+height: 10px !important;
+border-top: 1px solid #fff !important;
+border-right: 1px solid #fff !important;
+transform: translateY(-75%) rotate(135deg) !important;
+transition: transform .25s ease !important;
+}
+
+body.touch_body #streamaxHeader .nav li.hover .TWnavBtn::after {
+transform: translateY(-25%) rotate(-45deg) !important;
+}
+
+body.touch_body #streamaxHeader .erNav {
+display: none !important;
+}
+
+body.touch_body #streamaxHeader .mo_nav {
+display: none;
+border-top: 1px solid #333 !important;
+}
+
+body.touch_body #streamaxHeader .mo_nav .p {
+border-bottom: 1px solid #222 !important;
+}
+
+body.touch_body #streamaxHeader .THnav a {
+display: block !important;
+padding-left: 24px !important;
+color: #bbb !important;
+line-height: 48px !important;
+text-decoration: none !important;
+}
+
+body.touch_body #streamaxHeader .lang.mode_btn {
+display: none !important;
+}
+
+body.touch_body #streamaxHeader .change {
+height: 60px !important;
+margin-left: auto !important;
+}}
+
+@font-face {
+font-family: "HarmonyOS Sans";
+src: local("HarmonyOS Sans SC Bold"), local("HarmonyOS Sans Bold"), local("HarmonyOS Sans SC"), local("HarmonyOS Sans"), local("HarmonyOS_Sans_Bold"), local("HarmonyOS_Sans_Regular");
+font-weight: 700;
+font-style: normal;
+font-display: swap;
+}
+#streamaxHeader.header {
+--header-height: 110px !important;
+--header-height-small: 78px !important;
+background:#000 !important;
+border-bottom:1px solid rgba(255,255,255,.06) !important;
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+}
+#streamaxHeader .wrap1600 {
+width:min(1840px, 90.4vw) !important;
+max-width:1840px !important;
+display:flex !important;
+align-items:center !important;
+justify-content:space-between !important;
+gap:0 !important;
+}
+#streamaxHeader .logo {
+width:212px !important;
+flex:0 0 212px !important;
+overflow:hidden !important;
+}
+#streamaxHeader .logo a {
+width:212px !important;
+justify-content:flex-start !important;
+overflow:hidden !important;
+}
+#streamaxHeader .logo img {
+display:none !important;
+}
+#streamaxHeader .logo img.only_logo {
+display:block !important;
+width:212px !important;
+height:auto !important;
+max-width:212px !important;
+object-fit:contain !important;
+}
+#streamaxHeader .right {
+flex:1 1 auto !important;
+display:flex !important;
+align-items:center !important;
+justify-content:space-between !important;
+min-width:0 !important;
+}
+#streamaxHeader .nav_con {
+flex:1 1 auto !important;
+display:flex !important;
+justify-content:center !important;
+align-items:center !important;
+min-width:0 !important;
+}
+#streamaxHeader .nav {
+margin:0 !important;
+padding:0 !important;
+display:flex !important;
+align-items:center !important;
+justify-content:center !important;
+gap:0 !important;
+}
+#streamaxHeader .nav li {
+margin:0 31px !important;
+height:110px !important;
+line-height:110px !important;
+}
+#streamaxHeader.scrollHeader .nav li {
+height:78px !important;
+line-height:78px !important;
+}
+#streamaxHeader .TWnav a {
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+font-size:18px !important;
+font-weight:700 !important;
+letter-spacing:0 !important;
+color:#fff !important;
+}
+#streamaxHeader .nav li:hover .TWnav a,
+#streamaxHeader .nav li.hover .TWnav a {
+color:#9ac026 !important;
+}
+#streamaxHeader .erNav a,
+#streamaxHeader .change_con a,
+#streamaxHeader .lang.mode_btn a {
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+}
+#streamaxHeader .lang_search {
+margin-left:44px !important;
+gap:18px !important;
+}
+#streamaxHeader .lang.mode_btn {
+width:190px !important;
+height:50px !important;
+margin:0 !important;
+border-radius:999px !important;
+border:1px solid #9ac026 !important;
+overflow:visible !important;
+}
+#streamaxHeader .lang.mode_btn a {
+font-size:17px !important;
+font-weight:700 !important;
+letter-spacing:0 !important;
+}
+#streamaxHeader .lang.mode_btn span {
+padding-left:32px !important;
+}
+#streamaxHeader .frame-animation {
+left:-23px !important;
+top:50% !important;
+width:44px !important;
+height:30px !important;
+background-image:url("data:image/webp;base64,UklGRhIEAABXRUJQVlA4WAoAAAAQAAAAKwAAHQAAQUxQSLcAAAABgLJt2/nn/f1tu/8bZlvRaR9gv7R9ACOZ0WZbW3RVt71sPPN7z1uLiAlg/52CRvpRmnZ3p9rGN3YX3i+kj4Zu6MW6y/lk4V2Kz+/u6Y1XV3W+dyi/Ie6VdFjO/i0fbepQlSeErAZNbxA0TwIJmSDwpIDoPUS1hwGUY4Q+KQR4Z+5RVARIOKMPlElfQ4viI80b+aL36R61auMT+gjv4WOsfgfUU2NHMBGyLGbkSyGyDoS4VqBkbwQAVlA4IDQDAABQFACdASosAB4APhkKhEGhBVcBAAQAYSyAGRCZyjFpPCAeYD9iv0z7AHoAfrX1oHoAdJH+0X7efAB/Ff6/cs/wA6gbuv6q5wD6WfTPx20Tf9T/GT8t84a+Ef2L8huAz9Bj+3/ktrof8d+VXuJ/2f5Aeqn5K/xX9N+AD+Kfyj/Aflb/bf/xyln6lqJYdd/GeSf+b20S9040Vhgq5vqDytZJ+QQ+SdfiTC/NoWAA/v//QoX///8nK9qjzOGEHSOVk5JVtq0Tkv///QtUg+sNmAuXNo/OUlfSiIllqL9cWLsQ/BZpWl704bf/Rqnf/9+rtl1/0pAMgYt3yP5Y9a3TlTTdrfMTme0EZGkJXz3tKV2cB+fZQD//4MjFtrJm//CldLVRs5wU6pESUEgxRzFzC9c5s/FAexFdYMmu+cJV9BDj1/5D6lgXoHOT8QJFJuArYUPp/6v75msXfjuvNBXDBUymX0qQ/kfidIuCiCJNA3Bs3+H6Fs1ClNU8VXps1aRfr06f75dU7JyijB2BzEjG0df9wewx3RTOWKLMnv/8e5wdu6y8pgpZDXTzNqv+xla4qOv8Rse2yQrMYV1iXLYvTKeGtSv/lcXsvdtSlU7pK+0RxZJ/HgnoMReicvCwgQvB8LHCEDi8Pmr0dxR7+AHwK9lK6oU5nwBwLeMSjn2sAqU02v2vP49cLc0nbq7E8vEUSTrxI0vwi9zsbKbn4h9jIRoSL7x2A1foztKHSqhy0e9PKnng92wdJXIoSPd4SoF1pfIpfXNeHwXzxUKi8WHYB9UeWalAYLcNebWCF9/nKsvXE3ljyy/FvzeZkWCOSWep6OCFqfvVarUrqbl4l9y35E/a5OCvBQZ8i8hZaGzqdTnzJ3Wpn0JKDqq6AX0fj0uQXuGg4juVniZNlHkUQntac8/F40OlrVBz1lK6hGa6/4dysx2Pqf83pqH2KnU0+IzZFQ4WCq3Pl/dOVl/jnGyPyM8v+uHe3NopIPPuc+Jj89g8jpfw2+QGatIiTpn5h5prXho2rrIKRaakRr0w86QY3o1Mq40ZuI91PUxRq/W5K22CapOzcqX/mcuETXv757yXO4rhwAAA") !important;
+background-size:44px 30px !important;
+background-repeat:no-repeat !important;
+background-position:center center !important;
+transform:translateY(-50%) !important;
+filter:none !important;
+animation:none !important;
+}
+#streamaxHeader .change {
+height:110px !important;
+}
+#streamaxHeader.scrollHeader .change {
+height:78px !important;
+}
+#streamaxHeader .change svg {
+width:30px !important;
+height:30px !important;
+}
+#streamaxHeader .change svg path {
+fill:#fff !important;
+}
+#streamaxHeader .change_con {
+top:110px !important;
+}
+#streamaxHeader.scrollHeader .change_con {
+top:78px !important;
+}
+@media only screen and (max-width:1500px) {
+#streamaxHeader .logo, #streamaxHeader .logo a { width:190px !important; flex-basis:190px !important; }
+#streamaxHeader .logo img.only_logo { width:190px !important; max-width:190px !important; }
+#streamaxHeader .nav li { margin:0 20px !important; }
+#streamaxHeader .TWnav a { font-size:17px !important; }
+#streamaxHeader .lang_search { margin-left:30px !important; }
+#streamaxHeader .lang.mode_btn { width:178px !important; height:48px !important; }}
+@media only screen and (max-width:1200px) {
+#streamaxHeader .wrap1600 { width:92% !important; }
+#streamaxHeader .logo, #streamaxHeader .logo a { width:165px !important; flex-basis:165px !important; }
+#streamaxHeader .logo img.only_logo { width:165px !important; max-width:165px !important; }
+#streamaxHeader .lang.mode_btn { width:166px !important; height:44px !important; }
+#streamaxHeader .lang_search { margin-left:18px !important; gap:10px !important; }}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+width: 190px !important;
+height: 50px !important;
+border: 1px solid #9ac026 !important;
+border-radius: 999px !important;
+overflow: visible !important;
+margin-left: 8px !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+padding-left: 30px !important;
+}
+
+#streamaxHeader .frame-animation {
+position: absolute !important;
+z-index: 4 !important;
+left: -48px !important;
+top: -25px !important;
+
+width: 500px !important;
+height: 500px !important;
+
+background-image: url("https://www.streamax.com/static/en/img/ip.png?v=official") !important;
+background-repeat: no-repeat !important;
+background-position: 0 0 !important;
+background-size: auto 500px !important;
+
+transform: scale(0.2) !important;
+transform-origin: left top !important;
+pointer-events: none !important;
+filter: none !important;
+image-rendering: auto !important;
+
+animation: streamaxRobotOfficialFull 1.5s steps(32) infinite !important;
+}
+
+@keyframes streamaxRobotOfficialFull {
+from {
+background-position-x: 0;
+}
+to {
+background-position-x: -16000px;
+}
+}
+
+@media only screen and (max-width:1500px) {
+#streamaxHeader .frame-animation {
+left: -46px !important;
+top: -40px !important;
+transform: scale(0.23) !important;
+}}
+
+@media only screen and (max-width:1200px) {
+#streamaxHeader .frame-animation {
+left: -38px !important;
+top: -32px !important;
+transform: scale(0.16) !important;
+}}
+
+
+.streamax-official-footer,
+.streamax-official-footer * {
+box-sizing: border-box;
+}
+.streamax-official-footer {
+position: relative;
+z-index: 1;
+width: 100%;
+overflow-x: hidden;
+padding: 78px 0 50px;
+background: #000;
+color: #747474;
+font-family: Arial, Helvetica, sans-serif;
+}
+.streamax-official-footer a {
+color: inherit;
+text-decoration: none;
+transition: color .24s ease, opacity .24s ease;
+}
+.streamax-official-footer a:hover {
+color: #aacb03;
+}
+.streamax-official-footer .wrap1600 {
+width: min(1600px, calc(100% - 80px));
+margin: 0 auto;
+}
+.streamax-official-footer .flex {
+display: flex;
+}
+.streamax-official-footer .flexWrap {
+flex-wrap: wrap;
+}
+.streamax-official-footer .alignCenter {
+align-items: center;
+}
+.streamax-official-footer .footer_top {
+justify-content: space-between;
+gap: 56px;
+}
+.streamax-official-footer .footer_top > .left {
+flex: 0 0 25%;
+min-width: 260px;
+}
+.streamax-official-footer .footer_top > .right {
+flex: 1 1 66%;
+justify-content: space-between;
+gap: 34px 28px;
+}
+.streamax-official-footer h3,
+.streamax-official-footer dt,
+.streamax-official-footer dl,
+.streamax-official-footer dd {
+margin: 0;
+}
+.streamax-official-footer .fnt26 {
+font-size: 26px;
+line-height: 1.28;
+}
+.streamax-official-footer .fnt22 {
+font-size: 22px;
+line-height: 1.35;
+}
+.streamax-official-footer .fnt16 {
+font-size: 16px;
+line-height: 1.65;
+}
+.streamax-official-footer .fnt14 {
+font-size: 14px;
+line-height: 1.7;
+}
+.streamax-official-footer .footer_top h3,
+.streamax-official-footer .footer_top dt,
+.streamax-official-footer .footer_top dt a {
+color: #aacb03;
+font-weight: 500;
+}
+.streamax-official-footer .footer_top .left dd {
+max-width: 360px;
+color: #828286;
+}
+.streamax-official-footer .footer_top .right dl {
+flex: 1 1 150px;
+min-width: 142px;
+}
+.streamax-official-footer .footer_top .right dd {
+display: flex;
+flex-direction: column;
+gap: 9px;
+}
+.streamax-official-footer .footer_top .right dd a {
+color: #747474;
+}
+.streamax-official-footer .footer_top .right dd a:hover {
+color: #aacb03;
+}
+.streamax-official-footer .mt45 {
+margin-top: 45px;
+}
+.streamax-official-footer .mb45 {
+margin-bottom: 45px;
+}
+.streamax-official-footer .mb20 {
+margin-bottom: 20px;
+}
+.streamax-official-footer .mt55 {
+margin-top: 55px;
+}
+.streamax-official-footer .pt20 {
+padding-top: 20px;
+}
+.streamax-official-footer .pb20 {
+padding-bottom: 20px;
+}
+.streamax-official-footer .footer_mind {
+justify-content: space-between;
+gap: 24px;
+border-top: 1px solid rgba(130, 130, 134, .32);
+border-bottom: 1px solid rgba(130, 130, 134, .32);
+}
+.streamax-official-footer .footer_mind .left {
+color: #828286;
+}
+.streamax-official-footer .footer_mind .right {
+gap: 24px;
+}
+.streamax-official-footer .footer_mind svg {
+display: block;
+width: 34px;
+height: 34px;
+}
+.streamax-official-footer .footer_mind a:hover svg path {
+fill: #aacb03;
+}
+.streamax-official-footer .footer_bottom {
+text-align: center;
+}
+.streamax-official-footer .f_logo img {
+display: inline-block;
+width: 202px;
+max-width: 52vw;
+height: auto;
+}
+.streamax-official-footer .footer_bottom .a {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 14px 34px;
+margin-bottom: 22px;
+}
+.streamax-official-footer .footer_bottom .a a {
+color: #747474;
+}
+.streamax-official-footer .footer_bottom .p {
+color: #747474;
+}
+.streamax-official-footer .icp-row {
+margin-top: 18px;
+font-size: 14px;
+line-height: 1.7;
+color: #747474;
+text-align: center;
+}
+.streamax-official-footer .icp-row a {
+color: #747474;
+}
+@media (max-width: 1180px) {
+.streamax-official-footer {
+padding-top: 64px;
+}
+.streamax-official-footer .wrap1600 {
+width: min(100% - 48px, 960px);
+}
+.streamax-official-footer .footer_top > .left,
+.streamax-official-footer .footer_top > .right {
+flex-basis: 100%;
+}
+.streamax-official-footer .footer_top > .right {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}}
+@media (max-width: 760px) {
+.streamax-official-footer {
+padding: 48px 0 38px;
+}
+.streamax-official-footer .wrap1600 {
+width: min(100% - 32px, 520px);
+}
+.streamax-official-footer .footer_top {
+gap: 42px;
+}
+.streamax-official-footer .footer_top > .left {
+min-width: 0;
+}
+.streamax-official-footer .footer_top > .right {
+grid-template-columns: 1fr;
+gap: 32px;
+}
+.streamax-official-footer .footer_top .right dl {
+min-width: 0;
+}
+.streamax-official-footer .fnt26 {
+font-size: 22px;
+}
+.streamax-official-footer .fnt22 {
+font-size: 18px;
+}
+.streamax-official-footer .fnt16 {
+font-size: 15px;
+}
+.streamax-official-footer .mt45 {
+margin-top: 26px;
+}
+.streamax-official-footer .mb45 {
+margin-bottom: 18px;
+}
+.streamax-official-footer .footer_mind {
+align-items: flex-start;
+flex-direction: column;
+}
+.streamax-official-footer .footer_bottom .a {
+flex-direction: column;
+align-items: center;
+gap: 10px;
+}}
+
+
+#streamaxHeader .frame-animation{animation:streamaxRobotOfficialFull 1.5s steps(32) 1 forwards!important}
+#streamaxHeader .change.is-open .change_con,
+#streamaxHeader .change:focus-within .change_con{display:block!important}
+@media(min-width:1201px){
+  #streamaxHeader .nav li:focus-within .erNav{display:block!important}
+}
+@media(max-width:1200px){
+  body{padding-top:78px}
+  #main-content{min-height:calc(100svh - 78px)}
+  body.touch_body.nav-open{overflow:hidden}
+  body.touch_body #streamaxHeader .nav_con{display:none!important;top:78px!important;height:calc(100dvh - 78px)!important;align-items:flex-start!important}
+  body.touch_body #streamaxHeader.is-open .nav_con{display:block!important}
+  body.touch_body #streamaxHeader .nav li.hover .mo_nav{display:block!important}
+  body.touch_body #streamaxHeader .change,
+  body.touch_body #streamaxHeader .nav_btn{height:78px!important}
+  body.touch_body #streamaxHeader .change_con{top:78px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #streamaxHeader,#streamaxHeader *,#streamaxHeader *::after{transition:none!important;animation:none!important}
+}

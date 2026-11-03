@@ -1,0 +1,2 @@
+file '/Users/kevinwang/Documents/Streamax/Sentinel PPT/work/recordings/ai-scenario.mp4'
+file '/Users/kevinwang/Documents/Streamax/Sentinel PPT/work/recordings/ai-footage.mp4'

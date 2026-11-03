@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuel Sensor Probe in Tank — 3D Model</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:330px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#1f8fd0;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:190px; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #controls .row{ display:flex; align-items:center; gap:8px; }
+  #controls select{ flex:1; font-size:12px; padding:3px 4px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:#1a1d22; color:#e7eaed; cursor:pointer; }
+  #controls input[type=range]{ flex:1; }
+  #loading{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#888; z-index:20; letter-spacing:.5px; }
+  .sep{ height:1px; background:rgba(255,255,255,0.08); margin:2px 0; }
+  #spec{ position:absolute; bottom:16px; left:16px; z-index:10; color:#aeb4ba; font-size:11px;
+    background:rgba(20,23,28,0.5); padding:10px 13px; border-radius:10px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.08); max-width:380px; line-height:1.65; }
+  #spec b{ color:#dfe3e6; }
+  #reading{ color:#9aca3c; font-weight:600; }
+</style>
+<style>#info,#controls,#spec,#loading{display:none!important}html,body{background:transparent!important}</style>
+<style>#info,#controls,#hint,#loading,#title,#sub,.title,.hint,.hud,#top{display:none!important}html,body{background:transparent!important}canvas{display:block}</style></head>
+<body>
+<div id="loading">Building model…</div>
+<div id="info">
+  <h1><span class="b">Stream</span><span class="g">ax</span>-style Fuel Sensor</h1>
+  <p><span class="k">Capacitive fuel probe</span> in a cutaway truck tank</p>
+  <p><span class="k">Drag</span> rotate · <span class="k">Scroll</span> zoom · <span class="k">Right-drag</span> pan</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate" checked> Auto-rotate</label>
+  <div class="row"><span>Mode</span>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="wireframe">Wireframe</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+  <div class="row"><span>Fuel</span><input type="range" id="level" min="10" max="90" step="1" value="55"></div>
+  <div class="row"><span>Pt size</span><input type="range" id="psize" min="0.01" max="0.05" step="0.002" value="0.018"></div>
+  <div class="sep"></div>
+  <div id="pcount" style="font-size:11px;color:#6b7178;"></div>
+</div>
+<div id="spec">
+  <b>Fuel level sensor (capacitive probe)</b> — SAE 5-bolt flange · sensing tube reaching the tank floor ·
+  head unit with cable gland &amp; RS232/analog output. Tank shown half-open (cutaway).
+  <br>Reading: <span id="reading">—</span>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "../js/vendor/three/build/three.module.js",
+    "three/addons/": "../js/vendor/three/examples/jsm/"
+  }
+}
+</script>
+
+<script src="../js/frame-lifecycle.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,1.3));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,720);
+  r.addColorStop(0,'#1b2026'); r.addColorStop(0.6,'#0e1115'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+const darkBg=new THREE.Color(0x080b10);
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(40, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(6.5,5.5,10.5);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=4; controls.maxDistance=28; controls.maxPolarAngle=Math.PI*0.55;
+controls.target.set(0,2.6,0); controls.autoRotate=true; controls.autoRotateSpeed=0.9;
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x202830,0.45));
+const key=new THREE.DirectionalLight(0xffffff,2.2); key.position.set(6,11,8); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=40;
+key.shadow.camera.left=-10; key.shadow.camera.right=10; key.shadow.camera.top=10; key.shadow.camera.bottom=-10;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xaec8ff,0.6); fill.position.set(-8,5,-4); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,60,40,Math.PI/7,0.5,1.3); rim.position.set(-5,8,-9); scene.add(rim);
+// warm light inside the cutaway so the fuel glows
+const inLight=new THREE.PointLight(0xffc36b, 5, 8, 2.0); inLight.position.set(0,2.6,1.2); scene.add(inLight);
+
+/* ---------- Materials ---------- */
+const M={
+  tank:     new THREE.MeshStandardMaterial({ color:0xd4d8dc, metalness:1.0, roughness:0.22, side:THREE.DoubleSide }),
+  tankIn:   new THREE.MeshStandardMaterial({ color:0x6a6f75, metalness:0.8, roughness:0.5, side:THREE.DoubleSide }),
+  cutEdge:  new THREE.MeshStandardMaterial({ color:0x8b9096, metalness:0.9, roughness:0.4 }),
+  strap:    new THREE.MeshStandardMaterial({ color:0x3a3f44, metalness:0.9, roughness:0.4 }),
+  stand:    new THREE.MeshStandardMaterial({ color:0x2c2f34, metalness:0.5, roughness:0.55 }),
+  fuel:     new THREE.MeshPhysicalMaterial({ color:0xd8901e, metalness:0.0, roughness:0.15, transparent:true, opacity:0.5, side:THREE.DoubleSide }),
+  fuelTop:  new THREE.MeshPhysicalMaterial({ color:0xf0b23c, metalness:0.1, roughness:0.08, transparent:true, opacity:0.6, emissive:0x6b4a08, emissiveIntensity:0.35, side:THREE.DoubleSide }),
+  probe:    new THREE.MeshStandardMaterial({ color:0xc9ced3, metalness:1.0, roughness:0.28 }),
+  probeIn:  new THREE.MeshStandardMaterial({ color:0x9aa0a6, metalness:0.9, roughness:0.35 }),
+  head:     new THREE.MeshStandardMaterial({ color:0x1d2024, metalness:0.3, roughness:0.6 }),
+  flange:   new THREE.MeshStandardMaterial({ color:0xb9bec3, metalness:1.0, roughness:0.3 }),
+  gasket:   new THREE.MeshStandardMaterial({ color:0x141619, metalness:0.1, roughness:0.85 }),
+  screw:    new THREE.MeshStandardMaterial({ color:0x9097a0, metalness:1.0, roughness:0.35 }),
+  cable:    new THREE.MeshStandardMaterial({ color:0x16181b, metalness:0.2, roughness:0.7 }),
+  ledG:     new THREE.MeshStandardMaterial({ color:0x9aca3c, emissive:0x6da81e, emissiveIntensity:1.2, roughness:0.4 }),
+  brandB:   new THREE.MeshStandardMaterial({ color:0x1f8fd0, metalness:0.3, roughness:0.4 }),
+  mark:     new THREE.MeshStandardMaterial({ color:0x22262a, metalness:0.4, roughness:0.5 }),
+};
+
+/* ---------- Helpers ---------- */
+const device=new THREE.Group(); scene.add(device);
+function mesh(geo,mat,parent=device){ const m=new THREE.Mesh(geo,mat); m.castShadow=true; m.receiveShadow=true; parent.add(m); return m; }
+function place(m,x,y,z,rx=0,ry=0,rz=0){ m.position.set(x,y,z); m.rotation.set(rx,ry,rz); return m; }
+function add(geo,mat,x,y,z,parent=device){ return place(mesh(geo,mat,parent),x,y,z); }
+const rbox=(w,h,d,r=0.06,s=4)=>new RoundedBoxGeometry(w,h,d,s,r);
+const box=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+const cyl=(rt,rb,h,s=32)=>new THREE.CylinderGeometry(rt,rb,h,s);
+
+/* ===== Tank geometry: horizontal cylinder along X, front-top quarter cut away =====
+   Angle θ measured with  y = R·sinθ , z = R·cosθ  (θ=0 faces +Z, θ=90° is top).
+   OPEN window: θ ∈ (−35°, +55°)  → shell spans the remaining 270°.                */
+const R=1.5, L=5.0, CY=2.6;                 // tank radius, length, centre height
+const OPEN_A=-35*Math.PI/180, OPEN_B=55*Math.PI/180;
+const SHELL_START=OPEN_B, SHELL_LEN=Math.PI*2-(OPEN_B-OPEN_A);
+
+// cylinder-along-X shell with the window removed.
+// CylinderGeometry along Y: x=r·sinθ, z=r·cosθ. After geo.rotateZ(−90°) axis→X and
+// local (x,y,z)→(y,−x,z): world y=−r·sinθ… so we rotate +90 instead and check:
+// rotateZ(+90°): (x,y,z)→(−y,x,z): world x=−y(axis), y=r·sinθ, z=r·cosθ. ✓
+function shellGeo(r,len,thetaStart,thetaLen,openEnded=true){
+  const g=new THREE.CylinderGeometry(r,r,len,64,1,openEnded,thetaStart,thetaLen);
+  g.rotateZ(Math.PI/2); return g;
+}
+const tankG=new THREE.Group(); device.add(tankG); tankG.position.y=CY;
+mesh(shellGeo(R,L,SHELL_START,SHELL_LEN), M.tank, tankG);
+mesh(shellGeo(R-0.05,L-0.02,SHELL_START,SHELL_LEN), M.tankIn, tankG);   // inner wall
+// end caps (full discs — the window is only in the barrel)
+for(const sx of [1,-1]){
+  const cap=mesh(new THREE.CircleGeometry(R,64), M.tank, tankG);
+  cap.position.x=sx*L/2; cap.rotation.y=sx*Math.PI/2;
+  const capIn=mesh(new THREE.CircleGeometry(R-0.05,64), M.tankIn, tankG);
+  capIn.position.x=sx*(L/2-0.03); capIn.rotation.y=-sx*Math.PI/2;
+}
+// cut edges: straight rods along the two window borders + arc trims at each end
+for(const th of [OPEN_A,OPEN_B]){
+  const rod=mesh(cyl(0.035,0.035,L,12), M.cutEdge, tankG);
+  rod.rotation.z=Math.PI/2;
+  rod.position.set(0, R*Math.sin(th), R*Math.cos(th));
+}
+for(const sx of [1,-1]){
+  const arcGeo=new THREE.TorusGeometry(R,0.035,10,32,OPEN_B-OPEN_A);
+  arcGeo.rotateY(-Math.PI/2);
+  const arc=mesh(arcGeo, M.cutEdge, tankG);
+  arc.rotation.x=-OPEN_A;                 // shift arc start down to θ=OPEN_A
+  arc.position.x=sx*L/2;
+}
+// mounting straps (only around the closed part of the shell)
+for(const sx of [-1.6,1.6]){
+  const stGeo=new THREE.TorusGeometry(R+0.06,0.055,10,48,SHELL_LEN);
+  stGeo.rotateY(-Math.PI/2);
+  const st=mesh(stGeo, M.strap, tankG);
+  st.rotation.x=-SHELL_START;             // strap covers exactly the closed span
+  st.position.x=sx;
+}
+// filler cap on top, far end
+place(add(cyl(0.22,0.25,0.16,24), M.flange, -1.7,CY+R+0.06,0), -1.7,CY+R+0.06,0);
+place(add(cyl(0.1,0.1,0.1,16), M.head, -1.7,CY+R+0.18,0), -1.7,CY+R+0.18,0);
+
+// cradle stands
+for(const sx of [-1.6,1.6]){
+  add(rbox(0.5,1.15,0.7,0.06,3), M.stand, sx,0.62,-R*0.55);
+  add(rbox(0.9,0.12,1.1,0.04,3), M.stand, sx,0.1,-R*0.45);
+}
+
+/* ============================================================
+   FUEL — rebuilt for any level f (fraction of diameter)
+   ============================================================ */
+const fuelG=new THREE.Group(); device.add(fuelG); fuelG.position.y=CY;
+const Rf=R-0.09, Lf=L-0.12;
+let levelFrac=0.55;
+function rebuildFuel(f){
+  levelFrac=f;
+  while(fuelG.children.length){ const c=fuelG.children.pop(); c.geometry.dispose(); }
+  const s=(2*f-1);                          // yf/Rf with yf measured from centre
+  const yf=s*Rf, a=Math.asin(THREE.MathUtils.clamp(s,-0.999,0.999));
+  const tStart=Math.PI-a, tLen=Math.PI+2*a; // curved wetted shell (y < yf)
+  mesh(shellGeo(Rf,Lf,tStart,tLen), M.fuel, fuelG);
+  // flat fuel surface (chord plane)
+  const halfChord=Math.sqrt(Math.max(0.001,Rf*Rf-yf*yf));
+  const top=mesh(box(Lf,0.02,halfChord*2), M.fuelTop, fuelG);
+  top.position.y=yf;
+  // fuel end faces (partial discs)
+  for(const sx of [1,-1]){
+    const seg=new THREE.CircleGeometry(Rf,48,tStart,tLen);
+    seg.rotateY(sx*Math.PI/2);
+    const cap=mesh(seg, M.fuel, fuelG); cap.position.x=sx*Lf/2;
+  }
+  // update the reading (horizontal-cylinder volume fraction)
+  const h=f*2*R, thC=2*Math.acos(THREE.MathUtils.clamp((R-h)/R,-1,1));
+  const volFrac=(thC-Math.sin(thC))/(2*Math.PI);
+  const CAP=480;
+  document.getElementById('reading').textContent=
+    Math.round(volFrac*100)+'%  ≈ '+Math.round(volFrac*CAP)+' L / '+CAP+' L';
+}
+rebuildFuel(0.55);
+
+/* ============================================================
+   FUEL SENSOR PROBE — flange + head on top, tube to tank floor
+   ============================================================ */
+const probeG=new THREE.Group(); device.add(probeG);
+const PX=0.55;                              // probe position along the tank
+probeG.position.set(PX,CY+R,0);             // sits on the tank top (θ=90° — closed shell)
+// weld boss + gasket + SAE 5-bolt flange
+add(cyl(0.34,0.38,0.12,28), M.flange, 0,0.02,0, probeG);
+add(cyl(0.3,0.3,0.03,28), M.gasket, 0,0.1,0, probeG);
+add(cyl(0.42,0.42,0.06,32), M.flange, 0,0.14,0, probeG);
+for(let i=0;i<5;i++){ const a=i/5*Math.PI*2;
+  add(cyl(0.045,0.045,0.1,12), M.screw, Math.cos(a)*0.34,0.17,Math.sin(a)*0.34, probeG); }
+// head unit (electronics) + status LED + brand tick
+add(cyl(0.26,0.28,0.34,28), M.head, 0,0.36,0, probeG);
+add(rbox(0.34,0.16,0.34,0.05,3), M.head, 0,0.58,0, probeG);
+place(add(cyl(0.035,0.035,0.05,12), M.ledG, 0.18,0.44,0.19, probeG), 0.18,0.44,0.19, Math.PI/2,0,0);
+add(box(0.16,0.03,0.02), M.brandB, -0.1,0.5,0.28, probeG);
+// cable gland + short CUT pigtail (cable ends in the air — not wired anywhere)
+place(add(cyl(0.07,0.09,0.18,14), M.cable, 0.3,0.62,0, probeG), 0.3,0.62,0, 0,0,-1.2);
+const cabPts=[ new THREE.Vector3(PX+0.42,CY+R+0.66,0), new THREE.Vector3(PX+0.78,CY+R+0.72,-0.12),
+  new THREE.Vector3(PX+1.05,CY+R+0.62,-0.22) ];
+const cabCurve=new THREE.CatmullRomCurve3(cabPts);
+add(new THREE.TubeGeometry(cabCurve,16,0.05,10,false), M.cable, 0,0,0);
+// cut end: sheath ring + exposed copper cross-section
+const cabEnd=cabPts[2], cabTan=cabCurve.getTangent(1);
+const endCap=add(cyl(0.052,0.052,0.03,12), M.cable, cabEnd.x,cabEnd.y,cabEnd.z);
+endCap.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), cabTan);
+const copper=new THREE.MeshStandardMaterial({ color:0xc47a2e, metalness:1.0, roughness:0.35 });
+const cu=add(cyl(0.032,0.032,0.045,10), copper, cabEnd.x+cabTan.x*0.03, cabEnd.y+cabTan.y*0.03, cabEnd.z+cabTan.z*0.03);
+cu.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), cabTan);
+
+// ---- sensing tube: outer slotted tube + inner reference rod, down to the floor ----
+const tubeTop=-0.02, tubeBot=-(2*R-0.14);   // from the flange underside to near the tank floor
+const tubeLen=tubeTop-tubeBot;
+const outer=add(cyl(0.11,0.11,tubeLen,24), M.probe, 0,(tubeTop+tubeBot)/2,0, probeG);
+// vent/fuel slots down the outer tube (front side, visible through the cutaway)
+for(let i=0;i<7;i++){ const y=tubeTop-0.28-i*0.34;
+  add(rbox(0.035,0.16,0.03,0.01,2), M.mark, 0.0,y,0.115, probeG); }
+// side fuel-entry holes near the bottom
+for(const a of [0.6,2.2,3.8,5.2]) add(cyl(0.028,0.028,0.05,10), M.mark, Math.cos(a)*0.11, tubeBot+0.12, Math.sin(a)*0.11, probeG).rotation.x=Math.PI/2;
+// inner rod visible at the tip + bottom spacer (insulator)
+add(cyl(0.045,0.045,0.3,16), M.probeIn, 0,tubeBot+0.02,0, probeG);
+add(cyl(0.13,0.13,0.05,20), M.gasket, 0,tubeBot-0.03,0, probeG);
+// graduation rings every quarter of the tube
+for(let i=1;i<=3;i++) add(cyl(0.118,0.118,0.02,24), M.mark, 0, tubeTop - i*tubeLen/4, 0, probeG);
+
+/* ============================================================
+   GROUND — reflector + contact shadow
+   ============================================================ */
+const FY=0.0;
+const mirror=new Reflector(new THREE.PlaneGeometry(80,80),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,1.3), textureHeight:innerHeight*Math.min(devicePixelRatio,1.3), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; mirror.position.y=FY; scene.add(mirror);
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(80,80), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.5, roughness:0.4, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=FY+0.001; scene.add(gloss);
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(30,30), new THREE.ShadowMaterial({ opacity:0.4 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=FY+0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher);
+const groundEls=[mirror,gloss,shadowCatcher];
+
+/* ============================================================
+   Particle mode — density by material
+   ============================================================ */
+function densityFor(m){
+  if(m===M.fuel) return 90;                 // translucent liquid → sparse
+  if(m===M.fuelTop) return 200;             // fuel surface → visible plane
+  if(m===M.tank||m===M.flange||m===M.probe||m===M.screw||m===M.cutEdge) return 650;
+  if(m===M.tankIn||m===M.probeIn||m===M.strap) return 420;
+  if(m===M.head||m===M.stand||m===M.cable||m===M.gasket||m===M.mark) return 380;
+  if(m===M.ledG||m===M.brandB) return 400;
+  return 350;
+}
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function geometryArea(geo){ const pos=geo.attributes.position; if(!pos) return 0; let area=0; const idx=geo.index;
+  const tri=(i0,i1,i2)=>{ _a.fromBufferAttribute(pos,i0); _b.fromBufferAttribute(pos,i1); _c.fromBufferAttribute(pos,i2);
+    _ab.subVectors(_b,_a); _ac.subVectors(_c,_a); area+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else   { for(let i=0;i<pos.count;i+=3) tri(i,i+1,i+2); }
+  return area; }
+let particleCloud=null; const white=new THREE.Color(0xffffff);
+function buildParticles(){
+  scene.updateMatrixWorld(true);
+  const positions=[], colors=[]; const p=new THREE.Vector3(), col=new THREE.Color();
+  const tp=new THREE.Vector3(), tq=new THREE.Quaternion(), ts=new THREE.Vector3();
+  device.traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    const mat=o.material; if(Array.isArray(mat)) return; const d=densityFor(mat); if(d<=0) return;
+    o.matrixWorld.decompose(tp,tq,ts); const sAvg=(Math.abs(ts.x)+Math.abs(ts.y)+Math.abs(ts.z))/3;
+    let n=Math.max(4, Math.round(geometryArea(o.geometry)*sAvg*sAvg*d)); n=Math.min(n,2600);
+    let sampler; try{ sampler=new MeshSurfaceSampler(o).build(); }catch(e){ return; }
+    col.copy(mat.color||white);
+    if(mat.emissive && mat.emissiveIntensity>0) col.lerp(white,0.2);
+    if((col.r+col.g+col.b)/3 < 0.22) col.lerp(white,0.45);
+    for(let i=0;i<n;i++){ sampler.sample(p); p.applyMatrix4(o.matrixWorld); positions.push(p.x,p.y,p.z); colors.push(col.r,col.g,col.b); }
+  });
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
+  particleCloud=new THREE.Points(g, new THREE.PointsMaterial({ size:parseFloat(psizeEl.value), vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, depthWrite:true }));
+  scene.add(particleCloud);
+}
+function invalidateParticles(){
+  if(particleCloud){ scene.remove(particleCloud); particleCloud.geometry.dispose(); particleCloud=null;
+    if(modeEl.value==='particles') setMode('particles'); }
+}
+
+/* ---------- Modes / UI ---------- */
+const wireMat=new THREE.LineBasicMaterial({ color:0xffffff });
+const ghostMat=new THREE.MeshBasicMaterial({ color:0xffffff, wireframe:true, transparent:true, opacity:0.07 });
+function clearWire(){ device.traverse(o=>{ if(o.isMesh && o.userData._mat){ o.material=o.userData._mat; o.userData._mat=null; if(o.userData._edges) o.userData._edges.visible=false; } }); }
+function applyWire(){ device.traverse(o=>{ if(o.isMesh && !o.userData._mat && !o.userData._isEdge){ o.userData._mat=o.material; o.material=ghostMat;
+  if(!o.userData._edges){ const e=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,14), wireMat); e.userData._isEdge=true; o.add(e); o.userData._edges=e; }
+  o.userData._edges.visible=true; } }); }
+const modeEl=document.getElementById('mode'), psizeEl=document.getElementById('psize'),
+      pcountEl=document.getElementById('pcount'), levelEl=document.getElementById('level');
+function setMode(mode){
+  clearWire(); device.visible=true; if(particleCloud) particleCloud.visible=false;
+  const solid=(mode==='solid');
+  scene.background = null;
+  groundEls.forEach(e=> e.visible=false);
+  inLight.visible=solid;
+  pcountEl.textContent='';
+  if(mode==='wireframe'){ applyWire(); }
+  else if(mode==='particles'){
+    if(!particleCloud){ pcountEl.textContent='sampling…'; buildParticles(); }
+    particleCloud.visible=true; device.visible=false;
+    pcountEl.textContent=particleCloud.geometry.attributes.position.count.toLocaleString()+' particles';
+  }
+}
+modeEl.onchange=()=>setMode(modeEl.value);
+psizeEl.oninput=()=>{ if(particleCloud) particleCloud.material.size=parseFloat(psizeEl.value); };
+levelEl.oninput=()=>{ clearWire(); rebuildFuel(levelEl.value/100); if(modeEl.value==='wireframe') applyWire(); invalidateParticles(); };
+document.getElementById('autoRotate').onchange=e=>controls.autoRotate=e.target.checked;
+
+document.getElementById('loading').style.display='none';
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+/* embed overrides: url-configurable mode, fit, zoom & base, auto-rotate, no interaction */
+const __q=new URLSearchParams(location.search);
+try{ if(__q.get('base')==='0' && typeof __basePanel!=='undefined'){ __basePanel.parent.remove(__basePanel); } }catch(e){}
+try{ if(__q.get('mount')==='0' && typeof pod!=='undefined'){ [...device.children].forEach(ch=>{ if(ch!==pod) device.remove(ch); }); pod.position.y=2.2; } }catch(e){}
+scene.updateMatrixWorld(true);
+const __fit=__q.get('fit');
+if(__fit!==null){
+  /* tight rotation-safe framing: per-part corner analysis of the orbit envelope */
+  const bb=new THREE.Box3().setFromObject(device);
+  const c=bb.getCenter(new THREE.Vector3());
+  controls.target.copy(c);
+  const dy=parseFloat(__q.get('dy')||'0');            /* + moves the model DOWN in frame */
+  controls.target.y+=dy*(bb.max.y-bb.min.y);
+  const vHalf=camera.fov*Math.PI/360, hHalf=Math.atan(Math.tan(vHalf)*camera.aspect);
+  const tanV=Math.tan(vHalf), tanH=Math.tan(hHalf);
+  let need=0; const v=new THREE.Vector3();
+  device.traverse(o=>{ if(o.isMesh&&o.geometry){
+    if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();
+    const b=o.geometry.boundingBox;
+    for(let i=0;i<8;i++){
+      v.set(i&1?b.max.x:b.min.x, i&2?b.max.y:b.min.y, i&4?b.max.z:b.min.z).applyMatrix4(o.matrixWorld);
+      const rxz=Math.hypot(v.x-c.x, v.z-c.z);
+      const dv=rxz+Math.abs(v.y-controls.target.y)/tanV, dh=rxz+rxz/tanH;
+      if(dv>need){need=dv;window.__why='V rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}
+      if(dh>need){need=dh;window.__why='H rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}
+    }
+  }});
+  const dist=need*(parseFloat(__fit)||1);
+  const dir=camera.position.clone().sub(c).normalize();
+  camera.position.copy(controls.target).add(dir.multiplyScalar(dist));
+}else{
+  const __ty=__q.get('ty'); if(__ty!==null){ controls.target.y=parseFloat(__ty); }
+  const __zoom=parseFloat(__q.get('zoom')||'1');
+  if(__zoom!==1){ camera.position.sub(controls.target).multiplyScalar(__zoom).add(controls.target); }
+}
+const __mode=__q.get('mode')||'wireframe';
+modeEl.value=__mode; setMode(__mode);
+controls.enabled=false; const __sp=parseFloat(__q.get('spin')||'1.4'); controls.autoRotate=__sp>0; controls.autoRotateSpeed=__sp>0?__sp:1;
+(function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene,camera); })();
+
+let sentinelBaseDistance=0;
+const sentinelReady=()=>{ sentinelBaseDistance=camera.position.length(); parent.postMessage({channel:'sentinel',type:'scene-ready'},location.origin); };
+THREE.DefaultLoadingManager.onLoad=sentinelReady;
+THREE.DefaultLoadingManager.onError=()=>parent.postMessage({channel:'sentinel',type:'scene-error'},location.origin);
+window.SENTINEL_FRAME_API={command(data){
+  if(data.action==='progress'){window.SENTINEL_SCROLL_PROGRESS=Math.max(0,Math.min(1,data.value));}
+  if(data.action==='zoom'&&sentinelBaseDistance){camera.position.setLength(sentinelBaseDistance*(data.value?.72:1));}
+  if(data.action==='interactive'){controls.enabled=!!data.value;controls.enableZoom=false;controls.autoRotate=false;} if(data.action==='pointer'){camera.rotation.z=data.x*.006;}
+},dispose(){scene.traverse(o=>{o.geometry?.dispose();if(o.material){for(const m of [].concat(o.material))m.dispose();}});renderer.dispose();renderer.forceContextLoss();}};
+sentinelReady();
+</script>
+</body>
+</html>

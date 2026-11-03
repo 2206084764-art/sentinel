@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — The 24/7 Camera That Never Sleeps | Streamax</title>
+<meta name="description" content="Sentinel is the industry's first Always-on Video camera — forensic clarity at the power budget of a sensor. Guard parked trucks 24/7, up to 90 days, engine off.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050810;--bg-2:#080d17;--panel:rgba(255,255,255,.03);--line:rgba(255,255,255,.09);
+  --green:#2AF598;--blue:#009EFD;--amber:#FFC53D;--red:#FF3B30;
+  --white:#fff;--grey:#96A3B4;--grey-dim:rgba(150,163,180,.6);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --maxw:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:var(--font);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+section{scroll-margin-top:76px;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 6vw;}
+.grad{background:linear-gradient(120deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.eyebrow{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:1.1rem;}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--apple),transform 1s var(--apple);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}.reveal.d3{transition-delay:.24s;}.reveal.d4{transition-delay:.32s;}.reveal.d5{transition-delay:.4s;}
+
+/* scroll progress */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:120;background:linear-gradient(90deg,var(--green),var(--blue));box-shadow:0 0 10px rgba(42,245,152,.5);transition:width .1s linear;}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:66px;display:flex;align-items:center;
+  background:rgba(5,8,16,.55);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s;}
+nav.solid{background:rgba(5,8,16,.85);border-color:var(--line);}
+nav .wrap{display:flex;align-items:center;gap:.7rem;width:100%;}
+.navlinks{margin-left:auto;margin-right:auto;}
+.nav-cta{flex-shrink:0;}
+.brandgroup{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
+.brandgroup .smx{height:16px;width:auto;display:block;}
+.brandgroup::after{content:'';width:1px;height:20px;background:var(--line);order:1;}
+.brandgroup .smx{order:0;} .brandgroup .logo{order:2;}
+.logo{display:flex;align-items:center;gap:.45rem;font-weight:900;letter-spacing:.3px;font-size:.95rem;}
+.logo .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 12px rgba(42,245,152,.6);}
+.logo small{font-weight:700;font-size:.62rem;letter-spacing:.28em;color:var(--grey);text-transform:uppercase;margin-left:.2rem;}
+.navlinks{display:flex;gap:.7rem;align-items:center;white-space:nowrap;min-width:0;}
+.navlinks a{font-size:.76rem;}
+.navlinks a{font-size:.9rem;font-weight:600;color:var(--grey);transition:color .2s;position:relative;padding:.3rem 0;}
+.navlinks a:hover,.navlinks a.active{color:var(--white);}
+.navlinks a.active::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--blue));}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.92rem;border-radius:100px;padding:.8rem 1.5rem;cursor:pointer;border:1px solid transparent;transition:transform .2s var(--apple),box-shadow .3s,background .3s;white-space:nowrap;}
+.btn-primary{background:linear-gradient(120deg,var(--green),var(--blue));color:#04140c;box-shadow:0 8px 26px rgba(0,158,253,.28);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(0,158,253,.42);}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--white);}
+.btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-2px);}
+.nav-cta{padding:.58rem 1rem;font-size:.86rem;white-space:nowrap;}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:66px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('Images/hero-truck.jpg') center/cover no-repeat;opacity:.28;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 78% 30%,rgba(0,158,253,.16),transparent 55%),
+  linear-gradient(180deg,rgba(5,8,16,.55) 0%,rgba(5,8,16,.82) 55%,var(--bg) 100%),
+  linear-gradient(90deg,var(--bg) 8%,transparent 60%);}
+.hero-grid{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:46px 46px;mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 90%);}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;}
+.hero-copy{max-width:640px;}
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-size:.72rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;color:var(--grey);
+  border:1px solid var(--line);border-radius:100px;padding:.45rem 1rem;background:rgba(255,255,255,.02);margin-bottom:1.8rem;}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 2s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(2.6rem,6vw,4.7rem);font-weight:900;line-height:1.02;letter-spacing:-.03em;}
+.hero p.lead{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--grey);margin-top:1.6rem;max-width:560px;}
+.hero p.lead b{color:#fff;font-weight:600;}
+.hero-cta{display:flex;gap:1rem;margin-top:2.4rem;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:2.4rem;margin-top:3rem;flex-wrap:wrap;}
+.hstat .n{font-size:2rem;font-weight:900;letter-spacing:-.02em;}
+.hstat .l{font-size:.82rem;color:var(--grey);margin-top:.15rem;}
+.hero-product{position:relative;display:flex;justify-content:center;align-items:center;}
+.hero-product .halo{position:absolute;width:115%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(0,158,253,.22),rgba(42,245,152,.06) 45%,transparent 70%);filter:blur(6px);animation:breathe 6s ease-in-out infinite;}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}
+.hero-product img{position:relative;width:88%;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(0,158,253,.15));animation:float 7s ease-in-out infinite;}
+.hero-product iframe{position:relative;width:100%;aspect-ratio:1;border:0;background:transparent;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;color:var(--grey-dim);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.scrollcue .m{width:22px;height:34px;border:1px solid var(--line);border-radius:12px;position:relative;}
+.scrollcue .m::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:7px;border-radius:3px;background:var(--green);animation:mouse 1.6s ease infinite;}
+@keyframes mouse{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+
+/* generic section */
+.sec{padding:clamp(5rem,10vw,9rem) 0;position:relative;}
+.sec-head{max-width:760px;margin-bottom:3.4rem;}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+h2{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-.025em;line-height:1.08;}
+.sec-head p{color:var(--grey);font-size:clamp(1rem,1.4vw,1.15rem);margin-top:1.2rem;}
+
+/* problem */
+.problem{background:linear-gradient(180deg,var(--bg),#0a0e18 50%,var(--bg));}
+.prob-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.4rem;align-items:center;}
+.prob-media{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.5);aspect-ratio:16/10;background:#000;}
+.prob-media video{width:100%;height:100%;object-fit:cover;opacity:.9;}
+.prob-media .tag{position:absolute;top:14px;left:14px;font-size:.7rem;letter-spacing:.15em;font-weight:800;text-transform:uppercase;color:#fff;background:rgba(255,59,48,.85);padding:.4rem .8rem;border-radius:6px;display:flex;align-items:center;gap:.4rem;}
+.prob-media .tag i{width:7px;height:7px;border-radius:50%;background:#fff;animation:blink 1.4s infinite;}
+.prob-media .ts{position:absolute;bottom:14px;right:14px;font-family:ui-monospace,monospace;font-size:.8rem;color:rgba(255,255,255,.8);background:rgba(0,0,0,.5);padding:.25rem .6rem;border-radius:5px;}
+/* intent-aware AI video showcase */
+.intent{background:linear-gradient(180deg,var(--bg),#080d17 50%,var(--bg));}
+.intent-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:3.4rem;align-items:center;}
+.intent-media{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.5);aspect-ratio:16/9;background:#000;cursor:pointer;}
+.intent-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1;}
+.intent-media .poster{position:absolute;inset:0;background:url('Images/ai-still.jpg') center/cover;filter:brightness(.82);transition:opacity .7s ease;z-index:2;}
+.intent-media .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:2px solid rgba(255,255,255,.8);background:rgba(5,8,16,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;padding-left:5px;z-index:3;transition:opacity .5s ease,transform .3s ease;}
+.intent-media:hover .play{transform:translate(-50%,-50%) scale(1.07);}
+.intent-media.on .poster,.intent-media.on .play{opacity:0;pointer-events:none;}
+.intent-media.loading .play{animation:ipulse 1s ease infinite;}
+@keyframes ipulse{0%,100%{opacity:1}50%{opacity:.35}}
+.intent-media .tag{position:absolute;top:14px;left:14px;z-index:4;font-size:.7rem;letter-spacing:.15em;font-weight:800;text-transform:uppercase;color:#04121a;background:var(--green,#2AF598);padding:.4rem .8rem;border-radius:6px;display:flex;align-items:center;gap:.4rem;transition:background .3s;}
+.intent-media .tag.alert{background:#FF3B30;color:#fff;}
+.intent-demo{display:flex;flex-direction:column;gap:1rem;}
+.intent-media .loadmsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;font-size:.85rem;letter-spacing:.08em;color:rgba(255,255,255,.75);opacity:0;transition:opacity .3s;}
+.intent-media.loading .loadmsg{opacity:1;}
+.intent-media.loading .play{opacity:0;}
+.intent-media.on .poster,.intent-media.on .play,.intent-media.on .loadmsg{opacity:0;pointer-events:none;}
+.demo-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;}
+.dbtn{font:inherit;font-size:.9rem;font-weight:800;padding:.65rem 1.2rem;border-radius:100px;cursor:pointer;
+  border:1px solid rgba(42,245,152,.45);background:rgba(42,245,152,.08);color:#2AF598;transition:all .25s;}
+.dbtn:hover:not(:disabled){background:rgba(42,245,152,.18);transform:translateY(-1px);}
+.dbtn.danger{border-color:rgba(255,59,48,.45);background:rgba(255,59,48,.08);color:#FF6B5E;}
+.dbtn.danger:hover:not(:disabled){background:rgba(255,59,48,.18);}
+.dbtn:disabled{opacity:.35;cursor:default;}
+.dbtn.active{box-shadow:0 0 0 2px rgba(42,245,152,.35);}
+.dbtn.danger.active{box-shadow:0 0 0 2px rgba(255,59,48,.4);}
+.dhint{font-size:.82rem;color:var(--grey);}
+.intent-rows{margin-top:2.4rem;display:flex;flex-direction:column;gap:1.1rem;}
+.irow.act{cursor:pointer;border-radius:12px;padding:.5rem;margin:-.5rem;transition:background .25s;}
+.irow.act:hover{background:rgba(255,255,255,.04);}
+.irow.act:focus-visible{outline:2px solid rgba(42,245,152,.6);outline-offset:2px;}
+.irow{display:flex;align-items:flex-start;gap:1rem;}
+.irow .dot{flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;margin-top:2px;}
+.irow.no .dot{color:var(--grey);border:1px solid rgba(160,174,192,.4);background:rgba(160,174,192,.08);}
+.irow.yes .dot{color:#04121a;background:linear-gradient(135deg,#2AF598,#009EFD);}
+.irow .tx b{display:block;font-size:1.02rem;font-weight:800;color:#fff;}
+.irow .tx span{display:block;font-size:.94rem;color:var(--grey);margin-top:.2rem;line-height:1.45;}
+@media(max-width:860px){.intent-grid{grid-template-columns:1fr;}}
+.bigstat{font-size:clamp(3.4rem,8vw,5.6rem);font-weight:900;letter-spacing:-.03em;line-height:1;}
+.statcards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem;}
+.statcard{border:1px solid var(--line);border-radius:14px;padding:1.4rem;background:var(--panel);}
+.statcard .k{font-size:1.6rem;font-weight:900;}
+.statcard .v{font-size:.85rem;color:var(--grey);margin-top:.4rem;}
+
+/* answer */
+.answer{background:radial-gradient(90% 60% at 50% 0%,rgba(0,158,253,.07),transparent 60%);}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1rem;}
+.pillar{border:1px solid var(--line);border-radius:18px;padding:2.2rem;background:var(--panel);position:relative;overflow:hidden;transition:transform .3s var(--apple),border-color .3s;}
+.pillar:hover{transform:translateY(-4px);border-color:rgba(42,245,152,.4);}
+.pillar .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(42,245,152,.1);border:1px solid rgba(42,245,152,.3);margin-bottom:1.2rem;}
+.pillar .ic svg{width:24px;height:24px;stroke:var(--green);fill:none;stroke-width:1.8;}
+.pillar h3{font-size:1.4rem;font-weight:800;}
+.pillar p{color:var(--grey);margin-top:.7rem;font-size:.98rem;}
+.pillar b{color:var(--green);}
+
+/* 3D showcase */
+.showcase{position:relative;}
+.showcase .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem;align-items:center;}
+.frame3d{position:relative;aspect-ratio:1/1;width:100%;max-width:560px;margin:0 auto;}
+.frame3d iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;}
+.frame3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 24px 50px rgba(0,0,0,.55));animation:float 7s ease-in-out infinite;}
+.frame3d .ring{position:absolute;inset:8%;border:1px dashed rgba(255,255,255,.08);border-radius:50%;animation:spin 60s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.frame3d .load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--grey-dim);font-size:.85rem;letter-spacing:.1em;}
+.specrow{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem;}
+.chip{border:1px solid var(--line);border-radius:100px;padding:.5rem 1rem;font-size:.82rem;color:var(--grey);background:var(--panel);}
+.chip b{color:#fff;}
+
+/* features */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.fcard{border:1px solid var(--line);border-radius:18px;padding:2rem;background:var(--panel);transition:transform .3s var(--apple),border-color .3s,background .3s;position:relative;overflow:hidden;}
+.fcard::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 0% 0%,rgba(42,245,152,.08),transparent 55%);opacity:0;transition:opacity .35s;}
+.fcard:hover{transform:translateY(-6px);border-color:rgba(0,158,253,.4);}
+.fcard:hover::before{opacity:1;}
+.fcard .ic{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(42,245,152,.14),rgba(0,158,253,.1));border:1px solid var(--line);margin-bottom:1.3rem;position:relative;}
+.fcard .ic svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.fcard h3{font-size:1.28rem;font-weight:800;position:relative;}
+.fcard p{color:var(--grey);margin-top:.7rem;font-size:.95rem;position:relative;}
+.fcard .metric{margin-top:1.2rem;font-size:.82rem;font-weight:700;color:var(--blue);letter-spacing:.02em;position:relative;}
+
+/* night vision */
+.night{background:linear-gradient(180deg,var(--bg),#05070e);}
+.nv{display:grid;grid-template-columns:1fr;gap:2rem;}
+.nv-stage{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/8;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6);}
+.nv-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease;}
+.nv-stage img.show{opacity:1;}
+.nv-stage .lux{position:absolute;top:16px;left:16px;font-family:ui-monospace,monospace;font-size:.78rem;letter-spacing:.1em;color:rgba(255,255,255,.75);background:rgba(0,0,0,.45);padding:.35rem .7rem;border-radius:6px;border:1px solid rgba(255,255,255,.12);}
+.nv-caption{position:absolute;bottom:18px;left:18px;right:18px;}
+.nv-caption .who{font-size:1.15rem;font-weight:800;}
+.nv-caption .what{font-size:.9rem;color:var(--grey);margin-top:.2rem;}
+.nv-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.nv-tab{border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.3rem;background:var(--panel);cursor:pointer;transition:border-color .25s,background .25s,transform .2s;text-align:left;color:var(--white);font-family:inherit;}
+.nv-tab:hover{transform:translateY(-3px);}
+.nv-tab.active{border-color:var(--green);background:rgba(42,245,152,.06);}
+.nv-tab .t{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:.5rem;}
+.nv-tab .t .d{width:9px;height:9px;border-radius:50%;background:var(--grey);}
+.nv-tab.active .t .d{background:var(--green);box-shadow:0 0 10px var(--green);}
+.nv-tab .s{font-size:.85rem;color:var(--grey);margin-top:.4rem;}
+
+/* specs */
+
+/* cta / contact */
+.cta{position:relative;overflow:hidden;background:radial-gradient(80% 120% at 50% 0%,rgba(0,158,253,.14),transparent 60%);}
+form{display:grid;gap:.9rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+input,select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;padding:.9rem 1rem;color:#fff;font-family:inherit;font-size:.95rem;transition:border-color .2s,background .2s;}
+input::placeholder{color:var(--grey-dim);}
+input:focus,select:focus{outline:none;border-color:var(--green);background:rgba(42,245,152,.05);}
+select{appearance:none;cursor:pointer;color:var(--grey);}
+form .btn-primary{justify-content:center;padding:1rem;font-size:1rem;}
+
+/* downloads */
+.downloads{background:linear-gradient(180deg,var(--bg),#070b14);}
+.dl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;}
+@media(max-width:1200px){.dl-grid{grid-template-columns:repeat(2,1fr);}}
+.dl-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;padding:1.9rem;background:var(--panel);transition:transform .3s var(--apple),border-color .3s,background .3s;}
+.dl-card:hover{transform:translateY(-5px);border-color:rgba(0,158,253,.4);background:rgba(255,255,255,.045);}
+.dl-card .ic{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(42,245,152,.14),rgba(0,158,253,.1));border:1px solid var(--line);margin-bottom:1.3rem;}
+.dl-card .ic svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.dl-card h3{font-size:1.22rem;font-weight:800;}
+.dl-card p{color:var(--grey);margin-top:.5rem;font-size:.92rem;flex:1;}
+.dl-meta{display:flex;align-items:center;gap:.6rem;margin-top:1.2rem;font-size:.75rem;letter-spacing:.06em;color:var(--grey-dim);text-transform:uppercase;font-weight:700;}
+.dl-meta .pill{border:1px solid var(--line);border-radius:6px;padding:.2rem .55rem;}
+.dl-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;margin-top:1.4rem;font-weight:700;font-size:.92rem;border-radius:100px;padding:.8rem 1.3rem;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);color:#fff;transition:background .25s,border-color .25s,transform .2s;}
+.dl-btn:hover{background:linear-gradient(120deg,var(--green),var(--blue));color:#04140c;border-color:transparent;transform:translateY(-2px);}
+.dl-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:2.6rem 0;}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+footer .muted{color:var(--grey-dim);font-size:.82rem;}
+.trustbar{display:flex;gap:2rem;flex-wrap:wrap;align-items:center;justify-content:center;opacity:.75;margin-top:2.5rem;}
+.trustbar span{font-size:.8rem;color:var(--grey);letter-spacing:.05em;display:flex;align-items:center;gap:.5rem;}
+.trustbar svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2;}
+
+@media(max-width:900px){
+  .navlinks{display:none;}
+  .hero .wrap{grid-template-columns:1fr;gap:1.5rem;}
+  .hero-product{order:-1;max-width:340px;margin:0 auto;}
+  .prob-grid,.showcase .wrap{grid-template-columns:1fr;gap:2rem;}
+  .pillars,.feat-grid,.nv-tabs,.statcards,.dl-grid{grid-template-columns:1fr;}
+  .feat-grid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+}
+@media(min-width:901px) and (max-width:1150px){
+  .feat-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ---- the clarity x efficiency quadrant (ported from the keynote) ---- */
+.gapsec .quad{position:relative;width:100%;max-width:1040px;margin:3.2rem auto 0;aspect-ratio:108/47;}
+.gapsec .q-line-y{position:absolute;left:0;bottom:0;top:0;width:2px;background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.18));transform-origin:bottom;transform:scaleY(0);transition:transform 1s var(--apple,cubic-bezier(.16,1,.3,1)) .2s;}
+.gapsec .q-line-y::after{content:'';position:absolute;top:-1px;left:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid rgba(255,255,255,.55);}
+.gapsec .q-line-x{position:absolute;left:0;bottom:0;right:0;height:2px;background:linear-gradient(to right,rgba(255,255,255,.55),rgba(255,255,255,.18));transform-origin:left;transform:scaleX(0);transition:transform 1s var(--apple,cubic-bezier(.16,1,.3,1)) .2s;}
+.gapsec .q-line-x::after{content:'';position:absolute;right:-1px;top:-5px;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid rgba(255,255,255,.55);}
+.gapsec .quad.in .q-line-y{transform:scaleY(1);}
+.gapsec .quad.in .q-line-x{transform:scaleX(1);}
+.gapsec .q-ylab{position:absolute;left:-2.2rem;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:.72rem;letter-spacing:.2em;font-weight:700;color:var(--grey);white-space:nowrap;opacity:0;transition:opacity .8s ease .8s;}
+.gapsec .q-xlab{position:absolute;bottom:-2rem;left:50%;transform:translateX(-50%);font-size:.72rem;letter-spacing:.2em;font-weight:700;color:var(--grey);white-space:nowrap;opacity:0;transition:opacity .8s ease .8s;}
+.gapsec .q-hi-y{position:absolute;left:.9rem;top:-.2rem;font-size:.62rem;letter-spacing:.15em;color:var(--grey-dim);opacity:0;transition:opacity .8s ease 1s;}
+.gapsec .q-hi-x{position:absolute;right:-.2rem;bottom:1rem;font-size:.62rem;letter-spacing:.15em;color:var(--grey-dim);opacity:0;transition:opacity .8s ease 1s;}
+.gapsec .quad.in .q-ylab,.gapsec .quad.in .q-xlab,.gapsec .quad.in .q-hi-y,.gapsec .quad.in .q-hi-x{opacity:1;}
+.gapsec .q-mid-v{position:absolute;left:50%;top:1rem;bottom:1rem;border-left:1px dashed rgba(255,255,255,.13);opacity:0;transition:opacity .8s ease .7s;}
+.gapsec .q-mid-h{position:absolute;top:50%;left:1rem;right:1rem;border-top:1px dashed rgba(255,255,255,.13);opacity:0;transition:opacity .8s ease .7s;}
+.gapsec .quad.in .q-mid-v,.gapsec .quad.in .q-mid-h{opacity:1;}
+.gapsec .qc{position:absolute;width:50%;height:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gapsec .qc.tl{left:0;top:0;} .gapsec .qc.tr{right:0;top:0;}
+.gapsec .qc.bl{left:0;bottom:0;} .gapsec .qc.br{right:0;bottom:0;}
+.gapsec .qc iframe{width:82%;height:74%;border:0;pointer-events:none;background:transparent;transform:translateY(-1.1rem);}
+.gapsec .qc .cap{display:flex;align-items:baseline;gap:.6rem;font-size:.72rem;font-weight:800;letter-spacing:.06em;padding:.4rem 1rem;border-radius:30px;border:1px solid;margin-top:-.6rem;white-space:nowrap;}
+.gapsec .qc .cap small{font-weight:600;letter-spacing:.01em;font-size:.66rem;color:rgba(255,255,255,.65);}
+.gapsec .qc.tl .cap{color:var(--blue);border-color:rgba(0,158,253,.5);background:rgba(0,158,253,.07);}
+.gapsec .qc.br .cap{color:var(--red);border-color:rgba(255,59,48,.5);background:rgba(255,59,48,.07);}
+.gapsec .gapbox{width:72%;height:66%;border:2px dashed rgba(42,245,152,.5);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;animation:gapglow 2.4s ease infinite;}
+@keyframes gapglow{0%,100%{box-shadow:0 0 0 rgba(42,245,152,0);border-color:rgba(42,245,152,.4)}50%{box-shadow:0 0 34px rgba(42,245,152,.22);border-color:rgba(42,245,152,.75)}}
+.gapsec .gapbox .g1{font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:900;letter-spacing:-.02em;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gapsec .gapbox .g2{font-size:.74rem;color:rgba(255,255,255,.7);text-align:center;line-height:1.4;max-width:22rem;padding:0 .6rem;}
+.gapsec .qc.bl .dead{font-size:.68rem;letter-spacing:.1em;color:rgba(160,174,192,.4);border:1px dashed rgba(255,255,255,.12);border-radius:12px;padding:.7rem 1.2rem;text-align:center;}
+.gapsec .gap-foot{margin-top:3.6rem;text-align:center;font-size:clamp(1.1rem,2vw,1.4rem);font-weight:700;font-style:italic;color:#fff;}
+.gapsec .gap-foot b{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;}
+@media(max-width:760px){
+  .gapsec .quad{aspect-ratio:1/1.05;}
+  .gapsec .qc iframe{width:92%;height:64%;}
+  .gapsec .gapbox .g2,.gapsec .qc .cap small{display:none;}
+}
+
+/* ---- where it mounts (ported from the keynote) ---- */
+.mountsec{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg),#080d17 45%,var(--bg));min-height:min(88vh,760px);display:flex;align-items:center;}
+.mount-grid{position:relative;z-index:2;width:100%;pointer-events:none;}
+/* the copy column overlays the model, so let drags fall through to the canvas
+   and re-arm pointer events only on the things that are actually interactive */
+.mountsec .wrap{pointer-events:none;}
+.mount-copy,.mount-toggles,.mount-copy a,.mount-toggles .mbtn{pointer-events:auto;}
+/* the model owns the whole right side — no frame, no window edge */
+.mount-stage{position:absolute;inset:0;left:40%;z-index:1;pointer-events:auto;}
+.mount-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;}
+.mount-stage .mload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:var(--grey-dim);font-size:.85rem;letter-spacing:.1em;}
+.mount-copy{max-width:46%;}
+.mount-facts{display:flex;gap:1.6rem;margin-top:2rem;flex-wrap:wrap;}
+.mount-facts b{display:block;font-size:1.15rem;font-weight:900;
+  background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.mount-facts span{display:block;font-size:.86rem;color:var(--grey);margin-top:.3rem;line-height:1.4;}
+@media(max-width:860px){.mountsec{min-height:0;padding-bottom:0;}.mount-stage{position:relative;inset:auto;left:auto;width:100%;aspect-ratio:16/11;margin-top:2rem;}.mount-copy{max-width:100%;}}
+
+/* ---- real case sharing ---- */
+.cases{background:linear-gradient(180deg,var(--bg),#080d17 50%,var(--bg));}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;}
+.case{margin:0;}
+.case-media{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#05080f;aspect-ratio:16/9;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.case-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.case-tag{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:.4rem;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(255,59,48,.85);padding:.35rem .7rem;border-radius:6px;}
+.case-tag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.4s infinite;}
+.case figcaption{margin-top:1.1rem;}
+.case figcaption > b{display:block;font-size:1.05rem;font-weight:800;color:#fff;}
+.case figcaption span{display:block;font-size:.9rem;color:var(--grey);margin-top:.4rem;line-height:1.5;}
+@media(max-width:820px){.case-grid{grid-template-columns:1fr;}}
+
+/* ---- entry loader ---- */
+#boot{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:2rem;
+  transition:opacity .7s ease,visibility .7s;}
+#boot.done{opacity:0;visibility:hidden;}
+#boot .bmark{display:flex;align-items:center;gap:.7rem;font-weight:900;letter-spacing:.16em;font-size:1.05rem;color:#fff;}
+#boot .bmark i{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));
+  box-shadow:0 0 16px rgba(42,245,152,.7);animation:bootpulse 1.5s ease-in-out infinite;}
+@keyframes bootpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+#boot .bmark small{font-weight:600;letter-spacing:.1em;font-size:.62rem;color:var(--grey-dim);}
+#boot .fact{margin-top:3.2rem;max-width:640px;min-height:8.5rem;}
+#boot .fact .k{font-size:.68rem;font-weight:800;letter-spacing:.3em;color:var(--green);}
+#boot .fact .t{margin-top:1.1rem;font-size:clamp(1.15rem,2.6vw,1.7rem);font-weight:700;line-height:1.4;color:#fff;
+  opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
+#boot .fact .t.in{opacity:1;transform:none;}
+#boot .fact .t b{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+#boot .bar{margin-top:3rem;width:min(360px,72vw);height:3px;border-radius:3px;background:rgba(255,255,255,.09);overflow:hidden;}
+#boot .bar i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .45s ease;}
+#boot .pct{margin-top:.9rem;font-size:.72rem;letter-spacing:.18em;color:var(--grey-dim);font-variant-numeric:tabular-nums;}
+body.booting{overflow:hidden;}
+
+/* IoT synergies — copy left, live truck right (same shape as the install section) */
+.iotsec{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg),#070c15 45%,var(--bg));min-height:min(92vh,820px);display:flex;align-items:center;}
+.iotsec .wrap{width:100%;pointer-events:none;}
+.iot-grid{position:relative;z-index:2;width:100%;pointer-events:none;}
+.iot-copy,.iot-toggles,.iot-copy a,.iot-toggles .mbtn{pointer-events:auto;}
+.iot-copy{max-width:42%;}
+.iot-stage{position:absolute;inset:0;left:44%;z-index:1;pointer-events:auto;}
+.iot-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;}
+.iot-sensors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.5rem;margin-top:2rem;max-width:480px;}
+.iot-sensors > div{position:relative;padding-left:1.15rem;}
+.iot-sensors i{position:absolute;left:0;top:.45rem;width:.5rem;height:.5rem;border-radius:50%;
+  background:var(--c);box-shadow:0 0 .6rem var(--c);}
+.iot-sensors b{display:block;font-size:.95rem;font-weight:800;color:#fff;}
+.iot-sensors span{display:block;font-size:.8rem;color:var(--grey);margin-top:.15rem;line-height:1.4;}
+.iot-foot{font-size:.92rem;color:var(--grey);line-height:1.6;margin-top:1.8rem;max-width:460px;
+  border-left:2px solid rgba(42,245,152,.35);padding-left:1rem;}
+.iot-foot b{color:var(--green);}
+@media(max-width:860px){
+  .iotsec{min-height:0;padding-bottom:0;}
+  .iot-stage{position:relative;inset:auto;left:auto;width:100%;aspect-ratio:16/11;margin-top:2rem;}
+  .iot-copy{max-width:100%;}
+  .iot-sensors{grid-template-columns:1fr;}
+}
+.iot-toggles{position:relative;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-top:2.2rem;}
+@media(max-width:860px){.iot-toggles{margin-top:1.4rem;}}
+.mount-toggles{position:relative;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-top:2.2rem;}
+.mbtn{font:inherit;font-size:.85rem;font-weight:800;padding:.6rem 1.1rem;border-radius:100px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:var(--grey);transition:all .25s;}
+.mbtn:hover{color:#fff;border-color:rgba(42,245,152,.45);}
+.mbtn.on{color:#04121a;border-color:transparent;background:linear-gradient(135deg,var(--green),var(--blue));}
+.mhint{font-size:.78rem;color:var(--grey-dim);}
+@media(max-width:860px){.mount-toggles{margin-top:1.4rem;}}
+
+/* ---- alerts on your phone (pure CSS device, no image) ---- */
+.alerts{background:linear-gradient(180deg,var(--bg),#080d17 45%,var(--bg));}
+.alert-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.6rem;align-items:center;}
+.alert-steps{margin-top:2.2rem;display:flex;flex-direction:column;gap:1.15rem;}
+.astep{display:flex;align-items:flex-start;gap:1rem;}
+.astep .n{flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:900;color:#04121a;background:linear-gradient(135deg,var(--green),var(--blue));margin-top:2px;}
+.astep .tx b{display:block;font-size:1.02rem;font-weight:800;color:#fff;}
+.astep .tx span{display:block;font-size:.92rem;color:var(--grey);margin-top:.2rem;line-height:1.45;}
+.alert-cta{margin-top:2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
+.abtn{font:inherit;font-size:.9rem;font-weight:800;padding:.7rem 1.35rem;border-radius:100px;cursor:pointer;
+  border:0;color:#04121a;background:linear-gradient(135deg,var(--green),var(--blue));transition:transform .2s;}
+.abtn:hover{transform:translateY(-2px);}
+.ahint{font-size:.82rem;color:var(--grey-dim);}
+
+/* the device */
+.phone-wrap{display:flex;justify-content:center;}
+.phone{position:relative;width:300px;aspect-ratio:9/19.2;border-radius:46px;cursor:pointer;
+  background:linear-gradient(160deg,#2a3240,#0d1118 42%,#232b38);
+  padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.07);}
+.phone::after{content:'';position:absolute;left:50%;bottom:9px;transform:translateX(-50%);
+  width:104px;height:4px;border-radius:4px;background:rgba(255,255,255,.32);z-index:6;}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 0%,#16283c 0%,#0a0f18 55%,#05080f 100%);}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:86px;height:25px;
+  border-radius:14px;background:#000;z-index:5;}
+.lock{position:absolute;top:52px;left:0;right:0;text-align:center;}
+.lock .day{font-size:.76rem;color:rgba(255,255,255,.62);letter-spacing:.04em;}
+.lock .clock{font-size:3.6rem;font-weight:300;color:#fff;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+.notes{position:absolute;left:11px;right:11px;top:170px;display:flex;flex-direction:column;gap:9px;}
+.note{display:flex;gap:9px;padding:.65rem .7rem;border-radius:17px;
+  background:rgba(232,240,252,.13);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(14px);
+  opacity:0;transform:translateY(26px) scale(.95);}
+.phone.on .note{animation:noteIn .62s cubic-bezier(.16,1,.3,1) forwards;}
+.phone.on .note:nth-child(1){animation-delay:.05s;}
+.phone.on .note:nth-child(2){animation-delay:.55s;}
+.phone.on .note:nth-child(3){animation-delay:1.15s;}
+@keyframes noteIn{to{opacity:1;transform:none;}}
+.note .ni{flex-shrink:0;width:31px;height:31px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:.82rem;font-weight:900;color:#04121a;background:linear-gradient(135deg,var(--green),var(--blue));}
+.note.warn .ni{background:linear-gradient(135deg,#FF6B5E,#FF3B30);color:#fff;}
+.note .nb{min-width:0;flex:1;}
+.note .nt{display:flex;justify-content:space-between;gap:.4rem;font-size:.66rem;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.note .nt em{font-style:normal;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:0;text-transform:none;}
+.note .nh{font-size:.8rem;font-weight:700;color:#fff;margin-top:.18rem;line-height:1.25;}
+.note .np{font-size:.74rem;color:rgba(255,255,255,.66);margin-top:.1rem;line-height:1.3;}
+.note .thumb{margin-top:.42rem;height:52px;border-radius:9px;background-size:cover;background-position:center;
+  border:1px solid rgba(255,255,255,.16);position:relative;}
+.note .thumb::after{content:'▶';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:.62rem;color:#fff;background:rgba(0,0,0,.5);width:19px;height:19px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;}
+.tapme{position:absolute;left:0;right:0;bottom:58px;text-align:center;font-size:.72rem;
+  color:rgba(255,255,255,.42);letter-spacing:.1em;transition:opacity .4s;}
+.phone.on .tapme{opacity:0;}
+@media(max-width:900px){.alert-grid{grid-template-columns:1fr;}.phone{width:270px;}}
+
+/* ---- language switcher (far right of the header) ---- */
+.langsw{position:relative;flex-shrink:0;margin-left:.4rem;}
+@media(max-width:1080px){.navlinks{display:none;}}
+.lang-btn{display:flex;align-items:center;gap:.4rem;font:inherit;font-size:.82rem;font-weight:800;
+  padding:.5rem .8rem;border-radius:100px;cursor:pointer;color:var(--grey);
+  border:1px solid var(--line);background:rgba(255,255,255,.03);transition:all .2s;}
+.lang-btn:hover{color:#fff;border-color:rgba(42,245,152,.45);}
+.lang-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6;}
+.lang-menu{position:absolute;top:calc(100% + .5rem);right:0;min-width:172px;padding:.35rem;
+  border-radius:14px;border:1px solid var(--line);background:rgba(10,15,24,.97);backdrop-filter:blur(16px);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .2s,transform .2s,visibility .2s;z-index:120;}
+.langsw.open .lang-menu{opacity:1;visibility:visible;transform:none;}
+.lang-opt{display:flex;align-items:center;gap:.6rem;width:100%;font:inherit;font-size:.88rem;font-weight:600;
+  text-align:left;padding:.55rem .7rem;border:0;border-radius:9px;cursor:pointer;
+  background:transparent;color:var(--grey);transition:background .18s,color .18s;}
+.lang-opt:hover{background:rgba(255,255,255,.06);color:#fff;}
+.lang-opt.on{color:var(--green);}
+.lang-opt .lf{font-size:.68rem;font-weight:800;letter-spacing:.06em;min-width:22px;color:var(--grey-dim);}
+.lang-opt.on .lf{color:var(--green);}
+html[dir="rtl"] .lang-menu{right:auto;left:0;}
+html[dir="rtl"] .lang-opt{text-align:right;}
+html[dir="rtl"] .langsw{margin-left:0;margin-right:.9rem;}
+/* absolute placements don't mirror on their own */
+html[dir="rtl"] .mount-stage{left:auto;right:40%;}
+html[dir="rtl"] .iot-stage{left:auto;right:44%;}
+html[dir="rtl"] .iot-copy{margin-left:auto;}
+html[dir="rtl"] .iot-sensors > div{padding-left:0;padding-right:1.15rem;}
+html[dir="rtl"] .iot-sensors i{left:auto;right:0;}
+html[dir="rtl"] .iot-foot{border-left:0;border-right:2px solid rgba(42,245,152,.35);padding-left:0;padding-right:1rem;}
+html[dir="rtl"] .mount-copy{margin-left:auto;}
+html[dir="rtl"] .q-ylab{left:auto;right:-2.2rem;}
+html[dir="rtl"] .note,html[dir="rtl"] .astep,html[dir="rtl"] .irow{text-align:right;}
+/* Arabic reads better with a touch more line height */
+html[lang="ar"] body{line-height:1.75;}
+html[lang="ar"] .h1,html[lang="ar"] h1,html[lang="ar"] h2{line-height:1.35;}
+</style>
+</head>
+<body class="booting">
+<script>if('scrollRestoration' in history) history.scrollRestoration='manual';</script>
+<div id="boot">
+  <div class="bmark"><i></i>SENTINEL<small>BY STREAMAX</small></div>
+  <div class="fact">
+    <div class="k">DO YOU KNOW?</div>
+    <div class="t" id="bootFact"></div>
+  </div>
+  <div class="bar"><i id="bootBar"></i></div>
+  <div class="pct" id="bootPct">PREPARING · 0%</div>
+</div>
+<div id="prog"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#hero" class="brandgroup">
+      <img class="smx" src="Images/streamax.png" alt="Streamax">
+      <span class="logo"><span class="dot"></span>SENTINEL</span>
+    </a>
+    <div class="navlinks">
+      <a href="#problem">The Challenge &amp; Answer</a>
+      <a href="#features">Features</a>
+      <a href="#intent">Intent AI</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#iot">IoT</a>
+      <a href="#cases">Cases</a>
+      <a href="#downloads">Docs</a>
+    </div>
+    <div class="langsw" id="langsw">
+      <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choose language">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg>
+        <span id="langCur">EN</span></button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button class="lang-opt on" role="menuitem" data-lang="en" lang="en"><span class="lf">EN</span>English</button>
+        <button class="lang-opt" role="menuitem" data-lang="es" lang="es"><span class="lf">ES</span>Español</button>
+        <button class="lang-opt" role="menuitem" data-lang="pt" lang="pt"><span class="lf">PT</span>Português</button>
+        <button class="lang-opt" role="menuitem" data-lang="fr" lang="fr"><span class="lf">FR</span>Français</button>
+        <button class="lang-opt" role="menuitem" data-lang="it" lang="it"><span class="lf">IT</span>Italiano</button>
+        <button class="lang-opt" role="menuitem" data-lang="ar" lang="ar"><span class="lf">AR</span>العربية</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="badge"><i></i> Always recording · engine on or off</div>
+      <h1>The camera that <span class="grad">never sleeps.</span></h1>
+      <p class="lead">Sentinel is the industry's first <b>Always-on Video camera</b> — purpose-built to guard parked trucks. The forensic clarity of a camera at the power budget of a sensor. Engine off, still watching, <b>for up to 90 days.</b></p>
+      <div class="hero-cta">
+        <a href="https://www.streamax.com/category/contactform.html" target="_blank" rel="noopener" class="btn btn-primary">Request a demo →</a>
+        <a href="#install" class="btn btn-ghost">See Installation</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n grad"><span class="count" data-to="400" data-suffix=" mW">0</span></div><div class="l">Typical AOV power draw</div></div>
+        <div class="hstat"><div class="n grad"><span class="count" data-to="90" data-suffix="-day">0</span></div><div class="l">Standby on the truck's battery</div></div>
+        <div class="hstat"><div class="n grad"><span class="count" data-to="0.02" data-dec="2" data-suffix=" lux">0</span></div><div class="l">Full-color night vision</div></div>
+      </div>
+    </div>
+    <div class="hero-product">
+      <div class="halo"></div>
+      <iframe id="heroModel" data-src="3D/sentinel-only.html" data-preload scrolling="no" title="Sentinel 24/7 AOV camera — rotating 3D model" loading="lazy"></iframe>
+    </div>
+  </div>
+  <div class="scrollcue"><div class="m"></div>Scroll</div>
+</header>
+
+<!-- PROBLEM -->
+<section class="sec problem" id="problem">
+  <div class="wrap">
+    <div class="prob-grid">
+      <div>
+        <div class="eyebrow reveal">The problem</div>
+        <div class="bigstat reveal d1"><span class="grad">$<span class="count" data-to="35" data-suffix="B">0</span></span></div>
+        <h2 class="reveal d1" style="margin-top:.4rem;">lost to fuel &amp; cargo theft every year.</h2>
+        <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.2rem;max-width:520px;">It happens where you can't see it — in dark yards, overnight, with the engine off and the dashcam asleep. By the time anyone notices, the fuel is gone and the footage is useless.</p>
+        <div class="statcards reveal d3">
+          <div class="statcard"><div class="k grad">Overnight</div><div class="v">When most theft happens — parked, unattended, dark.</div></div>
+          <div class="statcard"><div class="k grad">Engine off</div><div class="v">Traditional cameras power down and stop recording.</div></div>
+          <div class="statcard"><div class="k grad">No evidence</div><div class="v">Grainy or black footage that won't hold up in court.</div></div>
+        </div>
+      </div>
+      <div class="prob-media reveal d2">
+        <video id="problemVid" src="Videos/theft-cctv.mp4" autoplay muted loop playsinline preload="auto" poster="Images/hero-truck.jpg"></video>
+        <div class="tag"><i></i>CCTV · FUEL THEFT</div>
+        <div class="ts">02:14 AM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANSWER — the clarity x efficiency gap -->
+<section class="sec answer gapsec" id="answer">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow reveal">The answer</div>
+      <h2 class="reveal d1">Two technologies. <span class="grad">Two blind spots.</span></h2>
+      <p class="reveal d2">Every option on the market forces the same trade-off: see clearly, or last the night. Plot them and the hole is obvious — nothing lived in the top-right corner, so we built for it.</p>
+    </div>
+
+    <div class="quad reveal">
+      <div class="q-line-y"></div>
+      <div class="q-line-x"></div>
+      <div class="q-mid-v"></div>
+      <div class="q-mid-h"></div>
+      <div class="q-ylab">FORENSIC CLARITY</div>
+      <div class="q-xlab">POWER EFFICIENCY</div>
+      <div class="q-hi-y">HIGH</div>
+      <div class="q-hi-x">HIGH</div>
+
+      <div class="qc tl" style="--d:.7s">
+        <iframe data-src="3D/cctv-camera-wire.html?mode=wireframe&amp;zoom=0.75&amp;base=0&amp;spin=1.4" data-preload scrolling="no" title="Video-based camera — 3D"></iframe>
+        <div class="cap">VIDEO-BASED<small>clarity — no endurance</small></div>
+      </div>
+
+      <div class="qc br" style="--d:.9s">
+        <iframe data-src="3D/fuel-sensor-wire.html?mode=wireframe&amp;zoom=0.75&amp;spin=1.4" data-preload scrolling="no" title="Sensor-based hardware — 3D"></iframe>
+        <div class="cap">SENSOR-BASED<small>endurance — no evidence</small></div>
+      </div>
+
+      <div class="qc tr" style="--d:1.2s">
+        <div class="gapbox">
+          <div class="g1">THE GAP</div>
+          <div class="g2">High clarity &times; high efficiency.<br>No product lived here — until Sentinel.</div>
+        </div>
+      </div>
+
+      <div class="qc bl" style="--d:1.05s">
+        <div class="dead">LOW &times; LOW — NOT WORTH BUILDING</div>
+      </div>
+    </div>
+
+    <div class="gap-foot reveal">The industry needed both. <b>So we built both into one.</b></div>
+  </div>
+</section>
+
+<!-- 3D SHOWCASE -->
+<section class="sec showcase" id="hardware">
+  <div class="wrap">
+    <div class="frame3d reveal">
+      <div class="ring"></div>
+      <img src="Images/sentinel-side.png" alt="Sentinel 24/7 AOV camera — all-in-one hardware">
+    </div>
+    <div>
+      <div class="eyebrow reveal">One device. Everything on board.</div>
+      <h2 class="reveal d1">All-in-one by design.</h2>
+      <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.1rem;max-width:520px;">4G, GNSS, Wi-Fi &amp; Bluetooth, onboard storage, and I/O with RS-232 — integrated into one compact, magnetic unit. No separate recorder. No wiring maze. Nothing extra to buy.</p>
+      <div class="specrow reveal d3">
+        <div class="chip"><b>4G</b> connectivity</div>
+        <div class="chip"><b>GNSS</b> positioning</div>
+        <div class="chip"><b>Wi-Fi</b> + <b>Bluetooth</b></div>
+        <div class="chip"><b>Onboard</b> storage</div>
+        <div class="chip"><b>I/O</b> + RS-232</div>
+        <div class="chip"><b>Magnetic</b> mount</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE IT MOUNTS -->
+<section class="sec mountsec" id="install">
+  <div class="wrap">
+    <div class="mount-grid">
+      <div class="mount-copy">
+        <div class="eyebrow reveal">Installation</div>
+        <h2 class="reveal d1">Mounts where it <span class="grad">sees the most.</span></h2>
+        <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.1rem;max-width:520px;">Mounted on the <b style="color:#fff">cab roof, facing forward</b> — a clean sightline down the flank and the road ahead. The green volume shows the ground it watches. No recorder to wire into the cab.</p>
+        <div class="mount-facts reveal d3">
+          <div><b>Cab-roof</b><span>forward-facing<br>vantage point</span></div>
+          <div><b>Tool-free</b><span>mount in<br>minutes</span></div>
+          <div><b>Self-powered</b><span>runs on the<br>truck battery</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mount-stage">
+      <iframe id="mountModel" data-src="3D/truck-sentinel-mount.html" data-preload scrolling="no" title="Where Sentinel mounts on the truck"></iframe>
+    </div>
+    <div class="mount-toggles" id="mountToggles">
+      <button class="mbtn" data-unit="1">Cab-roof unit</button>
+      <button class="mbtn" data-unit="2">Rear unit</button>
+      <span class="mhint">Click to show each unit&rsquo;s coverage</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow reveal">What Sentinel does</div>
+      <h2 class="reveal d1">Six ways Sentinel <span class="grad">protects your fleet.</span></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="fcard reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <h3>Always-on Video</h3>
+        <p>24/7 recording, engine on or off. Your asset is never unwatched — day, night, parked or moving.</p>
+        <div class="metric">Up to 90-day standby · ~400 mW</div>
+      </div>
+      <div class="fcard reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v1a4 4 0 0 1 2 3v2a5 5 0 0 1-10 0V9a4 4 0 0 1 2-3V5a3 3 0 0 1 3-3z"/><path d="M9 20h6M12 17v3"/></svg></div>
+        <h3>Intent-Aware AI</h3>
+        <p>Posture-level threat detection tells a passer-by from a thief — so you get an alert only when it's real, not every time a leaf moves.</p>
+        <div class="metric">Fewer false alerts · real threats only</div>
+      </div>
+      <div class="fcard reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/><path d="M17 5l.7 1.6L19 7l-1.3.4L17 9l-.7-1.6L15 7l1.3-.4z"/></svg></div>
+        <h3>Black Light Ultra</h3>
+        <p>Full-color forensic footage in near-total darkness, where phones and standard cameras see only black.</p>
+        <div class="metric">Full color at 0.02 lux</div>
+      </div>
+      <div class="fcard reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5M12 13h5M12 16h3"/></svg></div>
+        <h3>All-in-One Design</h3>
+        <p>4G · GNSS · Wi-Fi/BT · storage · I/O &amp; RS-232 in one unit. No recorder, no add-ons, no clutter in the cab.</p>
+        <div class="metric">Everything integrated</div>
+      </div>
+      <div class="fcard reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div>
+        <h3>IoT Synergies</h3>
+        <p>Fuel, tire pressure, temperature and door sensors flow into one alert stream — every alert with Sentinel video attached.</p>
+        <div class="metric">One stream · video on every event</div>
+      </div>
+      <div class="fcard reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg></div>
+        <h3>Minutes to Install</h3>
+        <p>A magnetic, tool-free mount snaps onto any steel surface. Any driver can deploy or reposition it — fleet-wide rollout, fast.</p>
+        <div class="metric">No drilling · minutes, not hours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTENT-AWARE AI -->
+<section class="sec intent" id="intent">
+  <div class="wrap">
+    <div class="intent-grid">
+      <div>
+        <div class="eyebrow reveal">Intent-Aware AI</div>
+        <h2 class="reveal d1">It doesn't just see. <span class="grad">It understands intent.</span></h2>
+        <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.2rem;max-width:520px;">Motion alone is noise — animals, headlights, rain, a passer-by. Sentinel reads <b>body posture and behaviour</b>, so it can tell someone walking past your truck from someone working at your fuel tank.</p>
+        <div class="intent-rows reveal d3">
+          <div class="irow no act" data-run="wander" role="button" tabindex="0"><div class="dot">—</div><div class="tx"><b>Walking past. Running by. Wandering around.</b><span>No alert. This is what buries an operator in false alarms all night.</span></div></div>
+          <div class="irow yes act" data-run="steal" role="button" tabindex="0"><div class="dot">!</div><div class="tx"><b>Stopping at the fuel tank. Reaching. Lingering.</b><span>Alert — because the behaviour, not the movement, is what makes it a threat.</span></div></div>
+          <div class="irow yes"><div class="dot">▶</div><div class="tx"><b>Every alert arrives with the footage.</b><span>Not a notification to go investigate — the evidence itself.</span></div></div>
+        </div>
+      </div>
+      <div class="intent-demo reveal d2">
+        <div class="intent-media" id="intentMedia" data-src="3D/truck-sentinel-runner.html">
+          <div class="poster"></div>
+          <div class="play">▶</div>
+          <div class="tag" id="intentTag"><i></i>POSTURE DETECTION · LIVE</div>
+          <div class="loadmsg" id="intentLoad">Loading the live model…</div>
+        </div>
+        <div class="demo-bar" id="demoBar">
+          <button class="dbtn" data-run="wander" disabled>Walk past the truck</button>
+          <button class="dbtn danger" data-run="steal" disabled>Go for the fuel tank</button>
+          <span class="dhint" id="demoHint">Click the model to load the live 3D demo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERTS ON YOUR PHONE -->
+<section class="sec alerts" id="alerts">
+  <div class="wrap">
+    <div class="alert-grid">
+      <div>
+        <div class="eyebrow reveal">Alerts</div>
+        <h2 class="reveal d1">The truck is in Kenya.<br><span class="grad">You are not.</span></h2>
+        <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.1rem;max-width:520px;">When Sentinel decides a behaviour is suspicious, the alert is on your phone in seconds — with the footage already attached. No logging in, no hunting for the clip.</p>
+        <div class="alert-steps reveal d3">
+          <div class="astep"><div class="n">1</div><div class="tx"><b>Sentinel decides it is real</b><span>Posture-level AI filters out the passer-by, the animal, the headlights.</span></div></div>
+          <div class="astep"><div class="n">2</div><div class="tx"><b>The alert leaves over 4G</b><span>No gateway, no separate telematics box — the camera sends it itself.</span></div></div>
+          <div class="astep"><div class="n">3</div><div class="tx"><b>You get the evidence, not a ping</b><span>Plate, location and the clip arrive together, ready to forward.</span></div></div>
+        </div>
+        <div class="alert-cta reveal d3">
+          <button class="abtn" id="alertPlay">Trigger an alert</button>
+          <span class="ahint">or tap the phone</span>
+        </div>
+      </div>
+
+      <div class="phone-wrap reveal d2">
+        <div class="phone" id="phone" role="button" tabindex="0" aria-label="Play the alert sequence">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="lock">
+              <div class="day">Tuesday, 4 August</div>
+              <div class="clock">02:14</div>
+            </div>
+            <div class="notes">
+              <div class="note warn">
+                <div class="ni">!</div>
+                <div class="nb">
+                  <div class="nt"><span>Sentinel</span><em>now</em></div>
+                  <div class="nh">Suspicious activity at the fuel tank</div>
+                  <div class="np">KDG 412M · Nairobi depot · person at tank 40 s</div>
+                  <div class="thumb" style="background-image:url('Images/cases/alert-night.jpg')"></div>
+                </div>
+              </div>
+              <div class="note warn">
+                <div class="ni">▼</div>
+                <div class="nb">
+                  <div class="nt"><span>Fuel sensor</span><em>now</em></div>
+                  <div class="nh">Main tank −18 L in 4 minutes</div>
+                  <div class="np">156 L → 138 L · engine off</div>
+                </div>
+              </div>
+              <div class="note">
+                <div class="ni">✓</div>
+                <div class="nb">
+                  <div class="nt"><span>Sentinel</span><em>1 min ago</em></div>
+                  <div class="nh">Clip saved and shared with your fleet team</div>
+                  <div class="np">18 s · full colour · 0.02 lux</div>
+                </div>
+              </div>
+            </div>
+            <div class="tapme">TAP TO REPLAY</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IOT SYNERGIES -->
+<section class="sec iotsec" id="iot">
+  <div class="wrap">
+    <div class="iot-grid">
+      <div class="iot-copy">
+        <div class="eyebrow reveal">IoT Synergies</div>
+        <h2 class="reveal d1">One camera.<br><span class="grad">Full asset awareness.</span></h2>
+        <p class="reveal d2" style="color:var(--grey);font-size:1.1rem;margin-top:1.1rem;max-width:500px;">Sentinel is the hub, not just the eyes. It links the truck&rsquo;s onboard sensors over Wi&#8209;Fi and Bluetooth into one unified alert stream &mdash; <b style="color:#fff">no second gateway, no second SIM.</b></p>
+        <div class="iot-sensors reveal d3">
+          <div><i style="--c:#FFC53D"></i><b>Fuel sensor</b><span>Tank level and drain rate</span></div>
+          <div><i style="--c:#009EFD"></i><b>Tire pressure</b><span>Per-axle bar and temperature</span></div>
+          <div><i style="--c:#FF3B30"></i><b>Temp &amp; humidity</b><span>Cold-chain cargo hold</span></div>
+          <div><i style="--c:#FF7A1A"></i><b>Cargo door</b><span>Open, closed and seal time</span></div>
+        </div>
+        <p class="iot-foot reveal d3">Every sensor alert arrives with Sentinel footage attached &mdash; <b>the data tells you what happened, the video shows you who.</b></p>
+      </div>
+    </div>
+    <div class="iot-stage">
+      <iframe id="iotModel" data-src="3D/truck64-iot.html?mode=wireframe" scrolling="no" title="Sentinel as the truck&rsquo;s IoT hub &mdash; 3D model"></iframe>
+    </div>
+    <div class="iot-toggles" id="iotToggles">
+      <button class="mbtn on" data-mode="wireframe">Wireframe</button>
+      <button class="mbtn" data-mode="solid">Solid</button>
+      <button class="mbtn" data-mode="particles">Point cloud</button>
+      <span class="mhint">Drag to orbit &middot; switch the view</span>
+    </div>
+  </div>
+</section>
+
+<!-- NIGHT VISION -->
+<section class="sec night" id="night">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow reveal">Black Light Ultra</div>
+      <h2 class="reveal d1">At 0.02 lux, others record darkness.<br><span class="grad">Sentinel records the truth.</span></h2>
+      <p class="reveal d2">The same scene at 0.02 lux — deep night, no street lighting. Three cameras. One delivers evidence. Switch between them:</p>
+    </div>
+    <div class="nv reveal d2">
+      <div class="nv-stage">
+        <img id="nvimg-0" class="show" src="Images/nv-iphone.jpg" alt="Smartphone at night">
+        <img id="nvimg-1" src="Images/nv-blacklight.jpg" alt="Standard black light camera">
+        <img id="nvimg-2" src="Images/nv-ultra.jpg" alt="Sentinel Black Light Ultra">
+        <div class="lux">0.02 LUX · NIGHT</div>
+        <div class="nv-caption">
+          <div class="who" id="nvwho">Shot on smartphone</div>
+          <div class="what" id="nvwhat">Total darkness. Zero evidence.</div>
+        </div>
+      </div>
+      <div class="nv-tabs">
+        <button class="nv-tab active" data-i="0"><div class="t"><span class="d"></span>Smartphone</div><div class="s">Total darkness. Zero evidence.</div></button>
+        <button class="nv-tab" data-i="1"><div class="t"><span class="d"></span>Standard night cam</div><div class="s">Something moved. Who? Unclear.</div></button>
+        <button class="nv-tab" data-i="2"><div class="t"><span class="d"></span>Sentinel Black Light Ultra</div><div class="s">Full color. Faces, clothing, actions — court-ready.</div></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL CASES -->
+<section class="sec cases" id="cases">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow reveal">From the field</div>
+      <h2 class="reveal d1">Not a simulation. <span class="grad">Real thefts, really caught.</span></h2>
+      <p class="reveal d2">Sentinel is already running on customer fleets across Africa and the Middle East. These are two of the events it caught — timestamped, GPS-tagged, and handed to the customer as evidence.</p>
+    </div>
+    <div class="case-grid">
+      <figure class="case reveal d1">
+        <div class="case-media">
+          <video id="caseVid1" src="Videos/case-ampenet.mp4" muted loop playsinline preload="auto" data-lazyplay data-preload-video></video>
+          <div class="case-tag"><i></i>CAUGHT ON SENTINEL</div>
+        </div>
+        <figcaption>
+          <b>An employee siphoning fuel</b>
+          <span>Ampenet · Tanzania — caught in the first month on the vehicle. The customer went from 2 test units to 17, and now markets Sentinel to their own market.</span>
+        </figcaption>
+      </figure>
+      <figure class="case reveal d2">
+        <div class="case-media">
+          <video id="caseVid2" src="Videos/case-caught.mp4" muted loop playsinline preload="auto" data-lazyplay data-preload-video></video>
+          <div class="case-tag"><i></i>CAUGHT ON SENTINEL</div>
+        </div>
+        <figcaption>
+          <b>Theft stopped at the tank</b>
+          <span>Texas · Kenya — on one truck, monthly fuel losses fell from <b style="color:#fff">$206 to $5</b>. Two-month payback at a $400 unit price.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="sec downloads" id="downloads">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow reveal">Resources</div>
+      <h2 class="reveal d1">Everything you need, <span class="grad">on paper.</span></h2>
+      <p class="reveal d2">Full documentation for evaluation, deployment and day-to-day operation. Download and share with your team.</p>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-card reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3M8 20h8M7 9h6M7 12h4"/></svg></div>
+        <h3>Product Presentation</h3>
+        <p>The full Sentinel deck — the problem, the technology, field results and launch timing. Ready to present or forward.</p>
+        <div class="dl-meta"><span class="pill">PPTX</span><span>3.8 MB</span></div>
+        <a class="dl-btn" href="Docs/Sentinel-Product-Presentation.pptx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</a>
+      </div>
+      <div class="dl-card reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4M8 13h8M8 17h6"/></svg></div>
+        <h3>Product Specification</h3>
+        <p>Complete technical specs — power, sensors, connectivity, Black Light Ultra performance and environmental ratings.</p>
+        <div class="dl-meta"><span class="pill">DOCX</span><span>0.9 MB</span></div>
+        <a class="dl-btn" href="Docs/S5 Product Specification.docx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</a>
+      </div>
+      <div class="dl-card reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 8h5M8 12h8M8 16h8"/></svg></div>
+        <h3>User Manual</h3>
+        <p>Step-by-step operation, platform features, alert configuration, IoT pairing and troubleshooting for fleet managers and drivers.</p>
+        <div class="dl-meta"><span class="pill">DOCX</span><span>8.8 MB</span></div>
+        <a class="dl-btn" href="Docs/S5 User Manual.docx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</a>
+      </div>
+      <div class="dl-card reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg></div>
+        <h3>Installation Guide</h3>
+        <p>Magnetic mounting positions, power hookup, quick-start setup and best practices for a fast, tool-free fleet-wide rollout.</p>
+        <div class="dl-meta"><span class="pill">DOCX</span><span>3.8 MB</span></div>
+        <a class="dl-btn" href="Docs/S5 Installation Guide.docx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#hero" class="logo"><span class="dot"></span>SENTINEL<small>by Streamax</small></a>
+    <div class="muted">© 2026 Streamax Technology · Sentinel 24/7 AOV Camera · Trucking Asset Security</div>
+    <a href="https://www.streamax.com/category/contactform.html" target="_blank" rel="noopener" class="btn btn-ghost">Request a demo</a>
+  </div>
+</footer>
+
+<script>
+/* scroll progress + nav solidify */
+const nav=document.getElementById('nav'), prog=document.getElementById('prog');
+function onScroll(){
+  const h=document.documentElement;
+  const p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  prog.style.width=(p*100)+'%';
+  nav.classList.toggle('solid',h.scrollTop>40);
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+/* intent-aware video: click to play (large file — never autoloads) */
+(function(){
+  const box=document.getElementById('intentMedia');
+  if(!box) return;
+  const tag=document.getElementById('intentTag'), hint=document.getElementById('demoHint');
+  const btns=[...document.querySelectorAll('.dbtn')];
+  const rows=[...document.querySelectorAll('.irow.act')];
+  let frame=null, pending=null;
+
+  /* the model is heavy, so it is only fetched when a visitor asks for it */
+  function load(then){
+    if(frame){ if(then) then(); return; }
+    box.classList.add('loading');
+    frame=document.createElement('iframe');
+    frame.src=box.dataset.src;
+    frame.title='Sentinel — intent-aware detection demo';
+    frame.setAttribute('scrolling','no');
+    frame.addEventListener('load',()=>{
+      box.classList.remove('loading'); box.classList.add('on');
+      btns.forEach(b=>b.disabled=false);
+      hint.textContent=(window.I18N?I18N.t('Drag to orbit the model'):'Drag to orbit the model');
+      if(pending){ send(pending); pending=null; }
+    });
+    box.appendChild(frame);
+    if(then) then();
+  }
+  function send(kind){
+    if(!frame || !box.classList.contains('on')){ pending=kind; load(); return; }
+    try{ frame.contentWindow.postMessage({type: kind==='steal' ? 'runner-steal' : 'runner-toggle'},'*'); }catch(_){}
+  }
+  box.addEventListener('click',()=>load());
+  btns.forEach(b=>b.addEventListener('click',()=>send(b.dataset.run)));
+  rows.forEach(r=>{
+    r.addEventListener('click',()=>send(r.dataset.run));
+    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); send(r.dataset.run); } });
+  });
+
+  /* reflect what the model is doing */
+  window.addEventListener('message',e=>{
+    const d=e.data||{};
+    if(d.type==='runner-state'){
+      const p=d.path;
+      btns.forEach(b=>b.classList.toggle('active', d.running && ((b.dataset.run==='steal')===(p==='Stealing'))));
+      if(d.running){ var _h = p==='Stealing' ? 'Watch the cone at the fuel tank' : 'Passing by — Sentinel stays quiet'; hint.textContent = window.I18N?I18N.t(_h):_h; }
+      if(p!=='Stealing'){ tag.classList.remove('alert'); tag.lastChild.textContent=window.I18N?I18N.t('POSTURE DETECTION · LIVE'):'POSTURE DETECTION · LIVE'; }
+    } else if(d.type==='runner-red'){
+      tag.classList.toggle('alert', !!d.red);
+      var _tg = d.red ? 'ALERT · INTENT DETECTED' : 'POSTURE DETECTION · LIVE'; tag.lastChild.textContent = window.I18N?I18N.t(_tg):_tg;
+    }
+  });
+})();
+
+/* heavy clips: only fetch + play once actually on screen */
+(function(){
+  const vids=[...document.querySelectorAll('video[data-lazyplay]')];
+  if(!vids.length) return;
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      const v=e.target;
+      if(e.isIntersecting){ v.preload='auto'; v.play().catch(()=>{}); }
+      else { v.pause(); }
+    });
+  },{threshold:.25});
+  vids.forEach(v=>io.observe(v));
+})();
+
+/* Installation: click the buttons to show each unit's ring + coverage */
+(function(){
+  const wrap=document.getElementById('mountToggles'), f=document.getElementById('mountModel');
+  if(!wrap||!f) return;
+  wrap.addEventListener('click',e=>{
+    const b=e.target.closest('.mbtn'); if(!b) return;
+    b.classList.toggle('on');
+    try{ f.contentWindow.postMessage({type:'sent-toggle',unit:+b.dataset.unit},'*'); }catch(_){}
+  });
+})();
+
+/* IoT synergies: pick a view; the model is heavy, so it loads on approach */
+(function(){
+  const wrap=document.getElementById('iotToggles'), f=document.getElementById('iotModel');
+  if(!wrap||!f) return;
+  wrap.addEventListener('click',e=>{
+    const b=e.target.closest('.mbtn'); if(!b) return;
+    wrap.querySelectorAll('.mbtn').forEach(x=>x.classList.toggle('on',x===b));
+    try{ f.contentWindow.postMessage({type:'iot-set',mode:b.dataset.mode},'*'); }catch(_){}
+  });
+  /* the telemetry labels live inside the model, so the page translates them
+     with its own dictionary and hands the result over */
+  const LBL=[['Fuel Sensor','Tank 156 L \u00b7 \u22120.2 L/h'],
+             ['Tire Pressure','Axle 2-R 8.4 bar \u00b7 39\u00b0C'],
+             ['Temp & Humidity','Cargo 4.2\u00b0C \u00b7 RH 58%'],
+             ['Cargo Door','Closed \u00b7 sealed 02:14']];
+  function pushLang(){
+    const tr = window.I18N ? I18N.t : (x=>x);
+    const rtl = document.documentElement.getAttribute('dir')==='rtl';
+    try{ f.contentWindow.postMessage({type:'iot-lang',rtl:rtl,labels:LBL.map(p=>[tr(p[0]),tr(p[1])])},'*'); }catch(_){}
+  }
+  f.addEventListener('load',()=>setTimeout(pushLang,800));
+  document.addEventListener('sx-lang',pushLang);
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting && !f.src){ f.src=f.dataset.src; io.disconnect(); } });
+  },{rootMargin:'300px'});
+  io.observe(f.parentElement);
+})();
+
+/* the mounting view is heavy, so it only loads when scrolled to */
+(function(){
+  const f=document.getElementById('mountModel');
+  if(!f || !f.dataset.src) return;
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting && !f.src){
+      // attach before assigning src, or a fast/cached load fires before we listen
+      f.src=f.dataset.src;
+      io.disconnect();
+    }});
+  },{rootMargin:'300px'});
+  io.observe(f.parentElement);
+})();
+
+/* ---- entry loader: hold the page until the first three sections can actually show ---- */
+(function(){
+  const boot=document.getElementById('boot'), bar=document.getElementById('bootBar'),
+        pct=document.getElementById('bootPct'), factEl=document.getElementById('bootFact');
+  if(!boot) return;
+
+  const FACTS=[
+    'Sentinel draws about <b>400 mW</b> while guarding — roughly <b>1/15</b> of what a traditional dashcam pulls.',
+    'Engine off, Sentinel keeps recording for <b>up to 90 days</b> on the truck\u2019s own battery.',
+    'It sees in <b>full colour at 0.02 lux</b> — light where a phone camera records nothing but black.',
+    'Parked and clear, Sentinel samples at <b>one frame per second</b>. That is how 64 GB stretches to about <b>12 days</b>.',
+    'Someone walks into frame and it opens to full video in about <b>one second</b>.',
+    'The intent model was tuned over <b>7 iterations</b> on <b>9,447</b> real field samples — <b>98.67%</b> alert accuracy.',
+    'On one Kenyan truck, monthly fuel losses fell from <b>$206 to $5</b> after Sentinel went on.',
+    'Before launch, <b>21 customers</b> across five regions ran it on real fleets — and ordered <b>67 units</b> unprompted.',
+    'Fuel and cargo theft cost the industry an estimated <b>$35 billion</b> a year.',
+    'No separate recorder: 4G, GNSS, Wi\u2011Fi, Bluetooth, storage and I/O are all <b>in the one magnetic unit</b>.'
+  ];
+  let fi=Math.floor(Math.random()*FACTS.length);
+  function showFact(){
+    factEl.classList.remove('in');
+    setTimeout(()=>{ factEl.innerHTML=(window.I18N?I18N.t(FACTS[fi%FACTS.length]):FACTS[fi%FACTS.length]); fi++; factEl.classList.add('in'); },260);
+  }
+  showFact();
+  const factTimer=setInterval(showFact,3200);
+
+  /* what must be ready before we let the visitor in */
+  const frames=[...document.querySelectorAll('iframe[data-preload]')];
+  const vids=[document.getElementById('problemVid'), ...document.querySelectorAll('video[data-preload-video]')].filter(Boolean);
+  const total=frames.length+vids.length;
+  let done=0, entered=false;
+  function tick(){
+    done++;
+    const p=Math.min(100,Math.round(done/total*100));
+    bar.style.width=p+'%';
+    pct.textContent=(window.I18N?I18N.t('PREPARING'):'PREPARING')+' · '+p+'%';
+    if(done>=total) enter();
+  }
+  function enter(){
+    if(entered) return; entered=true;
+    clearInterval(factTimer);
+    bar.style.width='100%'; pct.textContent=(window.I18N?I18N.t('READY'):'READY');
+    setTimeout(()=>{
+      boot.classList.add('done');
+      document.body.classList.remove('booting');
+      window.scrollTo(0,0);
+      setTimeout(()=>{ boot.remove(); afterEntry(); },800);
+    },420);
+  }
+
+  frames.forEach(f=>{
+    let fired=false;
+    const ok=()=>{ if(!fired){ fired=true; tick(); } };
+    f.addEventListener('load',ok);
+    f.addEventListener('error',()=>{ window.__bootFail(); ok(); });
+    f.src=f.dataset.src;
+  });
+  vids.forEach(v=>{
+    let fired=false;
+    const ok=()=>{ if(!fired){ fired=true; tick(); } };
+    if(v.readyState>=3) ok();
+    v.addEventListener('canplaythrough',ok);
+    v.addEventListener('error',()=>{ window.__bootFail(); ok(); });
+    v.load();
+  });
+  /* No early exit: the page only opens once every model and clip is genuinely
+     ready. A hard failure still releases the loader (so a bad deploy is visible
+     rather than a dead page), but a merely slow asset is waited out. */
+  let failed=0;
+  window.__bootFail=()=>{ failed++; };
+  setTimeout(function guard(){
+    if(entered) return;
+    if(failed>0 && done>=total) enter();
+    else setTimeout(guard,1000);
+  },1000);
+
+  /* once inside: fetch the mounting view, then warm the intent demo */
+  function afterEntry(){
+    const box=document.getElementById('intentMedia');
+    if(box && box.dataset.src) setTimeout(()=>fetch(box.dataset.src,{mode:'same-origin'}).catch(()=>{}),600);
+  }
+})();
+
+/* alerts: replay the notification cascade on tap, and once when scrolled to */
+(function(){
+  const phone=document.getElementById('phone'), btn=document.getElementById('alertPlay');
+  if(!phone) return;
+  let busy=false;
+  function play(){
+    if(busy) return;
+    busy=true;
+    phone.classList.remove('on');
+    void phone.offsetWidth;                 // restart the CSS animations
+    phone.classList.add('on');
+    setTimeout(()=>{ busy=false; }, 1900);
+  }
+  phone.addEventListener('click', play);
+  phone.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); play(); } });
+  if(btn) btn.addEventListener('click', e=>{ e.stopPropagation(); play(); });
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ play(); io.disconnect(); } });
+  },{threshold:.4});
+  io.observe(phone);
+})();
+
+/* reveal on scroll */
+const revObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* animated counters */
+function animateCount(el){
+  const to=parseFloat(el.dataset.to), dec=parseInt(el.dataset.dec||'0');
+  const rawSuf=el.dataset.suffix||''; const suf=(window.I18N?I18N.t(rawSuf):rawSuf);
+  const dur=1400, t0=performance.now();
+  function tick(now){
+    const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=(to*e).toFixed(dec)+suf;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const cntObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); cntObs.unobserve(e.target);} });
+},{threshold:.6});
+document.querySelectorAll('.count').forEach(el=>cntObs.observe(el));
+
+/* scroll-spy nav */
+const spy=[...document.querySelectorAll('.navlinks a')];
+const secs=spy.map(a=>document.querySelector(a.getAttribute('href')));
+const spyObs=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    const id='#'+e.target.id; spy.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===id));
+  }});
+},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>{ if(s) spyObs.observe(s); });
+
+/* night-vision switcher */
+const who=document.getElementById('nvwho'), what=document.getElementById('nvwhat');
+const NV=[
+  ['Shot on smartphone','Total darkness. Zero evidence.'],
+  ['Standard black light camera','Something moved. Who? Unclear.'],
+  ['Sentinel · Black Light Ultra','Full color. Faces, clothing, actions — court-ready.']
+];
+document.querySelectorAll('.nv-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const i=+tab.dataset.i;
+    document.querySelectorAll('.nv-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.nv-stage img').forEach((im,ix)=>im.classList.toggle('show',ix===i));
+    who.textContent=NV[i][0]; what.textContent=NV[i][1];
+  });
+});
+
+/* lazy-load the heavy 3D model only when scrolled near */
+const d3=document.getElementById('heroModel'), d3load=null;
+if(d3 && d3.dataset && d3.dataset.src){
+  const d3Obs=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting && !d3.src){ d3.src=d3.dataset.src; d3.addEventListener('load',()=>{ if(d3load) d3load.style.opacity='0'; }); d3Obs.disconnect(); } });
+  },{rootMargin:'200px'});
+  const frame=d3.closest('.hero-product') || document.querySelector('.frame3d');
+  if(frame) d3Obs.observe(frame);
+}
+
+</script>
+<script src="i18n.js"></script>
+</body>
+</html>

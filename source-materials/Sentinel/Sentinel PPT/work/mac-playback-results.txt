@@ -1,0 +1,12 @@
+slide=5, state=player state playing, position_ms=2763
+slide=7, state=player state playing, position_ms=2973
+slide=9, state=player state playing, position_ms=2967
+slide=10, state=player state playing, position_ms=2938
+slide=12, state=player state playing, position_ms=2953
+slide=16, state=player state playing, position_ms=2950
+backward_navigation_slide=15
+forward_navigation_slide=16
+native_question_effects=3
+text_edit_confirmed=true
+saved=true
+

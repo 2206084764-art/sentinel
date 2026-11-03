@@ -1,0 +1,1420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090c0a">
+<title>Sentinel | Streamax</title>
+<style id="page-base">
+:root{font-family:Arial,Helvetica,sans-serif;color:#f5f6ef;background:#090c0a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;padding-top:110px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3,p{margin:0}
+h3{font-weight:500;letter-spacing:-.035em}
+button,input{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #9ac026;outline-offset:4px}
+#main-content{min-height:calc(100svh - 110px)}
+</style>
+<style id="streamax-header-merged-from-5">
+@keyframes displayN {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
+
+body.black_page {
+background: #000;
+}
+
+.cf::before,
+.cf::after {
+content: "";
+display: table;
+}
+.cf::after {
+clear: both;
+}
+
+.flex {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+}
+.flexWrap {
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+}
+.alignCenter {
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+}
+.justifyCenter {
+-webkit-box-pack: center;
+-ms-flex-pack: center;
+justify-content: center;
+}
+
+.wrap1600 {
+width: 1600px;
+margin-left: auto;
+margin-right: auto;
+}
+@media only screen and (max-width: 1700px) {
+.wrap1600 { width: 90%; }}
+@media only screen and (max-width: 1200px) {
+.wrap1600 { width: 90%; }}
+
+.fnt16 {
+font-size: 16px;
+}
+
+#streamaxHeader,
+#streamaxHeader * {
+box-sizing: border-box;
+}
+
+#streamaxHeader q::before,
+#streamaxHeader q::after {
+content: "";
+}
+
+#streamaxHeader.header {
+--header-height: 110px;
+--header-height-small: 60px;
+--streamax-green: #9ac026;
+--streamax-black: #040401;
+position: fixed !important;
+top: 0 !important;
+left: 0 !important;
+z-index: 9999 !important;
+width: 100% !important;
+height: var(--header-height) !important;
+background: var(--streamax-black) !important;
+border-bottom: 1px solid rgba(255,255,255,.14) !important;
+transform: translateY(0);
+transition: height .3s ease, background .3s ease, transform .3s ease !important;
+font-family: Harmony, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+#streamaxHeader.header.hideHeader {
+transform: translateY(-100%) !important;
+}
+
+#streamaxHeader.header.scrollHeader {
+height: var(--header-height-small) !important;
+background: var(--streamax-black) !important;
+}
+
+#streamaxHeader.header:hover {
+background: var(--streamax-black) !important;
+}
+
+#streamaxHeader .wrap1600 {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+justify-content: space-between !important;
+position: relative !important;
+}
+
+#streamaxHeader .logo {
+width: 165px !important;
+height: 100% !important;
+line-height: normal !important;
+float: none !important;
+text-align: left !important;
+display: flex !important;
+align-items: center !important;
+flex: 0 0 165px !important;
+}
+
+#streamaxHeader .logo a {
+display: inline-flex !important;
+align-items: center !important;
+height: 100% !important;
+width: 100% !important;
+}
+
+#streamaxHeader .logo img {
+display: block !important;
+width: 165px !important;
+height: auto !important;
+max-width: none !important;
+object-fit: contain !important;
+vertical-align: middle !important;
+}
+
+#streamaxHeader .b_logo {
+display: none !important;
+}
+#streamaxHeader .w_logo {
+display: block !important;
+}
+
+#streamaxHeader .right {
+float: none !important;
+display: flex !important;
+align-items: center !important;
+justify-content: flex-end !important;
+height: 100% !important;
+min-width: 0 !important;
+}
+
+#streamaxHeader .nav_con {
+height: 100% !important;
+display: block !important;
+position: relative !important;
+}
+
+#streamaxHeader .nav {
+height: 100% !important;
+margin: 0 52px 0 0 !important;
+padding: 0 !important;
+display: flex !important;
+align-items: center !important;
+flex-wrap: nowrap !important;
+}
+
+#streamaxHeader .nav li {
+position: relative !important;
+z-index: 9 !important;
+list-style: none !important;
+height: var(--header-height) !important;
+line-height: var(--header-height) !important;
+margin: 0 28px !important;
+padding: 0 !important;
+text-align: center !important;
+transition: height .3s ease, line-height .3s ease !important;
+}
+
+#streamaxHeader.scrollHeader .nav li {
+height: var(--header-height-small) !important;
+line-height: var(--header-height-small) !important;
+}
+
+#streamaxHeader .TWnav {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+}
+
+#streamaxHeader .TWnav a {
+position: relative !important;
+display: inline-flex !important;
+align-items: center !important;
+justify-content: center !important;
+height: auto !important;
+padding: 0 !important;
+border-radius: 0 !important;
+color: #fff !important;
+background: transparent !important;
+font-size: 18px !important;
+font-weight: 400 !important;
+letter-spacing: .2px !important;
+text-transform: none !important;
+white-space: nowrap !important;
+text-decoration: none !important;
+line-height: 1.2 !important;
+transition: color .25s ease !important;
+}
+
+#streamaxHeader .nav li:hover .TWnav a,
+#streamaxHeader .nav li.hover .TWnav a {
+color: var(--streamax-green) !important;
+}
+
+#streamaxHeader .TWnav a span {
+position: absolute !important;
+left: 50% !important;
+bottom: -10px !important;
+display: inline-block !important;
+width: 0 !important;
+height: 2px !important;
+background: var(--streamax-green) !important;
+transform: translateX(-50%) !important;
+transition: width .35s ease !important;
+}
+
+#streamaxHeader .nav li:hover .TWnav a span,
+#streamaxHeader .nav li.hover .TWnav a span {
+width: 100% !important;
+}
+
+#streamaxHeader .erNav {
+display: none;
+position: absolute !important;
+top: 100% !important;
+left: 50% !important;
+transform: translateX(-50%) !important;
+width: max-content !important;
+min-width: 100% !important;
+padding: 0 !important;
+background: #000 !important;
+text-align: left !important;
+line-height: normal !important;
+border: 1px solid rgba(255,255,255,.08) !important;
+box-shadow: 0 18px 55px rgba(0,0,0,.38) !important;
+}
+
+#streamaxHeader .nav li:hover .erNav,
+#streamaxHeader .nav li.hover .erNav {
+display: block !important;
+animation: displayN .28s forwards !important;
+}
+
+#streamaxHeader .erNav a {
+display: block !important;
+height: auto !important;
+padding: 17px 22px !important;
+color: #fff !important;
+background: #000 !important;
+font-size: 16px !important;
+line-height: 1.2 !important;
+white-space: nowrap !important;
+text-decoration: none !important;
+transition: color .25s ease, background .25s ease !important;
+}
+
+#streamaxHeader .erNav a:hover {
+background: var(--streamax-green) !important;
+color: #fff !important;
+}
+
+#streamaxHeader .mo_nav,
+#streamaxHeader .TWnavBtn,
+#streamaxHeader .THnavBtn {
+display: none;
+}
+
+#streamaxHeader .nav-submenu__cover {
+display: none !important;
+}
+
+#streamaxHeader .lang_search {
+height: 100% !important;
+display: flex !important;
+align-items: center !important;
+flex: 0 0 auto !important;
+}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+float: none !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 176px !important;
+height: 42px !important;
+margin: 0 20px 0 0 !important;
+padding: 0 !important;
+border: 1px solid var(--streamax-green) !important;
+border-radius: 999px !important;
+background: transparent !important;
+color: var(--streamax-green) !important;
+transition: background .25s ease, color .25s ease, border-color .25s ease !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn:hover {
+background: var(--streamax-green) !important;
+color: #fff !important;
+}
+
+#streamaxHeader .lang.mode_btn a {
+position: relative !important;
+z-index: 2 !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 100% !important;
+height: 100% !important;
+color: inherit !important;
+text-decoration: none !important;
+font-size: 17px !important;
+font-weight: 500 !important;
+line-height: 1 !important;
+white-space: nowrap !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+display: block !important;
+padding-left: 22px !important;
+line-height: 1 !important;
+}
+
+#streamaxHeader .frame-animation {
+position: absolute !important;
+z-index: 4 !important;
+
+left: -48px !important;
+top: -5px !important;
+
+width: 64px !important;
+height: 62px !important;
+
+background-image: url("https://www.streamax.com/static/en/img/ip.png?v=official") !important;
+background-repeat: no-repeat !important;
+background-position: 0 0 !important;
+background-size: 2048px 62px !important;
+
+transform: translateY(-50%) !important;
+transform-origin: center center !important;
+pointer-events: none !important;
+
+animation: streamaxRobotFrames 1.5s steps(32) infinite !important;
+}
+
+@keyframes streamaxRobotFrames {
+from {
+background-position-x: 0;
+}
+to {
+background-position-x: -2048px;
+}
+}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+width: 190px !important;
+height: 50px !important;
+border: 1px solid #9ac026 !important;
+border-radius: 999px !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn a {
+position: relative !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+width: 100% !important;
+height: 100% !important;
+overflow: visible !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+padding-left: 34px !important;
+}
+
+#streamaxHeader .change {
+position: relative !important;
+height: var(--header-height) !important;
+margin: 0 !important;
+padding: 0 !important;
+display: flex !important;
+align-items: center !important;
+cursor: pointer !important;
+transition: height .3s ease !important;
+}
+
+#streamaxHeader.scrollHeader .change {
+height: var(--header-height-small) !important;
+}
+
+#streamaxHeader .change svg {
+display: block !important;
+width: 28px !important;
+height: 28px !important;
+max-width: none !important;
+}
+
+#streamaxHeader .change svg path {
+fill: #fff !important;
+}
+
+#streamaxHeader .change_con {
+display: none;
+position: absolute !important;
+top: var(--header-height) !important;
+left: 50% !important;
+width: 110px !important;
+transform: translateX(-50%) !important;
+background: #000 !important;
+border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+#streamaxHeader.scrollHeader .change_con {
+top: var(--header-height-small) !important;
+}
+
+#streamaxHeader .change:hover .change_con {
+display: block !important;
+animation: displayN .28s forwards !important;
+}
+
+#streamaxHeader .change_con a {
+display: block !important;
+height: 40px !important;
+line-height: 40px !important;
+color: #fff !important;
+text-align: center !important;
+text-decoration: none !important;
+font-size: 14px !important;
+background: #000 !important;
+}
+
+#streamaxHeader .change_con a:hover {
+color: var(--streamax-green) !important;
+}
+
+#streamaxHeader .search,
+#streamaxHeader .search-drop-down {
+display: none !important;
+}
+
+#streamaxHeader .nav_btn {
+display: none;
+}
+
+@media only screen and (max-width: 1500px) {
+#streamaxHeader .nav {
+margin-right: 34px !important;
+}
+#streamaxHeader .nav li {
+margin: 0 18px !important;
+}
+#streamaxHeader .TWnav a {
+font-size: 16px !important;
+}
+#streamaxHeader .lang.mode_btn {
+width: 160px !important;
+}}
+
+@media only screen and (max-width: 1200px) {
+body.touch_body #streamaxHeader.header {
+height: var(--header-height-small) !important;
+}
+
+body.touch_body #streamaxHeader .wrap1600 {
+width: 90% !important;
+}
+
+body.touch_body #streamaxHeader .logo {
+flex-basis: 150px !important;
+width: 150px !important;
+}
+
+body.touch_body #streamaxHeader .logo img {
+width: 150px !important;
+}
+
+body.touch_body #streamaxHeader .right {
+height: 100% !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn {
+display: flex !important;
+position: relative !important;
+width: 28px !important;
+height: 60px !important;
+margin-left: 18px !important;
+align-items: center !important;
+cursor: pointer !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn span,
+body.touch_body #streamaxHeader .nav_btn span::before,
+body.touch_body #streamaxHeader .nav_btn span::after {
+content: "" !important;
+position: absolute !important;
+left: 0 !important;
+width: 28px !important;
+height: 2px !important;
+background: #fff !important;
+transition: transform .25s ease, top .25s ease, opacity .25s ease !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn span {
+top: 50% !important;
+}
+body.touch_body #streamaxHeader .nav_btn span::before {
+top: -8px !important;
+}
+body.touch_body #streamaxHeader .nav_btn span::after {
+top: 8px !important;
+}
+
+body.touch_body #streamaxHeader .nav_btn.click span {
+background: transparent !important;
+}
+body.touch_body #streamaxHeader .nav_btn.click span::before {
+top: 0 !important;
+transform: rotate(45deg) !important;
+}
+body.touch_body #streamaxHeader .nav_btn.click span::after {
+top: 0 !important;
+transform: rotate(-45deg) !important;
+}
+
+body.touch_body #streamaxHeader .nav_con {
+display: none;
+position: fixed !important;
+top: var(--header-height-small) !important;
+left: 0 !important;
+right: 0 !important;
+bottom: 0 !important;
+width: 100% !important;
+height: calc(100vh - var(--header-height-small)) !important;
+background: #040401 !important;
+overflow-y: auto !important;
+z-index: 9998 !important;
+}
+
+body.touch_body #streamaxHeader .nav {
+display: block !important;
+width: 90% !important;
+height: auto !important;
+margin: 0 auto !important;
+padding: 0 !important;
+}
+
+body.touch_body #streamaxHeader .nav li {
+display: block !important;
+height: auto !important;
+line-height: 60px !important;
+margin: 0 !important;
+border-bottom: 1px solid #333 !important;
+text-align: left !important;
+}
+
+body.touch_body #streamaxHeader .TWnav {
+position: relative !important;
+min-height: 60px !important;
+display: block !important;
+}
+
+body.touch_body #streamaxHeader .TWnav a {
+display: block !important;
+padding: 0 64px 0 0 !important;
+line-height: 60px !important;
+font-size: 16px !important;
+}
+
+body.touch_body #streamaxHeader .TWnavBtn {
+display: block !important;
+position: absolute !important;
+top: 0 !important;
+right: 0 !important;
+width: 60px !important;
+height: 60px !important;
+z-index: 2 !important;
+}
+
+body.touch_body #streamaxHeader .TWnavBtn::after {
+content: "" !important;
+position: absolute !important;
+top: 50% !important;
+right: 20px !important;
+width: 10px !important;
+height: 10px !important;
+border-top: 1px solid #fff !important;
+border-right: 1px solid #fff !important;
+transform: translateY(-75%) rotate(135deg) !important;
+transition: transform .25s ease !important;
+}
+
+body.touch_body #streamaxHeader .nav li.hover .TWnavBtn::after {
+transform: translateY(-25%) rotate(-45deg) !important;
+}
+
+body.touch_body #streamaxHeader .erNav {
+display: none !important;
+}
+
+body.touch_body #streamaxHeader .mo_nav {
+display: none;
+border-top: 1px solid #333 !important;
+}
+
+body.touch_body #streamaxHeader .mo_nav .p {
+border-bottom: 1px solid #222 !important;
+}
+
+body.touch_body #streamaxHeader .THnav a {
+display: block !important;
+padding-left: 24px !important;
+color: #bbb !important;
+line-height: 48px !important;
+text-decoration: none !important;
+}
+
+body.touch_body #streamaxHeader .lang.mode_btn {
+display: none !important;
+}
+
+body.touch_body #streamaxHeader .change {
+height: 60px !important;
+margin-left: auto !important;
+}}
+
+@font-face {
+font-family: "HarmonyOS Sans";
+src: local("HarmonyOS Sans SC Bold"), local("HarmonyOS Sans Bold"), local("HarmonyOS Sans SC"), local("HarmonyOS Sans"), local("HarmonyOS_Sans_Bold"), local("HarmonyOS_Sans_Regular");
+font-weight: 700;
+font-style: normal;
+font-display: swap;
+}
+#streamaxHeader.header {
+--header-height: 110px !important;
+--header-height-small: 78px !important;
+background:#000 !important;
+border-bottom:1px solid rgba(255,255,255,.06) !important;
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+}
+#streamaxHeader .wrap1600 {
+width:min(1840px, 90.4vw) !important;
+max-width:1840px !important;
+display:flex !important;
+align-items:center !important;
+justify-content:space-between !important;
+gap:0 !important;
+}
+#streamaxHeader .logo {
+width:212px !important;
+flex:0 0 212px !important;
+overflow:hidden !important;
+}
+#streamaxHeader .logo a {
+width:212px !important;
+justify-content:flex-start !important;
+overflow:hidden !important;
+}
+#streamaxHeader .logo img {
+display:none !important;
+}
+#streamaxHeader .logo img.only_logo {
+display:block !important;
+width:212px !important;
+height:auto !important;
+max-width:212px !important;
+object-fit:contain !important;
+}
+#streamaxHeader .right {
+flex:1 1 auto !important;
+display:flex !important;
+align-items:center !important;
+justify-content:space-between !important;
+min-width:0 !important;
+}
+#streamaxHeader .nav_con {
+flex:1 1 auto !important;
+display:flex !important;
+justify-content:center !important;
+align-items:center !important;
+min-width:0 !important;
+}
+#streamaxHeader .nav {
+margin:0 !important;
+padding:0 !important;
+display:flex !important;
+align-items:center !important;
+justify-content:center !important;
+gap:0 !important;
+}
+#streamaxHeader .nav li {
+margin:0 31px !important;
+height:110px !important;
+line-height:110px !important;
+}
+#streamaxHeader.scrollHeader .nav li {
+height:78px !important;
+line-height:78px !important;
+}
+#streamaxHeader .TWnav a {
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+font-size:18px !important;
+font-weight:700 !important;
+letter-spacing:0 !important;
+color:#fff !important;
+}
+#streamaxHeader .nav li:hover .TWnav a,
+#streamaxHeader .nav li.hover .TWnav a {
+color:#9ac026 !important;
+}
+#streamaxHeader .erNav a,
+#streamaxHeader .change_con a,
+#streamaxHeader .lang.mode_btn a {
+font-family:"HarmonyOS Sans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif !important;
+}
+#streamaxHeader .lang_search {
+margin-left:44px !important;
+gap:18px !important;
+}
+#streamaxHeader .lang.mode_btn {
+width:190px !important;
+height:50px !important;
+margin:0 !important;
+border-radius:999px !important;
+border:1px solid #9ac026 !important;
+overflow:visible !important;
+}
+#streamaxHeader .lang.mode_btn a {
+font-size:17px !important;
+font-weight:700 !important;
+letter-spacing:0 !important;
+}
+#streamaxHeader .lang.mode_btn span {
+padding-left:32px !important;
+}
+#streamaxHeader .frame-animation {
+left:-23px !important;
+top:50% !important;
+width:44px !important;
+height:30px !important;
+background-image:url("data:image/webp;base64,UklGRhIEAABXRUJQVlA4WAoAAAAQAAAAKwAAHQAAQUxQSLcAAAABgLJt2/nn/f1tu/8bZlvRaR9gv7R9ACOZ0WZbW3RVt71sPPN7z1uLiAlg/52CRvpRmnZ3p9rGN3YX3i+kj4Zu6MW6y/lk4V2Kz+/u6Y1XV3W+dyi/Ie6VdFjO/i0fbepQlSeErAZNbxA0TwIJmSDwpIDoPUS1hwGUY4Q+KQR4Z+5RVARIOKMPlElfQ4viI80b+aL36R61auMT+gjv4WOsfgfUU2NHMBGyLGbkSyGyDoS4VqBkbwQAVlA4IDQDAABQFACdASosAB4APhkKhEGhBVcBAAQAYSyAGRCZyjFpPCAeYD9iv0z7AHoAfrX1oHoAdJH+0X7efAB/Ff6/cs/wA6gbuv6q5wD6WfTPx20Tf9T/GT8t84a+Ef2L8huAz9Bj+3/ktrof8d+VXuJ/2f5Aeqn5K/xX9N+AD+Kfyj/Aflb/bf/xyln6lqJYdd/GeSf+b20S9040Vhgq5vqDytZJ+QQ+SdfiTC/NoWAA/v//QoX///8nK9qjzOGEHSOVk5JVtq0Tkv///QtUg+sNmAuXNo/OUlfSiIllqL9cWLsQ/BZpWl704bf/Rqnf/9+rtl1/0pAMgYt3yP5Y9a3TlTTdrfMTme0EZGkJXz3tKV2cB+fZQD//4MjFtrJm//CldLVRs5wU6pESUEgxRzFzC9c5s/FAexFdYMmu+cJV9BDj1/5D6lgXoHOT8QJFJuArYUPp/6v75msXfjuvNBXDBUymX0qQ/kfidIuCiCJNA3Bs3+H6Fs1ClNU8VXps1aRfr06f75dU7JyijB2BzEjG0df9wewx3RTOWKLMnv/8e5wdu6y8pgpZDXTzNqv+xla4qOv8Rse2yQrMYV1iXLYvTKeGtSv/lcXsvdtSlU7pK+0RxZJ/HgnoMReicvCwgQvB8LHCEDi8Pmr0dxR7+AHwK9lK6oU5nwBwLeMSjn2sAqU02v2vP49cLc0nbq7E8vEUSTrxI0vwi9zsbKbn4h9jIRoSL7x2A1foztKHSqhy0e9PKnng92wdJXIoSPd4SoF1pfIpfXNeHwXzxUKi8WHYB9UeWalAYLcNebWCF9/nKsvXE3ljyy/FvzeZkWCOSWep6OCFqfvVarUrqbl4l9y35E/a5OCvBQZ8i8hZaGzqdTnzJ3Wpn0JKDqq6AX0fj0uQXuGg4juVniZNlHkUQntac8/F40OlrVBz1lK6hGa6/4dysx2Pqf83pqH2KnU0+IzZFQ4WCq3Pl/dOVl/jnGyPyM8v+uHe3NopIPPuc+Jj89g8jpfw2+QGatIiTpn5h5prXho2rrIKRaakRr0w86QY3o1Mq40ZuI91PUxRq/W5K22CapOzcqX/mcuETXv757yXO4rhwAAA") !important;
+background-size:44px 30px !important;
+background-repeat:no-repeat !important;
+background-position:center center !important;
+transform:translateY(-50%) !important;
+filter:none !important;
+animation:none !important;
+}
+#streamaxHeader .change {
+height:110px !important;
+}
+#streamaxHeader.scrollHeader .change {
+height:78px !important;
+}
+#streamaxHeader .change svg {
+width:30px !important;
+height:30px !important;
+}
+#streamaxHeader .change svg path {
+fill:#fff !important;
+}
+#streamaxHeader .change_con {
+top:110px !important;
+}
+#streamaxHeader.scrollHeader .change_con {
+top:78px !important;
+}
+@media only screen and (max-width:1500px) {
+#streamaxHeader .logo, #streamaxHeader .logo a { width:190px !important; flex-basis:190px !important; }
+#streamaxHeader .logo img.only_logo { width:190px !important; max-width:190px !important; }
+#streamaxHeader .nav li { margin:0 20px !important; }
+#streamaxHeader .TWnav a { font-size:17px !important; }
+#streamaxHeader .lang_search { margin-left:30px !important; }
+#streamaxHeader .lang.mode_btn { width:178px !important; height:48px !important; }}
+@media only screen and (max-width:1200px) {
+#streamaxHeader .wrap1600 { width:92% !important; }
+#streamaxHeader .logo, #streamaxHeader .logo a { width:165px !important; flex-basis:165px !important; }
+#streamaxHeader .logo img.only_logo { width:165px !important; max-width:165px !important; }
+#streamaxHeader .lang.mode_btn { width:166px !important; height:44px !important; }
+#streamaxHeader .lang_search { margin-left:18px !important; gap:10px !important; }}
+
+#streamaxHeader .lang.mode_btn {
+position: relative !important;
+width: 190px !important;
+height: 50px !important;
+border: 1px solid #9ac026 !important;
+border-radius: 999px !important;
+overflow: visible !important;
+margin-left: 8px !important;
+}
+
+#streamaxHeader .lang.mode_btn span {
+padding-left: 30px !important;
+}
+
+#streamaxHeader .frame-animation {
+position: absolute !important;
+z-index: 4 !important;
+left: -48px !important;
+top: -25px !important;
+
+width: 500px !important;
+height: 500px !important;
+
+background-image: url("https://www.streamax.com/static/en/img/ip.png?v=official") !important;
+background-repeat: no-repeat !important;
+background-position: 0 0 !important;
+background-size: auto 500px !important;
+
+transform: scale(0.2) !important;
+transform-origin: left top !important;
+pointer-events: none !important;
+filter: none !important;
+image-rendering: auto !important;
+
+animation: streamaxRobotOfficialFull 1.5s steps(32) infinite !important;
+}
+
+@keyframes streamaxRobotOfficialFull {
+from {
+background-position-x: 0;
+}
+to {
+background-position-x: -16000px;
+}
+}
+
+@media only screen and (max-width:1500px) {
+#streamaxHeader .frame-animation {
+left: -46px !important;
+top: -40px !important;
+transform: scale(0.23) !important;
+}}
+
+@media only screen and (max-width:1200px) {
+#streamaxHeader .frame-animation {
+left: -38px !important;
+top: -32px !important;
+transform: scale(0.16) !important;
+}}
+</style>
+<style id="streamax-official-footer-css">
+.streamax-official-footer,
+.streamax-official-footer * {
+box-sizing: border-box;
+}
+.streamax-official-footer {
+position: relative;
+z-index: 1;
+width: 100%;
+overflow-x: hidden;
+padding: 78px 0 50px;
+background: #000;
+color: #747474;
+font-family: Arial, Helvetica, sans-serif;
+}
+.streamax-official-footer a {
+color: inherit;
+text-decoration: none;
+transition: color .24s ease, opacity .24s ease;
+}
+.streamax-official-footer a:hover {
+color: #aacb03;
+}
+.streamax-official-footer .wrap1600 {
+width: min(1600px, calc(100% - 80px));
+margin: 0 auto;
+}
+.streamax-official-footer .flex {
+display: flex;
+}
+.streamax-official-footer .flexWrap {
+flex-wrap: wrap;
+}
+.streamax-official-footer .alignCenter {
+align-items: center;
+}
+.streamax-official-footer .footer_top {
+justify-content: space-between;
+gap: 56px;
+}
+.streamax-official-footer .footer_top > .left {
+flex: 0 0 25%;
+min-width: 260px;
+}
+.streamax-official-footer .footer_top > .right {
+flex: 1 1 66%;
+justify-content: space-between;
+gap: 34px 28px;
+}
+.streamax-official-footer h3,
+.streamax-official-footer dt,
+.streamax-official-footer dl,
+.streamax-official-footer dd {
+margin: 0;
+}
+.streamax-official-footer .fnt26 {
+font-size: 26px;
+line-height: 1.28;
+}
+.streamax-official-footer .fnt22 {
+font-size: 22px;
+line-height: 1.35;
+}
+.streamax-official-footer .fnt16 {
+font-size: 16px;
+line-height: 1.65;
+}
+.streamax-official-footer .fnt14 {
+font-size: 14px;
+line-height: 1.7;
+}
+.streamax-official-footer .footer_top h3,
+.streamax-official-footer .footer_top dt,
+.streamax-official-footer .footer_top dt a {
+color: #aacb03;
+font-weight: 500;
+}
+.streamax-official-footer .footer_top .left dd {
+max-width: 360px;
+color: #828286;
+}
+.streamax-official-footer .footer_top .right dl {
+flex: 1 1 150px;
+min-width: 142px;
+}
+.streamax-official-footer .footer_top .right dd {
+display: flex;
+flex-direction: column;
+gap: 9px;
+}
+.streamax-official-footer .footer_top .right dd a {
+color: #747474;
+}
+.streamax-official-footer .footer_top .right dd a:hover {
+color: #aacb03;
+}
+.streamax-official-footer .mt45 {
+margin-top: 45px;
+}
+.streamax-official-footer .mb45 {
+margin-bottom: 45px;
+}
+.streamax-official-footer .mb20 {
+margin-bottom: 20px;
+}
+.streamax-official-footer .mt55 {
+margin-top: 55px;
+}
+.streamax-official-footer .pt20 {
+padding-top: 20px;
+}
+.streamax-official-footer .pb20 {
+padding-bottom: 20px;
+}
+.streamax-official-footer .footer_mind {
+justify-content: space-between;
+gap: 24px;
+border-top: 1px solid rgba(130, 130, 134, .32);
+border-bottom: 1px solid rgba(130, 130, 134, .32);
+}
+.streamax-official-footer .footer_mind .left {
+color: #828286;
+}
+.streamax-official-footer .footer_mind .right {
+gap: 24px;
+}
+.streamax-official-footer .footer_mind svg {
+display: block;
+width: 34px;
+height: 34px;
+}
+.streamax-official-footer .footer_mind a:hover svg path {
+fill: #aacb03;
+}
+.streamax-official-footer .footer_bottom {
+text-align: center;
+}
+.streamax-official-footer .f_logo img {
+display: inline-block;
+width: 202px;
+max-width: 52vw;
+height: auto;
+}
+.streamax-official-footer .footer_bottom .a {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 14px 34px;
+margin-bottom: 22px;
+}
+.streamax-official-footer .footer_bottom .a a {
+color: #747474;
+}
+.streamax-official-footer .footer_bottom .p {
+color: #747474;
+}
+.streamax-official-footer .icp-row {
+margin-top: 18px;
+font-size: 14px;
+line-height: 1.7;
+color: #747474;
+text-align: center;
+}
+.streamax-official-footer .icp-row a {
+color: #747474;
+}
+@media (max-width: 1180px) {
+.streamax-official-footer {
+padding-top: 64px;
+}
+.streamax-official-footer .wrap1600 {
+width: min(100% - 48px, 960px);
+}
+.streamax-official-footer .footer_top > .left,
+.streamax-official-footer .footer_top > .right {
+flex-basis: 100%;
+}
+.streamax-official-footer .footer_top > .right {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}}
+@media (max-width: 760px) {
+.streamax-official-footer {
+padding: 48px 0 38px;
+}
+.streamax-official-footer .wrap1600 {
+width: min(100% - 32px, 520px);
+}
+.streamax-official-footer .footer_top {
+gap: 42px;
+}
+.streamax-official-footer .footer_top > .left {
+min-width: 0;
+}
+.streamax-official-footer .footer_top > .right {
+grid-template-columns: 1fr;
+gap: 32px;
+}
+.streamax-official-footer .footer_top .right dl {
+min-width: 0;
+}
+.streamax-official-footer .fnt26 {
+font-size: 22px;
+}
+.streamax-official-footer .fnt22 {
+font-size: 18px;
+}
+.streamax-official-footer .fnt16 {
+font-size: 15px;
+}
+.streamax-official-footer .mt45 {
+margin-top: 26px;
+}
+.streamax-official-footer .mb45 {
+margin-bottom: 18px;
+}
+.streamax-official-footer .footer_mind {
+align-items: flex-start;
+flex-direction: column;
+}
+.streamax-official-footer .footer_bottom .a {
+flex-direction: column;
+align-items: center;
+gap: 10px;
+}}
+</style>
+<style id="header-footer-integration">
+#streamaxHeader .frame-animation{animation:streamaxRobotOfficialFull 1.5s steps(32) 1 forwards!important}
+#streamaxHeader .change.is-open .change_con,
+#streamaxHeader .change:focus-within .change_con{display:block!important}
+@media(min-width:1201px){
+  #streamaxHeader .nav li:focus-within .erNav{display:block!important}
+}
+@media(max-width:1200px){
+  body{padding-top:78px}
+  #main-content{min-height:calc(100svh - 78px)}
+  body.touch_body.nav-open{overflow:hidden}
+  body.touch_body #streamaxHeader .nav_con{display:none!important;top:78px!important;height:calc(100dvh - 78px)!important;align-items:flex-start!important}
+  body.touch_body #streamaxHeader.is-open .nav_con{display:block!important}
+  body.touch_body #streamaxHeader .nav li.hover .mo_nav{display:block!important}
+  body.touch_body #streamaxHeader .change,
+  body.touch_body #streamaxHeader .nav_btn{height:78px!important}
+  body.touch_body #streamaxHeader .change_con{top:78px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #streamaxHeader,#streamaxHeader *,#streamaxHeader *::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="header" id="streamaxHeader">
+<div class="wrap1600 cf">
+<div class="logo flex alignCenter"><a aria-label="Streamax home" href="https://www.streamax.com/"><img alt="Streamax" class="only_logo" src="data:image/webp;base64,UklGRvYEAABXRUJQVlA4WAoAAAAQAAAAkwAAEAAAQUxQSJsDAAABoEXbtmk7mrFt27Zt27Zt27Zt28a9ebHt1FPOje3xcfRK/xExASq9x//jV8fdpBUfPryKr//zirgeK+0DEv2v3QemlCnlsHQyaT18j/m/9hlOyfVK+B7WJtx/WqgYIRTzPSx009rjgz8XvZZ3akkpxh/2eM1+DVRhy8UrV69ZXr28r5Wkpl7HntOri0nKtfSUx+v1ej0ej8fr9XrObKwidfM69pxallOh2jy74/FsT+kgy16P596j+p9hkZsNOI+jZj+wT5EFt/OlxbgurRKEZHvtxHUuRRwD8LmJTbs/AAPDfoC7YVzk73YZfg3qau6WQcUBdvfu2rVrt9a6Cuzv1N6y1xOgpHJ16WzfqfsR4IpuALu7duq8ENjVuVPnhQCx8nbpbN+p5zngpKR0XoBFoSRFXANwJKm0B3i4ZOEi88L50ypJ0iL4JvvHQFtZxwSuyD7KZ1ght1fgZaK/4JIkZQGaS9IKoKhcPoZgmScC3MmlKt8AhkpSyre4nCppI3xPYJMNOCjbhL9glQN9hM2u1kBgukewxFQZ6GdqGxL7wT+USZVfArTM6g/PSsgywcgVq9aYV6/eDZDHTS+gmV3877BOxatWqVKlSuUGl4HakupvP3nKeoXpRZonsMZFT6CU1HL3KduZOgjPZR1r+29gYqI9hyMpJNsD49xsBVI7WyScbpU0HadaDC/SP3XXAyikFTj8o93wIpSVtBngvEI4CjBD2uToJTyVfbxvsFwnAgODAv39/3p2bbikEkDQ6AEDzW20Hp5neuauJxAvG/Bo5ICB5sY67Gi0D9idefzkkIkLTJa2wreoVrmAhQ4S/IAVCmWW/Vr4HE/26+FF1uchk2wmGGFlfwD8rdKdA5icZTMcThwSWYAR0gr4Hc+qH1DbQRzgjNyug49yeBaCsr+A1S56AKlmwV9yeBuCZW71A/hcT7UB3tcx5S1U0GGFa0BJqRLgV6dMmUoxtQN+xXAQyh+YU66Uw9LJVQs4XaOMZYX5wMXo72Cli+5AwiLA3qplLCutAa5JCrsC4HgKSZn8AGZJwvVxSVqLdczQwE05bY7radIB3JYTsN1UCxhhGgiUlR9uq0jV3gOMkPVkgMAyCvzh9Ovbu5Nk2e1c4OvXb/Yq63vDGOBI7S4F+96+e+uwh6RRt4w3by3f+IIvtlUCn2HMMZU1DKOLqZ1hGFUUeso9481byzdGkLeeQrV8j8+4WVL21e4bPnx1AABWUDggNAEAAJAIAJ0BKpQAEQA+GQyFQaEEzSAEAGEsoA6QD9QKUB+FduAbwB1gHoAfoB1onmAfzYmXRqVyD/oXTJmwxmDhg1cRChq1MURAwDTYdPQAAP7/e7MFYI2wuzTzQ4qFolm9haPWf41eV1ml4jdE5zM9ezeDA8Pj183uia3qsDDPV7tbbveP1Q0VH/cbjRO05hp/7ff//yspmf21mdK1wXro02gwXLnyfOLetMEJ31uj++m8q//8X9wcj2lH9QYprVtMxZUK6oav4X8sLXBSsG/eH8+aEbxHNxx0iSr/QrVrdNH9dEtFTBz/6MT+Gsd6vTSvwuRel4f5sXpQ+bv5og+ysP4MImZ4T7GF+b6a/0Jx11LWp1MQZX/l4Jln5EI/LwTQJp3EYL/8IH+YuTuiD5x7oA+T7gAA"/></a></div>
+<div class="right cf">
+<nav class="nav_con">
+<ul class="nav cf">
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/"><q>Home</q></a></div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/solutions.html" target="_self"><q>Solutions</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/products.html" target="_self"><q>Products</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/products.html" target="_self">About Product</a>
+<a class="fnt16" href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/products.html" target="_self">About Product</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/technology.html" target="_self"><q>Technology</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+</div>
+<div class="mo_nav cf">
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/resources/blog.html" target="_self"><q>Resources</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a>
+<a class="fnt16" href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a>
+<a class="fnt16" href="https://www.streamax.com/resources/case.html" target="_self">Cases</a>
+<a class="fnt16" href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/case.html" target="_self">Cases</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/about.html" target="_self"><q>About</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/about.html" target="_self">About Us</a>
+<a class="fnt16" href="https://www.streamax.com/about/events.html" target="_self">Events</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/about.html" target="_self">About Us</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/about/events.html" target="_self">Events</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+</ul>
+<div class="nav-submenu__cover"></div>
+</nav>
+<div class="lang_search flex alignCenter">
+<div class="lang cf mode_btn flex justifyCenter">
+<a href="https://www.streamax.com/category/contactform.html">
+<span>Get in Touch</span>
+<div class="frame-animation"></div>
+</a>
+</div>
+<div class="change">
+<svg class="icon" height="256" p-id="2883" t="1764158970741" version="1.1" viewbox="0 0 1024 1024" width="256" xmlns="http://www.w3.org/2000/svg"><path d="M523.377778 955.733333C278.755556 955.733333 79.644444 756.622222 79.644444 512c0-244.622222 199.111111-443.733333 443.733334-443.733333S967.111111 267.377778 967.111111 512c0 244.622222-199.111111 443.733333-443.733333 443.733333z m0-849.54074C299.614815 106.192593 117.57037 288.237037 117.57037 512c0 223.762963 182.044444 405.807407 405.807408 405.807407C747.140741 917.807407 929.185185 735.762963 929.185185 512c0-223.762963-182.044444-405.807407-405.807407-405.807407z" fill="" p-id="2884"></path><path d="M523.377778 955.733333c-127.051852 0-225.659259-195.318519-225.659259-443.733333 0-248.414815 98.607407-443.733333 225.659259-443.733333S749.037037 263.585185 749.037037 512c0 248.414815-100.503704 443.733333-225.659259 443.733333z m0-849.54074c-102.4 0-187.733333 185.837037-187.733334 405.807407 0 219.97037 85.333333 405.807407 187.733334 405.807407s187.733333-185.837037 187.733333-405.807407c0-219.97037-87.22963-405.807407-187.733333-405.807407z" fill="" p-id="2885"></path><path d="M523.377778 352.711111c-117.57037 0-235.140741-30.340741-339.437037-87.22963-9.481481-5.688889-13.274074-17.066667-7.585185-26.548148 5.688889-9.481481 17.066667-13.274074 26.548148-7.585185 96.711111 53.096296 208.592593 81.540741 320.474074 81.540741 113.777778 0 223.762963-28.444444 322.37037-83.437037 9.481481-5.688889 20.859259-1.896296 26.548148 7.585185 5.688889 9.481481 1.896296 20.859259-7.585185 26.548148-104.296296 58.785185-221.866667 89.125926-341.333333 89.125926zM197.214815 805.925926c-7.585185 0-13.274074-3.792593-17.066667-9.481482-5.688889-9.481481-1.896296-20.859259 7.585185-26.548148 102.4-54.992593 218.074074-85.333333 333.748148-85.333333 115.674074 0 231.348148 28.444444 333.748149 83.437037 9.481481 5.688889 13.274074 17.066667 7.585185 26.548148-5.688889 9.481481-17.066667 13.274074-26.548148 7.585185-96.711111-53.096296-204.8-79.644444-314.785186-79.644444-109.985185 0-219.97037 28.444444-316.681481 79.644444-1.896296 3.792593-3.792593 3.792593-7.585185 3.792593z" fill="" p-id="2886"></path><path d="M948.148148 534.755556H98.607407c-11.377778 0-18.962963-7.585185-18.962963-18.962963s7.585185-18.962963 18.962963-18.962963H948.148148c11.377778 0 18.962963 7.585185 18.962963 18.962963s-9.481481 18.962963-18.962963 18.962963z" fill="" p-id="2887"></path></svg>
+<div class="change_con">
+<a href="https://cn.streamax.com/" target="_blank">中文</a>
+<a href="https://streamax.com/jp" target="_blank">日本語</a>
+<a href="https://streamax.com/es" target="_blank">Español</a>
+<a href="https://streamax.com/pt" target="_blank">Português</a>
+</div>
+</div>
+<div class="search cf" style="display:none;">
+<a href="javascript:;"><svg p-id="9567" t="1755748336078" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M415.59889935 818.40673751c-103.69194019 0-207.38388041-39.48836529-286.31642412-118.42090898-157.86508737-157.87981634-157.86508737-414.78248979 0-572.66230613 157.85035841-157.85035841 414.76776082-157.90927428 572.64757719 0 157.86508737 157.87981634 157.86508737 414.78248979 0 572.66230613-78.93254368 78.93254368-182.63921287 118.42090898-286.33115307 118.42090898z m0-725.22496474c-82.09927197 0-164.21327292 31.25487175-226.70828746 93.74988629-125.00475803 125.00475803-125.00475803 328.44127481 0 453.44603281 125.01948701 124.9753001 328.41181686 125.03421596 453.43130386 0 125.00475803-125.00475803 125.00475803-328.44127481 0-453.44603281-62.5097435-62.49501453-144.60901547-93.74988627-226.7230164-93.74988629z" fill="#333333" p-id="9568"></path><path d="M973.48804978 1013.69813456c-10.78160515 0-21.57793927-4.10938229-29.79670383-12.34287584L658.31757585 715.95203069c-16.46698708-16.46698708-16.46698708-43.14114955 0-59.60813666s43.14114955-16.46698708 59.60813665 0l285.37377009 285.38849908c16.46698708 16.46698708 16.46698708 43.14114955 0 59.60813663a42.07329932 42.07329932 0 0 1-29.81143281 12.35760482z" fill="#333333" p-id="9569"></path></svg></a>
+</div>
+</div>
+<div class="nav_btn"><span></span></div>
+</div>
+</div>
+<div class="search-drop-down">
+<div class="search-wrapper">
+<span><a href="javascript:;" id="search-btn"><svg p-id="9567" t="1755748336078" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M415.59889935 818.40673751c-103.69194019 0-207.38388041-39.48836529-286.31642412-118.42090898-157.86508737-157.87981634-157.86508737-414.78248979 0-572.66230613 157.85035841-157.85035841 414.76776082-157.90927428 572.64757719 0 157.86508737 157.87981634 157.86508737 414.78248979 0 572.66230613-78.93254368 78.93254368-182.63921287 118.42090898-286.33115307 118.42090898z m0-725.22496474c-82.09927197 0-164.21327292 31.25487175-226.70828746 93.74988629-125.00475803 125.00475803-125.00475803 328.44127481 0 453.44603281 125.01948701 124.9753001 328.41181686 125.03421596 453.43130386 0 125.00475803-125.00475803 125.00475803-328.44127481 0-453.44603281-62.5097435-62.49501453-144.60901547-93.74988627-226.7230164-93.74988629z" fill="#ffffff" p-id="9568"></path><path d="M973.48804978 1013.69813456c-10.78160515 0-21.57793927-4.10938229-29.79670383-12.34287584L658.31757585 715.95203069c-16.46698708-16.46698708-16.46698708-43.14114955 0-59.60813666s43.14114955-16.46698708 59.60813665 0l285.37377009 285.38849908c16.46698708 16.46698708 16.46698708 43.14114955 0 59.60813663a42.07329932 42.07329932 0 0 1-29.81143281 12.35760482z" fill="#ffffff" p-id="9569"></path></svg></a></span>
+<div class="search-input">
+<input autocomplete="off" id="search" name="question" placeholder="Search..." type="text"/>
+<div class="errorMsg">检测到并清除了危险字符！</div>
+</div>
+<span id="close"><svg p-id="10614" t="1755765834589" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M585.412525 512.594747L973.601616 124.418586c19.600808-19.600808 19.600808-51.898182 0-71.49899l-2.120404-2.120404c-19.600808-19.600808-51.898182-19.600808-71.49899 0L511.793131 439.518384 123.61697 50.799192c-19.600808-19.600808-51.898182-19.600808-71.49899 0l-2.120404 2.120404c-20.11798 19.600808-20.11798 51.898182 0 71.49899l388.189091 388.189091L49.997576 900.783838c-19.587879 19.600808-19.587879 51.898182 0 71.49899l2.120404 2.120404c19.600808 19.600808 51.898182 19.600808 71.49899 0L511.793131 586.214141l388.189091 388.176162c19.600808 19.600808 51.898182 19.600808 71.49899 0l2.120404-2.120404c19.600808-19.600808 19.600808-51.898182 0-71.49899L585.412525 512.594747z m0 0" fill="#ffffff" p-id="10615"></path></svg></span>
+</div>
+</div>
+</header>
+<main id="main-content">
+  <!-- Sentinel Landing Page content will be added here. -->
+</main>
+<footer class="footer pb50 streamax-official-footer">
+<div class="wrap1600">
+<div class="footer_top flex flexWrap">
+<div class="left">
+<h3 class="fnt26">Contact Us</h3>
+<dl class="mt45">
+<dt class="fnt26 mb20">400-998-2970</dt>
+<dd class="fnt16">6 Temasek Blvd, 35-02 Suntec Tower 4, Singapore 038986, Singapore, SG</dd>
+</dl>
+</div>
+<div class="right flex flexWrap">
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/solutions.html" target="_self">Solutions</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a>
+<a href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a>
+<a href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a>
+<a href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a>
+<a href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a>
+<a href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a>
+<a href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/products.html" target="_self">Products</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/products.html" target="_self">About Product</a>
+<a href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/technology.html" target="_self">Technology</a></dt>
+<dd class="fnt16">
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/resources/blog.html" target="_self">Resources</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a>
+<a href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a>
+<a href="https://www.streamax.com/resources/case.html" target="_self">Cases</a>
+<a href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/about.html" target="_self">About</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/about.html" target="_self">About Us</a>
+<a href="https://www.streamax.com/about/events.html" target="_self">Events</a>
+</dd>
+</dl>
+</div>
+</div>
+<div class="footer_mind flex flexWrap alignCenter pt20 pb20 mt45">
+<div class="left fnt22">You can also follow us on social media</div>
+<div class="right flex flexWrap alignCenter">
+<a href="https://www.linkedin.com/company/streamax-technology/" target="_blank"><svg class="icon" height="200" p-id="6968" t="1758520778600" version="1.1" viewbox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M224 149.28a75.2 75.2 0 0 0-79.04 80A75.04 75.04 0 0 0 224 307.36a76.96 76.96 0 0 0 80-78.4 76.96 76.96 0 0 0-80-79.68zM878.72 874.72V575.04c0-148.8-74.08-216.96-172.96-216.96a176 176 0 0 0-149.28 80h-3.04l-6.88-69.12H416c1.92 44.48 4 98.08 4 161.12v344.64h150.24V583.36A112 112 0 0 1 576 544a80 80 0 0 1 76-58.88c54.4 0 76.16 44.48 76.16 109.6v280zM149.28 369.44h150.24v505.28H149.28z" fill="#828286" p-id="6969"></path></svg></a>
+<a href="https://www.youtube.com/@StreamaxMDVR" target="_blank"><svg class="icon" height="200" p-id="7968" t="1758520803422" version="1.1" viewbox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M1003.2 265.6c-11.2-44.8-46.4-78.4-91.2-91.2-80-20.8-400-20.8-400-20.8s-320 0-400 20.8c-44.8 11.2-78.4 46.4-91.2 91.2C0 345.6 0 512 0 512s0 166.4 20.8 246.4c11.2 44.8 46.4 78.4 91.2 91.2 80 20.8 400 20.8 400 20.8s320 0 400-20.8c44.8-11.2 78.4-46.4 91.2-91.2C1024 678.4 1024 512 1024 512s0-166.4-20.8-246.4z m-593.6 400V358.4L675.2 512l-265.6 153.6z" fill="#828286" p-id="7969"></path></svg></a>
+</div>
+</div>
+<div class="footer_bottom mt55">
+<div class="f_logo mb45"><a href="https://www.streamax.com/"><img alt="" src="https://www.streamax.com/static/en/img/logoF.png"/></a></div>
+<div class="a fnt16"><a href="https://www.streamax.com/category/cookie-policy.html">Cookie Policy</a><a href="https://www.streamax.com/privacy.html">Privacy Policy</a><a href="https://www.streamax.com/category/product-policy.html">Product Policy</a><a href="https://www.streamax.com/category/service-agreement.html">Service Agreement</a></div>
+<div class="p fnt14">Copyright 2014-2025 Streamax Technology Co.,Ltd</div>
+</div>
+</div>
+<div class="icp-row"><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备10239636号</a></div>
+</footer>
+<script>
+(() => {
+  const header = document.getElementById('streamaxHeader');
+  const mobile = matchMedia('(max-width:1200px)');
+  const menu = header.querySelector('.nav_btn');
+  const nav = header.querySelector('.nav_con');
+  const language = header.querySelector('.change');
+  const languageList = language.querySelector('.change_con');
+  nav.id = 'streamax-navigation';
+  languageList.id = 'streamax-languages';
+
+  function makeToggle(node, label, controls) {
+    node.setAttribute('role', 'button');
+    node.setAttribute('tabindex', '0');
+    node.setAttribute('aria-label', label);
+    node.setAttribute('aria-controls', controls);
+    node.setAttribute('aria-expanded', 'false');
+    node.addEventListener('keydown', (event) => {
+      if (event.target === node && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        node.click();
+      }
+    });
+  }
+
+  function closeMenu() {
+    header.classList.remove('is-open');
+    menu.classList.remove('click');
+    menu.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  }
+
+  makeToggle(menu, 'Toggle navigation', nav.id);
+  makeToggle(language, 'Select language', languageList.id);
+  menu.addEventListener('click', () => {
+    const open = !header.classList.contains('is-open');
+    header.classList.toggle('is-open', open);
+    menu.classList.toggle('click', open);
+    menu.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-open', open);
+  });
+  language.addEventListener('click', (event) => {
+    if (event.target.closest('a')) return;
+    const open = !language.classList.contains('is-open');
+    language.classList.toggle('is-open', open);
+    language.setAttribute('aria-expanded', String(open));
+  });
+
+  header.querySelectorAll('.TWnavBtn').forEach((toggle, index) => {
+    const item = toggle.closest('li');
+    const submenu = item.querySelector('.mo_nav');
+    if (!submenu || !submenu.children.length) return;
+    submenu.id = `streamax-submenu-${index}`;
+    makeToggle(toggle, `Toggle ${item.querySelector('q').textContent} submenu`, submenu.id);
+    toggle.addEventListener('click', () => {
+      const open = !item.classList.contains('hover');
+      item.classList.toggle('hover', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  nav.addEventListener('click', (event) => {
+    if (mobile.matches && event.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('click', (event) => {
+    if (!language.contains(event.target)) {
+      language.classList.remove('is-open');
+      language.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (header.classList.contains('is-open')) { closeMenu(); menu.focus(); }
+    if (language.contains(document.activeElement)) language.focus();
+    language.classList.remove('is-open');
+    language.setAttribute('aria-expanded', 'false');
+    header.querySelectorAll('.nav li.hover').forEach((item) => {
+      item.classList.remove('hover');
+      item.querySelector('.TWnavBtn')?.setAttribute('aria-expanded', 'false');
+    });
+  });
+  function syncViewport() {
+    document.body.classList.toggle('touch_body', mobile.matches);
+    closeMenu();
+  }
+  mobile.addEventListener('change', syncViewport);
+  syncViewport();
+})();
+</script>
+</body>
+</html>

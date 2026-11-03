@@ -1,0 +1,213 @@
+{
+  "models": {
+    "model-0bb8cb20177d.glb": {
+      "bytes": 2507760,
+      "sources": [
+        "truck-sentinel-runner.html",
+        "truck-sentinel-mount.html",
+        "truck-day-night.html"
+      ]
+    },
+    "model-bffe2948bc9e.glb": {
+      "bytes": 11992852,
+      "sources": [
+        "truck-sentinel-runner.html",
+        "sentinel-soc.html",
+        "truck-sentinel-mount.html",
+        "truck-day-night.html",
+        "truck64-iot.html",
+        "sentinel-only.html",
+        "globe-sentinel.html"
+      ]
+    },
+    "model-616204beaad2.glb": {
+      "bytes": 2836672,
+      "sources": [
+        "truck-sentinel-runner.html"
+      ]
+    },
+    "model-1232dc6dae42.glb": {
+      "bytes": 3364684,
+      "sources": [
+        "truck-sentinel-runner.html"
+      ]
+    },
+    "model-e1b81b2d393c.glb": {
+      "bytes": 2351844,
+      "sources": [
+        "truck64-iot.html"
+      ]
+    },
+    "model-c9696bb4d4ba.glb": {
+      "bytes": 165600,
+      "sources": [
+        "cctv-camera-wire.html"
+      ]
+    }
+  },
+  "copies": [
+    {
+      "source": "Sentinel Keynote HTML/3D/truck-sentinel-runner.html",
+      "copy": "assets/3d/truck-sentinel-runner.html",
+      "bytes": 40665
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/sentinel-soc.html",
+      "copy": "assets/3d/sentinel-soc.html",
+      "bytes": 25995
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/fuel-sensor-wire.html",
+      "copy": "assets/3d/fuel-sensor-wire.html",
+      "bytes": 24634
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/truck-sentinel-mount.html",
+      "copy": "assets/3d/truck-sentinel-mount.html",
+      "bytes": 38454
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/truck-day-night.html",
+      "copy": "assets/3d/truck-day-night.html",
+      "bytes": 44407
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/globe-only.html",
+      "copy": "assets/3d/globe-only.html",
+      "bytes": 163293
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/truck64-iot.html",
+      "copy": "assets/3d/truck64-iot.html",
+      "bytes": 36587
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/cctv-camera-wire.html",
+      "copy": "assets/3d/cctv-camera-wire.html",
+      "bytes": 13505
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/camera-pod-wire.html",
+      "copy": "assets/3d/camera-pod-wire.html",
+      "bytes": 23611
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/sentinel-only.html",
+      "copy": "assets/3d/sentinel-only.html",
+      "bytes": 26533
+    },
+    {
+      "source": "Sentinel Keynote HTML/3D/globe-sentinel.html",
+      "copy": "assets/3d/globe-sentinel.html",
+      "bytes": 184502
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/truck-xray.png",
+      "copy": "assets/images/truck-xray.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/bg-beam.jpg",
+      "copy": "assets/images/bg-beam.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/ai-still.jpg",
+      "copy": "assets/images/ai-still.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/nv-ultra.jpg",
+      "copy": "assets/images/nv-ultra.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/theft-cargo.jpg",
+      "copy": "assets/images/theft-cargo.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/nv-iphone.jpg",
+      "copy": "assets/images/nv-iphone.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/nv-blacklight.jpg",
+      "copy": "assets/images/nv-blacklight.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/sentinel-side.png",
+      "copy": "assets/images/sentinel-side.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/world-dots.png",
+      "copy": "assets/images/world-dots.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/theft-fuel.jpg",
+      "copy": "assets/images/theft-fuel.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/hero-truck.jpg",
+      "copy": "assets/images/hero-truck.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/sentinel-front.png",
+      "copy": "assets/images/sentinel-front.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/aov-still.jpg",
+      "copy": "assets/images/aov-still.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/sentinel-dim.png",
+      "copy": "assets/images/sentinel-dim.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap9.jpg",
+      "copy": "assets/images/cases/cap9.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap8.jpg",
+      "copy": "assets/images/cases/cap8.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/alert-night.jpg",
+      "copy": "assets/images/cases/alert-night.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap3.jpg",
+      "copy": "assets/images/cases/cap3.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap2.jpg",
+      "copy": "assets/images/cases/cap2.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/curve-0308.png",
+      "copy": "assets/images/cases/curve-0308.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/poster-ampenet.jpg",
+      "copy": "assets/images/cases/poster-ampenet.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap1.jpg",
+      "copy": "assets/images/cases/cap1.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/curve-0327.png",
+      "copy": "assets/images/cases/curve-0327.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap5.jpg",
+      "copy": "assets/images/cases/cap5.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap4.jpg",
+      "copy": "assets/images/cases/cap4.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap6.jpg",
+      "copy": "assets/images/cases/cap6.webp"
+    },
+    {
+      "source": "Sentinel Keynote HTML/Images/cases/cap7.jpg",
+      "copy": "assets/images/cases/cap7.webp"
+    }
+  ]
+}

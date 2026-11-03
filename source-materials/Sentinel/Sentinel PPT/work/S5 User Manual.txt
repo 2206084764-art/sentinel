@@ -1,0 +1,956 @@
+
+
+
+
+
+
+
+
+
+
+Sentry AI Camera
+S5
+Product User Manual
+
+
+
+Content
+Preface3
+About This Product User Manual3
+Trademark Statement3
+Disclaimer3
+Symbol Explanation4
+Product Overview5
+Product Introduction5
+Product Features5
+AI Features6
+Product Appearance and Component Names6
+System Connection Diagram7
+Cables7
+Device Login7
+General Information Viewing9
+Video Preview11
+AI Calibration12
+Sentry Calibration12
+Video Playback14
+Video Export15
+Basic Configurations16
+Registration Information17
+Time Setup17
+Startup Setup18
+User Setup21
+Network Setup22
+Application Setup26
+Video Surveillance27
+Record27
+Camera Setup29
+Data Collection30
+General Setup30
+Snap Setup32
+Alarm Setup34
+Explanation of General Items for Alarms34
+Basic Alarms36
+IO Alarm36
+Speeding Alarm37
+Panel Button Alarm38
+GPS Alarm38
+Peripheral Sensor Alarm39
+Video Alarms39
+Video Loss Alarm39
+Camera Cover Alarm40
+Advanced Alarms40
+Harsh Driving Alarm40
+Geo-Fence Alarm41
+AI Alarms41
+SENTRY Alarms42
+Algorithm Calibration43
+
+Preface
+
+About This Product User Manual
+This product user manual provides detailed information about the components and functions of the S5 product. All content, including text, images, and graphics, is the property of Shenzhen Streamax Technologies Co., Ltd. No part of this document may be reproduced, extracted, or modified without prior written consent from the company. Unless otherwise stated, this manual does not offer any form of warranty.
+This document is intended solely for authorized users and technical support personnel. Product images and screen content are for reference only. The actual product (including appearance, color, and size) may differ. Please refer to the physical product for accuracy.
+Streamax Technology may update or modify the specifications from time to time to reflect changes in product performance, functionality, or components without prior notice.
+Trademark Statement
+ is a registered trademark of Shenzhen Streamax Technology Co., Ltd. All other trademarks are the property of their respective owners.
+Disclaimer
+The product described in this document is provided “as is” without any express or implied warranties, including but not limited to warranties of merchantability or fitness for a particular purpose. Streamax Technology shall not be liable for any damages resulting from the use of the product or the specifications, including but not limited to loss of profits, data, or documentation.
+When the product is connected to the Internet, Streamax Technology is not responsible for network security risks such as cyberattacks, hacking, or virus infections. However, we will provide technical support as necessary.
+By using this product, you agree to comply with all applicable laws. Streamax Technology is not responsible for any misuse of the product or any infringement of third-party rights.
+If there is any conflict between this specification and applicable laws, the laws shall prevail.
+
+Copyright © 2025 Shenzhen Streamax Technology Co., Ltd. All rights reserved.
+Symbol Explanation
+
+The following symbols are used to categorize and explain potential hazards that may arise from improper operation
+
+Symbol
+Explanation
+
+Warning: Conditions that could jeopardize the safety of the user or cause injury
+
+Important: Conditions that may lead to data corruption or damage to the device’s firmware or hardware
+
+Note: Additional information, explanations of terms, and other relevant details
+
+
+Product Overview
+
+Product Introduction
+The S5 is an AI-powered intelligent sentinel camera engineered to ensure comprehensive asset protection. Designed for continuous 24/7 operation, it provides uninterrupted high-definition monitoring to capture every critical moment. Featuring ultra-low power consumption and AOV standby mode, the S5 remains active even when the vehicle is turned off, maintaining constant security coverage. Integrated 4G, Wi-Fi, and GNSS modules enable real-time transmission of vehicle location, status, and operational data to the platform, supporting remote communication and video playback for precise asset management and control.
+
+Product Features
+
+Built-In one ultra-wide-angle lens with up to 2 Megapixels HD video recording, supporting black light technology
+Supports human posture detection for accurate identification of theft.
+Supports H.264/H.265 encoding
+Supports 1*Micro SD storage ,up to 1TB
+Built-in Wi-Fi, 4G Cat1 communication module, and inertial navigation module
+Video data supports AES256 encryption
+Supports 1 channels of IO input, 1 channels of IO output and 1 RS232 channel
+Supports normal mode and AOV ultra-low power consumption mode
+Built-in 6-axis gravity sensor, supports detection of rapid acceleration, rapid deceleration, sharp turns, and collisions
+Built-in battery and can keep working for 5 minutes in case of a power outage (optional)
+
+AI Features
+
+
+
+Vehicle contact inspection
+Suspicious target detection
+
+
+Product Appearance and Component Names
+
+
+
+
+
+No.
+Components
+1
+GPS positioning module
+2
+Horizontal Angle Adjustment Disc
+3
+Vertical angle adjustment sphere
+4
+TF card, SIM card cover
+5
+TF card slot, SIM card slot, USB 3.0
+6
+Rigid mounting base
+
+
+System Connection Diagram
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cables
+
+
+
+Device Login
+
+
+Note
+AP Mode: To connect to the device's Wi-Fi hotspot, the device must be in AP mode. The device will be in AP mode for the first 3 minutes after startup. You can also switch to the AP mode by changing the Wi-Fi mode on your device.
+
+Mobile App Installation:
+For Android users, search for Veyes in Google Play to download
+For iPhone users, search for Veyes in the App Store to download
+
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the deviceEnter the username and password，The default credentials are: admin/adminClick [Log in] to access the operation interfaceClick [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the deviceEnter the username and password，The default credentials are: admin/adminClick [Log in] to access the operation interface
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the device
+Enter the username and password，The default credentials are: admin/admin
+Click [Log in] to access the operation interface
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the device
+Enter the username and password，The default credentials are: admin/admin
+Click [Log in] to access the operation interface
+
+Click the top-right corner to view information such as the APP version and other details[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speedClick the top-right corner to view information such as the APP version and other details[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+Click the top-right corner to view information such as the APP version and other details
+[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+Click the top-right corner to view information such as the APP version and other details
+[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+
+General Information Viewing
+
+Click [General] → [Basic Info] to view the device’s basic information:[Server Status]：View the server connection status[Sensor Status]：View the high/low voltage status and usage of the I/O[OBD Data]：View the vehicle data read by the device from the OBD port（Not supported）[6 Axis Data]：View the G-Sensor's six-axis data[Others]：View the ACC status, pulse status, device status, and iButton status[Calibration Status]：View the AI algorithm calibration status[Serial Port Status]：View the status of the connected peripheralsClick [General] → [Basic Info] to view the device’s basic information:[Server Status]：View the server connection status[Sensor Status]：View the high/low voltage status and usage of the I/O[OBD Data]：View the vehicle data read by the device from the OBD port（Not supported）[6 Axis Data]：View the G-Sensor's six-axis data[Others]：View the ACC status, pulse status, device status, and iButton status[Calibration Status]：View the AI algorithm calibration status[Serial Port Status]：View the status of the connected peripherals
+Click [General] → [Basic Info] to view the device’s basic information:
+[Server Status]：View the server connection status
+[Sensor Status]：View the high/low voltage status and usage of the I/O
+[OBD Data]：View the vehicle data read by the device from the OBD port（Not supported）
+[6 Axis Data]：View the G-Sensor's six-axis data
+[Others]：View the ACC status, pulse status, device status, and iButton status
+[Calibration Status]：View the AI algorithm calibration status
+[Serial Port Status]：View the status of the connected peripherals
+Click [General] → [Basic Info] to view the device’s basic information:
+[Server Status]：View the server connection status
+[Sensor Status]：View the high/low voltage status and usage of the I/O
+[OBD Data]：View the vehicle data read by the device from the OBD port（Not supported）
+[6 Axis Data]：View the G-Sensor's six-axis data
+[Others]：View the ACC status, pulse status, device status, and iButton status
+[Calibration Status]：View the AI algorithm calibration status
+[Serial Port Status]：View the status of the connected peripherals
+
+
+
+
+
+
+
+
+Click [General] → [Device Module]: View information about the device's Wi-Fi, 3/4G, eSIM, Positioning, and Bluetooth modulesClick [General] → [Device Module]: View information about the device's Wi-Fi, 3/4G, eSIM, Positioning, and Bluetooth modules   
+Click [General] → [Device Module]: View information about the device's Wi-Fi, 3/4G, eSIM, Positioning, and Bluetooth modules
+Click [General] → [Device Module]: View information about the device's Wi-Fi, 3/4G, eSIM, Positioning, and Bluetooth modules
+
+Click [General] → [Storage Device]: View the storage status and perform formatting operationsClick [General] → [Storage Device]: View the storage status and perform formatting operations
+Click [General] → [Storage Device]: View the storage status and perform formatting operations
+Click [General] → [Storage Device]: View the storage status and perform formatting operations
+
+Click [General] → [Version Info]: View or upgrade the software versionClick [General] → [Version Info]: View or upgrade the software version
+Click [General] → [Version Info]: View or upgrade the software version
+Click [General] → [Version Info]: View or upgrade the software version
+
+
+
+Upgrade Steps
+Image Explanation
+Prepare a USB flash drive and create a folder named upgrade in the root directory. Then place the upgrade package into the folder
+   
+Connect the USB flash drive to the device via the maintenance cable
+
+Click Upgrade
+
+
+
+Note
+The above steps outline the local upgrade process via Veyes. The device also supports online upgrades through the FT platform. For details, please refer to the platform documentation or consult relevant personnel.
+
+
+Click [General] → [Other]: Supports operations such as importing/exporting data and configuration parameters, restoring factory settings, and restarting the device*Import/Export operations require an external USB driveClick [General] → [Other]: Supports operations such as importing/exporting data and configuration parameters, restoring factory settings, and restarting the device*Import/Export operations require an external USB drive
+Click [General] → [Other]: Supports operations such as importing/exporting data and configuration parameters, restoring factory settings, and restarting the device
+*Import/Export operations require an external USB drive
+Click [General] → [Other]: Supports operations such as importing/exporting data and configuration parameters, restoring factory settings, and restarting the device
+*Import/Export operations require an external USB drive
+
+
+
+
+
+
+
+
+Video Preview
+
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+
+
+
+
+
+
+AI Calibration
+
+Sentry Calibration
+
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interfaceClick the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+
+
+
+
+
+click [Calibration]Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".click [Calibration]Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".        
+click [Calibration]
+
+Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".
+
+click [Calibration]
+
+Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".
+
+
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).then click [Save]② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).then click [Save]
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).
+
+then click [Save]
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).
+
+then click [Save]
+
+
+
+
+Warning
+Sentry camera calibration must be performed strictly according to the requirements:Perform point marking and calibration on the vehicle body area first, followed by point marking and calibration on the suspicious area. Within each calibration range, the selected points will form a line segment, with both ends of the segment perpendicular to the vehicle body, thereby defining a range interval.
+Failure to follow the required procedureswill prevent the sentinel system from accurately obtaining the image information, which may affect its judgment ability, thereby possibly reducing the accuracy of the alarm or causing the system to malfunction.
+The company does not assume responsibility for any functional issues caused by improper installation or calibration
+
+
+At this point, the Sentry calibration is completeAt this point, the Sentry calibration is complete
+At this point, the Sentry calibration is complete
+At this point, the Sentry calibration is complete
+
+
+
+
+
+Video Playback
+
+Click [Playback], and you can select the year and date on the left side of the screen. In the calendar, the color bar under each date indicates that there is video recorded on that day, with different colors representing different types of videosOn the right side of the screen, you can select the Main/Sub storage (The S5 only supports one Micro SD cards). In the storage, you can choose Main streams:Main Stream: HD quality, primarily used for video recording storage, providing video evidenceClick [Playback], and you can select the year and date on the left side of the screen. In the calendar, the color bar under each date indicates that there is video recorded on that day, with different colors representing different types of videosOn the right side of the screen, you can select the Main/Sub storage (The S5 only supports one Micro SD cards). In the storage, you can choose Main streams:Main Stream: HD quality, primarily used for video recording storage, providing video evidence
+Click [Playback], and you can select the year and date on the left side of the screen. In the calendar, the color bar under each date indicates that there is video recorded on that day, with different colors representing different types of videos
+On the right side of the screen, you can select the Main/Sub storage 
+(The S5 only supports one Micro SD cards). In the storage, you can choose Main streams:
+Main Stream: HD quality, primarily used for video recording storage, providing video evidence
+Click [Playback], and you can select the year and date on the left side of the screen. In the calendar, the color bar under each date indicates that there is video recorded on that day, with different colors representing different types of videos
+On the right side of the screen, you can select the Main/Sub storage 
+(The S5 only supports one Micro SD cards). In the storage, you can choose Main streams:
+Main Stream: HD quality, primarily used for video recording storage, providing video evidence
+
+
+
+
+
+
+
+
+
+
+
+Select the channel you want to playback, then click [Next]Select the channel you want to playback, then click [Next]
+Select the channel you want to playback, then click [Next]
+Select the channel you want to playback, then click [Next]
+
+The top section shows the timeline. You can zoom in/out the timeline by clicking the button in the top-left cornerCheck the box for the channel you want to playbackThe color bar on each channel represents the type of video recorded during a specific periodDrag the timeline to start the playback from a specific time pointClick [Play] to start the playbackThe top section shows the timeline. You can zoom in/out the timeline by clicking the button in the top-left cornerCheck the box for the channel you want to playbackThe color bar on each channel represents the type of video recorded during a specific periodDrag the timeline to start the playback from a specific time pointClick [Play] to start the playback
+The top section shows the timeline. You can zoom in/out the timeline by clicking the button in the top-left corner
+Check the box for the channel you want to playback
+The color bar on each channel represents the type of video recorded during a specific period
+Drag the timeline to start the playback from a specific time point
+Click [Play] to start the playback
+The top section shows the timeline. You can zoom in/out the timeline by clicking the button in the top-left corner
+Check the box for the channel you want to playback
+The color bar on each channel represents the type of video recorded during a specific period
+Drag the timeline to start the playback from a specific time point
+Click [Play] to start the playback
+
+
+
+
+
+
+
+
+
+Video Export
+
+Refer to the last page of the previous section's diagram, then click [Video Export]:
+
+Select the start timeSelect the start time
+Select the start time
+Select the start time
+
+Select the end time Select the end time 
+Select the end time 
+Select the end time 
+
+Choose the export data format, then click [OK] to export the video (the device must be connected to a USB flash drive)Choose the export data format, then click [OK] to export the video (the device must be connected to a USB flash drive)
+Choose the export data format, then click [OK] to export the video (the device must be connected to a USB flash drive)
+Choose the export data format, then click [OK] to export the video (the device must be connected to a USB flash drive)
+
+
+Warning
+Exporting in MP4 format allows playback on regular media players.Exporting in H264/H265 format requires a dedicated player (CEIBA2/FT client). The H264/H265 format contains more raw data, which is helpful for troubleshooting. If you require after-sales support, please choose to export in H264/H265 format
+
+
+
+Basic Configurations
+
+
+Note
+In all configuration parameter interfaces, after modifying the parameters, click the [Save] button at the bottom of the screen to save the changes. Click [Default] to restore all the default parameters on that interface
+
+Warning
+Due to the wide range of features of this product, this user manual only covers the most used settings. If you have any other questions, please feel free to contact us
+
+
+Registration Information
+
+Click [Preferences] – [Basic Setup] – [Regist Info]:
+In this interface, you can fill in the basic information: Device ID, License Plate Number, Vehicle Number, Vehicle VIN, Driver's Employee ID, and NameIn this interface, you can fill in the basic information: Device ID, License Plate Number, Vehicle Number, Vehicle VIN, Driver's Employee ID, and Name
+In this interface, you can fill in the basic information: Device ID, License Plate Number, Vehicle Number, Vehicle VIN, Driver's Employee ID, and Name
+In this interface, you can fill in the basic information: Device ID, License Plate Number, Vehicle Number, Vehicle VIN, Driver's Employee ID, and Name
+
+
+Note
+Once you enter the license plate number, the Wi-Fi hotspot name will be renamed to the license plate number. You will then need to reconnect to the Wi-Fi and log in to Veyes again
+
+
+Time Setup
+
+Click [Preferences] – [Basic Setup] – [Time Setup]:
+Click [General] to set the time display format and the device's time zone. Enabling [Cross Time Zone Enable] will make the time zone parameter unmodifiable, and an option to set the local time zone will be addedClick [General] to set the time display format and the device's time zone. Enabling [Cross Time Zone Enable] will make the time zone parameter unmodifiable, and an option to set the local time zone will be added
+Click [General] to set the time display format and the device's time zone. Enabling [Cross Time Zone Enable] will make the time zone parameter unmodifiable, and an option to set the local time zone will be added
+
+Click [General] to set the time display format and the device's time zone. Enabling [Cross Time Zone Enable] will make the time zone parameter unmodifiable, and an option to set the local time zone will be added
+
+
+
+
+
+Note
+Cross Time Zone Enable: When the vehicle and platform are in different time zones, enable this option to maintain proper communication between the device and the platform. Once enabled, the [Time Zone] setting becomes unmodifiable, and both the platform and the device will use the UTC (Zero) time zone for data exchange. A [Local TimeZone] setting is added to be used for overlaying time zones on the video recordings
+ 
+Click [Time Sync] to manually or automatically set the date and time. The automatic setting option allows you to choose the time synchronization methodClick [Time Sync] to manually or automatically set the date and time. The automatic setting option allows you to choose the time synchronization method
+Click [Time Sync] to manually or automatically set the date and time. The automatic setting option allows you to choose the time synchronization method
+Click [Time Sync] to manually or automatically set the date and time. The automatic setting option allows you to choose the time synchronization method
+
+Click [DST] to set Daylight Saving TimeClick [DST] to set Daylight Saving Time
+Click [DST] to set Daylight Saving Time
+Click [DST] to set Daylight Saving Time
+
+
+Startup Setup
+
+Click [Preferences] – [Basic Setup] – [Startup]:
+Click [ON/OFF] to set the device status after ACC OFFClick [ON/OFF] to set the device status after ACC OFF
+Click [ON/OFF] to set the device status after ACC OFF
+Click [ON/OFF] to set the device status after ACC OFF
+
+
+Note
+[ON/OFF Mode]: Select the [Ignition] for power on/off (that is, start the device by turning on the car key).
+[Ignition Delay]: Set the time for delayed shutdown after the car key is turned off. It can be set from 0 to 86399 seconds, with the default being 300 seconds.
+[Video Delay]: Set the time for delayed video recording after ignition shutdown. The video recording delay time ≤ the ignition shutdown delay time.
+[Timer From]: Select the period for timed power-on.
+[Light Off Time]: When an external display screen is connected, you can configure the time for the screen backlight to turn off.
+[Robot Delay]: When enabled, the device will automatically restart once after the set time, and then start the shutdown countdown again.
+
+Warning
+The function will only take effect when AOV is disabled.
+
+
+Click [Sleep] to select the device's sleep mode. You can modify the sleep time, low voltage protection parameters, and the GPS reporting interval during sleepClick [Sleep] to select the device's sleep mode. You can modify the sleep time, low voltage protection parameters, and the GPS reporting interval during sleep  
+Click [Sleep] to select the device's sleep mode. You can modify the sleep time, low voltage protection parameters, and the GPS reporting interval during sleep
+Click [Sleep] to select the device's sleep mode. You can modify the sleep time, low voltage protection parameters, and the GPS reporting interval during sleep
+
+
+Note
+[Battery low voltage protect]: When the battery voltage falls below the set value, the device will enter low power standby mode when ACC ON and zero power standby mode when ACC OFF 
+[Voltage Startup]: In low power standby mode, when the battery voltage exceeds the set value, the device will return to normal startup mode 
+[Low Volt Upload]: When enabled, the device will report to the platform when the low voltage protection is triggered
+Click [Wake] to select the device's wake-up method:AOV:After activation, the device will enter the AOV mode. It will periodically wake up at the time intervals set here, conduct environmental detection and record videos frame by frame.IO Wake: The device will be awakened after an IO alarm is triggeredG-Sensor Wake: The device will be awakened when its motion exceeds the thresholdRemote Wake: The device will be remotely awakened by issuing a command from the platformCall Wake: The device will be awakened by a phone call, requiring a pre-configured phone number that supports wake-upSMS Wake: The device will be awakened by sending a text message to the device, with the message content as "WAKEUP". The phone number that supports wake-up must be pre-configured* The Call Wake and SMS Wake functions require the SIM card in the device to support SMS and voice call servicesClick [Wake] to select the device's wake-up method:AOV:After activation, the device will enter the AOV mode. It will periodically wake up at the time intervals set here, conduct environmental detection and record videos frame by frame.IO Wake: The device will be awakened after an IO alarm is triggeredG-Sensor Wake: The device will be awakened when its motion exceeds the thresholdRemote Wake: The device will be remotely awakened by issuing a command from the platformCall Wake: The device will be awakened by a phone call, requiring a pre-configured phone number that supports wake-upSMS Wake: The device will be awakened by sending a text message to the device, with the message content as "WAKEUP". The phone number that supports wake-up must be pre-configured* The Call Wake and SMS Wake functions require the SIM card in the device to support SMS and voice call services
+Click [Wake] to select the device's wake-up method:
+AOV:After activation, the device will enter the AOV mode. It will periodically wake up at the time intervals set here, conduct environmental detection and record videos frame by frame.
+IO Wake: The device will be awakened after an IO alarm is triggered
+G-Sensor Wake: The device will be awakened when its motion exceeds the threshold
+Remote Wake: The device will be remotely awakened by issuing a command from the platform
+Call Wake: The device will be awakened by a phone call, requiring a pre-configured phone number that supports wake-up
+SMS Wake: The device will be awakened by sending a text message to the device, with the message content as "WAKEUP". The phone number that supports wake-up must be pre-configured
+* The Call Wake and SMS Wake functions require the SIM card in the device to support SMS and voice call services
+Click [Wake] to select the device's wake-up method:
+AOV:After activation, the device will enter the AOV mode. It will periodically wake up at the time intervals set here, conduct environmental detection and record videos frame by frame.
+IO Wake: The device will be awakened after an IO alarm is triggered
+G-Sensor Wake: The device will be awakened when its motion exceeds the threshold
+Remote Wake: The device will be remotely awakened by issuing a command from the platform
+Call Wake: The device will be awakened by a phone call, requiring a pre-configured phone number that supports wake-up
+SMS Wake: The device will be awakened by sending a text message to the device, with the message content as "WAKEUP". The phone number that supports wake-up must be pre-configured
+* The Call Wake and SMS Wake functions require the SIM card in the device to support SMS and voice call services
+
+ 
+
+
+User Setup
+
+Click [Preferences] – [Basic Setup] – [User Setup]:
+
+
+
+
+Warning
+Admin: There is only one admin account, which has the permission to add/delete normal users and set parameters. A maximum of two normal users can be added
+Normal User: A default normal user account is created, which only has permission to view settings
+
+
+Network Setup
+
+Click [Preferences] – [Basic Setup] – [Network]:
+Click [Server Setup] to add/remove servers and configure their parameters. A maximum of 4 servers can be enabled simultaneouslyClick [Server Setup] to add/remove servers and configure their parameters. A maximum of 4 servers can be enabled simultaneously
+Click [Server Setup] to add/remove servers and configure their parameters. A maximum of 4 servers can be enabled simultaneously
+Click [Server Setup] to add/remove servers and configure their parameters. A maximum of 4 servers can be enabled simultaneously
+
+
+Note
+[Enable Network]: You can choose between wired network, Wi-Fi, communication module, or adaptive. Adaptive means the system will automatically select the available network for platform connection, with priority given to Wi-Fi > Wired Network > Communication Module
+During normal device operation, data between the device and the platform can be transmitted via TLS encryption to ensure the security of the interaction. (TLS encryption is unavailable in sleep mode.)
+The registration server and media server addresses and ports must be the same
+SMS commands can be used to modify the server parameters. For specific usage, please consult the relevant personnel
+
+
+Click [Local] to configure both IPv4 and IPv6 network protocols. Users can select automatic IP (DHCP mode) and DNS retrieval or manually set the IP address, gateway, and DNS.The MAC address info is also displayed hereClick [Local] to configure both IPv4 and IPv6 network protocols. Users can select automatic IP (DHCP mode) and DNS retrieval or manually set the IP address, gateway, and DNS.The MAC address info is also displayed here
+Click [Local] to configure both IPv4 and IPv6 network protocols. Users can select automatic IP (DHCP mode) and DNS retrieval or manually set the IP address, gateway, and DNS.
+The MAC address info is also displayed here
+Click [Local] to configure both IPv4 and IPv6 network protocols. Users can select automatic IP (DHCP mode) and DNS retrieval or manually set the IP address, gateway, and DNS.
+The MAC address info is also displayed here
+
+Click [WIFI] to select the Wi-Fi mode and configure the related settingsClick [WIFI] to select the Wi-Fi mode and configure the related settings
+Click [WIFI] to select the Wi-Fi mode and configure the related settings
+Click [WIFI] to select the Wi-Fi mode and configure the related settings
+
+
+Note
+[Lock]: When enabled, the Wi-Fi parameters cannot be imported or modified, and will not be affected by factory reset 
+[Enable]:
+ Disable
+Wi-Fi is disabled. The device defaults to AP mode within 3 minutes (configurable) after power on. If no Veyes connection is made within 3 minutes, the device will exit AP mode, and the module will enter sleep mode
+ AP
+[WIFI Mode]: Choose between Auto, 2.4G, or 5G；
+[ESSID]: The name of the device's hotspot (defaults to the serial number)
+[Hotspot]: After enabling the hotspot, mobile devices can connect to the device's hotspot for internet access. You can configure the encryption method
+[Whitelist]: Only mobile devices with IP addresses in the list are allowed to connect. You can add up to 5 IP addresses
+ Client
+[ESSID]: The ID and password of an available external Wi-Fi network. The device will automatically search for nearby valid Wi-Fi networks and report to the platform through that network. You can configure the encryption method
+
+
+Click [Communication Module] to configure the communication module settings: [Lock]: Same as above, see [WIFI] – [Lock] [Dialing Parameter]: Enter the parameters provided by the SIM card manufacturer. By default, this field is empty, and if left empty, the device will use the default dialing parameters[Active Mode]: Select [Always] for constant connection mode; select activation via phone call/SMS, with a maximum of 3 available phone numbers; also select [Sensor] switch activation, where the network module will only be activated to dial after triggering the IO sensor [MTU value of SIM card]: Default is 1500; the data is configurableClick [Communication Module] to configure the communication module settings: [Lock]: Same as above, see [WIFI] – [Lock] [Dialing Parameter]: Enter the parameters provided by the SIM card manufacturer. By default, this field is empty, and if left empty, the device will use the default dialing parameters[Active Mode]: Select [Always] for constant connection mode; select activation via phone call/SMS, with a maximum of 3 available phone numbers; also select [Sensor] switch activation, where the network module will only be activated to dial after triggering the IO sensor [MTU value of SIM card]: Default is 1500; the data is configurable
+Click [Communication Module] to configure the communication module settings: 
+[Lock]: Same as above, see [WIFI] – [Lock] 
+[Dialing Parameter]: Enter the parameters provided by the SIM card manufacturer. By default, this field is empty, and if left empty, the device will use the default dialing parameters
+[Active Mode]: Select [Always] for constant connection mode; select activation via phone call/SMS, with a maximum of 3 available phone numbers; also select [Sensor] switch activation, where the network module will only be activated to dial after triggering the IO sensor 
+[MTU value of SIM card]: Default is 1500; the data is configurable
+Click [Communication Module] to configure the communication module settings: 
+[Lock]: Same as above, see [WIFI] – [Lock] 
+[Dialing Parameter]: Enter the parameters provided by the SIM card manufacturer. By default, this field is empty, and if left empty, the device will use the default dialing parameters
+[Active Mode]: Select [Always] for constant connection mode; select activation via phone call/SMS, with a maximum of 3 available phone numbers; also select [Sensor] switch activation, where the network module will only be activated to dial after triggering the IO sensor 
+[MTU value of SIM card]: Default is 1500; the data is configurable
+
+
+Click [Bluetooth] to search for and connect to Bluetooth sensors. Bluetooth 2.1 and Bluetooth 4.2 are supported. Currently, this function is under developmentClick [Bluetooth] to search for and connect to Bluetooth sensors. Bluetooth 2.1 and Bluetooth 4.2 are supported. Currently, this function is under development
+Click [Bluetooth] to search for and connect to Bluetooth sensors. Bluetooth 2.1 and Bluetooth 4.2 are supported. Currently, this function is under development
+Click [Bluetooth] to search for and connect to Bluetooth sensors. Bluetooth 2.1 and Bluetooth 4.2 are supported. Currently, this function is under development
+
+
+
+
+Click [Ports]:This interface can change the port number.Click [Ports]:This interface can change the port number.
+Click [Ports]:This interface can change the port number.
+Click [Ports]:This interface can change the port number.
+
+
+Note
+WEB Port: The default is 80, which is used for access via IE.
+RTSP Port: The default is 554, supporting real-time preview and playback through RTSP with a fixed IP.
+RTSP Streaming Format: rtsp://user:pwd@IP:554/mainstreamX (X is the channel number, starting from 0, such as mainstream0)
+Example: rtsp://admin:admin@10.20.112.17:554/mainstream0
+
+Application Setup
+
+Click [Preferences] – [Basic Setup] – [Application]:
+Click [FTP Server], which supports configuring the FTP server for uploading or downloading files and imagesClick [FTP Server], which supports configuring the FTP server for uploading or downloading files and images
+Click [FTP Server], which supports configuring the FTP server for uploading or downloading files and images
+Click [FTP Server], which supports configuring the FTP server for uploading or downloading files and images
+
+
+Click [Download]: to set the automatic download reconnection time, which can be selected between 1 and 10 minutes, with the default being 5 minutes.Click [Download]: to set the automatic download reconnection time, which can be selected between 1 and 10 minutes, with the default being 5 minutes.
+Click [Download]: to set the automatic download reconnection time, which can be selected between 1 and 10 minutes, with the default being 5 minutes.
+
+Click [Download]: to set the automatic download reconnection time, which can be selected between 1 and 10 minutes, with the default being 5 minutes.
+
+
+
+
+
+Video Surveillance
+
+Record
+
+Click [Preferences] – [Surveillance] – [Record]:
+Click [General], which supports configuring system standards, coverage strategy, pre-recording logic, and recording modeClick [General], which supports configuring system standards, coverage strategy, pre-recording logic, and recording mode
+Click [General], which supports configuring system standards, coverage strategy, pre-recording logic, and recording mode
+Click [General], which supports configuring system standards, coverage strategy, pre-recording logic, and recording mode
+
+
+Warning
+[System]: The system format includes PAL and NTSC. The system format must match the external camera format, otherwise, the device will not recognize it
+
+
+Note
+[Overwrite]: 
+[By Days]: Overwrite by days, storing recordings for n days. If the SD card is full before n days, overwriting will occur in advance
+[By Capacity]: Overwrite by capacity, automatically overwriting old recordings when the remaining capacity is less than 1%
+[Never]: No overwriting, recording will stop when the storage is full
+[By Minutes]: The logic is the same as [By Days]
+
+[Pre-recording]: When in alarm recording, it will link the recordings from a specified time before the alarm trigger (configurable) for event analysis
+
+
+Click [Main Stream], which supports configuring the following parameters for each channel in main stream recordingClick [Main Stream], which supports configuring the following parameters for each channel in main stream recording
+Click [Main Stream], which supports configuring the following parameters for each channel in main stream recording
+Click [Main Stream], which supports configuring the following parameters for each channel in main stream recording
+
+
+
+Click [Sub Stream], which supports configuring the following parameters for each channel in sub stream recordingClick [Sub Stream], which supports configuring the following parameters for each channel in sub stream recording
+Click [Sub Stream], which supports configuring the following parameters for each channel in sub stream recording
+Click [Sub Stream], which supports configuring the following parameters for each channel in sub stream recording
+
+
+
+
+Note
+[Resolution]: Selectable video resolution
+[Frame Rate]: Selectable video frame rate
+[Quality]: Selectable video quality, 1-8
+[Encode Standard]: Selectable video compression standard, H264/H265
+[Channel Name]: Modifiable channel name
+[Record Mode]: Selectable recording mode, startup recording/timed recording/alarm recording
+[Alarm Quality]: Selectable alarm video quality, 1-8
+[Encode Mode]: Selectable video encoding mode, CBR/VBR
+
+
+
+
+Warning
+When the main stream is disabled, the whole video input will be shut down. At this time, even if the sub-stream is enabled, it won't record the sub-stream. 
+
+Click [Record OSD], which supports overlaying the selected information onto the recording screen, and it can be displayed in the platform previewClick [Record OSD], which supports overlaying the selected information onto the recording screen, and it can be displayed in the platform preview
+Click [Record OSD], which supports overlaying the selected information onto the recording screen, and it can be displayed in the platform preview
+Click [Record OSD], which supports overlaying the selected information onto the recording screen, and it can be displayed in the platform preview
+Click [Setup], which supports dragging to set the overlay position of each piece of informationClick [Setup], which supports dragging to set the overlay position of each piece of information
+Click [Setup], which supports dragging to set the overlay position of each piece of information
+Click [Setup], which supports dragging to set the overlay position of each piece of information
+
+
+Camera Setup
+
+Click [Preferences] – [Surveillance] – [Camera Setup]:
+You can set the rotation angle, mirroring, and (vertical) flipping for each channel's screenYou can set the rotation angle, mirroring, and (vertical) flipping for each channel's screen  
+You can set the rotation angle, mirroring, and (vertical) flipping for each channel's screen
+You can set the rotation angle, mirroring, and (vertical) flipping for each channel's screen
+
+
+
+Warning
+Under normal circumstances, the device's default screen angle is set to the optimal (best) angle at the factory. Please do not modify the angle or perform any mirror flipping operations. If intentional modifications lead to abnormal video display or AI detection functionality, the company is not responsible
+
+
+Data Collection
+
+General Setup
+
+Click [Preferences] – [Collection] – [General]:
+Click [Serial Port], it supports configuring the RS232 serial port's purpose and baud rate (the baud rate will be automatically set, but If there is an error, you can also adjust it manually)Click [Serial Port], it supports configuring the RS232 serial port's purpose and baud rate (the baud rate will be automatically set, but If there is an error, you can also adjust it manually)
+Click [Serial Port], it supports configuring the RS232 serial port's purpose and baud rate (the baud rate will be automatically set, but If there is an error, you can also adjust it manually)
+
+Click [Serial Port], it supports configuring the RS232 serial port's purpose and baud rate (the baud rate will be automatically set, but If there is an error, you can also adjust it manually)
+
+
+
+
+
+
+
+
+Click [Location], which supports configuring GPS positioning mode, reporting mode, and related parametersClick [Location], which supports configuring GPS positioning mode, reporting mode, and related parameters
+Click [Location], which supports configuring GPS positioning mode, reporting mode, and related parameters
+Click [Location], which supports configuring GPS positioning mode, reporting mode, and related parameters
+
+ACC Status
+Fixed Reporting
+Conditional Reporting
+ACC ON
+Timed Reporting: The reporting interval can be configured
+Distance-Based Reporting: The reporting distance can be configured.Both of the above options can be selected at the same time
+Configure [Moving Start] and [Moving Stop], as described below
+ACC OFF
+Sleep Reporting: For more details, please refer to the [Startup Setup]
+
+
+
+Note
+[Moving Start]: When the vehicle speed exceeds a certain value and stays above it for a specific period, the vehicle is considered to have started, and reporting will follow the configured time or distance logic under this option.
+[Moving Stop]: When the vehicle speed drops below a certain value and stays below it for a specific period, the vehicle is considered to have stopped, and reporting will follow the configured time logic under this option.
+[GPS Heading Change]: Reporting will occur when a significant change in vehicle heading is detected. The angle and reporting interval can be configured.
+The vehicle's ACC status will be reported along with the GPS information.
+
+
+Click [Mileage], which supports calibrating and resetting the mileage valueClick [Mileage], which supports calibrating and resetting the mileage value
+Click [Mileage], which supports calibrating and resetting the mileage value
+Click [Mileage], which supports calibrating and resetting the mileage value
+
+
+
+
+
+
+
+Snap Setup
+
+Click [Preferences] – [Collection] – [Snap Setting]:
+
+Click [Time Snap], which supports configuring a timed switch strategy. Each time period can be configured with its own snap parameters: channel, resolution, image quality, upload method, number of snapshots, and snapshot interval. A maximum of 8 time periods is supportedClick [Time Snap], which supports configuring a timed switch strategy. Each time period can be configured with its own snap parameters: channel, resolution, image quality, upload method, number of snapshots, and snapshot interval. A maximum of 8 time periods is supported
+Click [Time Snap], which supports configuring a timed switch strategy. Each time period can be configured with its own snap parameters: channel, resolution, image quality, upload method, number of snapshots, and snapshot interval. A maximum of 8 time periods is supported
+Click [Time Snap], which supports configuring a timed switch strategy. Each time period can be configured with its own snap parameters: channel, resolution, image quality, upload method, number of snapshots, and snapshot interval. A maximum of 8 time periods is supported
+
+
+
+
+
+
+Click [Trigger Snap], which supports configuring ordinary alarm snapshots. The configuration parameters are the same as those in [Time Snap]Click [Trigger Snap], which supports configuring ordinary alarm snapshots. The configuration parameters are the same as those in [Time Snap]
+Click [Trigger Snap], which supports configuring ordinary alarm snapshots. The configuration parameters are the same as those in [Time Snap]
+Click [Trigger Snap], which supports configuring ordinary alarm snapshots. The configuration parameters are the same as those in [Time Snap]
+
+
+
+Note
+This interface is only related to general(non-AI) alarms, such as IO alarms, GPS loss alarms, etc. Snapshots will be taken after the alarm is triggered. AI alarms have a separate snapshot logic and interface, which is unrelated to this configuration interface.
+
+Click [Distance Snap], which supports configuring distance-based snapshots. The configuration parameters are basically the same as those in [Time Snap], with the only difference being that distance-based snapshots do not have a time interval settingClick [Distance Snap], which supports configuring distance-based snapshots. The configuration parameters are basically the same as those in [Time Snap], with the only difference being that distance-based snapshots do not have a time interval setting
+Click [Distance Snap], which supports configuring distance-based snapshots. The configuration parameters are basically the same as those in [Time Snap], with the only difference being that distance-based snapshots do not have a time interval setting
+Click [Distance Snap], which supports configuring distance-based snapshots. The configuration parameters are basically the same as those in [Time Snap], with the only difference being that distance-based snapshots do not have a time interval setting
+
+
+
+Warning
+The snapshot function consumes system resources. The average snapshot frequency of all channels is limited to a maximum of 3 snapshots within 5 seconds. Streamax will not be held responsible for any system resource issues caused by frequent snapshotting that exceeds this limit. 
+
+
+Alarm Setup
+
+Explanation of General Items for Alarms
+
+
+
+All alarms can be configured with two [Alarm Type] options. To avoid repetitive information, the explanation is provided here:
+
+Alarm Type
+Explanation
+Alarm
+When the type is set to Alarm, the device will record the alarm data and report it to the platform.
+Event
+When the type is set to Event, the device will record the alarm data but will not report it to the platform.
+
+Trigger: 
+Linkage: 
+
+All alarms (including both non-AI alarms and AI alarms) can be configured with [Trigger] and [Linkage]. Some options are common configurations. To avoid repetitive information, the explanation is provided here:
+
+Configuration
+Common Options
+Explanation
+Trigger
+Effective Time
+Select a time range. Multiple alarms of the same type triggered within this time range will be considered as a single alarm
+Trigger
+Do not refresh the alarm timer
+By default, this option is unchecked, meaning that multiple alarms of the same type occurring within a certain time range (Effective Time) will be considered as a single alarm, and the Effective Time will reset accordingly
+When checked, multiple alarms of the same type occurring within the same time range will still be considered as a single alarm. However, the Effective Time will not reset. This means that if the total duration of the alarm exceeds the Effective Time, the alarm will end, and the total duration will be recorded as the Effective Time. After the Effective Time has passed, a new alarm entry will be recorded, starting from the end of the previous alarm
+Linkage
+Channel
+After an alarm ends, one or more channels can be selected, and these channels will be marked as alarm recordings
+Linkage
+Post Recording
+After an alarm ends, the selected channel’s video will be delayed for a certain period and marked as an alarm recording
+Linkage
+Lock
+Locked alarm recordings cannot be overwritten until the recording protection period ends or until manually unlocked. Even if the storage space is full, they will not be overwritten
+Linkage
+Linkage IO Output
+The IO out tail line of the equipment will generate a high level when the alarm occurs.
+Linkage
+Output Delay Time
+Set the duration of the high level of IO Output when an alarm occurs
+Linkage
+Alarm Snap
+This option is only available for non-AI alarms. When checked, it will trigger image capture based on the previously configured [Snap] settings. For details, refer to the [Snap] section
+
+
+Basic Alarms
+
+Click [Preferences] – [Alarm] – [Base]:
+
+IO Alarm
+
+ Please select the appropriate [Sensor Uses] based on the specific wiring method, such as left/right turn signals, reverse signal, etc. Please select the appropriate [Sensor Uses] based on the specific wiring method, such as left/right turn signals, reverse signal, etc.
+ Please select the appropriate [Sensor Uses] based on the specific wiring method, such as left/right turn signals, reverse signal, etc.
+ Please select the appropriate [Sensor Uses] based on the specific wiring method, such as left/right turn signals, reverse signal, etc.
+
+
+
+ 
+Click [Trigger], which supports configuring the input source of the IO signal. You can choose between Voltage or Pulse, as described in the table below. The options for Effective Time and Do Not Refresh Alarm Timer are explained in the general configuration sectionClick [Trigger], which supports configuring the input source of the IO signal. You can choose between Voltage or Pulse, as described in the table below. The options for Effective Time and Do Not Refresh Alarm Timer are explained in the general configuration section
+Click [Trigger], which supports configuring the input source of the IO signal. You can choose between Voltage or Pulse, as described in the table below. The options for Effective Time and Do Not Refresh Alarm Timer are explained in the general configuration section
+Click [Trigger], which supports configuring the input source of the IO signal. You can choose between Voltage or Pulse, as described in the table below. The options for Effective Time and Do Not Refresh Alarm Timer are explained in the general configuration section
+
+High Voltage
+Normally low level, triggered by high level
+Low Voltage
+Normally high level, triggered by low level
+
+Click [Linkage] to configure the linkage function for the IO signal. For other options, please refer to the General Configuration section.Click [Linkage] to configure the linkage function for the IO signal. For other options, please refer to the General Configuration section.
+Click [Linkage] to configure the linkage function for the IO signal. For other options, please refer to the General Configuration section.
+Click [Linkage] to configure the linkage function for the IO signal. For other options, please refer to the General Configuration section.
+
+
+Speeding Alarm
+
+
+Note
+This alarm is different from the [Overspeed Alarm] (also known as Speed Limit Sign Alarm)
+
+
+
+Click [Trigger], when the vehicle speed exceeds the configured [Speed] - [Preload Speed Difference], a pre-warning and voice alert will be triggered. If the vehicle speed exceeds the configured [Speed], a voice alert will be triggered. If the driver does not slow down within the configured [Duration Time], the alarm will be reported to the platformClick [Trigger], when the vehicle speed exceeds the configured [Speed] - [Preload Speed Difference], a pre-warning and voice alert will be triggered. If the vehicle speed exceeds the configured [Speed], a voice alert will be triggered. If the driver does not slow down within the configured [Duration Time], the alarm will be reported to the platform
+Click [Trigger], when the vehicle speed exceeds the configured [Speed] - [Preload Speed Difference], a pre-warning and voice alert will be triggered. If the vehicle speed exceeds the configured [Speed], a voice alert will be triggered. If the driver does not slow down within the configured [Duration Time], the alarm will be reported to the platform
+Click [Trigger], when the vehicle speed exceeds the configured [Speed] - [Preload Speed Difference], a pre-warning and voice alert will be triggered. If the vehicle speed exceeds the configured [Speed], a voice alert will be triggered. If the driver does not slow down within the configured [Duration Time], the alarm will be reported to the platform
+
+Click [Linkage], for option details, please refer to the general configuration descriptionClick [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+
+
+Panel Button Alarm
+
+
+Click [Trigger], for option details, please refer to the general configuration descriptionClick [Trigger], for option details, please refer to the general configuration description
+Click [Trigger], for option details, please refer to the general configuration description
+
+Click [Trigger], for option details, please refer to the general configuration description
+
+
+Click [Linkage], you can set the panel button alarm duration using [PB Alarm Duration]. Click [Linkage], you can set the panel button alarm duration using [PB Alarm Duration]. 
+Click [Linkage], you can set the panel button alarm duration using [PB Alarm Duration]. 
+Click [Linkage], you can set the panel button alarm duration using [PB Alarm Duration]. 
+
+
+GPS Alarm
+
+A GPS alarm will be triggered when the GPS signal is lost
+Click [Trigger] and [Linkage], for option details, please refer to the general configuration descriptionClick [Trigger] and [Linkage], for option details, please refer to the general configuration description
+Click [Trigger] and [Linkage], for option details, please refer to the general configuration description
+Click [Trigger] and [Linkage], for option details, please refer to the general configuration description
+
+
+
+Peripheral Sensor Alarm
+
+
+
+
+Video Alarms
+
+Click [Preferences] – [Alarm] – [Video]:
+
+Video Loss Alarm
+A Video Loss Alarm will be triggered when the camera experiences a malfunction or is physically disconnected
+Click [Trigger], select the channels for which the Video Loss Alarm should be enabled. For other options, please refer to the general configuration description.Click [Linkage], for option details, please refer to the general configuration descriptionClick [Trigger], select the channels for which the Video Loss Alarm should be enabled. For other options, please refer to the general configuration description.Click [Linkage], for option details, please refer to the general configuration description
+Click [Trigger], select the channels for which the Video Loss Alarm should be enabled. For other options, please refer to the general configuration description.
+Click [Linkage], for option details, please refer to the general configuration description
+Click [Trigger], select the channels for which the Video Loss Alarm should be enabled. For other options, please refer to the general configuration description.
+Click [Linkage], for option details, please refer to the general configuration description
+
+
+
+Camera Cover Alarm
+
+Click [Trigger], select the channels for which the Camera Cover Alarm should be enabled. It supports configuring the sensitivity of the alarm trigger; it also supports setting the alarm trigger based on [Duration Time] and [Speed Range], meaning that when the vehicle speed exceeds a certain value and the device detects camera obstruction for a specified duration, the alarm will be triggered. For other options, please refer to the general configuration descriptionClick [Trigger], select the channels for which the Camera Cover Alarm should be enabled. It supports configuring the sensitivity of the alarm trigger; it also supports setting the alarm trigger based on [Duration Time] and [Speed Range], meaning that when the vehicle speed exceeds a certain value and the device detects camera obstruction for a specified duration, the alarm will be triggered. For other options, please refer to the general configuration description
+Click [Trigger], select the channels for which the Camera Cover Alarm should be enabled. It supports configuring the sensitivity of the alarm trigger; it also supports setting the alarm trigger based on [Duration Time] and [Speed Range], meaning that when the vehicle speed exceeds a certain value and the device detects camera obstruction for a specified duration, the alarm will be triggered. For other options, please refer to the general configuration description
+Click [Trigger], select the channels for which the Camera Cover Alarm should be enabled. It supports configuring the sensitivity of the alarm trigger; it also supports setting the alarm trigger based on [Duration Time] and [Speed Range], meaning that when the vehicle speed exceeds a certain value and the device detects camera obstruction for a specified duration, the alarm will be triggered. For other options, please refer to the general configuration description
+
+
+
+Advanced Alarms
+
+Click [Preferences] – [Alarm] – [Advanced]:
+
+Harsh Driving Alarm
+
+ACCEL2 (Aggressive Driving Alarm) is triggered by the G-Sensor which supports automatic or manual calibration for optimal sensitivity. For improved accuracy, enable the [Integrated Navigation] button to select the vehicle type, allowing the system to assess alerts more precisely based on combined sensor dataACCEL2 (Aggressive Driving Alarm) is triggered by the G-Sensor which supports automatic or manual calibration for optimal sensitivity. For improved accuracy, enable the [Integrated Navigation] button to select the vehicle type, allowing the system to assess alerts more precisely based on combined sensor data
+ACCEL2 (Aggressive Driving Alarm) is triggered by the G-Sensor which supports automatic or manual calibration for optimal sensitivity. For improved accuracy, enable the [Integrated Navigation] button to select the vehicle type, allowing the system to assess alerts more precisely based on combined sensor data
+ACCEL2 (Aggressive Driving Alarm) is triggered by the G-Sensor which supports automatic or manual calibration for optimal sensitivity. For improved accuracy, enable the [Integrated Navigation] button to select the vehicle type, allowing the system to assess alerts more precisely based on combined sensor data
+Click [Trigger], you can adjust the [Offset] value to modify the sensitivity of each alarm: the smaller the offset value, the more sensitive the alarm detection. You can also select the vehicle type to use the corresponding inertial sensor model for optimal detection performance. For other options, please refer to the general configuration descriptionClick [Trigger], you can adjust the [Offset] value to modify the sensitivity of each alarm: the smaller the offset value, the more sensitive the alarm detection. You can also select the vehicle type to use the corresponding inertial sensor model for optimal detection performance. For other options, please refer to the general configuration description
+Click [Trigger], you can adjust the [Offset] value to modify the sensitivity of each alarm: the smaller the offset value, the more sensitive the alarm detection. You can also select the vehicle type to use the corresponding inertial sensor model for optimal detection performance. For other options, please refer to the general configuration description
+Click [Trigger], you can adjust the [Offset] value to modify the sensitivity of each alarm: the smaller the offset value, the more sensitive the alarm detection. You can also select the vehicle type to use the corresponding inertial sensor model for optimal detection performance. For other options, please refer to the general configuration description
+
+
+
+Click [Linkage], for option details, please refer to the general configuration descriptionClick [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+
+
+Geo-Fence Alarm
+
+Click [Geo-Fence], in this interface, you can select the entry/exit fence or route handling strategy. This feature requires integration with the CEIBA2 platform or FT Cloud platformClick [Geo-Fence], in this interface, you can select the entry/exit fence or route handling strategy. This feature requires integration with the CEIBA2 platform or FT Cloud platform
+Click [Geo-Fence], in this interface, you can select the entry/exit fence or route handling strategy. This feature requires integration with the CEIBA2 platform or FT Cloud platform
+Click [Geo-Fence], in this interface, you can select the entry/exit fence or route handling strategy. This feature requires integration with the CEIBA2 platform or FT Cloud platform
+
+
+AI Alarms
+
+Click [Preferences] – [Alarm] – [AI App]：
+
+You can set the snapshot logic when an AI alarm is triggered. AI alarms have their own snapshot logic, which is independent of the Snap Setting section. For each AI alarm, click [Alarm Capture] → [Setup]:
+In this interface, you can set the snapshot mode, number of snapshots, snapshot interval, snapshot channel, and the resolution and quality of the snapshot imagesIn this interface, you can set the snapshot mode, number of snapshots, snapshot interval, snapshot channel, and the resolution and quality of the snapshot images
+In this interface, you can set the snapshot mode, number of snapshots, snapshot interval, snapshot channel, and the resolution and quality of the snapshot images
+In this interface, you can set the snapshot mode, number of snapshots, snapshot interval, snapshot channel, and the resolution and quality of the snapshot images
+
+
+Note
+Capture Mode:
+Single Capture: Only one snapshot will be taken each time, and the total number of snapshots is determined by [Capture PcS], while the interval between each snapshot is determined by [Capture Interval]
+Cycle Capture: The number of snapshots taken each time is determined by [Capture PcS], and the interval between each snapshot is determined by [Capture Interval], until the alarm ends
+
+SENTRY Alarms
+Click [Preferences] – [Alarm] – [AI App] – [SENTRY]：
+
+
+Suspicious Target Alarm
+
+Click [Trigger], option details, please refer to the general configuration descriptionClick [Trigger], option details, please refer to the general configuration description
+Click [Trigger], option details, please refer to the general configuration description
+Click [Trigger], option details, please refer to the general configuration description
+Click [Suspicious targe alarm]-[Trigger]]-[Linkage], for option details, please refer to the general configuration descriptionClick [Suspicious targe alarm]-[Trigger]]-[Linkage], for option details, please refer to the general configuration description
+Click [Suspicious targe alarm]-[Trigger]]-[Linkage], for option details, please refer to the general configuration description
+Click [Suspicious targe alarm]-[Trigger]]-[Linkage], for option details, please refer to the general configuration description
+
+
+
+Vehicle Touch Alarm
+
+Click [Trigger], option details, please refer to the general configuration descriptionClick [Trigger], option details, please refer to the general configuration description
+Click [Trigger], option details, please refer to the general configuration description
+Click [Trigger], option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration descriptionClick [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+Click [Linkage], for option details, please refer to the general configuration description
+
+
+
+
+Algorithm Calibration
+
+In this interface, you need to select the algorithm usage for each channel according to the actual situationIn this interface, you need to select the algorithm usage for each channel according to the actual situation
+In this interface, you need to select the algorithm usage for each channel according to the actual situation
+In this interface, you need to select the algorithm usage for each channel according to the actual situation
+
+

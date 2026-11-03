@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Black Light Ultra</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#03050a;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.85) 100%);}
+
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;color:var(--green);padding-bottom:.5cqh;border-bottom:1px solid rgba(42,245,152,.3);text-shadow:0 0 10px rgba(42,245,152,.35);}
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 1.5cqh rgba(42,245,152,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.head-wrap{position:absolute;top:10cqh;left:0;right:0;text-align:center;z-index:10;}
+.b-kick{font-size:1.5cqh;letter-spacing:.35em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:1.4cqh;opacity:0;transform:translateY(12px);transition:all .8s var(--apple) .2s;}
+.b-h1{font-size:5.4cqh;font-weight:900;letter-spacing:-.12cqh;line-height:1.05;color:#fff;opacity:0;transform:translateY(16px);transition:all .9s var(--apple) .35s;}
+.b-h1 .grad{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.b-sub{font-size:1.9cqh;color:var(--grey);margin-top:1.4cqh;opacity:0;transition:opacity .9s ease .55s;}
+.b-sub b{color:#fff;}
+#canvas[data-step] .b-kick,#canvas[data-step] .b-h1,#canvas[data-step] .b-sub{opacity:1;transform:translateY(0);}
+
+/* comparison panels */
+.compare{position:absolute;left:8cqh;right:8cqh;top:30cqh;height:47cqh;display:flex;gap:2.2cqh;z-index:10;}
+.panel{flex:1;position:relative;border-radius:2cqh;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000;opacity:0;transform:translateY(24px);transition:opacity .9s var(--apple),transform .9s var(--apple),flex 1s var(--apple),border-color .7s ease,box-shadow .7s ease;}
+.panel .ph{position:absolute;inset:0;background-size:cover;background-position:center;}
+.panel .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,5,10,.85) 4%,transparent 34%);}
+.panel .cap{position:absolute;left:0;right:0;bottom:0;padding:0 2.2cqh 2cqh;}
+.panel .cap .who{font-size:1.25cqh;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.panel .cap .what{font-size:2cqh;font-weight:800;color:#fff;margin-top:.5cqh;}
+.panel .badge{position:absolute;top:1.8cqh;left:2cqh;font-size:1.15cqh;font-weight:700;letter-spacing:1.5px;padding:.6cqh 1.4cqh;border-radius:30px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.45);color:rgba(255,255,255,.8);}
+.panel.ultra .badge{color:var(--green);border-color:rgba(42,245,152,.55);text-shadow:0 0 8px rgba(42,245,152,.5);}
+#canvas[data-step="1"] .p1{opacity:1;transform:translateY(0);}
+#canvas[data-step="2"] .p1,#canvas[data-step="2"] .p2{opacity:1;transform:translateY(0);}
+#canvas[data-step="3"] .panel{opacity:1;transform:translateY(0);}
+#canvas[data-step="3"] .panel.ultra{flex:1.8;border-color:rgba(42,245,152,.6);box-shadow:0 0 6cqh rgba(42,245,152,.16),0 2cqh 6cqh rgba(0,0,0,.55);}
+#canvas[data-step="1"] .p2,#canvas[data-step="1"] .p3{opacity:0;}
+#canvas[data-step="2"] .p3{opacity:0;}
+.panel .verdict{position:absolute;top:1.8cqh;right:2cqh;font-size:1.2cqh;font-weight:800;letter-spacing:1px;padding:.6cqh 1.4cqh;border-radius:30px;}
+.panel .verdict.fail{color:var(--red);border:1px solid rgba(255,59,48,.5);background:rgba(5,8,16,.65);}
+.panel .verdict.mid{color:#FFC53D;border:1px solid rgba(255,197,61,.5);background:rgba(5,8,16,.65);}
+.panel .verdict.win{color:var(--green);border:1px solid rgba(42,245,152,.55);background:rgba(5,8,16,.7);text-shadow:0 0 8px rgba(42,245,152,.4);}
+
+.b-foot{position:absolute;bottom:5.4cqh;left:0;right:0;text-align:center;font-size:2.2cqh;font-weight:700;font-style:italic;color:#fff;z-index:10;opacity:0;transform:translateY(10px);transition:all .9s var(--epic) .8s;}
+.b-foot b{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;}
+#canvas[data-step="3"] .b-foot{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl" id="lbl">— 07 · BLACK LIGHT ULTRA —</div></div>
+
+  <div class="head-wrap">
+    <div class="b-kick">Feature 03 · Black Light Ultra</div>
+    <h1 class="b-h1">Theft happens in the dark.<br><span class="grad">Sentinel doesn't notice the difference.</span></h1>
+    <div class="b-sub">The same scene at <b>0.02 lux</b> — deep night, no street lighting. Three cameras. One that delivers evidence.</div>
+  </div>
+
+  <div class="compare">
+    <div class="panel p1">
+      <div class="ph" style="background-image:url('Images/nv-iphone.jpg')"></div>
+      <div class="scrim"></div>
+      <div class="badge">0.02 LUX · NIGHT</div>
+      <div class="verdict fail">NOTHING</div>
+      <div class="cap"><div class="who">Shot on smartphone</div><div class="what">Total darkness. Zero evidence.</div></div>
+    </div>
+    <div class="panel p2">
+      <div class="ph" style="background-image:url('Images/nv-blacklight.jpg')"></div>
+      <div class="scrim"></div>
+      <div class="badge">0.02 LUX · NIGHT</div>
+      <div class="verdict mid">SHAPES</div>
+      <div class="cap"><div class="who">Standard black light camera</div><div class="what">Something moved. Who? Unclear.</div></div>
+    </div>
+    <div class="panel p3 ultra">
+      <div class="ph" style="background-image:url('Images/nv-ultra.jpg')"></div>
+      <div class="scrim"></div>
+      <div class="badge">BLACK LIGHT ULTRA</div>
+      <div class="verdict win">EVIDENCE</div>
+      <div class="cap"><div class="who">Sentinel · Black Light Ultra</div><div class="what">Full color. Faces, clothing, actions — court-ready.</div></div>
+    </div>
+  </div>
+
+  <div class="b-foot">At 0.02 lux, others record darkness. <b>Sentinel records the truth.</b></div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → · arrow keys</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=3;let cur=1;
+const meta={
+  1:{t:"— 07 · BLACK LIGHT ULTRA —"},
+  2:{t:"— WHAT OTHERS SEE —"},
+  3:{t:"— WHAT SENTINEL SEES —"}
+};
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+function render(){
+  canvas.setAttribute('data-step',cur);
+  lbl.textContent=meta[cur].t;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }
+/* deck advances by ← / → only — click does not navigate */
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

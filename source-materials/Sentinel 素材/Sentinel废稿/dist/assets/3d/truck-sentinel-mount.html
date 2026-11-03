@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truck + Sentinel + Runner — 3D Scene</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:340px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#49b6e8;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:212px; max-height:calc(100vh - 32px); overflow-y:auto; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; justify-content:space-between; }
+  #controls label.row{ justify-content:flex-start; }
+  #controls input[type=range]{ width:104px; }
+  #controls button{ font:inherit; font-size:12px; padding:6px 8px; border-radius:7px; border:1px solid rgba(255,255,255,0.15); background:#1f6fb0; color:#fff; cursor:pointer; }
+  #controls select{ font:inherit; font-size:12px; padding:5px 6px; border-radius:7px; border:1px solid rgba(255,255,255,0.18); background:#1a1d22; color:#e7eaed; cursor:pointer; width:100%; }
+  #controls .sec{ margin-top:2px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.1); font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:#7f868e; }
+  #readout{ font-size:10.5px; color:#8b929a; line-height:1.55; font-variant-numeric:tabular-nums; word-break:break-word; }
+  #hint{ position:absolute; bottom:24px; left:0; right:0; text-align:center; z-index:10; pointer-events:none;
+    color:#cfd6de; font-size:13px; letter-spacing:.3px; }
+  #hint .p{ display:inline-block; animation:pp 1.6s ease-in-out infinite; }
+  @keyframes pp{ 0%,100%{opacity:.55;} 50%{opacity:1;} }
+  #loading{ position:absolute; inset:0; display:flex; flex-direction:column; gap:10px; align-items:center; justify-content:center; color:#9aa4b0; z-index:20; letter-spacing:.5px; }
+  #bar{ width:220px; height:4px; border-radius:2px; background:rgba(255,255,255,0.1); overflow:hidden; }
+  #bar i{ display:block; height:100%; width:0%; background:linear-gradient(90deg,#49b6e8,#9aca3c); transition:width .2s; }
+  #info,#controls,#hint,#loading{display:none!important;}
+  html,body{background:transparent!important;}
+</style>
+</head>
+<body>
+<div id="loading"><div>Loading scene…</div><div id="bar"><i id="fill"></i></div></div>
+<div id="info">
+  <h1><span class="b">Sentinel</span>-equipped <span class="g">Truck</span> + Runner</h1>
+  <p><span class="k">Sentinel S5</span> — drag it onto the truck &amp; rotate it freely · runner</p>
+  <p><span class="k">Drag</span> orbit · <span class="k">Scroll</span> zoom · <span class="k">Click</span> to run · draw a path below</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate"> Auto-orbit</label>
+  <label><input type="checkbox" id="showMount" checked> Mount highlight</label>
+  <label><input type="checkbox" id="holdChk" checked> 🛢️ Fuel container</label>
+  <button id="runBtn">▶ Run</button>
+  <div class="sec">Sentinel placement</div>
+  <button id="placeBtn">🎯 Place on truck: OFF</button>
+  <label>Yaw <input type="range" id="yaw"   min="-180" max="180" step="1"    value="180"></label>
+  <label>Pitch <input type="range" id="pitch" min="-90"  max="90"  step="1"    value="0"></label>
+  <label>Roll <input type="range" id="roll"  min="-180" max="180" step="1"    value="90"></label>
+  <label>Size <input type="range" id="size"  min="0.3"  max="2.6" step="0.05" value="0.7"></label>
+  <button id="resetSent">↺ Reset to mount</button>
+  <button id="copySent">⧉ Copy transform</button>
+  <div id="readout">—</div>
+  <div class="sec">Runner</div>
+  <select id="pathSel"></select>
+  <button id="placeManBtn">📍 Place man: OFF</button>
+  <button id="drawBtn">✏️ Draw path: OFF</button>
+  <button id="clearPathBtn">✕ Clear path</button>
+  <button id="copyPathBtn">⧉ Copy path</button>
+  <label><input type="checkbox" id="loopChk"> <span id="loopLbl">🔁 Loop</span></label>
+  <label>Speed <input type="range" id="speed" min="1" max="26" step="0.5" value="7"></label>
+</div>
+<div id="hint"><span class="p">▶ Click anywhere — the runner runs</span></div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+
+const TRUCK_GLB='./models/0bb8cb20177df5e1.glb';
+const SENT_GLB ='./models/bffe2948bc9e72ea.glb';
+const MAN_GLB='';
+const FUEL_GLB='';
+
+/* ---- tunables ---- */
+const TRUCK_LEN=15;      // world length of the truck
+const MAN_H=2.73;        // runner height (+30%)
+const SENT_SIZE=0.9;     // base Sentinel size (size slider multiplies this)
+const DRIVER_Z=0.45;     // default sentinel offset to driver side of the windshield
+const LEFT=1;            // side the runner passes on (+1=+Z). flip to -1 if mirrored
+const MAN_YAW=Math.PI/2; // runner facing (flip sign if he runs backward)
+const JOGF=6.2, RUNF=9.0;// jog / run cadence (rad/s)
+const RUN_DUR=4.5;       // (unused now) seconds to run past
+/* ---- fuel container held in the runner's left hand ---- */
+const CONTAINER_SIZE=0.5;                 // world height of the fuel container (size knob)
+const HAND=[16.69,-15.56,26.24];          // man's RIGHT-hand anchor, in mesh-geometry coords (left hand: [-18.33,20.24,78.46])
+const HAND_OFF=[0.05,-0.24,0.02];         // world-space nudge so it hangs at his side, clear of the thigh
+const FUEL_YAW=0.0;                        // spin the container about up (radians) if needed
+const FUEL_LOCAL={ pos:[0.413,1.305,-0.052], rot:[0.0000,0.0000,0.0000], scale:1.000 };  // baked relative placement (in the runner's hand)
+// Named trajectories the runner can play — pick one from the Runner dropdown (add more entries here).
+const PATHS=[
+  { name:'Wandering', speed:6.0, points:[[-11.40,-4.54],[-10.79,-4.48],[-10.23,-4.43],[-9.57,-4.36],[-9.10,-4.32],[-8.62,-4.27],[-8.08,-4.22],[-7.62,-4.21],[-7.16,-4.28],[6.16,-4.34],[6.63,-4.29],[7.08,-4.44],[7.28,-4.86],[7.29,-5.33],[6.84,-5.46],[6.33,-5.46],[5.82,-5.39],[5.33,-5.24],[4.87,-5.07],[4.43,-4.94],[3.98,-4.89],[3.46,-4.87],[3.00,-4.86],[2.50,-4.81],[2.00,-4.73],[1.54,-4.64],[1.08,-4.55],[0.57,-4.52],[0.08,-4.56],[-0.39,-4.62],[-0.84,-4.72],[-1.32,-4.76],[-1.78,-4.81],[-2.25,-4.87],[-2.70,-4.95],[-2.26,-5.17],[-1.79,-5.23],[-1.31,-5.22],[-0.84,-5.17],[-0.38,-5.06],[0.09,-5.00],[0.54,-4.95],[1.03,-4.95],[1.51,-4.91],[1.96,-4.94],[2.33,-5.20],[1.95,-5.47],[1.50,-5.53],[1.03,-5.50],[0.48,-5.47],[-0.05,-5.45],[-0.56,-5.48],[-1.01,-5.53],[-1.47,-5.60],[-1.93,-5.41],[-2.41,-5.34],[-2.88,-5.28],[-3.32,-5.14],[-3.54,-4.74],[-3.32,-4.34],[-2.85,-4.29],[-2.34,-4.29],[-1.87,-4.34],[-1.40,-4.45],[-0.87,-4.50],[-0.31,-4.53],[0.17,-4.50],[0.68,-4.45],[1.16,-4.36],[1.62,-4.27],[2.10,-4.28],[2.54,-4.47],[2.67,-4.92],[2.48,-5.33],[2.00,-5.45],[1.52,-5.47],[1.07,-5.43],[0.55,-5.46],[0.01,-5.46],[-0.45,-5.46],[-0.94,-5.45],[-1.43,-5.43],[-1.88,-5.40],[-2.38,-5.37],[-2.86,-5.37],[-3.21,-5.65],[-2.75,-5.80],[-2.29,-5.88],[-1.81,-5.92],[-1.31,-5.92],[-0.86,-5.88],[-0.33,-5.81],[0.20,-5.75],[0.77,-5.74],[1.30,-5.82],[1.75,-5.88],[2.22,-5.98],[2.72,-6.00],[3.29,-5.99],[3.88,-5.96],[4.48,-5.98],[5.02,-6.00],[5.56,-6.00],[6.07,-6.01],[6.57,-5.96],[7.02,-5.91],[7.47,-5.96],[6.99,-6.06],[6.47,-6.11],[6.00,-6.17],[5.53,-6.22],[5.01,-6.27],[4.46,-6.31],[3.96,-6.26],[3.35,-6.20],[2.85,-6.13],[2.27,-6.06],[1.55,-6.02],[0.87,-6.02],[0.33,-6.01],[-0.29,-6.00],[-0.80,-6.00],[-1.31,-6.02],[-1.81,-5.97],[-2.34,-5.90],[-2.83,-5.80],[-3.30,-5.79],[-3.68,-6.06],[-4.29,-6.14],[-4.75,-6.07],[-5.28,-5.96],[-5.74,-5.89],[-6.19,-5.82],[-6.65,-5.73],[-7.14,-5.70],[-7.63,-5.71],[-8.06,-5.57],[-8.58,-5.59],[-9.06,-5.61],[-9.52,-5.53],[-9.98,-5.47],[-10.44,-5.37],[-10.87,-5.18],[-11.26,-4.95]] },
+  { name:'Stealing', speed:7.0, points:[[-9.08,-9.76],[-8.63,-9.60],[-8.17,-9.41],[-7.71,-9.26],[-7.25,-9.22],[-6.76,-9.32],[-6.28,-9.38],[-5.80,-9.37],[-5.33,-9.31],[-4.83,-9.19],[-4.32,-9.01],[-3.74,-8.76],[-3.28,-8.54],[-2.87,-8.33],[-2.39,-8.08],[-1.81,-7.77],[-1.29,-7.47],[-0.88,-7.22],[-0.31,-6.91],[0.09,-6.64],[0.60,-6.28],[1.25,-5.84],[1.76,-5.49],[2.23,-5.17],[2.65,-4.90],[3.09,-4.73],[2.66,-4.47],[2.16,-4.54],[1.71,-4.48],[1.33,-4.22],[0.94,-3.99],[0.67,-3.63],[0.69,-3.17]] },
+];
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true }); renderer.setClearColor(0x000000,0);
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.localClippingEnabled=true; renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,760); r.addColorStop(0,'#20252c'); r.addColorStop(0.6,'#0f1216'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 300);
+camera.position.set(1.0,6.4,-23.6);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=6; controls.maxDistance=70; controls.maxPolarAngle=Math.PI*0.52;
+controls.target.set(0,2.6,0); controls.autoRotate=true; controls.autoRotateSpeed=0.5;
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x20262e,0.5));
+const key=new THREE.DirectionalLight(0xffffff,2.3); key.position.set(10,15,10); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=90;
+key.shadow.camera.left=-20; key.shadow.camera.right=20; key.shadow.camera.top=14; key.shadow.camera.bottom=-6;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xbcd6ff,0.7); fill.position.set(-10,6,-7); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,140,90,Math.PI/8,0.5,1.2); rim.position.set(-8,12,-14); scene.add(rim);
+
+/* ---------- Materials ---------- */
+const truckPaint=new THREE.MeshPhysicalMaterial({ color:0xc9cdd1, metalness:1.0, roughness:0.32, clearcoat:0.4, envMapIntensity:1.1 });
+const truckGlass=new THREE.MeshPhysicalMaterial({ color:0x16222f, metalness:0, roughness:0.05, transmission:0.9, transparent:true, opacity:0.6, ior:1.5, thickness:0.4, envMapIntensity:1.4, side:THREE.DoubleSide });
+const sentMat=new THREE.MeshStandardMaterial({ color:0x454c55, metalness:0.75, roughness:0.34, emissive:0x0a2f22, emissiveIntensity:0.35, envMapIntensity:1.3 });
+const manMat=new THREE.MeshPhysicalMaterial({ color:0xccd2d8, metalness:0.0, roughness:0.55, clearcoat:0.15, clearcoatRoughness:0.3 });
+const fuelMat=new THREE.MeshPhysicalMaterial({ color:0x5e0d11, metalness:0.9, roughness:0.34, clearcoat:0.55, clearcoatRoughness:0.28, envMapIntensity:1.25 }); // dark red metallic
+
+/* ---------- Ground ---------- */
+const mirror=new Reflector(new THREE.PlaneGeometry(160,160),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,2), textureHeight:innerHeight*Math.min(devicePixelRatio,2), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; scene.add(mirror); mirror.visible=false;
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(160,160), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.55, roughness:0.36, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=0.001; scene.add(gloss); gloss.visible=false;
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(60,60), new THREE.ShadowMaterial({ opacity:0.4 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher); shadowCatcher.visible=false;
+
+/* ============================================================
+   Load all three models
+   ============================================================ */
+const loader=new GLTFLoader();
+let need=2; const prog={};
+function bump(){ need--; if(need===0) start(); }
+function onProg(k){ return (ev)=>{ if(ev.total){ prog[k]=ev.loaded/ev.total;
+  document.getElementById('fill').style.width=(((prog.t||0)+(prog.s||0)+(prog.m||0)+(prog.f||0))/4*100).toFixed(0)+'%'; } }; }
+
+let truckHalfZ=2, wsBox=new THREE.Box3(), gotWs=false;
+const truckMeshes=[];                       // raycast targets for placement
+let sentGroup=null, sentGroup2=null, mountMarker=null, mountMarker2=null;
+let fuelModel=null, fuelGroup=null;
+let manGroup=null, manRoot=null, manMesh=null, manOrig=null, manPos=null;
+let legW=null, lowW=null, armW=null, legSide=null, armSide=null, footW=null;
+let hipY=0, kneeY=0, shY=0, cz=0, gminY=0, liftBand=1, ankYR=0, ankYL=0, ankZR=0, ankZL=0, manReady=false;
+
+/* --- TRUCK --- */
+loader.load(TRUCK_GLB,(g)=>{
+  const root=g.scene; root.rotation.y=Math.PI/2; root.updateMatrixWorld(true);
+  let bb=new THREE.Box3().setFromObject(root); const s=TRUCK_LEN/(bb.max.x-bb.min.x);
+  root.scale.setScalar(s); root.updateMatrixWorld(true);
+  bb=new THREE.Box3().setFromObject(root); const c=bb.getCenter(new THREE.Vector3());
+  root.position.x-=c.x; root.position.z-=c.z; root.position.y-=bb.min.y; root.updateMatrixWorld(true);
+  truckHalfZ=(bb.max.z-bb.min.z)/2;
+  let bestX=-1e9;
+  root.traverse(o=>{ if(o.isMesh){ o.castShadow=o.receiveShadow=true;
+    const nm=((o.material&&o.material.name)||o.name||'').toLowerCase();
+    const isGlass=/glass|phong2/.test(nm);
+    o.material = isGlass ? truckGlass : truckPaint;
+    truckMeshes.push(o);
+    if(isGlass){ const gbx=new THREE.Box3().setFromObject(o); if(gbx.max.x>bestX){ bestX=gbx.max.x; wsBox.copy(gbx); gotWs=true; } }
+  }});
+  scene.add(root); bump();
+}, onProg('t'), ()=>fail());
+
+/* --- SENTINEL (full original model) — lens local +X faces truck-forward --- */
+loader.load(SENT_GLB,(g)=>{
+  const root=g.scene; const bb=new THREE.Box3().setFromObject(root);
+  const s=SENT_SIZE/Math.max(bb.max.x-bb.min.x,bb.max.y-bb.min.y,bb.max.z-bb.min.z);
+  root.scale.setScalar(s);
+  root.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.material=sentMat; } });
+  const b2=new THREE.Box3().setFromObject(root); root.position.sub(b2.getCenter(new THREE.Vector3()));
+  sentGroup=new THREE.Group(); sentGroup.rotation.order='YXZ'; sentGroup.add(root); scene.add(sentGroup);
+  /* second Sentinel — baked placement, covers the opposite flank */
+  sentGroup2=new THREE.Group(); sentGroup2.rotation.order='YXZ'; sentGroup2.add(root.clone()); scene.add(sentGroup2);
+  sentGroup2.position.set(-1.857, 5.567, -0.007);
+  sentGroup2.rotation.set(1.5708, 3.1416, -1.5708);   // x=roll y=yaw z=pitch
+  sentGroup2.scale.setScalar(0.700);
+  bump();
+}, onProg('s'), ()=>fail());
+
+/* MAN loader removed — no runner */
+
+/* FUEL loader removed — no runner */
+
+function fail(){ document.getElementById('loading').firstElementChild.textContent='Could not load one of the models.'; }
+
+/* ============================================================
+   Placement + run state
+   ============================================================ */
+let started=false, manBaseZ=4, runFrom=0, runTo=0, running=false;
+let runFwd=false, runRoute=null, runCum=[], runRouteTotal=0, runDist=0, routeClosed=false;
+let defaultMount=new THREE.Vector3();
+
+function start(){
+  started=true;
+  defaultMount.set(0.804, 4.537, -2.275);   // user-placed mount (baked in)
+  sentGroup.position.copy(defaultMount);
+  mountMarker=new THREE.Mesh(new THREE.TorusGeometry(SENT_SIZE*1.5,0.045,14,56), new THREE.MeshBasicMaterial({color:0x2AF598,transparent:true,opacity:0.9}));
+  mountMarker.position.copy(defaultMount); scene.add(mountMarker);
+  mountMarker2=new THREE.Mesh(new THREE.TorusGeometry(SENT_SIZE*1.5,0.045,14,56), new THREE.MeshBasicMaterial({color:0x2AF598,transparent:true,opacity:0.9}));
+  mountMarker2.position.copy(sentGroup2.position); scene.add(mountMarker2);
+  applySliders();                                   // apply default yaw/pitch/roll/size
+  buildBeam();                                      // green monitoring wedge
+  hideAllUnits();                                   // revealed by R / T
+
+  manBaseZ=LEFT*(truckHalfZ+1.6);
+  runFrom=-TRUCK_LEN/2-4; runTo=TRUCK_LEN/2+5;
+  /* runner removed */
+
+  if(fuelModel && manRoot){                          // place the container relative to the man
+    fuelGroup=new THREE.Group(); fuelGroup.rotation.order='YXZ'; fuelGroup.add(fuelModel);
+    if(FUEL_LOCAL){                                   // baked relative transform (from Copy container)
+      fuelGroup.position.fromArray(FUEL_LOCAL.pos);
+      fuelGroup.rotation.set(FUEL_LOCAL.rot[0],FUEL_LOCAL.rot[1],FUEL_LOCAL.rot[2]);
+      fuelGroup.scale.setScalar(FUEL_LOCAL.scale);
+    } else {                                          // default: auto from the hand anchor
+      manRoot.updateMatrix();
+      const hp=new THREE.Vector3(HAND[0],HAND[1],HAND[2]).applyMatrix4(manRoot.matrix);
+      hp.add(new THREE.Vector3(HAND_OFF[0],HAND_OFF[1],HAND_OFF[2]));
+      fuelGroup.position.copy(hp); fuelGroup.rotation.y=FUEL_YAW;
+    }
+    manGroup.add(fuelGroup);                          // rides with the runner (position + facing)
+    fuelGroup.visible=holdChk.checked;
+  }
+  controls.target.set(1.0, 3.8, -0.8);
+  document.getElementById('loading').style.display='none';
+  updateReadout();                                 // paths are listed in the dropdown; nothing auto-plays
+}
+
+function sampleRoute(d){
+  d=Math.max(0,Math.min(runRouteTotal,d));
+  let i=1; while(i<runCum.length && runCum[i]<d) i++; if(i>=runCum.length) i=runCum.length-1;
+  const a=runRoute[i-1], b=runRoute[i], seg=(runCum[i]-runCum[i-1])||1e-6, t=(d-runCum[i-1])/seg;
+  let dx=b.x-a.x, dz=b.z-a.z; const L=Math.hypot(dx,dz)||1;
+  return { x:a.x+(b.x-a.x)*t, z:a.z+(b.z-a.z)*t, dx:dx/L, dz:dz/L };
+}
+function applyRunPose(d){
+  const s=sampleRoute(d); manGroup.position.set(s.x,0,s.z);
+  const fx = runFwd? s.dx : -s.dx, fz = runFwd? s.dz : -s.dz;   // face the way we travel
+  manGroup.rotation.y = Math.atan2(fx, fz);
+}
+function triggerRun(){ if(!manGroup) return;
+  if(!started || running) return;
+  let pts;
+  if(pathPts.length>=2) pts=pathPts;                            // follow the drawn trajectory
+  else { const z=manGroup.position.z; pts=[new THREE.Vector3(runFrom,0,z), new THREE.Vector3(runTo,0,z)]; } // else dash across
+  runRoute=pts; runCum=[0]; let tot=0;
+  for(let i=1;i<pts.length;i++){ tot+=pts[i].distanceTo(pts[i-1]); runCum.push(tot); }
+  runRouteTotal=tot; if(tot<1e-3) return;
+  routeClosed = pts.length>2 && pts[0].distanceTo(pts[pts.length-1]) < Math.max(1.2, tot*0.08); // near-closed loop?
+  runFwd=!runFwd;                                               // alternate direction each run
+  runDist = runFwd?0:tot;
+  running=true; applyRunPose(runDist);
+}
+
+/* ---------- gait: 2-stage legs (hip + knee) + arms ----------
+   The base mesh is a frozen mid-stride whose RIGHT foot is the only one at ground level,
+   so a knee-flex mistimed to the stance half scraped exactly that foot (the reported drag).
+   Fix: time the knee flex to the SWING half — -cos(p+KNEE_PH) peaks at p=π (foot at the
+   bottom of its forward swing, needs max clearance) and is ≤0 through all of stance, so the
+   planted foot stays straight and never smears. Symmetric → both feet correct.            */
+const A_HIP=0.35, A_KNEE=0.65, A_ARM=0.42, KNEE_PH=0.30, ANKLE_LEVEL=0.85, FOOT_LOCK=0.55;
+function rotYZ(py,pz, dy,dz, ang){ const c=Math.cos(ang), s=Math.sin(ang); return [py+dy*c-dz*s, pz+dy*s+dz*c]; }
+function poseBody(phi, runBlend){
+  if(!manReady) return;
+  const aH=A_HIP*(1+0.5*runBlend), aK=A_KNEE*(1+0.3*runBlend), aA=A_ARM*(1+0.45*runBlend);
+  const arr=manPos.array;
+  for(let i=0;i<manPos.count;i++){ const j=i*3, x=manOrig[j], oy=manOrig[j+1], oz=manOrig[j+2];
+    if(legW[i]>0.001){
+      const s=legSide[i], p=phi+(s>0?0:Math.PI);
+      const thHip=legW[i]*aH*Math.sin(p);
+      let [y1,z1]=rotYZ(hipY,cz, oy-hipY, oz-cz, thHip);
+      const [kpy,kpz]=rotYZ(hipY,cz, kneeY-hipY, 0, aH*Math.sin(p));
+      const swing=Math.max(0, -Math.cos(p + KNEE_PH));   // knee flexes only through the swing half
+      const thKnee=-lowW[i]*aK*Math.pow(swing,1.3);       // NEGATIVE: for this baked-forward pose the foot LIFTS (not digs) when the knee folds this way
+      let [y2,z2]=rotYZ(kpy,kpz, y1-kpy, z1-kpz, thKnee);
+      if(footW[i]>0.001){
+        const aY=s>0?ankYR:ankYL, aZ=s>0?ankZR:ankZL;
+        const [a1y,a1z]=rotYZ(hipY,cz, aY-hipY, aZ-cz, thHip);
+        const [apy,apz]=rotYZ(kpy,kpz, a1y-kpy, a1z-kpz, thKnee);
+        const lev=-(thHip+thKnee)*ANKLE_LEVEL*footW[i];   // ankle joint: hold the foot ~level, not pointed
+        [y2,z2]=rotYZ(apy,apz, y2-apy, z2-apz, lev);
+        const tt=Math.min(1,Math.max(0,(y2-gminY)/liftBand)), grounded=1-tt*tt*(3-2*tt);
+        const lock=FOOT_LOCK*grounded*footW[i];           // plant the grounded foot → no in-place slide
+        y2=y2+(oy-y2)*lock; z2=z2+(oz-z2)*lock;
+      }
+      if(y2<gminY) y2=gminY;                              // safety: never sink through the floor
+      arr[j]=x; arr[j+1]=y2; arr[j+2]=z2;
+    } else if(armW[i]>0.001){
+      const s=armSide[i], p=phi+(s>0?Math.PI:0);
+      const th=armW[i]*aA*Math.sin(p);
+      const [y1,z1]=rotYZ(shY,cz, oy-shY, oz-cz, th);
+      arr[j]=x; arr[j+1]=y1; arr[j+2]=z1;
+    } else { arr[j]=x; arr[j+1]=oy; arr[j+2]=oz; }
+  }
+  manPos.needsUpdate=true; manMesh.geometry.computeVertexNormals();
+}
+
+/* ============================================================
+   Sentinel placement (mouse) + rotation (sliders)
+   ============================================================ */
+const yawEl=document.getElementById('yaw'), pitchEl=document.getElementById('pitch'),
+      rollEl=document.getElementById('roll'), sizeEl=document.getElementById('size'),
+      readoutEl=document.getElementById('readout'), placeBtn=document.getElementById('placeBtn');
+let mode='none', dragging=false;                 // mode: 'none' | 'sent' | 'man' | 'draw'
+const ray=new THREE.Raycaster(); const ndc=new THREE.Vector2();
+const D2R=Math.PI/180;
+const groundPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+const speedEl=document.getElementById('speed');
+const placeManBtn=document.getElementById('placeManBtn'), drawBtn=document.getElementById('drawBtn');
+const copyPathBtn=document.getElementById('copyPathBtn'), loopChk=document.getElementById('loopChk');
+const pathSel=document.getElementById('pathSel'), loopLbl=document.getElementById('loopLbl');
+let pathPts=[], pathLine=null, pathDots=null;    // drawn trajectory (world pts, y≈0)
+function ndcFrom(cx,cy){ const r=renderer.domElement.getBoundingClientRect();
+  ndc.x=((cx-r.left)/r.width)*2-1; ndc.y=-((cy-r.top)/r.height)*2+1; }
+function groundAt(cx,cy){ ndcFrom(cx,cy); ray.setFromCamera(ndc,camera);
+  const p=new THREE.Vector3(); return ray.ray.intersectPlane(groundPlane,p)?p:null; }
+function capture(e){ try{renderer.domElement.setPointerCapture(e.pointerId);}catch(_){} }
+function release(e){ try{renderer.domElement.releasePointerCapture(e.pointerId);}catch(_){} }
+
+function applySliders(){
+  if(!sentGroup) return;
+  // lens points local +X: yaw = about Y, pitch = about Z, roll(barrel) = about X
+  sentGroup.rotation.set(+rollEl.value*D2R, +yawEl.value*D2R, +pitchEl.value*D2R); // (x=roll,y=yaw,z=pitch), order YXZ
+  sentGroup.scale.setScalar(+sizeEl.value);
+  updateReadout();
+}
+function updateReadout(){
+  if(!sentGroup){ return; }
+  const p=sentGroup.position;
+  readoutEl.textContent=`pos ${p.x.toFixed(2)}, ${p.y.toFixed(2)}, ${p.z.toFixed(2)}   ·   yaw ${yawEl.value}° pitch ${pitchEl.value}° roll ${rollEl.value}°   ·   ×${(+sizeEl.value).toFixed(2)}`;
+}
+[yawEl,pitchEl,rollEl,sizeEl].forEach(el=>el.addEventListener('input',applySliders));
+
+function placeAt(clientX,clientY){
+  if(!sentGroup || !truckMeshes.length) return;
+  ndcFrom(clientX,clientY); ray.setFromCamera(ndc,camera);
+  const hits=ray.intersectObjects(truckMeshes,true);
+  if(hits.length){
+    const h=hits[0]; const n=new THREE.Vector3(0,1,0);
+    if(h.face){ n.copy(h.face.normal).transformDirection(h.object.matrixWorld).normalize(); }
+    sentGroup.position.copy(h.point).addScaledVector(n, SENT_SIZE*0.35*(+sizeEl.value));
+    updateReadout();
+  }
+}
+function setMode(m){
+  mode=(mode===m)?'none':m;
+  controls.enabled=(mode==='none');
+  renderer.domElement.style.cursor=(mode==='none')?'':'crosshair';
+  placeBtn.textContent='🎯 Place on truck: '+(mode==='sent'?'ON':'OFF');
+  placeBtn.style.background=(mode==='sent')?'#b5701f':'#1f6fb0';
+  placeManBtn.textContent='📍 Place man: '+(mode==='man'?'ON':'OFF');
+  placeManBtn.style.background=(mode==='man')?'#b5701f':'#1f6fb0';
+  drawBtn.textContent='✏️ Draw path: '+(mode==='draw'?'ON':'OFF');
+  drawBtn.style.background=(mode==='draw')?'#7a52c0':'#1f6fb0';
+  document.getElementById('hint').innerHTML =
+    mode==='sent' ? '<span class="p">🎯 Click or drag on the truck to mount the Sentinel</span>' :
+    mode==='man'  ? '<span class="p">📍 Click on the ground to place the runner</span>' :
+    mode==='draw' ? '<span class="p">✏️ Drag on the ground to draw the run path — draw again to extend</span>' :
+                    '<span class="p">▶ Click anywhere — the runner runs your path</span>';
+}
+placeBtn.onclick=(e)=>{ e.stopPropagation(); setMode('sent'); };
+placeManBtn.onclick=(e)=>{ e.stopPropagation(); setMode('man'); };
+drawBtn.onclick=(e)=>{ e.stopPropagation(); setMode('draw'); };
+function placeManAt(cx,cy){ const p=groundAt(cx,cy); if(p&&manGroup) manGroup.position.set(p.x,0,p.z); }
+function rebuildPath(){
+  if(pathLine){ scene.remove(pathLine); pathLine.geometry.dispose(); pathLine=null; }
+  if(pathDots){ scene.remove(pathDots); pathDots.geometry.dispose(); pathDots=null; }
+  if(pathPts.length>=2){
+    const v=pathPts.map(p=>new THREE.Vector3(p.x,0.06,p.z));
+    pathLine=new THREE.Line(new THREE.BufferGeometry().setFromPoints(v), new THREE.LineBasicMaterial({color:0x9aca3c}));
+    scene.add(pathLine);
+    pathDots=new THREE.Points(new THREE.BufferGeometry().setFromPoints(v), new THREE.PointsMaterial({color:0xffffff,size:0.16,sizeAttenuation:true}));
+    scene.add(pathDots);
+  }
+}
+function addPathPoint(p){ if(!pathPts.length || p.distanceTo(pathPts[pathPts.length-1])>0.45){ pathPts.push(p.clone()); rebuildPath(); } }
+document.getElementById('clearPathBtn').onclick=(e)=>{ e.stopPropagation(); pathPts=[]; rebuildPath(); running=false; };
+copyPathBtn.onclick=(e)=>{ e.stopPropagation();
+  if(pathPts.length<2){ copyPathBtn.textContent='draw a path first'; setTimeout(()=>copyPathBtn.textContent='⧉ Copy path',1400); return; }
+  const arr=pathPts.map(p=>`[${p.x.toFixed(2)},${p.z.toFixed(2)}]`).join(',');
+  const snip=`  { name:'New Path', speed:${(+speedEl.value).toFixed(1)}, points:[${arr}] },`;
+  const ok=()=>{ copyPathBtn.textContent='✓ Copied — send it to me'; setTimeout(()=>copyPathBtn.textContent='⧉ Copy path',1600); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(snip).then(ok).catch(()=>{console.log(snip);ok();}); }
+  else { console.log(snip); ok(); }
+};
+loopChk.onchange=()=>{ if(loopChk.checked && !running && started) triggerRun(); };
+function populatePaths(){
+  pathSel.innerHTML='<option value="-1">— pick a path —</option>'+PATHS.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
+}
+populatePaths();
+pathSel.onchange=()=>{                                  // load the picked path (draw it) — does NOT auto-run
+  running=false; const i=+pathSel.value;
+  if(i>=0 && PATHS[i]){
+    pathPts=PATHS[i].points.map(p=>new THREE.Vector3(p[0],0,p[1])); rebuildPath();
+    if(PATHS[i].speed) speedEl.value=PATHS[i].speed;
+    loopLbl.textContent='🔁 Loop — '+PATHS[i].name;
+  } else { pathPts=[]; rebuildPath(); loopLbl.textContent='🔁 Loop'; }
+};
+document.getElementById('resetSent').onclick=(e)=>{ e.stopPropagation();
+  if(!started) return;
+  sentGroup.position.copy(defaultMount);
+  yawEl.value=180; pitchEl.value=0; rollEl.value=90; sizeEl.value=0.7; applySliders();
+};
+document.getElementById('copySent').onclick=(e)=>{ e.stopPropagation();
+  if(!sentGroup) return;
+  const p=sentGroup.position, r=sentGroup.rotation, sc=sentGroup.scale.x;
+  const snip=`sentGroup.position.set(${p.x.toFixed(3)}, ${p.y.toFixed(3)}, ${p.z.toFixed(3)});\nsentGroup.rotation.order='YXZ';\nsentGroup.rotation.set(${r.x.toFixed(4)}, ${r.y.toFixed(4)}, ${r.z.toFixed(4)}); // x=roll y=yaw z=pitch\nsentGroup.scale.setScalar(${sc.toFixed(3)});`;
+  const btn=e.currentTarget, ok=()=>{ btn.textContent='✓ Copied — send it to me'; setTimeout(()=>btn.textContent='⧉ Copy transform',1600); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(snip).then(ok).catch(()=>{console.log(snip);ok();}); }
+  else { console.log(snip); ok(); }
+};
+
+/* ---------- input ---------- */
+let downX=0,downY=0,downT=0;
+renderer.domElement.addEventListener('pointerdown',e=>{
+  downX=e.clientX; downY=e.clientY; downT=performance.now();
+  if(!started || mode==='none') return;
+  dragging=true; capture(e);
+  if(mode==='sent') placeAt(e.clientX,e.clientY);
+  else if(mode==='man') placeManAt(e.clientX,e.clientY);
+  else if(mode==='draw'){ const p=groundAt(e.clientX,e.clientY); if(p) addPathPoint(p); }
+});
+renderer.domElement.addEventListener('pointermove',e=>{
+  if(!dragging) return;
+  if(mode==='sent') placeAt(e.clientX,e.clientY);
+  else if(mode==='man') placeManAt(e.clientX,e.clientY);
+  else if(mode==='draw'){ const p=groundAt(e.clientX,e.clientY); if(p) addPathPoint(p); }
+});
+renderer.domElement.addEventListener('pointerup',e=>{
+  if(mode!=='none'){ dragging=false; release(e); return; }   // in an edit mode: never triggers a run
+  if(Math.hypot(e.clientX-downX,e.clientY-downY)<6 && performance.now()-downT<350) triggerRun();
+});
+document.getElementById('runBtn').onclick=(e)=>{ e.stopPropagation(); triggerRun(); };
+document.getElementById('autoRotate').onchange=e=>controls.autoRotate=e.target.checked;
+document.getElementById('showMount').onchange=e=>{ if(mountMarker) mountMarker.visible=e.target.checked; };
+const holdChk=document.getElementById('holdChk');
+holdChk.onchange=e=>{ if(fuelGroup) fuelGroup.visible=e.target.checked; };
+
+/* ---------- render loop (single getDelta → correct dt) ---------- */
+const BOB_AMP=0.04*MAN_H, LEAN_BASE=0.05, LEAN_RUN=0.12;
+/* ---------- monitoring area: a RECTANGLE on the ground beside the truck,
+   joined to its Sentinel by a tilted pyramid (apex = the lens).
+   One per unit — sgn -1 covers the near flank, +1 the far flank.  ---------- */
+const AREA_X0=-7.0, AREA_X1=7.6;   // along the truck
+const AREA_NEAR=0.5, AREA_DEPTH=3.6;   // gap from the flank, and how far out the strip reaches
+const pyramids=[];
+function makePyramid(src, sgn, xoff, yEps, yaw, rel){
+  if(!src) return;
+  const A=src.position; xoff=xoff||0; yEps=yEps||0; yaw=yaw||0;
+  const zN=sgn*(truckHalfZ+AREA_NEAR), zF=zN+sgn*AREA_DEPTH;
+  const grp=new THREE.Group(); grp.position.copy(A); scene.add(grp);
+  const UP=new THREE.Vector3(0,1,0);
+  /* rel = corners already relative to the lens (lets an area start directly beneath it);
+     otherwise the band is derived from the truck's flank. */
+  const quad = rel
+    ? [[rel.x0,rel.z0],[rel.x1,rel.z0],[rel.x1,rel.z1],[rel.x0,rel.z1]]
+    : [[AREA_X0+xoff-A.x,zN-A.z],[AREA_X1+xoff-A.x,zN-A.z],[AREA_X1+xoff-A.x,zF-A.z],[AREA_X0+xoff-A.x,zF-A.z]];
+  const c=quad.map(p=>{ const v=new THREE.Vector3(p[0], -A.y+yEps, p[1]);
+      if(yaw){ const y=v.y; v.y=0; v.applyAxisAngle(UP,yaw); v.y=y; }   // spin about the lens
+      return v; });
+
+  /* 1 — the four sloped faces of the pyramid */
+  const pos=[],col=[];
+  const cTop=new THREE.Color(0xBFFFE8), cBot=new THREE.Color(0x2AF598);
+  for(let i=0;i<4;i++){
+    const p=c[i], q=c[(i+1)%4];
+    pos.push(0,0,0, p.x,p.y,p.z, q.x,q.y,q.z);
+    col.push(cTop.r,cTop.g,cTop.b, cBot.r,cBot.g,cBot.b, cBot.r,cBot.g,cBot.b);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  const faces=new THREE.Mesh(g,new THREE.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:0.06,
+    side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending}));
+  faces.renderOrder=4; grp.add(faces);
+
+  /* 2 — the detection rectangle itself, lying on the ground */
+  const floor=new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([c[0],c[1],c[2], c[0],c[2],c[3]]),
+    new THREE.MeshBasicMaterial({color:0x2AF598,transparent:true,opacity:0.10,
+      side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending}));
+  floor.renderOrder=3; grp.add(floor);
+
+  /* 3 — the four edges running from the lens down to the corners */
+  const ep=[]; for(const p of c){ ep.push(new THREE.Vector3(0,0,0), p.clone()); }
+  const edges=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(ep),
+    new THREE.LineBasicMaterial({color:0x2AF598,transparent:true,opacity:0.34,depthWrite:false}));
+  edges.renderOrder=5; grp.add(edges);
+
+  /* 4 — the bright outline of the rectangle */
+  const rp=[]; for(let i=0;i<4;i++){ rp.push(c[i].clone(), c[(i+1)%4].clone()); }
+  const rim=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(rp),
+    new THREE.LineBasicMaterial({color:0x2AF598,transparent:true,opacity:0.85,depthWrite:false}));
+  rim.renderOrder=6; grp.add(rim);
+
+  pyramids.push({grp,faces,floor,edges,rim,src});
+}
+function buildBeam(){
+  if(pyramids.length) return;
+  makePyramid(sentGroup, -1, 0, 0);
+  /* second unit watches the SAME flank, its area offset along the truck by the
+     same amount the unit itself is offset — mirroring the first unit's geometry */
+  const dx=(sentGroup2&&sentGroup)? (sentGroup2.position.x-sentGroup.position.x) : 0;
+  makePyramid(sentGroup2, -1, dx, 0.03, 0,
+    { x0: 1.2, x1: -7.6, z0: -5.2, z1: 5.2 });   // from right below the lens, back over the rear half
+}
+/* --- R / T reveal: ring + detection area, one Sentinel each --- */
+const shown=[false,false];
+function setUnit(i,on){
+  shown[i]=on;
+  const mk = i===0?mountMarker:mountMarker2;
+  if(mk) mk.visible=on;
+  if(pyramids[i]) pyramids[i].grp.visible=on;
+  try{ parent.postMessage({type:'sent-state',units:shown.slice()},'*'); }catch(_){}
+}
+function toggleUnit(i){ if(!pyramids.length) return; setUnit(i,!shown[i]); }
+function hideAllUnits(){ setUnit(0,false); setUnit(1,false); }
+function updateBeam(){
+  if(!pyramids.length) return;
+  const pulse=0.5+0.5*Math.sin(elapsed*1.5);
+  for(const p of pyramids){
+    p.grp.position.copy(p.src.position);
+    p.faces.material.opacity=0.055+0.04*pulse;
+    p.floor.material.opacity=0.10+0.06*pulse;
+    p.edges.material.opacity=0.34+0.16*pulse;
+    p.rim.material.opacity  =0.72+0.24*pulse;
+  }
+}
+
+const clock=new THREE.Clock(); let elapsed=0, phase=0;
+function animate(){
+  requestAnimationFrame(animate);
+  const dt=Math.min(0.05, clock.getDelta()); elapsed+=dt;
+  if(started){
+    // leg/arm running animation removed — the runner holds his static pose and walks the path
+    if(running){
+      const spd=+speedEl.value;
+      runDist += (runFwd?1:-1)*spd*dt;
+      const atEnd = runFwd ? runDist>=runRouteTotal : runDist<=0;
+      applyRunPose(runDist);                                   // moves + faces along the route
+      if(atEnd){
+        if(loopChk.checked){
+          if(routeClosed) runDist=runFwd?0:runRouteTotal;              // seamless forward loop (start≈end)
+          else { runFwd=!runFwd; runDist=runFwd?0:runRouteTotal; }     // ping-pong for open paths
+        } else running=false;
+      }
+    }
+    updateBeam();
+    if(mountMarker2&&sentGroup2){ mountMarker2.position.copy(sentGroup2.position);
+      mountMarker2.lookAt(camera.position); mountMarker2.material.opacity=0.5+0.4*Math.sin(elapsed*3); }
+    if(mountMarker){ mountMarker.position.copy(sentGroup.position);
+      if(mountMarker.visible){ mountMarker.lookAt(camera.position); mountMarker.material.opacity=0.5+0.4*Math.sin(elapsed*3); } }
+    document.getElementById('hint').style.opacity = running?0.12:1;
+  }
+  controls.update(); renderer.render(scene,camera);
+}
+animate();
+const MNT_SHIFT=0.16;
+function applyViewShift(){ camera.aspect=innerWidth/innerHeight; camera.setViewOffset(innerWidth, innerHeight, -innerWidth*MNT_SHIFT, 0, innerWidth, innerHeight); }
+applyViewShift();
+addEventListener('resize', ()=>{ applyViewShift(); renderer.setSize(innerWidth,innerHeight); });
+window.addEventListener('keydown',e=>{
+  if(e.key==='r'||e.key==='R'){ e.preventDefault(); toggleUnit(0); return; }
+  if(e.key==='t'||e.key==='T'){ e.preventDefault(); toggleUnit(1); return; }
+  if(['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' '].includes(e.key)){
+    e.preventDefault();
+    const dir=['ArrowLeft','ArrowUp','PageUp'].includes(e.key)?'prev':'next';
+    try{ parent.postMessage({type:'deck-nav',dir:dir},'*'); }catch(_){}
+  }
+});
+window.addEventListener('message',e=>{ const d=e.data||{};
+  if(d&&d.type==='sent-toggle') toggleUnit(d.unit===2?1:0);
+});
+</script>
+</body>
+</html>

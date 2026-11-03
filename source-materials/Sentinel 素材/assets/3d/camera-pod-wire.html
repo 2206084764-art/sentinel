@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truck Surveillance Camera Pod — 3D Model</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:330px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#1f8fd0;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:178px; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #controls .row{ display:flex; align-items:center; gap:8px; }
+  #controls select{ flex:1; font-size:12px; padding:3px 4px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:#1a1d22; color:#e7eaed; cursor:pointer; }
+  #controls input[type=range]{ flex:1; }
+  #loading{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#888; z-index:20; letter-spacing:.5px; }
+  .sep{ height:1px; background:rgba(255,255,255,0.08); margin:2px 0; }
+  #spec{ position:absolute; bottom:16px; left:16px; z-index:10; color:#aeb4ba; font-size:11px;
+    background:rgba(20,23,28,0.5); padding:10px 13px; border-radius:10px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.08); max-width:360px; line-height:1.65; }
+  #spec b{ color:#dfe3e6; }
+</style>
+<style>#info,#controls,#spec,#loading{display:none!important}html,body{background:transparent!important}</style>
+<style>#info,#controls,#hint,#loading,#title,#sub,.title,.hint,.hud,#top{display:none!important}html,body{background:transparent!important}canvas{display:block}</style></head>
+<body>
+<div id="loading">Building model…</div>
+<div id="info">
+  <h1><span class="b">Stream</span><span class="g">ax</span>-style Camera Pod</h1>
+  <p><span class="k">Truck-mount surveillance camera</span> · pod housing</p>
+  <p><span class="k">Drag</span> rotate · <span class="k">Scroll</span> zoom · <span class="k">Right-drag</span> pan</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate" checked> Auto-rotate</label>
+  <div class="row"><span>Mode</span>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="wireframe">Wireframe</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+  <label><input type="checkbox" id="ir" checked> IR ring</label>
+  <div class="row"><span>Pt size</span><input type="range" id="psize" min="0.01" max="0.05" step="0.002" value="0.018"></div>
+  <div class="sep"></div>
+  <div id="pcount" style="font-size:11px;color:#6b7178;"></div>
+</div>
+<div id="spec">
+  <b>Vehicle camera pod</b> — teardrop aluminum housing · sun shield · wide-angle lens + IR LED ring
+  for night vision · bolt-down swivel base (pan/tilt) · side cable gland · IP69K-style sealed body.
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "../js/vendor/three/build/three.module.js",
+    "three/addons/": "../js/vendor/three/examples/jsm/"
+  }
+}
+</script>
+
+<script src="../js/frame-lifecycle.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,1.3));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,720);
+  r.addColorStop(0,'#1b2026'); r.addColorStop(0.6,'#0e1115'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+const darkBg=new THREE.Color(0x080b10);
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(40, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(7,4.5,9);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=3.5; controls.maxDistance=26; controls.maxPolarAngle=Math.PI*0.55;
+controls.target.set(0,2.8,0); controls.autoRotate=true; controls.autoRotateSpeed=1.0;
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x202830,0.45));
+const key=new THREE.DirectionalLight(0xffffff,2.2); key.position.set(6,11,8); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=40;
+key.shadow.camera.left=-9; key.shadow.camera.right=9; key.shadow.camera.top=9; key.shadow.camera.bottom=-9;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xaec8ff,0.6); fill.position.set(-8,5,-4); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,60,40,Math.PI/7,0.5,1.3); rim.position.set(-5,8,-9); scene.add(rim);
+
+/* ---------- Materials ---------- */
+const M={
+  shell:    new THREE.MeshStandardMaterial({ color:0xd8dcdf, metalness:0.85, roughness:0.35 }),   // white-aluminum pod
+  shellDark:new THREE.MeshStandardMaterial({ color:0x33373c, metalness:0.6,  roughness:0.5 }),
+  shield:   new THREE.MeshStandardMaterial({ color:0xcfd4d8, metalness:0.85, roughness:0.3 }),
+  face:     new THREE.MeshPhysicalMaterial({ color:0x0d0f13, metalness:0.35, roughness:0.12, clearcoat:1.0, clearcoatRoughness:0.06 }),
+  glass:    new THREE.MeshPhysicalMaterial({ color:0x0a1018, metalness:0.2,  roughness:0.05, clearcoat:1.0, clearcoatRoughness:0.03, transparent:true, opacity:0.92 }),
+  glassDome:new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0.0,  roughness:0.02, transmission:0.95, transparent:true, thickness:0.15, ior:1.52, clearcoat:1.0, clearcoatRoughness:0.02, envMapIntensity:1.6, side:THREE.DoubleSide }),
+  lensGlass:new THREE.MeshPhysicalMaterial({ color:0x8fb0c4, metalness:0.0,  roughness:0.03, transmission:0.9, transparent:true, thickness:0.35, ior:1.7, clearcoat:1.0, clearcoatRoughness:0.02, envMapIntensity:1.8 }),
+  lens:     new THREE.MeshPhysicalMaterial({ color:0x05080d, metalness:0.4,  roughness:0.04, clearcoat:1.0, clearcoatRoughness:0.03 }),
+  lensAR:   new THREE.MeshPhysicalMaterial({ color:0x0a2740, metalness:0.6,  roughness:0.06, transparent:true, opacity:0.55 }),
+  metal:    new THREE.MeshStandardMaterial({ color:0xb9bec3, metalness:1.0,  roughness:0.3 }),
+  metalDark:new THREE.MeshStandardMaterial({ color:0x44494f, metalness:0.9,  roughness:0.4 }),
+  rubber:   new THREE.MeshStandardMaterial({ color:0x16181b, metalness:0.1,  roughness:0.85 }),
+  irOn:     new THREE.MeshStandardMaterial({ color:0x5a0d0d, emissive:0x7a1010, emissiveIntensity:1.1, roughness:0.4 }),
+  irOff:    new THREE.MeshStandardMaterial({ color:0x2a1414, metalness:0.3,  roughness:0.5 }),
+  ledG:     new THREE.MeshStandardMaterial({ color:0x9aca3c, emissive:0x6da81e, emissiveIntensity:1.3, roughness:0.4 }),
+  bracket:  new THREE.MeshStandardMaterial({ color:0x2c2f34, metalness:0.5,  roughness:0.55 }),
+  screw:    new THREE.MeshStandardMaterial({ color:0x9097a0, metalness:1.0,  roughness:0.35 }),
+  cable:    new THREE.MeshStandardMaterial({ color:0x16181b, metalness:0.2,  roughness:0.7 }),
+  panel:    new THREE.MeshStandardMaterial({ color:0x1d2024, metalness:0.7,  roughness:0.5 }),
+};
+
+/* ---------- Helpers ---------- */
+const device=new THREE.Group(); scene.add(device);
+function mesh(geo,mat,parent=device){ const m=new THREE.Mesh(geo,mat); m.castShadow=true; m.receiveShadow=true; parent.add(m); return m; }
+function place(m,x,y,z,rx=0,ry=0,rz=0){ m.position.set(x,y,z); m.rotation.set(rx,ry,rz); return m; }
+function add(geo,mat,x,y,z,parent=device){ return place(mesh(geo,mat,parent),x,y,z); }
+const rbox=(w,h,d,r=0.06,s=4)=>new RoundedBoxGeometry(w,h,d,s,r);
+const box=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+const cyl=(rt,rb,h,s=32)=>new THREE.CylinderGeometry(rt,rb,h,s);
+const torus=(r,t,s=16,a=48)=>new THREE.TorusGeometry(r,t,s,a);
+
+/* Pod axis: +Z = viewing direction. Pod centre ~y 2.9 above a truck-panel base. */
+const irLEDs=[];
+
+/* ============================================================
+   MOUNTING BASE — bolt-down plate on the truck panel + swivel arm
+   ============================================================ */
+// simulated truck body panel (context)
+const __basePanel=add(rbox(6.5,0.18,4.2,0.05,3), M.panel, 0,0.09,0);
+// bolt-down base plate
+add(cyl(0.85,0.95,0.22,36), M.bracket, 0,0.31,0);
+for(let i=0;i<4;i++){ const a=i/4*Math.PI*2+Math.PI/4;
+  place(add(cyl(0.09,0.09,0.1,14), M.screw, Math.cos(a)*0.62,0.44,Math.sin(a)*0.62), Math.cos(a)*0.62,0.44,Math.sin(a)*0.62); }
+// riser column
+add(cyl(0.3,0.38,0.55,28), M.bracket, 0,0.68,0);
+// swivel ball + clamp (pan/tilt)
+add(new THREE.SphereGeometry(0.4,28,20), M.bracket, 0,1.1,0);
+place(add(cyl(0.17,0.17,0.2,6), M.screw, 0.42,1.1,0), 0.42,1.1,0, 0,0,Math.PI/2);  // hex clamp bolt
+// angled arm up to the pod (tilted slightly forward)
+const arm=place(add(cyl(0.16,0.2,1.5,20), M.bracket, 0,1.9,0.18), 0,1.9,0.18, 0.22,0,0);
+// arm-to-pod yoke
+place(add(rbox(0.7,0.3,0.5,0.08,3), M.bracket, 0,2.62,0.34), 0,2.62,0.34, 0.2,0,0);
+
+/* ============================================================
+   POD HOUSING — teardrop capsule (sphere front + tapered tail)
+   ============================================================ */
+const pod=new THREE.Group(); device.add(pod);
+pod.position.set(0,3.05,0.42); pod.rotation.x=0.06;   // slight downward aim
+// main capsule: lathe profile (round nose → tapered tail)
+const prof=[];
+prof.push(new THREE.Vector2(0.001,-1.35));                       // tail tip
+for(let i=0;i<=10;i++){ const t=i/10;                            // tail taper → full radius
+  prof.push(new THREE.Vector2(0.28+0.62*Math.pow(t,0.75), -1.35+1.15*t)); }
+prof.push(new THREE.Vector2(0.9,0.55));                          // cylindrical mid-section
+for(let i=1;i<=12;i++){ const a=i/12*Math.PI/2;                  // rounded nose dome
+  prof.push(new THREE.Vector2(0.9*Math.cos(a), 0.55+0.62*Math.sin(a))); }
+const podGeo=new THREE.LatheGeometry(prof,44);
+const podMesh=mesh(podGeo, M.shell, pod); podMesh.rotation.x=Math.PI/2;   // axis → +Z
+// seam ring
+place(add(torus(0.905,0.028,14,52), M.metalDark, 0,0,0.35, pod), 0,0,0.35);
+// tail cable gland + drip cable
+place(add(cyl(0.12,0.16,0.3,16), M.metalDark, 0,0,-1.45, pod), 0,0,-1.45, Math.PI/2,0,0);
+const cablePts=[ new THREE.Vector3(0,3.02,-1.1), new THREE.Vector3(0,2.6,-1.35),
+  new THREE.Vector3(0,1.8,-1.1), new THREE.Vector3(0,1.0,-0.7), new THREE.Vector3(0,0.35,-0.9) ];
+add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(cablePts),36,0.07,10,false), M.cable, 0,0,0);
+
+/* ============================================================
+   SUN SHIELD — overhanging visor on top of the pod
+   ============================================================ */
+const shield=new THREE.Group(); pod.add(shield);
+const shGeo=new THREE.SphereGeometry(1.04,36,18, 0,Math.PI*2, 0,Math.PI*0.42);
+const sh=mesh(shGeo, M.shield, shield);
+sh.rotation.x=Math.PI/2; sh.position.z=0.18; sh.scale.z=1.35;   // stretched hood over the nose
+// shield lip
+place(add(torus(0.98,0.035,12,48,Math.PI), M.shield, 0,0.2,1.0, shield), 0,0.28,0.95, -0.35,0,0);
+
+/* ============================================================
+   FRONT FACE — glass window, wide-angle lens, IR LED ring
+   ============================================================ */
+const face=new THREE.Group(); pod.add(face); face.position.z=1.12;
+// black face plate (recessed)
+place(add(cyl(0.78,0.84,0.16,40), M.face, 0,0,0, face), 0,0,0, Math.PI/2,0,0);
+// curved protective GLASS DOME (transmissive — catches real environment reflections)
+{
+  const Rd=1.1, rim=0.72, th=Math.asin(rim/Rd);
+  const domeGeo=new THREE.SphereGeometry(Rd,48,24, 0,Math.PI*2, 0,th);
+  domeGeo.rotateX(Math.PI/2);                       // cap faces +Z
+  const dome=mesh(domeGeo, M.glassDome, face);
+  dome.position.z=0.08 - Rd*Math.cos(th);           // rim seated on the face plate
+  // chrome retaining ring around the dome rim
+  place(add(new THREE.TorusGeometry(rim+0.015,0.03,12,48), M.metal, 0,0,0.09, face), 0,0,0.09);
+}
+// central wide-angle LENS STACK (multi-element, convex glass)
+place(add(cyl(0.34,0.38,0.32,32), M.metalDark, 0,0.05,0.05, face), 0,0.05,0.05, Math.PI/2,0,0);   // barrel
+place(add(new THREE.TorusGeometry(0.27,0.025,12,40), M.metal, 0,0.05,0.21, face), 0,0.05,0.21);   // bezel ring
+{
+  // front convex element — real glass with reflection
+  const Rl=0.35, rimL=0.24, thL=Math.asin(rimL/Rl);
+  const el1=new THREE.SphereGeometry(Rl,36,18, 0,Math.PI*2, 0,thL); el1.rotateX(Math.PI/2);
+  const e1=mesh(el1, M.lensGlass, face); e1.position.set(0,0.05,0.2 - Rl*Math.cos(thL));
+  // AR-coating sheen just behind the front element
+  place(add(cyl(0.19,0.19,0.03,30), M.lensAR, 0,0.05,0.16, face), 0,0.05,0.16, Math.PI/2,0,0);
+  // second (inner) element — smaller convex glass, deeper in the barrel
+  const Rl2=0.22, rimL2=0.13, thL2=Math.asin(rimL2/Rl2);
+  const el2=new THREE.SphereGeometry(Rl2,28,14, 0,Math.PI*2, 0,thL2); el2.rotateX(Math.PI/2);
+  const e2=mesh(el2, M.lensGlass, face); e2.position.set(0,0.05,0.1 - Rl2*Math.cos(thL2));
+  // dark aperture at the bottom of the stack
+  place(add(cyl(0.07,0.07,0.05,18), M.lens, 0,0.05,0.02, face), 0,0.05,0.02, Math.PI/2,0,0);
+}
+// IR LED ring (10 emitters) around the lens
+for(let i=0;i<10;i++){ const a=i/10*Math.PI*2;
+  const m=place(add(cyl(0.065,0.065,0.06,12), M.irOn, Math.cos(a)*0.52, Math.sin(a)*0.52, 0.1, face),
+    Math.cos(a)*0.52, Math.sin(a)*0.52, 0.1, Math.PI/2,0,0);
+  irLEDs.push(m); }
+// tiny status LED (green) at the face bottom
+const st=place(add(cyl(0.045,0.045,0.05,12), M.ledG, 0,-0.62,0.1, face), 0,-0.62,0.1, Math.PI/2,0,0);
+irLEDs.push(st);
+
+/* ---- housing details: fins, brand line, bolts ---- */
+for(let i=0;i<5;i++) place(add(box(0.03,0.05,1.15), M.shellDark, -0.55+i*0.275, 0.93, -0.55, pod), -0.55+i*0.275, 0.88-Math.abs(i-2)*0.06, -0.55);
+add(box(0.9,0.05,0.03), M.ledG, 0,-0.55,1.02, pod);      // green brand accent under the face
+for(const a of [0.9,2.24,4.0,5.4]){ place(add(cyl(0.05,0.05,0.06,12), M.screw, Math.cos(a)*0.86, Math.sin(a)*0.86, 0.42, pod), Math.cos(a)*0.86, Math.sin(a)*0.86, 0.42, Math.PI/2,0,0); }
+
+/* ============================================================
+   GROUND — reflector + contact shadow
+   ============================================================ */
+const FY=0.0;
+const mirror=new Reflector(new THREE.PlaneGeometry(80,80),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,1.3), textureHeight:innerHeight*Math.min(devicePixelRatio,1.3), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; mirror.position.y=FY; scene.add(mirror);
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(80,80), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.5, roughness:0.4, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=FY+0.001; scene.add(gloss);
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(30,30), new THREE.ShadowMaterial({ opacity:0.4 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=FY+0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher);
+const groundEls=[mirror,gloss,shadowCatcher];
+
+/* ============================================================
+   Particle mode — density by material
+   ============================================================ */
+function densityFor(m){
+  if(m===M.lensAR||m===M.glass||m===M.glassDome) return 70;
+  if(m===M.lensGlass) return 180;
+  if(m===M.lens||m===M.face) return 260;
+  if(m===M.metal||m===M.metalDark||m===M.screw) return 700;
+  if(m===M.shell||m===M.shield||m===M.shellDark||m===M.bracket||m===M.cable||m===M.panel) return 480;
+  if(m===M.irOn||m===M.irOff||m===M.ledG||m===M.rubber) return 380;
+  return 400;
+}
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function geometryArea(geo){ const pos=geo.attributes.position; if(!pos) return 0; let area=0; const idx=geo.index;
+  const tri=(i0,i1,i2)=>{ _a.fromBufferAttribute(pos,i0); _b.fromBufferAttribute(pos,i1); _c.fromBufferAttribute(pos,i2);
+    _ab.subVectors(_b,_a); _ac.subVectors(_c,_a); area+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else   { for(let i=0;i<pos.count;i+=3) tri(i,i+1,i+2); }
+  return area; }
+let particleCloud=null; const white=new THREE.Color(0xffffff);
+function buildParticles(){
+  scene.updateMatrixWorld(true);
+  const positions=[], colors=[]; const p=new THREE.Vector3(), col=new THREE.Color();
+  const tp=new THREE.Vector3(), tq=new THREE.Quaternion(), ts=new THREE.Vector3();
+  device.traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    const mat=o.material; if(Array.isArray(mat)) return; const d=densityFor(mat); if(d<=0) return;
+    o.matrixWorld.decompose(tp,tq,ts); const sAvg=(Math.abs(ts.x)+Math.abs(ts.y)+Math.abs(ts.z))/3;
+    let n=Math.max(4, Math.round(geometryArea(o.geometry)*sAvg*sAvg*d)); n=Math.min(n,2600);
+    let sampler; try{ sampler=new MeshSurfaceSampler(o).build(); }catch(e){ return; }
+    col.copy(mat.color||white);
+    if(mat.emissive && mat.emissiveIntensity>0) col.lerp(white,0.2);
+    if((col.r+col.g+col.b)/3 < 0.22) col.lerp(white,0.45);
+    for(let i=0;i<n;i++){ sampler.sample(p); p.applyMatrix4(o.matrixWorld); positions.push(p.x,p.y,p.z); colors.push(col.r,col.g,col.b); }
+  });
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
+  particleCloud=new THREE.Points(g, new THREE.PointsMaterial({ size:parseFloat(psizeEl.value), vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, depthWrite:true }));
+  scene.add(particleCloud);
+}
+
+/* ---------- Modes / UI ---------- */
+const wireMat=new THREE.LineBasicMaterial({ color:0x49b6e8 });
+const ghostMat=new THREE.MeshBasicMaterial({ color:0x49b6e8, wireframe:true, transparent:true, opacity:0.07 });
+function clearWire(){ device.traverse(o=>{ if(o.isMesh && o.userData._mat){ o.material=o.userData._mat; o.userData._mat=null; if(o.userData._edges) o.userData._edges.visible=false; } }); }
+function applyWire(){ device.traverse(o=>{ if(o.isMesh && !o.userData._mat && !o.userData._isEdge){ o.userData._mat=o.material; o.material=ghostMat;
+  if(!o.userData._edges){ const e=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,14), wireMat); e.userData._isEdge=true; o.add(e); o.userData._edges=e; }
+  o.userData._edges.visible=true; } }); }
+const modeEl=document.getElementById('mode'), psizeEl=document.getElementById('psize'),
+      pcountEl=document.getElementById('pcount'), irEl=document.getElementById('ir');
+function setMode(mode){
+  clearWire(); device.visible=true; if(particleCloud) particleCloud.visible=false;
+  const solid=(mode==='solid');
+  scene.background = null;
+  groundEls.forEach(e=> e.visible=false);
+  pcountEl.textContent='';
+  if(mode==='wireframe'){ applyWire(); }
+  else if(mode==='particles'){
+    if(!particleCloud){ pcountEl.textContent='sampling…'; buildParticles(); }
+    particleCloud.visible=true; device.visible=false;
+    pcountEl.textContent=particleCloud.geometry.attributes.position.count.toLocaleString()+' particles';
+  }
+}
+modeEl.onchange=()=>setMode(modeEl.value);
+psizeEl.oninput=()=>{ if(particleCloud) particleCloud.material.size=parseFloat(psizeEl.value); };
+document.getElementById('autoRotate').onchange=e=>controls.autoRotate=e.target.checked;
+irEl.onchange=()=>{ const on=irEl.checked; irLEDs.forEach(m=>m.material = on ? (m.material===M.ledG?M.ledG:M.irOn) : (m.material===M.ledG?M.ledG:M.irOff)); };
+
+document.getElementById('loading').style.display='none';
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+/* embed overrides: url-configurable mode, fit, zoom & base, auto-rotate, no interaction */
+const __q=new URLSearchParams(location.search);
+try{ if(__q.get('base')==='0' && typeof __basePanel!=='undefined'){ __basePanel.parent.remove(__basePanel); } }catch(e){}
+try{ if(__q.get('mount')==='0' && typeof pod!=='undefined'){ [...device.children].forEach(ch=>{ if(ch!==pod) device.remove(ch); }); pod.position.y=2.2; } }catch(e){}
+scene.updateMatrixWorld(true);
+const __fit=__q.get('fit');
+if(__fit!==null){
+  /* tight rotation-safe framing: per-part corner analysis of the orbit envelope */
+  const bb=new THREE.Box3().setFromObject(device);
+  const c=bb.getCenter(new THREE.Vector3());
+  controls.target.copy(c);
+  const dy=parseFloat(__q.get('dy')||'0');            /* + moves the model DOWN in frame */
+  controls.target.y+=dy*(bb.max.y-bb.min.y);
+  const vHalf=camera.fov*Math.PI/360, hHalf=Math.atan(Math.tan(vHalf)*camera.aspect);
+  const tanV=Math.tan(vHalf), tanH=Math.tan(hHalf);
+  let need=0; const v=new THREE.Vector3();
+  device.traverse(o=>{ if(o.isMesh&&o.geometry){
+    if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();
+    const b=o.geometry.boundingBox;
+    for(let i=0;i<8;i++){
+      v.set(i&1?b.max.x:b.min.x, i&2?b.max.y:b.min.y, i&4?b.max.z:b.min.z).applyMatrix4(o.matrixWorld);
+      const rxz=Math.hypot(v.x-c.x, v.z-c.z);
+      const dv=rxz+Math.abs(v.y-controls.target.y)/tanV, dh=rxz+rxz/tanH;
+      if(dv>need){need=dv;window.__why='V rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}
+      if(dh>need){need=dh;window.__why='H rxz='+rxz.toFixed(2)+' y='+v.y.toFixed(2)+' geo='+(o.geometry.type);}
+    }
+  }});
+  const dist=need*(parseFloat(__fit)||1);
+  const dir=camera.position.clone().sub(c).normalize();
+  camera.position.copy(controls.target).add(dir.multiplyScalar(dist));
+}else{
+  const __ty=__q.get('ty'); if(__ty!==null){ controls.target.y=parseFloat(__ty); }
+  const __zoom=parseFloat(__q.get('zoom')||'1');
+  if(__zoom!==1){ camera.position.sub(controls.target).multiplyScalar(__zoom).add(controls.target); }
+}
+const __mode=__q.get('mode')||'wireframe';
+modeEl.value=__mode; setMode(__mode);
+controls.enabled=false; const __sp=parseFloat(__q.get('spin')||'1.4'); controls.autoRotate=__sp>0; controls.autoRotateSpeed=__sp>0?__sp:1;
+(function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene,camera); })();
+
+let sentinelBaseDistance=0;
+const sentinelReady=()=>{ sentinelBaseDistance=camera.position.length(); parent.postMessage({channel:'sentinel',type:'scene-ready'},location.origin); };
+THREE.DefaultLoadingManager.onLoad=sentinelReady;
+THREE.DefaultLoadingManager.onError=()=>parent.postMessage({channel:'sentinel',type:'scene-error'},location.origin);
+window.SENTINEL_FRAME_API={command(data){
+  if(data.action==='progress'){window.SENTINEL_SCROLL_PROGRESS=Math.max(0,Math.min(1,data.value));}
+  if(data.action==='zoom'&&sentinelBaseDistance){camera.position.setLength(sentinelBaseDistance*(data.value?.72:1));}
+  if(data.action==='interactive'){controls.enabled=!!data.value;controls.enableZoom=false;controls.autoRotate=false;} if(data.action==='pointer'){camera.rotation.z=data.x*.006;}
+},dispose(){scene.traverse(o=>{o.geometry?.dispose();if(o.material){for(const m of [].concat(o.material))m.dispose();}});renderer.dispose();renderer.forceContextLoss();}};
+sentinelReady();
+</script>
+</body>
+</html>

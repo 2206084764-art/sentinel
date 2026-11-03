@@ -1,0 +1,53 @@
+import fs from 'node:fs/promises';
+import {Presentation,PresentationFile} from '@oai/artifact-tool';
+const deck=Presentation.create({slideSize:{width:1280,height:720}});
+const green='#2AF598',white='#FFFFFF',muted='#A7B5C5',bg='#070B13';
+function text(s,name,copy,x,y,w,h,size=26,color=white,bold=false){
+ const o=s.shapes.add({geometry:'textbox',name,position:{left:x,top:y,width:w,height:h},fill:'none',line:{fill:'none',width:0}});
+ o.text=copy;o.text.style={fontFamily:'Arial',fontSize:size,color,bold,verticalAlignment:'middle',wrap:true};return o;
+}
+function base(title){const s=deck.slides.add();s.background.fill=bg;text(s,'Webinar title',title,72,135,1136,85,44,white,true);return s;}
+let s=base('Three key design questions');
+const qs=['How can monitoring continue at low power\nafter ignition-off?','How can human activity be detected\nin low-light conditions?','How can low-value alerts be reduced?'];
+qs.forEach((q,i)=>{text(s,'Question number '+(i+1),String(i+1).padStart(2,'0'),76,250+i*130,74,74,36,green,true);text(s,'Design question '+(i+1),q,180,242+i*130,1005,91,31,white,true);});
+s.speakerNotes.text='Introduce these three questions before the product reveal. Keep the emphasis on power, night-time human detection and useful alerts. Each question appears on click.';
+s=base('Alert & video review workflow');
+const positions=[[74,270],[470,270],[866,270],[866,470],[470,470],[74,470]];
+const labels=['Detection','Event generation','Video association','Alert reception','Event review','Operational follow-up'];
+const desc=['Activity around the vehicle','Event record created','Relevant footage attached','Fleet personnel notified','Video and context checked','Action under fleet procedures'];
+const nodes=[];
+labels.forEach((label,i)=>{const [x,y]=positions[i];const node=s.shapes.add({geometry:'rect',name:'Workflow step '+(i+1),position:{left:x,top:y,width:320,height:120},fill:'#101824',line:{fill:'#31465B',width:1.2}});nodes.push(node);text(s,'Step number '+(i+1),String(i+1),x+20,y+13,35,30,22,green,true);text(s,'Step title '+(i+1),label,x+58,y+11,250,38,23,white,true);text(s,'Step description '+(i+1),desc[i],x+20,y+62,280,46,19,muted);});
+for(let i=0;i<5;i++){s.shapes.connect(nodes[i],nodes[i+1],{kind:'straight',fromSide:i===2?'bottom':i<2?'right':'left',toSide:i===2?'top':i<2?'left':'right',line:{fill:green,width:2},tail:{type:'triangle',width:'med',length:'med'}});}
+text(s,'Workflow qualification','Notification channels and follow-up depend on platform configuration and fleet procedures.',74,638,1120,40,20,muted);
+s.speakerNotes.text='Follow steps 1 to 6. Explain that the device generates an event and associates video. Alert receipt and operational follow-up depend on the deployed platform, connectivity and fleet procedures. Location information is available only when supported and configured.';
+s=base('Real-world incident & customer validation');
+text(s,'Approval status','PENDING CUSTOMER AND CONTENT APPROVAL',74,228,1120,30,18,green,true);
+text(s,'Pilot setup label','Pilot setup',74,295,480,35,25,white,true);
+text(s,'Pilot setup value','[Approved vehicle type and installation]',74,340,490,55,21,muted);
+text(s,'Environment label','Operating environment',74,424,490,35,25,white,true);
+text(s,'Environment value','[Approved parking context and observation period]',74,468,490,65,21,muted);
+const placeholder=s.shapes.add({geometry:'rect',name:'Approved incident video placeholder',position:{left:650,top:294,width:546,height:278},fill:'#101824',line:{fill:'#31465B',width:1.5}});
+text(s,'Video placeholder','Approved incident footage',682,358,480,50,28,white,true);
+text(s,'Video placeholder detail','[Insert cleared video with identity, plate\nand location details removed]',682,423,480,80,21,muted);
+text(s,'Validation sequence','Detection   /   Video evidence review   /   Customer verification',74,615,1120,45,24,white,true);
+s.speakerNotes.text='This chapter remains an approval template. Replace the fields only after customer permission and footage clearance. Describe pilot setup, operating environment, the event and customer verification. Do not present simulated footage as a real customer incident.';
+s=base('Kenya case study & business value');
+text(s,'Approval status','PENDING CASE APPROVAL AND DATA VALIDATION',74,228,1120,30,18,green,true);
+text(s,'Case context','Operating context: [approved fleet and installation context]',74,275,1120,45,23,white);
+const columns=[74,520,842];
+['Comparison basis','Before installation','After installation'].forEach((v,i)=>text(s,'Case column '+i,v,columns[i],342,i===0?420:300,38,23,i===0?muted:green,true));
+const rows=[['Observation period','[Period and exposure]','[Period and exposure]'],['Incidents per vehicle-month','[Validated value]','[Validated value]'],['Fuel loss per vehicle-month','[Validated value and unit]','[Validated value and unit]']];
+rows.forEach((row,i)=>row.forEach((v,j)=>text(s,'Case field '+i+' '+j,v,columns[j],400+i*67,j===0?420:310,55,21,j===0?white:muted,j===0)));
+text(s,'Business implications','Business implications: [approved finding and operational interpretation]',74,616,1120,35,21,white);
+text(s,'Limitations','Limitations: matched periods, fleet exposure and external factors require review. Results may vary.',74,661,1120,30,17,muted);
+s.speakerNotes.text='Approval template only. Confirm vehicle installation, observation periods, matched monthly basis, source records and customer approval. Use vehicle-month exposure if fleet size changes. Validate theft incidents and fuel loss consistently. The previous reduction, payback and ROI figures are intentionally absent.';
+s=base('Key takeaways');
+[['Low-power monitoring','Monitoring during vehicle downtime'],['Night-time detection','Human activity in low-light conditions'],['Meaningful alerts & video evidence','Events that fleet teams can review']].forEach(([h,b],i)=>{text(s,'Takeaway '+(i+1),h,74,255+i*92,850,42,30,white,true);text(s,'Takeaway detail '+(i+1),b,74,299+i*92,850,32,22,muted);});
+text(s,'Demo CTA','Book a Product Demo',74,568,850,58,38,green,true);
+text(s,'Demo context','Share your market, vehicle type and parking scenario.',74,632,920,35,21,white);
+text(s,'Demo URL','Demo URL: [approved product consultation link]',74,672,930,28,18,muted);
+s.shapes.add({geometry:'rect',name:'QR placeholder',position:{left:1030,top:545,width:166,height:166},fill:'#101824',line:{fill:'#31465B',width:1.5}});
+text(s,'QR placeholder label','QR CODE\n[approved link]',1042,586,142,75,20,muted,true);
+s.speakerNotes.text='Invite attendees to book a product demo and share their market, vehicle type and parking scenario. Replace the URL and QR placeholder with the same approved consultation destination before the webinar.';
+await (await PresentationFile.exportPptx(deck)).save('work/native-additions.pptx');
+console.log('Authored',deck.slides.items.length,'native editable slides');

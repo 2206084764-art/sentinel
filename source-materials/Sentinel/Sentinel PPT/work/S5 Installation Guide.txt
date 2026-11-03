@@ -1,0 +1,310 @@
+ 
+
+
+
+
+
+
+
+
+Sentinel AI Camera
+S5
+Installation Guide
+
+
+
+
+
+Contents
+Preface2
+About This Product Manual2
+Trademark Statement2
+Disclaimer2
+Symbol Explanation2
+Product Overview3
+Product Introduction3
+Product Features3
+AI Features4
+Product Appearance and Component Names4
+System Connection Diagram5
+Cables5
+Quick Installation Guide6
+Preparation Tools6
+Insert SIM Card and Micro SD Card7
+Adjust the angle of the camera lens7
+Screw-fixed installation8
+Magnetic attachment installation9
+Fixed Installation in Security Environment10
+Calibration Guide10
+AI Calibration12
+ADAS Calibration12
+
+
+
+
+Preface
+
+About This Product Manual
+This manual provides critical safety information aimed at preventing harm to users and others, avoiding property damage, and ensuring the safe use of the product. All content, including text, images, graphics, etc., is owned by Shenzhen Streamax Technology Co., Ltd. Without written permission, no unit or individual may excerpt, copy, translate, or modify any part of this product manual in any way. Unless otherwise stated, the company makes no declarations or guarantees regarding this guide.
+This document is intended solely for authorized users and technical support personnel. Product images and screen content are for reference only. The actual product (including appearance, color, and size) may differ. Please refer to the physical product for accuracy.
+Streamax Technology may update or modify the specifications from time to time to reflect changes in product performance, functionality, or components without prior notice.
+Trademark Statement
+ is a registered trademark of Shenzhen Streamax Technology Co., Ltd. All other trademarks are the property of their respective owners.
+Disclaimer
+The product described in this document is provided “as is” without any express or implied warranties, including but not limited to warranties of merchantability or fitness for a particular purpose. Streamax Technology shall not be liable for any damages resulting from the use of the product or the specifications, including but not limited to loss of profits, data, or documentation.
+When the product is connected to the Internet, Streamax Technology is not responsible for network security risks such as cyberattacks, hacking, or virus infections. However, we will provide technical support as necessary.
+By using this product, you agree to comply with all applicable laws. Streamax Technology is not responsible for any misuse of the product or any infringement of third-party rights.
+If there is any conflict between this specification and applicable laws, the laws shall prevail.
+Copyright © 2025 Shenzhen Streamax Technology Co., Ltd. All rights reserved.
+Symbol Explanation
+
+The following symbols are used to categorize and explain potential hazards that may arise from improper operation
+
+Symbol
+Explanation
+
+Warning: Conditions that could jeopardize the safety of the user or cause injury
+
+Important: Conditions that may lead to data corruption or damage to the device’s firmware or hardware
+
+Note: Additional information, explanations of terms, and other relevant details
+
+
+Product Overview
+
+Product Introduction
+
+The S5 is an AI-powered intelligent sentinel camera engineered to ensure comprehensive asset protection. Designed for continuous 24/7 operation, it provides uninterrupted high-definition monitoring to capture every critical moment. Featuring ultra-low power consumption and AOV standby mode, the S5 remains active even when the vehicle is turned off, maintaining constant security coverage. Integrated 4G, Wi-Fi, and GNSS modules enable real-time transmission of vehicle location, status, and operational data to the platform, supporting remote communication and video playback for precise asset management and control.
+
+Product Features
+
+Built-In one ultra-wide-angle lens with up to 2 Megapixels HD video recording, supporting black light technology
+Supports H.264/H.265 encoding
+Supports 1*Micro SD storage allowing simultaneous storage of both main and sub-streams
+Built-in Wi-Fi, 4G Cat1 communication module, and inertial navigation module
+Video data supports AES256 encryption
+Supports 1 channels of IO input, 1 channels of IO output and 1 RS232 channel
+Supports normal mode and AOV ultra-low power consumption mode
+Built-in 6-axis gravity sensor, supports detection of rapid acceleration, rapid deceleration, sharp turns, and collisions
+Built-in battery and can keep working for 5 minutes in case of a power outage (optional)
+
+
+AI Features
+
+
+
+Vehicle contact inspection
+Suspicious target detection
+
+
+Product Appearance and Component Names
+
+
+
+
+
+No.
+Components
+1
+GPS positioning module
+2
+Horizontal Angle Adjustment Disc
+3
+Vertical angle adjustment sphere
+4
+TF card, SIM card cover
+5
+TF card slot, SIM card slot, USB 3.0
+6
+Rigid mounting base
+
+
+System Connection Diagram
+
+
+
+
+
+
+
+
+
+
+
+
+Cables
+
+
+
+
+
+Quick Installation Guide
+
+Preparation Tools
+
+Before installation, please prepare the following materials and tools:
+
+
+
+
+Product Kit
+Screwdriver
+Smartphone/Tablet
+Micro SD Card
+
+
+Nano SIM Card
+5m Measuring Tape
+
+
+Insert SIM Card and Micro SD Card
+
+
+
+
+
+
+
+Warning
+Please use an industrial-grade SIM card (MP2). The use of consumer-grade SIM cards (MP1) is prohibited. The company is not responsible for any issues caused by using a non-industrial SIM card
+The Micro SD card must be Class 10 or higher
+
+
+Adjust the angle of the camera lens
+
+PressPressBoth sections can be rotated.Both sections can be rotated.
+Press
+Press
+Both sections can be rotated.
+Both sections can be rotated.
+
+
+Warning
+The angle supports horizontal rotation up to 180°.
+
+
+Screw-fixed installation
+
+Side cable routing is optional during installation.Side cable routing is optional during installation.
+Side cable routing is optional during installation.
+Side cable routing is optional during installation.
+
+
+
+Secure the base first, then clip the device onto it and fasten it with screws.Secure the base first, then clip the device onto it and fasten it with screws.
+Secure the base first, then clip the device onto it and fasten it with screws.
+Secure the base first, then clip the device onto it and fasten it with screws.
+
+
+
+Magnetic attachment installation
+
+
+Attach the magnetic mounting bracket to the rigid mounting base of the device.Attach the magnetic mounting bracket to the rigid mounting base of the device.
+Attach the magnetic mounting bracket to the rigid mounting base of the device.
+Attach the magnetic mounting bracket to the rigid mounting base of the device.
+
+
+
+Attach the device to the ferromagnetic metal surface of the vehicle body.Attach the device to the ferromagnetic metal surface of the vehicle body.
+Attach the device to the ferromagnetic metal surface of the vehicle body.
+Attach the device to the ferromagnetic metal surface of the vehicle body.
+
+
+
+
+Fixed Installation in Security Environment
+
+Secure the device to the pre-drilled mounting points on the RAM mount.Secure the device to the pre-drilled mounting points on the RAM mount.
+Secure the device to the pre-drilled mounting points on the RAM mount.
+
+
+Secure the device to the pre-drilled mounting points on the RAM mount.
+
+
+
+
+Secure the RAM mount.Secure the RAM mount.
+Secure the RAM mount.
+Secure the RAM mount.
+        
+
+
+
+Warning
+This scenario is only applicable to fixed security systems and cannot meet the requirements of high-frequency vibration situations.
+
+Calibration Guide
+
+
+Note
+AP Mode: To connect to the device's Wi-Fi hotspot, the device must be in AP mode. The device will be in AP mode for the first 3 minutes after startup. You can also manually switch to AP mode at any time by double-clicking the function button on the device
+
+Mobile App Installation:
+For Android users, search for Veyes in Google Play to download
+For iPhone users, search for Veyes in the App Store to download
+
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the deviceEnter the username and password，The default credentials are: admin/adminClick [Log in] to access the operation interfaceClick [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the deviceEnter the username and password，The default credentials are: admin/adminClick [Log in] to access the operation interface
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the device
+Enter the username and password，The default credentials are: admin/admin
+Click [Log in] to access the operation interface
+Click [Search] to enter the Wi-Fi settings. Select the corresponding device hotspot and connect. The initial hotspot name will be the device’s Serial Number, which can be found on the label on the device
+Enter the username and password，The default credentials are: admin/admin
+Click [Log in] to access the operation interface
+
+Click the top-right corner to view information such as the APP version and other details[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speedClick the top-right corner to view information such as the APP version and other details[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+Click the top-right corner to view information such as the APP version and other details
+[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+Click the top-right corner to view information such as the APP version and other details
+[Acceptance]: Acceptance Mode. This mode is used for testing or accepting the device in a static environment. It triggers AI alerts based on a preset vehicle speed
+
+AI Calibration
+
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+
+Click [Preview]: View the real-time feed of each channel. Double-click to enlarge the preview. If no camera is connected or the camera channel is damaged, "Video Loss" and “No Device” will be displayed. It supports the operation of turning grid on/off, and AI calibration(Sentinel has no external microphone).
+
+
+
+
+
+
+
+ADAS Calibration
+
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interfaceClick the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+Click the [AI Calibration] in the preview interface → [Sentry Camera], to enter the Sentry calibration interface
+
+
+click [Calibration]Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".click [Calibration]Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".        
+click [Calibration]
+
+Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".
+
+click [Calibration]
+
+Enter the calibration interface and proceed with the calibration in the order of "Vehicle Body Area" to "Suspicious Area".
+
+
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+① Click on each of the four points in sequence to determine the calibration range of the "body area" (Red).
+
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).then click [Save]② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).then click [Save]
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).
+
+then click [Save]
+② Click on each of the four points in sequence to determine the calibration range of the "suspicious area" (yellow).
+
+then click [Save]
+
+
+
+
+Warning
+Sentry camera calibration must be performed strictly according to the requirements:Perform point marking and calibration on the vehicle body area first, followed by point marking and calibration on the suspicious area. Within each calibration range, the selected points will form a line segment, with both ends of the segment perpendicular to the vehicle body, thereby defining a range interval.
+Failure to follow the required procedureswill prevent the sentinel system from accurately obtaining the image information, which may affect its judgment ability, thereby possibly reducing the accuracy of the alarm or causing the system to malfunction.
+The company does not assume responsibility for any functional issues caused by improper installation or calibration
+

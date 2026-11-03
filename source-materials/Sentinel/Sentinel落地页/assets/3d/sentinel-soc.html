@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streamax Sentinel S5 — 3D Model (from CAD)</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:330px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#1f8fd0;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:186px; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #controls .row{ display:flex; align-items:center; gap:8px; }
+  #controls select{ flex:1; font-size:12px; padding:3px 4px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:#1a1d22; color:#e7eaed; cursor:pointer; }
+  #controls input[type=range]{ flex:1; }
+  #loading{ position:absolute; inset:0; display:flex; flex-direction:column; gap:10px; align-items:center; justify-content:center; color:#9aa4b0; z-index:20; letter-spacing:.5px; }
+  #loadbar{ width:220px; height:4px; border-radius:2px; background:rgba(255,255,255,0.1); overflow:hidden; }
+  #loadbar i{ display:block; height:100%; width:0%; background:linear-gradient(90deg,#49b6e8,#9aca3c); }
+  .sep{ height:1px; background:rgba(255,255,255,0.08); margin:2px 0; }
+  #spec{ position:absolute; bottom:16px; left:16px; z-index:10; color:#aeb4ba; font-size:11px;
+    background:rgba(20,23,28,0.5); padding:10px 13px; border-radius:10px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.08); max-width:380px; line-height:1.65; }
+  #spec b{ color:#dfe3e6; }
+</style>
+<style>#info,#controls,#spec,#loading{display:none!important}html,body{background:transparent!important}</style>
+<link rel="stylesheet" href="../fonts/harmonyos.css">
+</head>
+<body>
+<div id="loading"><div>Loading Sentinel S5 CAD model…</div><div id="loadbar"><i id="loadfill"></i></div></div>
+<div id="info">
+  <h1><span class="b">Stream</span><span class="g">ax</span> Sentinel S5</h1>
+  <p><span class="k">Built from the engineering CAD</span> (Creo STEP AP214)</p>
+  <p><span class="k">Drag</span> rotate · <span class="k">Scroll</span> zoom · <span class="k">Right-drag</span> pan</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate" checked> Auto-rotate</label>
+  <div class="row"><span>Mode</span>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="wireframe">Wireframe</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+  <div class="row"><span>Pt size</span><input type="range" id="psize" min="0.01" max="0.06" step="0.002" value="0.02"></div>
+  <div class="sep"></div>
+  <div id="pcount" style="font-size:11px;color:#6b7178;"></div>
+</div>
+<div id="spec">
+  <b>Sentinel S5</b> — geometry converted 1:1 from <i>S5_test.step</i> (152 parts, factory colors preserved).
+  No artistic re-modeling: what you see is the engineering assembly.
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from './vendor/three-mesh-bvh/build/index.module.js';
+THREE.BufferGeometry.prototype.computeBoundsTree=computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree=disposeBoundsTree;
+THREE.Mesh.prototype.raycast=acceleratedRaycast;
+function exteriorSample(rootObj, target){
+  rootObj.updateMatrixWorld(true);
+  const geos=[]; const col=new THREE.Color(), white=new THREE.Color(0xffffff);
+  rootObj.traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    let g=o.geometry.clone();
+    for(const k of Object.keys(g.attributes)) if(k!=='position') g.deleteAttribute(k);
+    g=g.toNonIndexed(); g.applyMatrix4(o.matrixWorld);
+    const mat=Array.isArray(o.material)?o.material[0]:o.material; col.copy((mat&&mat.color)||white);
+    if((col.r+col.g+col.b)/3<0.22) col.lerp(white,0.45);
+    const cnt=g.attributes.position.count, ca=new Float32Array(cnt*3);
+    for(let i=0;i<cnt;i++){ ca[i*3]=col.r; ca[i*3+1]=col.g; ca[i*3+2]=col.b; }
+    g.setAttribute('color', new THREE.BufferAttribute(ca,3)); geos.push(g); });
+  if(!geos.length) return {pos:[],col:[]};
+  const merged=mergeGeometries(geos,false); merged.computeBoundsTree();
+  const hull=new THREE.Mesh(merged, new THREE.MeshBasicMaterial());
+  const cAttr=merged.attributes.color;
+  const box=new THREE.Box3().setFromBufferAttribute(merged.attributes.position);
+  const ctr=box.getCenter(new THREE.Vector3()), Rm=box.getSize(new THREE.Vector3()).length()*0.5;
+  const D=Rm*1.7, spread=Rm*1.02, ga=Math.PI*(3-Math.sqrt(5));
+  const V=220, G=Math.max(16, Math.ceil(Math.sqrt(target*1.4/V)));
+  const rc=new THREE.Raycaster(); rc.firstHitOnly=true;
+  const UP=new THREE.Vector3(0,1,0), altX=new THREE.Vector3(1,0,0);
+  const nrm=new THREE.Vector3(), rt=new THREE.Vector3(), uv=new THREE.Vector3(), or=new THREE.Vector3(), dr=new THREE.Vector3();
+  const pos=[], colA=[];
+  for(let vi=0;vi<V;vi++){
+    const yy=1-(vi/(V-1))*2, rr=Math.sqrt(Math.max(0,1-yy*yy)), th=ga*vi;
+    nrm.set(Math.cos(th)*rr, yy, Math.sin(th)*rr).normalize();
+    rt.crossVectors(nrm, Math.abs(nrm.y)>0.95?altX:UP).normalize();
+    uv.crossVectors(rt,nrm).normalize(); dr.copy(nrm).multiplyScalar(-1);
+    for(let a=0;a<G;a++) for(let b=0;b<G;b++){
+      const u=((a+Math.random())/G*2-1)*spread, v=((b+Math.random())/G*2-1)*spread;
+      or.copy(ctr).addScaledVector(nrm,D).addScaledVector(rt,u).addScaledVector(uv,v);
+      rc.set(or,dr); const hit=rc.intersectObject(hull,false)[0];
+      if(hit){ pos.push(hit.point.x,hit.point.y,hit.point.z); const ia=hit.face.a;
+        colA.push(cAttr.getX(ia),cAttr.getY(ia),cAttr.getZ(ia)); } } }
+  merged.disposeBoundsTree();
+  return {pos, col:colA};
+}
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,720);
+  r.addColorStop(0,'#1b2026'); r.addColorStop(0.6,'#0e1115'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+const darkBg=new THREE.Color(0x080b10);
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(40, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(7,4.8,9);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=3; controls.maxDistance=30; controls.maxPolarAngle=Math.PI*0.55;
+controls.target.set(0,2.6,0); controls.autoRotate=false; controls.enabled=false;
+const __q=new URLSearchParams(location.search);
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x202830,0.5));
+const key=new THREE.DirectionalLight(0xffffff,2.2); key.position.set(6,11,8); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=40;
+key.shadow.camera.left=-9; key.shadow.camera.right=9; key.shadow.camera.top=9; key.shadow.camera.bottom=-9;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xaec8ff,0.65); fill.position.set(-8,5,-4); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,70,40,Math.PI/7,0.5,1.3); rim.position.set(-5,8,-9); scene.add(rim);
+
+/* ---------- Load the CAD-derived GLB (strictly the STEP geometry) ----------
+   The GLB is EMBEDDED below as a data URI so the page also works when opened
+   directly from disk (file://) — no local server required.                  */
+const SENTINEL_GLB_URL='./models/bffe2948bc9e72ea.glb';
+const device=new THREE.Group(); scene.add(device);
+let loaded=false;
+new GLTFLoader().load(SENTINEL_GLB_URL,
+  (gltf)=>{
+    const root=gltf.scene;
+    // ---- "un-display" the TOP-CENTRE parts (like unchecking them in the CAD tree):
+    //      every part fully inside the top cylinder region |x|<23mm, |z|<23mm with its
+    //      centre above y=22mm — the lens barrel, 29mm window discs, bracket fragment
+    //      and two screws. Verified against the part list; nothing else matches.
+    //      Coords are raw CAD metres (before studio scaling).
+    root.updateMatrixWorld(true);
+    {
+      const kill=[], bb=new THREE.Box3(), c=new THREE.Vector3();
+      root.traverse(o=>{ if(!o.isMesh) return;
+        bb.setFromObject(o); bb.getCenter(c);
+        const mx=Math.max(Math.abs(bb.min.x),Math.abs(bb.max.x));
+        const mz=Math.max(Math.abs(bb.min.z),Math.abs(bb.max.z));
+        if(mx<0.023 && mz<0.023 && c.y>0.022) kill.push(o);
+      });
+      kill.forEach(o=>o.parent && o.parent.remove(o));
+    }
+    // normalise materials for the studio: keep FACTORY COLORS, add sane PBR response
+    root.traverse(o=>{ if(o.isMesh){
+      o.castShadow=o.receiveShadow=true;
+      const m=o.material;
+      if(m){ m.side=THREE.DoubleSide; m.metalness=Math.min(0.65, m.metalness??0.4);
+             m.roughness=THREE.MathUtils.clamp(m.roughness??0.5, 0.25, 0.7);
+             m.envMapIntensity=1.1;
+             m.transparent=true; m.opacity=0.5; m.depthWrite=false; }   /* entire body semi-transparent */
+    }});
+    // auto-centre and scale to studio size (~5 units tall/wide)
+    const bb=new THREE.Box3().setFromObject(root);
+    const size=bb.getSize(new THREE.Vector3()), ctr=bb.getCenter(new THREE.Vector3());
+    const s=5.0/Math.max(size.x,size.y,size.z);
+    root.scale.setScalar(s);
+    root.position.set(-ctr.x*s, -ctr.y*s + 2.6, -ctr.z*s);
+    device.add(root);
+    /* ---- cut-away: make the DOME COVER glass so the internals show ---- */
+    const dbb=new THREE.Box3().setFromObject(device);
+    const dc=dbb.getCenter(new THREE.Vector3()), dsz=dbb.getSize(new THREE.Vector3());
+    const H=dsz.y, mext=dsz.length()*0.5;
+    const wb=new THREE.Box3();
+    const glassMat=()=>new THREE.MeshPhysicalMaterial({ color:0xCFE6FF, metalness:0, roughness:0.05,
+      transmission:0.9, transparent:true, opacity:0.22, thickness:0.3, ior:1.45,
+      clearcoat:1, clearcoatRoughness:0.04, envMapIntensity:1.3, side:THREE.DoubleSide, depthWrite:false });
+    device.traverse(o=>{ if(!o.isMesh) return; wb.setFromObject(o);
+      const d=wb.getSize(new THREE.Vector3()).length();
+      const inUpper = wb.max.y>=dbb.min.y+0.55*H && wb.min.y>=dbb.min.y+0.22*H;
+      if(inUpper && d>=mext*0.30){ o.material=glassMat(); o.renderOrder=2; }   /* dome shell → glass */
+    });
+    /* dome interior from the model bbox (upper spherical region) */
+    const cCtr = new THREE.Vector3(dc.x, dbb.min.y+0.64*H, dc.z);
+    const domeR = Math.min(dsz.x, dsz.z)*0.30;
+
+    /* ---- three stacked SoC boards inside the dome ---- */
+    const boardsG=new THREE.Group(); device.add(boardsG);
+    /* --- procedural PCB texture: green solder mask + copper traces + gold pads + silkscreen --- */
+    function makePCB(){
+      const S=1024, cv=document.createElement('canvas'); cv.width=cv.height=S; const g=cv.getContext('2d');
+      g.fillStyle='#0c3a28'; g.fillRect(0,0,S,S);
+      for(let i=0;i<1400;i++){ g.fillStyle='rgba(255,255,255,'+(Math.random()*0.03)+')'; g.fillRect(Math.random()*S,Math.random()*S,2,2); }
+      g.lineCap='round';
+      for(let i=0;i<120;i++){
+        g.strokeStyle=Math.random()<0.5?'rgba(196,162,75,0.55)':'rgba(120,180,120,0.30)';
+        g.lineWidth=1.5+Math.random()*3;
+        let x=Math.random()*S, y=Math.random()*S; g.beginPath(); g.moveTo(x,y);
+        const seg=2+(Math.random()*3|0);
+        for(let s=0;s<seg;s++){ const horiz=Math.random()<0.5;
+          x+= horiz?(Math.random()-0.5)*S*0.5:0; y+= horiz?0:(Math.random()-0.5)*S*0.5;
+          x=Math.max(0,Math.min(S,x)); y=Math.max(0,Math.min(S,y)); g.lineTo(x,y); }
+        g.stroke();
+      }
+      for(let i=0;i<240;i++){ const x=Math.random()*S,y=Math.random()*S,r=2+Math.random()*5;
+        g.fillStyle='#d8b45a'; g.beginPath(); g.arc(x,y,r,0,7); g.fill();
+        g.fillStyle='#1a140a'; g.beginPath(); g.arc(x,y,r*0.4,0,7); g.fill(); }
+      for(let i=0;i<9;i++){ const w=40+Math.random()*90, h=40+Math.random()*90, x=Math.random()*(S-w), y=Math.random()*(S-h);
+        g.fillStyle='#14181f'; g.fillRect(x,y,w,h);
+        g.fillStyle='#c9c9cf'; const n=Math.max(3,w/10|0);
+        for(let p=0;p<n;p++){ g.fillRect(x+p*w/n+1,y-3,w/n-2,3); g.fillRect(x+p*w/n+1,y+h,w/n-2,3); } }
+      g.strokeStyle='rgba(230,235,240,0.5)'; g.lineWidth=1.5;
+      for(let i=0;i<40;i++){ const x=Math.random()*S,y=Math.random()*S,l=8+Math.random()*24;
+        g.beginPath(); if(Math.random()<0.5){g.moveTo(x,y);g.lineTo(x+l,y);}else{g.strokeRect(x,y,l,l);} g.stroke(); }
+      const tex=new THREE.CanvasTexture(cv); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=8; return tex;
+    }
+    const pcbTex=makePCB();
+    const pcbMat=new THREE.MeshStandardMaterial({ color:0x2a6e4e, map:pcbTex, metalness:0.4, roughness:0.5, emissive:0x0a2a1e, emissiveIntensity:0.3 });
+    const chipMat=new THREE.MeshStandardMaterial({ color:0x11151c, metalness:0.6, roughness:0.4 });
+    const goldMat=new THREE.MeshStandardMaterial({ color:0xC9A24B, metalness:1, roughness:0.35, emissive:0x2a2008, emissiveIntensity:0.3 });
+    const glowMat=(c)=>new THREE.MeshStandardMaterial({ color:c, emissive:c, emissiveIntensity:1.6, roughness:0.4 });
+    /* component materials for the pseudo-PCB */
+    const icMat=new THREE.MeshStandardMaterial({ color:0x0d1016, metalness:0.45, roughness:0.5 });
+    const spreadMat=new THREE.MeshStandardMaterial({ color:0xb9bdc6, metalness:0.95, roughness:0.26 });
+    const shieldMat=new THREE.MeshStandardMaterial({ color:0xbfc4cc, metalness:0.9, roughness:0.34 });
+    const capBody=new THREE.MeshStandardMaterial({ color:0x18212e, metalness:0.5, roughness:0.42 });
+    const capTopMat=new THREE.MeshStandardMaterial({ color:0x9aa1aa, metalness:0.85, roughness:0.4 });
+    const smdTan=new THREE.MeshStandardMaterial({ color:0x7a5327, metalness:0.2, roughness:0.6 });
+    const smdBlk=new THREE.MeshStandardMaterial({ color:0x1b1f27, metalness:0.4, roughness:0.55 });
+    const hdrMat=new THREE.MeshStandardMaterial({ color:0x0a0c10, metalness:0.3, roughness:0.6 });
+    const box=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+    const cyl=(r,h,s=14)=>new THREE.CylinderGeometry(r,r,h,s);
+    function part(geo,mat,parent,px,py,pz,ry){ const m=new THREE.Mesh(geo,mat); m.position.set(px,py,pz); if(ry)m.rotation.y=ry; m.castShadow=true; parent.add(m); return m; }
+    /* --- populate a board group with detailed pseudo components --- */
+    function buildBoard(bg, L, t){
+      const top=t/2, U=L.r;              /* U = board radius; heights scale from it */
+      const inR=(rr)=>{ const a=Math.random()*Math.PI*2, d=Math.sqrt(Math.random())*U*rr; return [Math.cos(a)*d, Math.sin(a)*d]; };
+      /* central SoC: dark package + brushed metal heat spreader + accent die */
+      const sw=U*0.42;
+      part(box(sw,U*0.05,sw), icMat, bg, 0, top+U*0.025, 0);
+      part(box(sw*0.82,U*0.05,sw*0.82), spreadMat, bg, 0, top+U*0.06, 0);
+      part(box(sw*0.5,U*0.012,sw*0.5), glowMat(L.accent), bg, 0, top+U*0.088, 0);
+      /* RF shield can */
+      { const [x,z]=inR(0.55); part(box(U*0.34,U*0.07,U*0.26), shieldMat, bg, x, top+U*0.035, z, Math.random()*0.6); }
+      /* a couple of ICs (QFN/QFP black packages) */
+      for(let i=0;i<3;i++){ const [x,z]=inR(0.72); const w=U*(0.12+Math.random()*0.12), d=U*(0.12+Math.random()*0.1);
+        part(box(w,U*0.035,d), icMat, bg, x, top+U*0.018, z, Math.random()*1.5);
+        part(box(w*0.55,U*0.006,d*0.55), smdBlk, bg, x, top+U*0.04, z); }
+      /* electrolytic capacitors — standing cylinders with cross-scored aluminum top */
+      for(let i=0;i<4;i++){ const [x,z]=inR(0.82); const cr=U*(0.05+Math.random()*0.035), ch=U*(0.16+Math.random()*0.1);
+        part(cyl(cr,ch,16), capBody, bg, x, top+ch/2, z);
+        part(cyl(cr*0.96,U*0.012,16), capTopMat, bg, x, top+ch, z);
+        part(box(cr*1.9,U*0.014,cr*0.14), capBody, bg, x, top+ch+0.006*U, z, 0.4);
+        part(box(cr*0.14,U*0.014,cr*1.9), capBody, bg, x, top+ch+0.006*U, z, 0.4); }
+      /* pin header near the rim */
+      { const [x,z]=inR(0.9); const n=6, pw=U*0.02;
+        part(box(n*pw*1.6,U*0.03,pw*2.4), hdrMat, bg, x, top+U*0.015, z);
+        for(let p=0;p<n;p++) part(box(pw*0.6,U*0.05,pw*0.6), goldMat, bg, x-(n-1)*pw*0.8+p*pw*1.6, top+U*0.03, z); }
+      /* scattered SMD passives (resistors/caps) */
+      for(let i=0;i<16;i++){ const [x,z]=inR(0.92);
+        part(box(U*0.04,U*0.012,U*0.02), Math.random()<0.5?smdTan:smdBlk, bg, x, top+U*0.006, z, Math.random()*3); }
+      /* mounting via posts (kept, gold) */
+      for(let i=0;i<6;i++){ const a=i/6*Math.PI*2;
+        part(cyl(U*0.028,U*0.05,10), goldMat, bg, Math.cos(a)*U*0.9, top+U*0.02, Math.sin(a)*U*0.9); }
+    }
+    const anchors={};
+    /* board Y positions: high / mid / low inside the dome */
+    const yTop=dbb.min.y + H*0.74;
+    const yMid=dbb.min.y + H*0.63;
+    const yLow=dbb.min.y + H*0.52;
+    const layers=[
+      {y:yTop, r:domeR*0.62, key:'gnss',    accent:0x2AF598},   /* GNSS on top (sky view) */
+      {y:yMid, r:domeR*0.80, key:'comms',   accent:0x009EFD},   /* 4G + Wi-Fi/BLE */
+      {y:yLow, r:domeR*0.86, key:'storage', accent:0xF0A335},   /* onboard storage */
+    ];
+    for(const L of layers){
+      const bg=new THREE.Group(); bg.position.set(cCtr.x, L.y, cCtr.z); boardsG.add(bg);
+      const t=0.022*mext;
+      const board=new THREE.Mesh(new THREE.CylinderGeometry(L.r, L.r, t, 40), pcbMat);
+      bg.add(board);
+      /* rim ring in the layer's accent (identifies the layer for the callout) */
+      const rim=new THREE.Mesh(new THREE.TorusGeometry(L.r*0.99, t*0.5, 10, 48), glowMat(L.accent));
+      rim.rotation.x=Math.PI/2; bg.add(rim);
+      /* detailed pseudo-PCB components */
+      buildBoard(bg, L, t);
+      const anc=new THREE.Object3D(); anc.position.set(cCtr.x, L.y, cCtr.z + L.r*0.55); device.add(anc);
+      anchors[L.key]=anc;
+    }
+    /* board-to-board stack posts */
+    for(const yy of [ (yTop+yMid)/2, (yMid+yLow)/2 ]){
+      for(let i=0;i<3;i++){ const a=i/3*Math.PI*2+0.4;
+        const post=new THREE.Mesh(new THREE.CylinderGeometry(0.02*mext,0.02*mext,(yTop-yLow)/2,8), goldMat);
+        post.position.set(cCtr.x+Math.cos(a)*domeR*0.7, yy, cCtr.z+Math.sin(a)*domeR*0.7); boardsG.add(post); }
+    }
+    /* base + cable anchors */
+    { const aBase=new THREE.Object3D(); aBase.position.set(dc.x - dsz.x*0.22, dbb.min.y+0.02*H, dc.z + dsz.z*0.18); device.add(aBase); anchors.base=aBase;
+      const aIO=new THREE.Object3D(); aIO.position.set(dc.x, dbb.min.y+0.11*H, dc.z + dsz.z*0.06); device.add(aIO); anchors.io=aIO; }
+
+    /* ---- auto-fit framing so the whole device sits centred ---- */
+    const fit=parseFloat(__q.get('fit')||'1');
+    { const need=mext/Math.tan(camera.fov*Math.PI/360)*1.02;
+      controls.target.copy(dc);
+      const front=(parseFloat(__q.get('front'))||0)*Math.PI/180;
+      const el=(parseFloat(__q.get('el'))||10)*Math.PI/180;
+      const dir=new THREE.Vector3(Math.sin(front)*Math.cos(el), Math.sin(el), Math.cos(front)*Math.cos(el));
+      camera.position.copy(dc).add(dir.multiplyScalar(need*fit));
+      camera.lookAt(dc); }
+
+    /* ---- project anchors → parent each frame for callout lines ---- */
+    window.__anchors=anchors;
+    loaded=true;
+    try{ parent.postMessage({type:'soc-ready'},'*'); }catch(_){}
+    document.getElementById('loading').style.display='none';
+  },
+  (ev)=>{ if(ev.total) document.getElementById('loadfill').style.width=(100*ev.loaded/ev.total).toFixed(0)+'%'; },
+  (err)=>{ document.getElementById('loading').firstElementChild.textContent=
+     'Could not parse the embedded model — check the internet connection (Three.js CDN) and reload.'; }
+);
+
+/* ============================================================
+   GROUND — reflector + contact shadow
+   ============================================================ */
+const FY=0.0;
+const mirror=new Reflector(new THREE.PlaneGeometry(80,80),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,2), textureHeight:innerHeight*Math.min(devicePixelRatio,2), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; mirror.position.y=FY; scene.add(mirror);
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(80,80), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.5, roughness:0.4, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=FY+0.001; scene.add(gloss);
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(30,30), new THREE.ShadowMaterial({ opacity:0.4 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=FY+0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher);
+const groundEls=[mirror,gloss,shadowCatcher]; groundEls.forEach(e=>e.visible=false);
+
+/* ============================================================
+   Particle mode — area-based sampling, colors from CAD materials
+   ============================================================ */
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function geometryArea(geo){ const pos=geo.attributes.position; if(!pos) return 0; let area=0; const idx=geo.index;
+  const tri=(i0,i1,i2)=>{ _a.fromBufferAttribute(pos,i0); _b.fromBufferAttribute(pos,i1); _c.fromBufferAttribute(pos,i2);
+    _ab.subVectors(_b,_a); _ac.subVectors(_c,_a); area+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else   { for(let i=0;i<pos.count;i+=3) tri(i,i+1,i+2); }
+  return area; }
+let particleCloud=null; const white=new THREE.Color(0xffffff);
+const TARGET_PTS=160000;
+function buildParticles(){
+  // EXTERIOR ONLY — ray-cast inward from all around; interior parts are never hit
+  const ex=exteriorSample(device, Math.round(TARGET_PTS*1.3));
+  const positions=ex.pos, colors=ex.col;
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
+  particleCloud=new THREE.Points(g, new THREE.PointsMaterial({ size:parseFloat(psizeEl.value), vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, depthWrite:true }));
+  scene.add(particleCloud);
+}
+
+/* ---------- Modes / UI ---------- */
+const wireMat=new THREE.MeshBasicMaterial({ color:0x49b6e8, wireframe:true });
+function clearWire(){ device.traverse(o=>{ if(o.isMesh && o.userData._mat){ o.material=o.userData._mat; o.userData._mat=null; } }); }
+function applyWire(){ device.traverse(o=>{ if(o.isMesh && !o.userData._mat){ o.userData._mat=o.material; o.material=wireMat; } }); }
+const modeEl=document.getElementById('mode'), psizeEl=document.getElementById('psize'),
+      pcountEl=document.getElementById('pcount');
+function setMode(mode){
+  if(!loaded){ modeEl.value='solid'; return; }
+  clearWire(); device.visible=true; if(particleCloud) particleCloud.visible=false;
+  const solid=(mode==='solid');
+  scene.background = null;
+  groundEls.forEach(e=> e.visible=false);
+  pcountEl.textContent='';
+  if(mode==='wireframe'){ applyWire(); }
+  else if(mode==='particles'){
+    if(!particleCloud){ pcountEl.textContent='sampling…'; buildParticles(); }
+    particleCloud.visible=true; device.visible=false;
+    pcountEl.textContent=particleCloud.geometry.attributes.position.count.toLocaleString()+' particles';
+  }
+}
+modeEl.onchange=()=>setMode(modeEl.value);
+psizeEl.oninput=()=>{ if(particleCloud) particleCloud.material.size=parseFloat(psizeEl.value); };
+document.getElementById('autoRotate').onchange=e=>controls.autoRotate=e.target.checked;
+
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+let __pt=0;
+(function animate(t){ requestAnimationFrame(animate); controls.update(); renderer.render(scene,camera);
+  if(window.__anchors && t-__pt>90){ __pt=t;
+    const v=new THREE.Vector3(), out={};
+    for(const k in window.__anchors){ window.__anchors[k].getWorldPosition(v); v.project(camera);
+      out[k]={ x:(v.x*0.5+0.5)*100, y:(-v.y*0.5+0.5)*100 }; }
+    try{ parent.postMessage({type:'soc-anchors', pts:out},'*'); }catch(_){}
+  }
+})();
+</script>
+</body>
+</html>

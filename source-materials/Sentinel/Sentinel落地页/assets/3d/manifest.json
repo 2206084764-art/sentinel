@@ -1,0 +1,182 @@
+{
+  "source_html_bytes": 134212246,
+  "output_bytes_including_vendors": 25973486,
+  "page_count": 11,
+  "unique_model_count": 6,
+  "model_instances": 14,
+  "models": {
+    "c9696bb4d4baf4b7.glb": {
+      "bytes": 165600,
+      "sha256": "c9696bb4d4baf4b7c1215438b7c80699e2a9520b2217a88e3a7ba9eef19f22bf",
+      "used_by": [
+        "cctv-camera-wire.html"
+      ]
+    },
+    "bffe2948bc9e72ea.glb": {
+      "bytes": 11992852,
+      "sha256": "bffe2948bc9e72ea0e765ed44165b771fb9b68780959b4b518be066323df0b81",
+      "used_by": [
+        "globe-sentinel.html",
+        "sentinel-only.html",
+        "sentinel-soc.html",
+        "truck-day-night.html",
+        "truck-sentinel-mount.html",
+        "truck-sentinel-runner.html",
+        "truck64-iot.html"
+      ]
+    },
+    "0bb8cb20177df5e1.glb": {
+      "bytes": 2507760,
+      "sha256": "0bb8cb20177df5e1d82d9739b648ee109846fbd858c3aa18eca2ae9f9e0c8836",
+      "used_by": [
+        "truck-day-night.html",
+        "truck-sentinel-mount.html",
+        "truck-sentinel-runner.html"
+      ]
+    },
+    "616204beaad26009.glb": {
+      "bytes": 2836672,
+      "sha256": "616204beaad26009dfd6b74c0e0e77dd5a2a22d79f653be22d9a51a2049e137d",
+      "used_by": [
+        "truck-sentinel-runner.html"
+      ]
+    },
+    "1232dc6dae420029.glb": {
+      "bytes": 3364684,
+      "sha256": "1232dc6dae420029d7adbedc586aa47e71fe2010dd12fa8d7cd020370e4d7c96",
+      "used_by": [
+        "truck-sentinel-runner.html"
+      ]
+    },
+    "e1b81b2d393cc10d.glb": {
+      "bytes": 2351844,
+      "sha256": "e1b81b2d393cc10d9065f25ee4e9cfb40f43fc5ea7da7dbaefe3ddd22a154039",
+      "used_by": [
+        "truck64-iot.html"
+      ]
+    }
+  },
+  "pages": [
+    {
+      "file": "camera-pod-wire.html",
+      "source_bytes": 23659,
+      "models": [],
+      "output_bytes": 23603,
+      "external_urls": []
+    },
+    {
+      "file": "cctv-camera-wire.html",
+      "source_bytes": 234354,
+      "models": [
+        "c9696bb4d4baf4b7.glb"
+      ],
+      "output_bytes": 13497,
+      "external_urls": []
+    },
+    {
+      "file": "fuel-sensor-wire.html",
+      "source_bytes": 24682,
+      "models": [],
+      "output_bytes": 24626,
+      "external_urls": []
+    },
+    {
+      "file": "globe-only.html",
+      "source_bytes": 163341,
+      "models": [],
+      "output_bytes": 163285,
+      "external_urls": []
+    },
+    {
+      "file": "globe-sentinel.html",
+      "source_bytes": 16175057,
+      "models": [
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 184502,
+      "external_urls": []
+    },
+    {
+      "file": "sentinel-only.html",
+      "source_bytes": 16017088,
+      "models": [
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 26533,
+      "external_urls": []
+    },
+    {
+      "file": "sentinel-soc.html",
+      "source_bytes": 16016550,
+      "models": [
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 25995,
+      "external_urls": []
+    },
+    {
+      "file": "truck-day-night.html",
+      "source_bytes": 19378609,
+      "models": [
+        "0bb8cb20177df5e1.glb",
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 44399,
+      "external_urls": []
+    },
+    {
+      "file": "truck-sentinel-mount.html",
+      "source_bytes": 19372656,
+      "models": [
+        "0bb8cb20177df5e1.glb",
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 38446,
+      "external_urls": []
+    },
+    {
+      "file": "truck-sentinel-runner.html",
+      "source_bytes": 27643349,
+      "models": [
+        "0bb8cb20177df5e1.glb",
+        "bffe2948bc9e72ea.glb",
+        "616204beaad26009.glb",
+        "1232dc6dae420029.glb"
+      ],
+      "output_bytes": 40657,
+      "external_urls": []
+    },
+    {
+      "file": "truck64-iot.html",
+      "source_bytes": 19162901,
+      "models": [
+        "e1b81b2d393cc10d.glb",
+        "bffe2948bc9e72ea.glb"
+      ],
+      "output_bytes": 36579,
+      "external_urls": []
+    }
+  ],
+  "vendor_modules": [
+    "three-mesh-bvh/package/build/index.module.js",
+    "three/package/build/three.module.js",
+    "three/package/examples/jsm/controls/OrbitControls.js",
+    "three/package/examples/jsm/environments/RoomEnvironment.js",
+    "three/package/examples/jsm/geometries/RoundedBoxGeometry.js",
+    "three/package/examples/jsm/lines/Line2.js",
+    "three/package/examples/jsm/lines/LineGeometry.js",
+    "three/package/examples/jsm/lines/LineMaterial.js",
+    "three/package/examples/jsm/lines/LineSegments2.js",
+    "three/package/examples/jsm/lines/LineSegmentsGeometry.js",
+    "three/package/examples/jsm/loaders/GLTFLoader.js",
+    "three/package/examples/jsm/math/MeshSurfaceSampler.js",
+    "three/package/examples/jsm/modifiers/TessellateModifier.js",
+    "three/package/examples/jsm/objects/Reflector.js",
+    "three/package/examples/jsm/utils/BufferGeometryUtils.js"
+  ],
+  "notes": [
+    "Serve over HTTP/HTTPS; ES modules and GLBs do not support file:// preview.",
+    "All 3D behavior is unchanged; pages animate while loaded. Lazy-mount one iframe at a time.",
+    "Vendor comment URLs are documentation/license references, not runtime network dependencies."
+  ]
+}

@@ -1,0 +1,241 @@
+
+
+
+
+
+
+
+
+
+
+
+Sentinel AI Camera
+S5
+Specification
+
+
+
+
+
+Contents
+Preface2
+About the Specification2
+Trademark Notice2
+Disclaimer2
+Symbol Explanation3
+Product Introduction4
+Product Features4
+AI Features5
+Product Appearance and Component Names5
+Specification6
+Dimension Diagram7
+System Connection Diagram8
+Cables8
+Special Instructions9
+
+Preface
+
+About the Specification
+The Specifications provide details on the components and parameters of the S5 product. All content in this document, including text, images, and graphics, is owned by Shenzhen Streamax Technology Co., Ltd. You may not copy, modify, or use any part of this document without written permission from the company.
+This document is intended for authorized users and technical support staff only. Product images and screen content are for reference—actual products may look different in color, size, or design. Please refer to the physical product for accurate details.
+The data provided are based on internal lab tests and are for reference only. Actual performance may vary depending on product model, software version, usage, and environment.
+Streamax may update or adjust the Specifications from time to time to reflect changes in the product's performance, features, or components, without prior notice.
+Trademark Notice
+ is a registered trademark of Shenzhen Streamax Technology Co., Ltd. All other trademarks are the property of their respective owners.
+Disclaimer
+The products in this document are provided "as is" without any warranties, including those for merchantability or fitness for a specific purpose. Streamax is not responsible for any damages, such as loss of profits, data, or documents, caused by using the product or its specifications.
+Streamax is not liable for internet-related risks, including hacking, cyber-attacks, or viruses. However, technical support will be provided as needed.
+Users must follow all applicable laws when using this product. Streamax is not responsible for misuse or violations of third-party rights.
+If there is a conflict between this document and the law, the law will apply.
+Copyright © 2025 Shenzhen Streamax Technology Co., Ltd. All rights reserved.
+
+Symbol Explanation
+
+The following symbols are used to categorize and explain potential hazards that may arise from improper operation
+
+Symbol
+Explanation
+
+Warning: Conditions that could jeopardize the safety of the user or cause injury
+
+Important: Conditions that may lead to data corruption or damage to the device’s firmware or hardware
+
+Note: Additional information, explanations of terms, and other relevant details
+
+
+Product Introduction
+
+The S5 is an AI-powered intelligent sentinel camera engineered to ensure comprehensive asset protection. Designed for continuous 24/7 operation, it provides uninterrupted high-definition monitoring to capture every critical moment. Featuring ultra-low power consumption and AOV standby mode, the S5 remains active even when the vehicle is turned off, maintaining constant security coverage. Integrated 4G, Wi-Fi, and GNSS modules enable real-time transmission of vehicle location, status, and operational data to the platform, supporting remote communication and video playback for precise asset management and control.
+
+Product Features
+
+Built-In one ultra-wide-angle lens with up to 2 Megapixels HD video recording, supporting black light technology
+Supports human posture detection for accurate identification of theft.
+Supports H.264/H.265 encoding
+Supports 1*Micro SD storage ,up to 1TB
+Built-in Wi-Fi, 4G Cat1 communication module, and inertial navigation module
+Video data supports AES256 encryption
+Supports 1 channels of IO input, 1 channels of IO output and 1 RS232 channel
+Supports normal mode and AOV ultra-low power consumption mode
+Built-in 6-axis gravity sensor, supports detection of rapid acceleration, rapid deceleration, sharp turns, and collisions
+Built-in battery and can keep working for 5 minutes in case of a power outage (optional)
+
+
+AI Features
+
+Vehicle collision detection, suspicious person detection
+
+
+Vehicle contact inspection
+Suspicious target detection
+
+Product Appearance and Component Names
+
+
+
+
+No.
+Components
+1
+GPS positioning module
+2
+Horizontal Angle Adjustment Disc
+3
+Vertical angle adjustment sphere
+4
+TF card, SIM card cover
+5
+TF card slot, SIM card slot, USB 3.0
+6
+Rigid mounting base
+
+
+Specification
+
+General
+System
+Embedded Linux
+Language
+Options: Chinese, English, Spanish (Latin American), Portuguese (Latin American), French, Russian and Japanese
+Default: English
+Video 
+Max. Capability
+Physical interface：1920*1080P @30fps
+Image Setup
+Adjustable brightness, chroma, contrast, color saturation, and sharpness
+Video Coding
+Options: H.264 and H.265
+Default: H.265
+Encoding Standard
+Options: VBR and CBR. Default: VBR
+Parameters of road facing lens
+Sensor Type
+1/2.8" 2-megapixel CMOS sensor
+Shutter Speed
+1/30s~1/100000s
+Lens
+Focal length: 1.9 mm
+HFOV:175°VFOV:92
+Minimum Illuminance
+Color: 0.05 Lux/F1.2
+Lens Mount
+Built-in lens
+Wide Dynamic Range (WDR) 
+Digital WDR
+Backlight Compensation
+AI-ISP，Support black light
+Signal-to-Noise Ratio (S/N)
+≥42dB
+Storage
+Storage
+1*Micro SD,Up to1TB
+Sensor
+Six-axis Sensor
+Harsh acceleration, Harsh deceleration, Harsh cornering, and accident detection
+Port
+RS232
+1-channel
+I/O Port
+1-channel input,1-channel output
+USB
+1 × Type C USB2.0
+Network
+Wi-Fi
+Support 2.4G (IEEE Std.802.11a/IEEE Std.802.11b/IEEE Std.802.11g
+/IEEE Std.802.11n)
+4G
+Plug-in SIM card (Nano SIM card), reserved eSIM patch position, can support pre-burn-in eSIM. Plug-in SIM card and eSIM cannot be used simultaneously.
+ An industrial SIM card (MP2) is required. The use of a standard SIM card (MP1) is prohibited. We are not responsible for any issues caused by the use of a standard SIM card
+Positioning
+GNSS
+Supported
+
+GPS L1 1575.42MHz
+GALILEO E1B/C1
+GLONASS L1OF 1602MHz
+SBAS: WAAS, EGNOS, MSAS, GAGAN
+Power related
+Power supply
+12V and 24V vehicles (self-adaptive)
+Power consumption
+In AOV mode: about 500MW
+Typical power consumption (withSD cards installed and SIM 
+card for dialing): about 3.2W
+Full-load power consumption (with SD cards installed, SIM card dial-up enables the device to report to the platform for streaming media preview over 4G,turn on WiFi mobile connection and preview video ): about 5W
+
+* The above data are test data obtained in a specific environment in 
+the laboratory, and may vary with the individual product differences, 
+service environment, and testing methods
+Environment
+Operating Temperature
+-40°C ~ +70°C (-40°F ~ +158°F)  Non-Battery
+-30°C ~ +60°C (-22°F ~ +140°F)   Battery
+Storage Temperature
+-40°C ~ +85°C (-40°F ~ +185°F)  
+Operating Humidity
+15~95% non-condensing
+Storage Humidity
+15~95% non-condensing
+IP Rating
+IP69K
+Dimensions and Weight
+Dimensions
+L×W×H
+L 121.2×W106.6× H 92.9mm
+Weight
+Net weight (device only): 290g 
+Gross weight (including accessories and package): 640g 
+Deviation: ±10g
+* The actual dimensions and weight may vary with the individual product differences, manufacturing processes, and testing methods.
+
+Dimension Diagram
+(Unit: mm)
+
+
+
+Left View
+Front View
+
+
+Right View
+Rear View
+
+
+System Connection Diagram
+
+
+
+
+
+
+
+
+
+Cables
+
+
+
+Special Instructions
+
+This product requires installation by professionals; otherwise, there is a risk of electric shock, damage to the vehicle wiring, impact on AI performance, and device detachment.
+When used under direct sunlight, the surface temperature of this product may exceed 60°C. Please avoid touching the sun-exposed surface to prevent burns.

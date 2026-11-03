@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — The Answer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#050810;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 42%,rgba(0,0,0,.85) 100%);}
+
+.bg{position:absolute;inset:0;z-index:0;background:url('Images/bg-beam.jpg') center/cover no-repeat;opacity:.5;}
+.bg-scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 55%,transparent 25%,rgba(5,8,16,.9) 85%);}
+
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;color:var(--green);padding-bottom:.5cqh;border-bottom:1px solid rgba(42,245,152,.3);text-shadow:0 0 10px rgba(42,245,152,.35);}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 1.5cqh rgba(42,245,152,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.stage{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 12cqh;}
+
+/* step 1 : the question */
+.q-line{font-size:5.2cqh;font-weight:800;letter-spacing:-.12cqh;line-height:1.15;opacity:0;transform:translateY(24px);transition:all 1s var(--apple) .4s;}
+#canvas[data-step="1"] .q-line{opacity:1;transform:translateY(0);}
+#canvas[data-step="2"] .q-line{opacity:0;transform:translateY(-24px);transition-delay:0s;transition-duration:.5s;}
+.q-sub{font-size:2cqh;color:var(--grey);margin-top:2.2cqh;opacity:0;transition:opacity 1s ease 1s;}
+#canvas[data-step="1"] .q-sub{opacity:1;}
+#canvas[data-step="2"] .q-sub{opacity:0;transition-delay:0s;transition-duration:.4s;}
+
+/* step 2 : convergence */
+.answer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .7s ease .2s,visibility .7s;}
+#canvas[data-step="2"] .answer{opacity:1;visibility:visible;}
+.merge{display:flex;align-items:center;gap:3cqh;margin-bottom:4.5cqh;}
+.mchip{padding:2cqh 3.4cqh;border-radius:2cqh;font-size:2.2cqh;font-weight:800;letter-spacing:.3px;opacity:0;transition:all .9s var(--apple);}
+.mchip small{display:block;font-size:1.2cqh;font-weight:600;letter-spacing:2px;color:var(--grey);margin-bottom:.6cqh;text-transform:uppercase;}
+.mchip.left{border:1px solid rgba(42,245,152,.5);background:linear-gradient(180deg,rgba(42,245,152,.1),rgba(42,245,152,.02));color:var(--green);transform:translateX(-8cqh);}
+.mchip.right{border:1px solid rgba(0,158,253,.5);background:linear-gradient(180deg,rgba(0,158,253,.1),rgba(0,158,253,.02));color:var(--blue);transform:translateX(8cqh);}
+#canvas[data-step="2"] .mchip{opacity:1;transform:translateX(0);transition-delay:.5s;}
+.mx{font-size:3.4cqh;font-weight:300;color:rgba(255,255,255,.5);opacity:0;transition:opacity .7s ease 1.2s;}
+#canvas[data-step="2"] .mx{opacity:1;}
+.a-kicker{font-size:1.6cqh;letter-spacing:.5em;text-transform:uppercase;font-weight:700;color:var(--grey);margin-bottom:2cqh;opacity:0;transform:translateY(16px);transition:all .9s var(--apple) 1.5s;}
+.a-title{font-size:6.4cqh;font-weight:900;letter-spacing:-.16cqh;line-height:1.1;background:linear-gradient(135deg,var(--green) 15%,var(--blue) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 3cqh rgba(42,245,152,.2));opacity:0;transform:translateY(20px);transition:all 1s var(--apple) 1.75s;}
+.a-sub{font-size:2.2cqh;color:rgba(255,255,255,.8);margin-top:2.4cqh;line-height:1.5;max-width:110cqh;opacity:0;transform:translateY(16px);transition:all 1s var(--apple) 2.05s;}
+.a-sub b{color:#fff;font-weight:700;}
+#canvas[data-step="2"] .a-kicker,#canvas[data-step="2"] .a-title,#canvas[data-step="2"] .a-sub{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="bg"></div>
+  <div class="bg-scrim"></div>
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl" id="lbl">— 03 · A DIFFERENT PATH —</div></div>
+
+  <div class="stage">
+    <div class="q-line">What if you didn't<br>have to choose?</div>
+    <div class="q-sub">We went back to the hardware — and designed a camera specifically for parked assets.</div>
+
+    <div class="answer">
+      <div class="merge">
+        <div class="mchip left"><small>From sensors</small>Power Efficiency</div>
+        <div class="mx">×</div>
+        <div class="mchip right"><small>From video</small>Forensic Clarity</div>
+      </div>
+      <div class="a-kicker">Introducing</div>
+      <div class="a-title">The industry's first AOV camera</div>
+      <div class="a-sub">An <b>Always-on Video</b> camera engineered for the trucking industry — the forensic clarity of video at the power budget of a sensor. <b>No trade-off. No blind spot.</b></div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → · arrow keys</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=2;let cur=1;
+const meta={
+  1:{t:"— 03 · A DIFFERENT PATH —"},
+  2:{t:"— THE ANSWER · AOV —"}
+};
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+function render(){
+  canvas.setAttribute('data-step',cur);
+  lbl.textContent=meta[cur].t;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }
+/* deck advances by ← / → only — click does not navigate */
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel Keynote — Sentinel Model (sketch)</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#04060b; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; cursor:pointer; }
+  #hud{ position:absolute; top:22px; left:24px; z-index:10; pointer-events:none; }
+  #hud h1{ margin:0; font-size:16px; font-weight:700; letter-spacing:.3px; color:#eef1f4; }
+  #hud h1 .r{ color:#ff4d4d; } #hud h1 .g{ color:#9aca3c; }
+  #hud p{ margin:5px 0 0; font-size:12.5px; color:#9aa4b0; line-height:1.5; max-width:340px; }
+  #hint{ position:absolute; bottom:26px; left:0; right:0; text-align:center; z-index:10; pointer-events:none;
+    font-size:13px; color:#cfd6de; letter-spacing:.4px; transition:opacity .4s; }
+  #hint b{ color:#9aca3c; }
+  #hint .pulse{ display:inline-block; animation:pp 1.6s ease-in-out infinite; }
+  @keyframes pp{ 0%,100%{opacity:.55;} 50%{opacity:1;} }
+  #loading{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#8892a0; z-index:20; letter-spacing:.5px; }
+  #count{ position:absolute; bottom:22px; right:22px; z-index:10; font-size:11px; color:#5f6772; pointer-events:none; }
+</style>
+<style>#hud,#hint,#count,#loading{display:none!important}html,body{background:transparent!important}</style>
+</head>
+<body>
+<div id="loading">Materializing Sentinel…</div>
+<div id="hud">
+  <h1 id="title"><span class="r">Fuel &amp; cargo theft</span> — a global problem</h1>
+  <p id="sub">Red points mark the fuel-theft hotspot countries draining fleets worldwide.</p>
+</div>
+<div id="hint"><span class="pulse">▶ Click anywhere to deploy <b>Sentinel</b></span></div>
+<div id="count"></div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from './vendor/three-mesh-bvh/build/index.module.js';
+THREE.BufferGeometry.prototype.computeBoundsTree=computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree=disposeBoundsTree;
+THREE.Mesh.prototype.raycast=acceleratedRaycast;
+
+const SENTINEL_GLB_URL='./models/bffe2948bc9e72ea.glb';
+
+/* ---------- EXTERIOR-ONLY sampler: ray-cast inward from all around the model,
+     keep only the first surface each ray hits → interior parts are never sampled ---------- */
+function exteriorSample(rootObj, target){
+  rootObj.updateMatrixWorld(true);
+  const geos=[]; const col=new THREE.Color(), white=new THREE.Color(0xffffff);
+  rootObj.traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    let g=o.geometry.clone();
+    for(const k of Object.keys(g.attributes)) if(k!=='position') g.deleteAttribute(k);
+    g=g.toNonIndexed(); g.applyMatrix4(o.matrixWorld);
+    const mat=Array.isArray(o.material)?o.material[0]:o.material; col.copy((mat&&mat.color)||white);
+    if((col.r+col.g+col.b)/3<0.20) col.lerp(white,0.5);
+    const cnt=g.attributes.position.count, ca=new Float32Array(cnt*3);
+    for(let i=0;i<cnt;i++){ ca[i*3]=col.r; ca[i*3+1]=col.g; ca[i*3+2]=col.b; }
+    g.setAttribute('color', new THREE.BufferAttribute(ca,3)); geos.push(g); });
+  if(!geos.length) return {pos:[],col:[]};
+  const merged=mergeGeometries(geos,false); merged.computeBoundsTree();
+  const hull=new THREE.Mesh(merged, new THREE.MeshBasicMaterial());
+  const cAttr=merged.attributes.color;
+  const box=new THREE.Box3().setFromBufferAttribute(merged.attributes.position);
+  const ctr=box.getCenter(new THREE.Vector3()), Rm=box.getSize(new THREE.Vector3()).length()*0.5;
+  const D=Rm*1.7, spread=Rm*1.02, ga=Math.PI*(3-Math.sqrt(5));
+  const V=220, G=Math.max(16, Math.ceil(Math.sqrt(target*1.4/V)));
+  const rc=new THREE.Raycaster(); rc.firstHitOnly=true;
+  const UP=new THREE.Vector3(0,1,0), altX=new THREE.Vector3(1,0,0);
+  const nrm=new THREE.Vector3(), rt=new THREE.Vector3(), uv=new THREE.Vector3(), or=new THREE.Vector3(), dr=new THREE.Vector3();
+  const pos=[], colA=[];
+  for(let vi=0;vi<V;vi++){
+    const yy=1-(vi/(V-1))*2, rr=Math.sqrt(Math.max(0,1-yy*yy)), th=ga*vi;
+    nrm.set(Math.cos(th)*rr, yy, Math.sin(th)*rr).normalize();
+    rt.crossVectors(nrm, Math.abs(nrm.y)>0.95?altX:UP).normalize();
+    uv.crossVectors(rt,nrm).normalize(); dr.copy(nrm).multiplyScalar(-1);
+    for(let a=0;a<G;a++) for(let b=0;b<G;b++){
+      const u=((a+Math.random())/G*2-1)*spread, v=((b+Math.random())/G*2-1)*spread;
+      or.copy(ctr).addScaledVector(nrm,D).addScaledVector(rt,u).addScaledVector(uv,v);
+      rc.set(or,dr); const hit=rc.intersectObject(hull,false)[0];
+      if(hit){ pos.push(hit.point.x,hit.point.y,hit.point.z); const ia=hit.face.a;
+        colA.push(cAttr.getX(ia),cAttr.getY(ia),cAttr.getZ(ia)); } } }
+  merged.disposeBoundsTree();
+  return {pos, col:colA};
+}
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene(); scene.background=null;
+const camera=new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0,1.4,8);
+camera.lookAt(0,0,0);
+
+/* ---------- Starfield ---------- */
+(function(){ const n=2400, pos=new Float32Array(n*3);
+  for(let i=0;i<n;i++){ const r=42+Math.random()*34, t=Math.random()*Math.PI*2, p=Math.acos(2*Math.random()-1);
+    pos[i*3]=r*Math.sin(p)*Math.cos(t); pos[i*3+1]=r*Math.sin(p)*Math.sin(t); pos[i*3+2]=r*Math.cos(p); }
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(g,new THREE.PointsMaterial({ color:0xffffff, size:0.08, sizeAttenuation:true, transparent:true, opacity:0.8 })));
+})();
+
+/* ============================================================
+   Shared config
+   ============================================================ */
+const __q=new URLSearchParams(location.search);
+const FRONT_Y=(parseFloat(__q.get('front'))||0)*Math.PI/180;   /* final lens-facing yaw */
+const START_SENT=__q.get('start')==='sentinel';
+const N=68000, R=2.0;
+const GREEN=new THREE.Color(0x2AF598);
+const THEFT=new Set(['Mexico','Nigeria','Iraq','Indonesia','Thailand','South Africa','Russia','India','Brazil','United States of America','Malaysia','Colombia','France','Germany']);
+
+function resample(posL,colL,flagL,count){
+  const total=posL.length/3;
+  const order=new Uint32Array(count); for(let i=0;i<count;i++) order[i]=Math.floor(i*total/count);
+  for(let i=count-1;i>0;i--){ const j=(Math.random()*(i+1))|0; const t=order[i]; order[i]=order[j]; order[j]=t; }
+  const pos=new Float32Array(count*3), col=new Float32Array(count*3), flag=new Uint8Array(count);
+  for(let i=0;i<count;i++){ const s=order[i];
+    pos[i*3]=posL[s*3]; pos[i*3+1]=posL[s*3+1]; pos[i*3+2]=posL[s*3+2];
+    col[i*3]=colL[s*3]; col[i*3+1]=colL[s*3+1]; col[i*3+2]=colL[s*3+2];
+    flag[i]= flagL?flagL[s]:0; }
+  return {pos,col,theft:flag};
+}
+// lon/lat → 3D on the sphere
+function llToVec(lon,lat,rad){ const phi=(lon+180)/360*Math.PI*2, theta=(90-lat)/180*Math.PI;
+  return [-rad*Math.cos(phi)*Math.sin(theta), rad*Math.cos(theta), rad*Math.sin(phi)*Math.sin(theta)]; }
+
+/* ============================================================
+   SOURCE dust cloud — particles materialize into the Sentinel sketch
+   ============================================================ */
+function buildScatter(){
+  const pos=new Float32Array(N*3), col=new Float32Array(N*3);
+  for(let i=0;i<N;i++){ const t=Math.random()*Math.PI*2, u=2*Math.random()-1, r=Math.sqrt(1-u*u), rad=2.7+Math.random()*2.2;
+    pos[i*3]=rad*r*Math.cos(t); pos[i*3+1]=rad*u*1.05; pos[i*3+2]=rad*r*Math.sin(t);
+    const j=0.55+Math.random()*0.35; col[i*3]=0.52*j; col[i*3+1]=0.78*j; col[i*3+2]=0.98*j; }
+  return {pos,col};
+}
+const scatterData=buildScatter();
+
+/* ============================================================
+   Particle object (starts as the globe)
+   ============================================================ */
+let posAttr=new THREE.BufferAttribute(new Float32Array(scatterData.pos),3);
+let colAttr=new THREE.BufferAttribute(new Float32Array(scatterData.col),3);
+const cloudGeo=new THREE.BufferGeometry();
+cloudGeo.setAttribute('position',posAttr); cloudGeo.setAttribute('color',colAttr);
+const cloud=new THREE.Points(cloudGeo, new THREE.PointsMaterial({ size:0.02, vertexColors:true, sizeAttenuation:true, transparent:true, opacity:1.0, depthWrite:true }));
+scene.add(cloud);
+
+// per-particle turbulence for the dissolve
+const turb=new Float32Array(N*3);
+for(let i=0;i<N*3;i+=3){ const t=Math.random()*Math.PI*2, u=2*Math.random()-1, r=Math.sqrt(1-u*u), a=0.4+Math.random()*0.9;
+  turb[i]=r*Math.cos(t)*a; turb[i+1]=u*a; turb[i+2]=r*Math.sin(t)*a; }
+
+/* loader stays until the Sentinel model is ready */
+
+/* ============================================================
+   SENTINEL particles — sampled from the CAD model (async)
+   ============================================================ */
+let sentData=null, ready=false, sentEdges=null, sentGhost=null, alignY=0, sentSpin=false, sentSpinT=0;
+/* slice a mesh with axis-aligned planes → contour line segments (for smooth covers with no crease edges) */
+function sliceContours(geo, mw, levels, axis){
+  const pos=geo.attributes.position, idx=geo.index, out=[];
+  const a=new THREE.Vector3(), b=new THREE.Vector3(), c=new THREE.Vector3();
+  const ax = axis==='x'?'x':axis==='z'?'z':'y';
+  function tri(i0,i1,i2){
+    a.fromBufferAttribute(pos,i0).applyMatrix4(mw);
+    b.fromBufferAttribute(pos,i1).applyMatrix4(mw);
+    c.fromBufferAttribute(pos,i2).applyMatrix4(mw);
+    for(const L of levels){
+      const pts=[];
+      const pairs=[[a,b],[b,c],[c,a]];
+      for(const pq of pairs){ const p=pq[0], q=pq[1];
+        const dp=p[ax]-L, dq=q[ax]-L;
+        if(dp*dq<0){ const t=dp/(dp-dq);
+          pts.push([p.x+(q.x-p.x)*t, p.y+(q.y-p.y)*t, p.z+(q.z-p.z)*t]); } }
+      if(pts.length===2){ out.push(pts[0][0],pts[0][1],pts[0][2], pts[1][0],pts[1][1],pts[1][2]); }
+    }
+  }
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else   { for(let i=0;i<pos.count;i+=3) tri(i,i+1,i+2); }
+  return out;
+}
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function area(geo){ const p=geo.attributes.position; if(!p) return 0; let A=0; const idx=geo.index;
+  const tri=(i0,i1,i2)=>{ _a.fromBufferAttribute(p,i0);_b.fromBufferAttribute(p,i1);_c.fromBufferAttribute(p,i2);
+    _ab.subVectors(_b,_a);_ac.subVectors(_c,_a); A+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else   { for(let i=0;i<p.count;i+=3) tri(i,i+1,i+2); }
+  return A; }
+new GLTFLoader().load(SENTINEL_GLB_URL,(gltf)=>{
+  const root=gltf.scene; root.updateMatrixWorld(true);
+  // un-display the top-centre lens/fragments (raw CAD metres)
+  { const kill=[], bb=new THREE.Box3(), c=new THREE.Vector3();
+    root.traverse(o=>{ if(!o.isMesh) return; bb.setFromObject(o); bb.getCenter(c);
+      const mx=Math.max(Math.abs(bb.min.x),Math.abs(bb.max.x)), mz=Math.max(Math.abs(bb.min.z),Math.abs(bb.max.z));
+      if(mx<0.023&&mz<0.023&&c.y>0.022) kill.push(o); });
+    kill.forEach(o=>{ o.userData._skip=true; }); }
+  // centre + scale so the device is comparable to the globe
+  const bb=new THREE.Box3().setFromObject(root), sz=bb.getSize(new THREE.Vector3()), ctr=bb.getCenter(new THREE.Vector3());
+  const s=4.2/Math.max(sz.x,sz.y,sz.z);
+  root.scale.setScalar(s); root.position.set(-ctr.x*s,-ctr.y*s,-ctr.z*s); root.updateMatrixWorld(true);
+  // EXTERIOR ONLY — ray-cast inward from all around; interior parts are never hit
+  /* the sentinel is DRAWN in sketch lines — the particles converge onto them, then hand off */
+  let mergedE=null;
+  try{
+    const eg=[]; const mbb=new THREE.Box3().setFromObject(root);
+    const mext=mbb.getSize(new THREE.Vector3()).length()*0.5;
+    const wb=new THREE.Box3();
+    const A2=new THREE.Vector3(), B2=new THREE.Vector3();
+    /* pass 1: measure every part; find the model's top (the dome cover lives there) */
+    const cand=[]; let topY=-1e9;
+    root.traverse(o=>{ if(!o.isMesh||!o.geometry) return;
+      const box=new THREE.Box3().setFromObject(o);
+      const d=box.getSize(new THREE.Vector3()).length();
+      const reach=Math.max(Math.abs(box.min.x),Math.abs(box.max.x),Math.abs(box.min.y),Math.abs(box.max.y),Math.abs(box.min.z),Math.abs(box.max.z));
+      topY=Math.max(topY,box.max.y);
+      cand.push({o,box,d,reach}); });
+    const modelH=mbb.max.y-mbb.min.y;
+    /* shell classifiers: dome cover (wide upper body), base (wide, touches the bottom), bracket (reaches the very top) */
+    const bwOf=it=>Math.hypot(it.box.max.x-it.box.min.x,it.box.max.z-it.box.min.z);
+    const isCover=it=> bwOf(it)>=mext*0.9 && it.box.max.y>=mbb.min.y+0.60*modelH && it.box.min.y>=mbb.min.y+0.25*modelH;
+    const isBase=it=> bwOf(it)>=mext*0.8 && it.box.min.y<=mbb.min.y+0.13*modelH;
+    const isBracket=it=> it.d>=mext*0.8 && it.box.max.y>=topY-0.03*modelH;
+    const isCrownPlug=it=> it.o.userData._skip===true && bwOf(it)>=mext*0.18;
+    /* pass 2: sketch shell-reaching mid parts + the big top cover (dome) */
+    for(const it of cand){
+      if(it.o.userData._skip) continue;
+      const shellMid = it.d>=mext*0.25 && it.reach>=mext*0.55;
+      const domeTop  = it.d>=mext*0.8 && it.box.max.y>=topY-0.06*modelH;
+      if(!shellMid && !domeTop && !isCover(it)) continue;
+      const o=it.o; wb.copy(it.box); const d=it.d;
+      const e=new THREE.EdgesGeometry(o.geometry, 30);
+      e.applyMatrix4(o.matrixWorld); eg.push(e);
+      /* smooth cover (few crease edges relative to its size) → sketch it with contour rings */
+      let elen=0; const ep2=e.attributes.position;
+      for(let q=0;q<ep2.count;q+=2){ A2.fromBufferAttribute(ep2,q); B2.fromBufferAttribute(ep2,q+1); elen+=A2.distanceTo(B2); }
+      if(elen < d*2.5){
+        const yl=[]; for(let li=1;li<=6;li++) yl.push(wb.min.y+(wb.max.y-wb.min.y)*li/7);
+        let segs=sliceContours(o.geometry,o.matrixWorld,yl,'y');
+        segs=segs.concat(sliceContours(o.geometry,o.matrixWorld,[(wb.min.x+wb.max.x)/2],'x'));
+        segs=segs.concat(sliceContours(o.geometry,o.matrixWorld,[(wb.min.z+wb.max.z)/2],'z'));
+        if(segs.length){ const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.Float32BufferAttribute(segs,3)); eg.push(g); }
+      }
+    }
+    /* recover the dome (top-half) covering: the actual CAD cover as a translucent shell */
+    try{
+      const ghostMat=new THREE.MeshBasicMaterial({ color:0x9FC8FF, transparent:true, opacity:0, side:THREE.DoubleSide, depthWrite:false });
+      const gh=new THREE.Group();
+      for(const it of cand){
+        if(!(isCover(it)||isBase(it)||isBracket(it)||isCrownPlug(it))) continue;   /* full outer covering */
+        const g=it.o.geometry.clone(); g.applyMatrix4(it.o.matrixWorld);
+        gh.add(new THREE.Mesh(g, ghostMat));
+      }
+      /* glass lens: convex cap on the TILTED lens window (plane fitted from the window disc) */
+      try{
+        let disc=null, discW=0;
+        for(const it of cand){ if(isCrownPlug(it)){ const w=bwOf(it); if(w>discW){ discW=w; disc=it; } } }
+        if(disc){
+          /* sample the disc's vertices in world space */
+          const pa=disc.o.geometry.attributes.position, mw=disc.o.matrixWorld;
+          const step=Math.max(1,Math.floor(pa.count/1500));
+          const pts=[]; const v=new THREE.Vector3();
+          for(let i=0;i<pa.count;i+=step){ pts.push(v.fromBufferAttribute(pa,i).applyMatrix4(mw).clone()); }
+          const c=new THREE.Vector3(); pts.forEach(p=>c.add(p)); c.multiplyScalar(1/pts.length);
+          /* e1: farthest spread; e2: widest ⟂ spread; normal = e1×e2 */
+          let e1=new THREE.Vector3(), best=0;
+          for(const p of pts){ const d2=p.distanceToSquared(c); if(d2>best){ best=d2; e1.subVectors(p,c); } }
+          e1.normalize();
+          let e2=new THREE.Vector3(), best2=0; const t=new THREE.Vector3();
+          for(const p of pts){ t.subVectors(p,c); t.addScaledVector(e1,-t.dot(e1)); const d2=t.lengthSq(); if(d2>best2){ best2=d2; e2.copy(t); } }
+          e2.normalize();
+          const n=new THREE.Vector3().crossVectors(e1,e2).normalize();
+          if(n.y<0) n.negate();                       /* lens looks up/outward */
+          const lr=Math.sqrt(best)*1.02;              /* rim radius from the disc spread */
+          const h=lr*0.5, R=(lr*lr+h*h)/(2*h), th=Math.asin(Math.min(1,lr/R));
+          const capGeo=new THREE.SphereGeometry(R,48,20,0,Math.PI*2,0,th);
+          const cap=new THREE.Mesh(capGeo,
+            new THREE.MeshBasicMaterial({ color:0xCFE6FF, transparent:true, opacity:0, side:THREE.DoubleSide, depthWrite:false }));
+          cap.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), n);
+          cap.position.copy(c).addScaledVector(n,-R*Math.cos(th));
+          cap.userData.op=0.38; gh.add(cap);
+          /* bright rim ring in the lens plane */
+          const rimPts=[]; for(let i=0;i<=72;i++){ const a=i/72*Math.PI*2;
+            rimPts.push(new THREE.Vector3().copy(c).addScaledVector(e1,Math.cos(a)*lr).addScaledVector(e2,Math.sin(a)*lr).addScaledVector(n,0.01)); }
+          const rim=new THREE.Line(new THREE.BufferGeometry().setFromPoints(rimPts),
+            new THREE.LineBasicMaterial({ color:0xEAF4FF, transparent:true, opacity:0 }));
+          rim.userData.op=0.8; gh.add(rim);
+        }
+      }catch(e){ console.warn('lens cap failed',e); }
+      if(gh.children.length){ sentGhost=gh; sentGhost.visible=false; scene.add(sentGhost); }
+    }catch(err){ console.warn('ghost dome failed',err); }
+    /* dome zone: the smooth cover has no creases — trace it with contour rings + profile curves */
+    const domeY0=mbb.min.y+0.55*modelH;
+    for(const it of cand){
+      if(it.o.userData._skip) continue;
+      const cover=isCover(it);
+      if(!cover && it.box.max.y<domeY0) continue;
+      const shellMid = it.d>=mext*0.25 && it.reach>=mext*0.55;
+      const domeTop  = it.d>=mext*0.8 && it.box.max.y>=topY-0.06*modelH;
+      if(!cover && !shellMid && !domeTop) continue;
+      const y0 = cover ? it.box.min.y+0.04*(it.box.max.y-it.box.min.y) : Math.max(it.box.min.y,domeY0);
+      const y1 = it.box.max.y-0.02*modelH;
+      if(y1<=y0) continue;
+      const cut = cover ? it.box.min.y : domeY0;
+      const nR = cover ? 7 : 5;
+      const yl=[]; for(let li=0;li<nR;li++) yl.push(y0+(y1-y0)*(li+0.5)/nR);
+      const segs=sliceContours(it.o.geometry,it.o.matrixWorld,yl,'y');
+      const vx=sliceContours(it.o.geometry,it.o.matrixWorld,[(it.box.min.x+it.box.max.x)/2],'x');
+      const vz=sliceContours(it.o.geometry,it.o.matrixWorld,[(it.box.min.z+it.box.max.z)/2],'z');
+      for(let q=0;q<vx.length;q+=6){ if((vx[q+1]+vx[q+4])/2>=cut) segs.push(vx[q],vx[q+1],vx[q+2],vx[q+3],vx[q+4],vx[q+5]); }
+      for(let q=0;q<vz.length;q+=6){ if((vz[q+1]+vz[q+4])/2>=cut) segs.push(vz[q],vz[q+1],vz[q+2],vz[q+3],vz[q+4],vz[q+5]); }
+      if(segs.length){ const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.Float32BufferAttribute(segs,3)); eg.push(g); }
+    }
+    if(eg.length){
+      mergedE=mergeGeometries(eg,false);
+      sentEdges=new THREE.LineSegments(mergedE, new THREE.LineBasicMaterial({ color:0xBFDDF5, transparent:true, opacity:0 }));
+      sentEdges.visible=false; scene.add(sentEdges);
+    }
+  }catch(err){ console.warn('edge build failed',err); }
+  if(mergedE){
+    /* particle targets: random points along the sketch segments, weighted by length */
+    const ep=mergedE.attributes.position, segN=ep.count/2;
+    const segLen=new Float32Array(segN); let tot=0;
+    const A=new THREE.Vector3(), B=new THREE.Vector3();
+    for(let q=0;q<segN;q++){ A.fromBufferAttribute(ep,q*2); B.fromBufferAttribute(ep,q*2+1); tot+=segLen[q]=A.distanceTo(B); }
+    const cum=new Float32Array(segN); let acc=0;
+    for(let q=0;q<segN;q++){ acc+=segLen[q]; cum[q]=acc; }
+    const lpos=new Float32Array(N*3), lcol=new Float32Array(N*3);
+    for(let k=0;k<N;k++){
+      const r=Math.random()*tot; let lo=0, hi=segN-1;
+      while(lo<hi){ const mid=(lo+hi)>>1; if(cum[mid]<r) lo=mid+1; else hi=mid; }
+      A.fromBufferAttribute(ep,lo*2); B.fromBufferAttribute(ep,lo*2+1);
+      const t=Math.random();
+      lpos[k*3]=A.x+(B.x-A.x)*t; lpos[k*3+1]=A.y+(B.y-A.y)*t; lpos[k*3+2]=A.z+(B.z-A.z)*t;
+      const j=0.78+Math.random()*0.25;
+      lcol[k*3]=0.75*j; lcol[k*3+1]=0.87*j; lcol[k*3+2]=0.98*j;
+    }
+    sentData={pos:lpos, col:lcol};
+  }else{
+    const ex=exteriorSample(root, Math.round(N*1.3));
+    sentData=resample(ex.pos, ex.col, null, N);
+  }
+  ready=true; targetM=1; curM=1; cloud.rotation.y=FRONT_Y; updateCloud(1); { const _ld=document.getElementById('loading'); if(_ld) _ld.style.display='none'; }
+  if(START_SENT){ targetM=1; curM=1; cloud.rotation.y=FRONT_Y; updateCloud(1); }
+  try{ parent.postMessage({type:'s5ready'},'*'); }catch(_){}
+  document.getElementById('sub').textContent='Sentinel is ready. Click to deploy the countermeasure.';
+},undefined,(err)=>{ document.getElementById('sub').textContent='Could not load Sentinel model.'; });
+
+/* ============================================================
+   Morph state + interaction
+   ============================================================ */
+let targetM=0, curM=0, lastM=-1, lastT=0;
+const titleEl=document.getElementById('title'), subEl=document.getElementById('sub'), hintEl=document.getElementById('hint');
+function setMorph(m){ if(!ready) return;
+  targetM=m;
+  if(targetM>0.5){ /* finish at least half a turn forward, then land lens-front */
+    alignY = FRONT_Y + Math.PI*2*Math.ceil((cloud.rotation.y-FRONT_Y)/(Math.PI*2)+0.5); }
+  try{ parent.postMessage({type:'s5morph',deployed:targetM>0.5},'*'); }catch(_){}
+  if(targetM>0.5){ titleEl.innerHTML='<span class="g">Sentinel</span> deployed'; subEl.textContent='The theft threats (red) are neutralized — turned green by Sentinel.';
+    hintEl.innerHTML='<span class="pulse">◀ Click to return to the globe</span>'; }
+  else { titleEl.innerHTML='<span class="r">Fuel &amp; cargo theft</span> — a global problem'; subEl.textContent='Red points mark the fuel-theft hotspot countries draining fleets worldwide.';
+    hintEl.innerHTML='<span class="pulse">▶ Click anywhere to deploy <b>Sentinel</b></span>'; }
+}
+function toggle(){ /* static model — no disassemble */ }
+addEventListener('click', toggle);
+addEventListener('keydown',e=>{
+  if(e.key==='r'||e.key==='R'){ return; }        /* R = rewind to globe */
+  try{ parent.postMessage({type:'s5key',key:e.key},'*'); }catch(_){}} );
+window.addEventListener('message',e=>{ const d=e.data||{};
+  if(d.type==='s5rewind'){}
+  else if(d.type==='s5deploy') setMorph(1); });
+
+function updateCloud(m){
+  const gp=scatterData.pos, gc=scatterData.col, sp=sentData.pos, sc=sentData.col;
+  const pa=posAttr.array, ca=colAttr.array;
+  const mm=Math.min(1,Math.max(0,m)), inv=1-mm;
+  const billow=Math.sin(Math.PI*mm)*0.45;
+  for(let k=0;k<N;k++){ const i=k*3;
+    pa[i]  = gp[i]*inv   + sp[i]*mm   + turb[i]*billow;
+    pa[i+1]= gp[i+1]*inv + sp[i+1]*mm + turb[i+1]*billow;
+    pa[i+2]= gp[i+2]*inv + sp[i+2]*mm + turb[i+2]*billow;
+    ca[i]  = gc[i]*inv   + sc[i]*mm;
+    ca[i+1]= gc[i+1]*inv + sc[i+1]*mm;
+    ca[i+2]= gc[i+2]*inv + sc[i+2]*mm;
+  }
+  posAttr.needsUpdate=true; colAttr.needsUpdate=true;
+}
+
+const NOSPIN=(__q.get('spin')==='0');
+const PITCH=(parseFloat(__q.get('el'))||0)*Math.PI/180;
+const ROLL=(parseFloat(__q.get('roll'))||0)*Math.PI/180;
+const _FROZEN_Q=new THREE.Quaternion();
+const _AX=new THREE.Vector3(1,0,0), _AY=new THREE.Vector3(0,1,0), _AZ=new THREE.Vector3(0,0,1);
+/* live pose: same composition as the baked URL params -> Qz(roll) * Qx(el) * Qy(front) */
+function setPose(xDeg,yDeg,zDeg){ const D=Math.PI/180;
+  _FROZEN_Q.setFromAxisAngle(_AZ, zDeg*D)
+    .multiply(new THREE.Quaternion().setFromAxisAngle(_AX, xDeg*D))
+    .multiply(new THREE.Quaternion().setFromAxisAngle(_AY, yDeg*D));
+}
+setPose(PITCH*180/Math.PI, FRONT_Y*180/Math.PI, ROLL*180/Math.PI);
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d&&d.type==='pose') setPose(+d.x||0, +d.y||0, +d.z||0); });
+const GLOBE_SPIN=0.16, SENT_SPIN=0.5, SPIN_BURST=7.0;
+function animate(t){
+  requestAnimationFrame(animate);
+  const dt=Math.min(0.05,(t-lastT)/1000||0); lastT=t;
+  curM += (targetM-curM)*0.045;                 // eased morph
+  if(sentData && Math.abs(curM-lastM)>0.0004){ updateCloud(curM); lastM=curM; }
+  // spin: slow globe → burst while morphing → settle to sentinel spin
+  if(targetM>0.5){ /* land exactly lens-front, then ease into a turntable spin */
+    if(!sentSpin){
+      const d=alignY-cloud.rotation.y;
+      cloud.rotation.y += d*Math.min(1,dt*2.4);
+      if(Math.abs(d)<0.02 && curM>0.96){ sentSpin=true; sentSpinT=0; }
+    }else{
+      sentSpinT+=dt;
+      cloud.rotation.y += SENT_SPIN*Math.min(1,sentSpinT/1.4)*dt;
+    }
+  }else{
+    sentSpin=false;
+    const burst=Math.abs(targetM-curM)*SPIN_BURST;
+    cloud.rotation.y += (GLOBE_SPIN+burst)*dt;
+  }
+  if(NOSPIN) cloud.quaternion.copy(_FROZEN_Q);
+  if(sentEdges){ sentEdges.rotation.y=cloud.rotation.y;
+    const eo=Math.min(1,Math.max(0,curM-0.7)/0.27);
+    sentEdges.material.opacity=eo*0.92; sentEdges.visible=eo>0.015;
+    if(NOSPIN) sentEdges.quaternion.copy(_FROZEN_Q);
+    if(sentGhost){ sentGhost.rotation.y=cloud.rotation.y;
+      if(NOSPIN) sentGhost.quaternion.copy(_FROZEN_Q);
+      sentGhost.children.forEach(m=>m.material.opacity=eo*(m.userData.op||0.16));
+      sentGhost.visible=eo>0.015; } }
+  cloud.material.opacity = curM>0.8 ? Math.max(0,1-(curM-0.8)/0.17) : 1;   /* particles hand off to the sketch */
+  cloud.visible = false;
+  cloud.material.size = 0.02 - 0.007*curM;   /* sharper dots on the sentinel */
+  hintEl.style.opacity = Math.abs(targetM-curM)>0.02 ? 0.15 : 1;
+  renderer.render(scene,camera);
+}
+requestAnimationFrame(animate);
+
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+</script>
+</body>
+</html>

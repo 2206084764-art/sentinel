@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Why Current Solutions Fall Short</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#050810;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;--red-glow:rgba(255,59,48,.5);
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);--glass:rgba(255,255,255,.03);
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.82) 100%);}
+
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;padding-bottom:.5cqh;border-bottom:1px solid;transition:color .6s ease,border-color .6s ease;}
+.lbl.grey{color:var(--grey);border-color:rgba(160,174,192,.3);}
+.lbl.red{color:var(--red);border-color:rgba(255,59,48,.35);text-shadow:0 0 10px var(--red-glow);}
+.lbl.blue{color:var(--blue);border-color:rgba(0,158,253,.35);text-shadow:0 0 10px rgba(0,158,253,.5);}
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 1.5cqh rgba(42,245,152,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.stage{position:absolute;top:9cqh;bottom:8cqh;left:8cqh;right:8cqh;z-index:10;}
+
+/* ---------- solution pages (sensor / video): text left, big rotating 3D right ---------- */
+.solpage{position:absolute;inset:0;display:flex;align-items:center;gap:3cqh;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;}
+.solpage.sensor{--acc:var(--red);--accrgb:255,59,48;}
+.solpage.video{--acc:var(--blue);--accrgb:0,158,253;}
+#canvas[data-step="1"] .solpage.sensor,#canvas[data-step="2"] .solpage.video{opacity:1;visibility:visible;}
+
+.solpage .txt{width:47%;flex-shrink:0;}
+.sol-kick{display:inline-block;font-size:1.35cqh;letter-spacing:2.5px;font-weight:800;color:var(--acc);border:1px solid rgba(var(--accrgb),.4);background:rgba(var(--accrgb),.07);padding:.7cqh 1.6cqh;border-radius:30px;margin-bottom:2.6cqh;opacity:0;transform:translateY(12px);transition:all .7s var(--epic) .2s;}
+.sol-title{font-size:4.5cqh;font-weight:900;line-height:1.08;letter-spacing:-.08cqh;color:#fff;margin-bottom:2.2cqh;opacity:0;transform:translateY(16px);transition:all .8s var(--epic) .35s;}
+.sol-title .accent{color:var(--acc);}
+.sol-desc{font-size:1.75cqh;line-height:1.55;color:rgba(255,255,255,.78);margin-bottom:3.2cqh;opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .5s;}
+.sol-desc b{color:var(--acc);font-weight:700;}
+.pc{display:flex;gap:3.5cqh;opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .65s;}
+.pc-col{flex:1;min-width:0;}
+.pc-h{font-size:1.35cqh;letter-spacing:2.5px;font-weight:800;margin-bottom:1.5cqh;padding-bottom:.8cqh;border-bottom:1px solid;}
+.pros .pc-h{color:var(--green);border-color:rgba(42,245,152,.3);}
+.cons .pc-h{color:var(--red);border-color:rgba(255,59,48,.3);}
+.pc-i{display:flex;align-items:flex-start;gap:1cqh;font-size:1.5cqh;color:rgba(255,255,255,.82);line-height:1.35;margin-bottom:1.2cqh;}
+.pc-i::before{flex-shrink:0;font-weight:900;font-size:1.4cqh;line-height:1.5;}
+.pros .pc-i::before{content:'✓';color:var(--green);}
+.cons .pc-i::before{content:'✕';color:var(--red);}
+#canvas[data-step="1"] .solpage.sensor .sol-kick,#canvas[data-step="2"] .solpage.video .sol-kick,
+#canvas[data-step="1"] .solpage.sensor .sol-title,#canvas[data-step="2"] .solpage.video .sol-title,
+#canvas[data-step="1"] .solpage.sensor .sol-desc,#canvas[data-step="2"] .solpage.video .sol-desc,
+#canvas[data-step="1"] .solpage.sensor .pc,#canvas[data-step="2"] .solpage.video .pc{opacity:1;transform:translateY(0);}
+
+.solpage .model{flex:1;height:100%;position:relative;align-self:stretch;}
+.solpage .model::before{content:'';position:absolute;inset:6% 3%;background:radial-gradient(ellipse at center,rgba(var(--accrgb),.16),transparent 62%);filter:blur(2cqh);}
+.solpage .model iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;pointer-events:none;}
+
+/* ---------- page 3 : the two-axis truth (the gap) ---------- */
+.mid2{position:absolute;top:6cqh;bottom:6cqh;left:0;right:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;}
+#canvas[data-step="3"] .mid2{opacity:1;visibility:visible;}
+.mid2 .head{text-align:center;font-size:3.3cqh;font-weight:800;line-height:1.25;background:linear-gradient(135deg,#fff,#94A3B8);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .5s;}
+#canvas[data-step="3"] .mid2 .head{opacity:1;transform:translateY(0);}
+/* Cartesian quadrant: X = power efficiency, Y = forensic clarity */
+.quad{position:relative;width:108cqh;height:47cqh;margin-top:3cqh;}
+.q-line-y{position:absolute;left:0;bottom:0;top:0;width:2px;background:linear-gradient(to top,rgba(255,255,255,.55),rgba(255,255,255,.18));transform-origin:bottom;transform:scaleY(0);transition:transform 1s var(--epic) .6s;}
+.q-line-y::after{content:'';position:absolute;top:-1px;left:-0.55cqh;border-left:.65cqh solid transparent;border-right:.65cqh solid transparent;border-bottom:1.1cqh solid rgba(255,255,255,.55);}
+.q-line-x{position:absolute;left:0;bottom:0;right:0;height:2px;background:linear-gradient(to right,rgba(255,255,255,.55),rgba(255,255,255,.18));transform-origin:left;transform:scaleX(0);transition:transform 1s var(--epic) .6s;}
+.q-line-x::after{content:'';position:absolute;right:-1px;top:-0.55cqh;border-top:.65cqh solid transparent;border-bottom:.65cqh solid transparent;border-left:1.1cqh solid rgba(255,255,255,.55);}
+#canvas[data-step="3"] .q-line-y{transform:scaleY(1);}
+#canvas[data-step="3"] .q-line-x{transform:scaleX(1);}
+.q-ylab{position:absolute;left:-3.6cqh;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:1.3cqh;letter-spacing:3px;font-weight:700;color:var(--grey);white-space:nowrap;opacity:0;transition:opacity .8s ease 1.2s;}
+.q-xlab{position:absolute;bottom:-3.4cqh;left:50%;transform:translateX(-50%);font-size:1.3cqh;letter-spacing:3px;font-weight:700;color:var(--grey);white-space:nowrap;opacity:0;transition:opacity .8s ease 1.2s;}
+.q-hi-y{position:absolute;left:1.4cqh;top:-.4cqh;font-size:1.05cqh;letter-spacing:2px;color:var(--grey-dim);opacity:0;transition:opacity .8s ease 1.4s;}
+.q-hi-x{position:absolute;right:-.4cqh;bottom:1.6cqh;font-size:1.05cqh;letter-spacing:2px;color:var(--grey-dim);opacity:0;transition:opacity .8s ease 1.4s;}
+#canvas[data-step="3"] .q-ylab,#canvas[data-step="3"] .q-xlab,#canvas[data-step="3"] .q-hi-y,#canvas[data-step="3"] .q-hi-x{opacity:1;}
+.q-mid-v{position:absolute;left:50%;top:1.5cqh;bottom:1.5cqh;border-left:1px dashed rgba(255,255,255,.13);opacity:0;transition:opacity .8s ease 1.1s;}
+.q-mid-h{position:absolute;top:50%;left:1.5cqh;right:1.5cqh;border-top:1px dashed rgba(255,255,255,.13);opacity:0;transition:opacity .8s ease 1.1s;}
+#canvas[data-step="3"] .q-mid-v,#canvas[data-step="3"] .q-mid-h{opacity:1;}
+.qc{position:absolute;width:50%;height:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .8s var(--epic) var(--d,1s),transform .8s var(--epic) var(--d,1s);}
+#canvas[data-step="3"] .qc{opacity:1;transform:translateY(0);}
+.qc.tl{left:0;top:0;} .qc.tr{right:0;top:0;} .qc.bl{left:0;bottom:0;} .qc.br{right:0;bottom:0;}
+.qc iframe{width:82%;height:74%;border:0;pointer-events:none;background:transparent;transform:translateY(-2.4cqh);}
+.qc .cap{display:flex;align-items:baseline;gap:1.2cqh;font-size:1.3cqh;font-weight:800;letter-spacing:1px;padding:.7cqh 1.8cqh;border-radius:30px;border:1px solid;margin-top:-1.2cqh;white-space:nowrap;}
+.qc .cap small{font-weight:600;letter-spacing:.4px;font-size:1.15cqh;}
+.qc.tl .cap{color:var(--blue);border-color:rgba(0,158,253,.5);background:rgba(0,158,253,.07);}
+.qc.tl .cap small{color:rgba(255,255,255,.65);}
+.qc.br .cap{color:var(--red);border-color:rgba(255,59,48,.5);background:rgba(255,59,48,.07);}
+.qc.br .cap small{color:rgba(255,255,255,.65);}
+.gapbox{width:72%;height:66%;border:2px dashed rgba(42,245,152,.5);border-radius:2cqh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9cqh;animation:gapglow 2.4s ease infinite;}
+@keyframes gapglow{0%,100%{box-shadow:0 0 0 rgba(42,245,152,0);border-color:rgba(42,245,152,.4)}50%{box-shadow:0 0 4cqh rgba(42,245,152,.22);border-color:rgba(42,245,152,.75)}}
+.gapbox .g1{font-size:2.7cqh;font-weight:900;letter-spacing:-.05cqh;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gapbox .g2{font-size:1.3cqh;color:rgba(255,255,255,.7);text-align:center;line-height:1.4;max-width:38cqh;}
+.qc.bl .dead{font-size:1.25cqh;letter-spacing:1.5px;color:rgba(160,174,192,.4);border:1px dashed rgba(255,255,255,.12);border-radius:1.4cqh;padding:1.2cqh 2.2cqh;}
+.mid2 .foot{margin-top:6cqh;font-size:2.5cqh;font-weight:800;font-style:italic;color:#fff;opacity:0;transform:translateY(12px);transition:all .8s var(--epic) 1.8s;}
+.mid2 .foot b{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;}
+#canvas[data-step="3"] .mid2 .foot{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl grey" id="lbl">— 02 · SENSOR-BASED SECURITY —</div></div>
+
+  <div class="stage">
+
+    <!-- PAGE 1 : sensor-based -->
+    <div class="solpage sensor">
+      <div class="txt">
+        <div class="sol-kick">TRADITIONAL · SENSOR-BASED</div>
+        <h2 class="sol-title">Runs for months.<br><span class="accent">Sees nothing.</span></h2>
+        <p class="sol-desc">Door contacts and fuel probes sip power — but when the alarm fires, there's <b>no footage, no face, no plate</b>. An alert without evidence is a claim you can't prove.</p>
+        <div class="pc">
+          <div class="pc-col pros">
+            <div class="pc-h">PROS</div>
+            <div class="pc-i">Months of standby battery life</div>
+            <div class="pc-i">Milliwatt-level power draw</div>
+          </div>
+          <div class="pc-col cons">
+            <div class="pc-h">CONS</div>
+            <div class="pc-i">No footage — no face, no plate</div>
+            <div class="pc-i">Alerts you can't prove</div>
+            <div class="pc-i">Intrusive, probe-by-probe install</div>
+          </div>
+        </div>
+      </div>
+      <div class="model"><iframe src="3D/fuel-sensor-wire.html?base=0&fit=1.3&spin=1.4" scrolling="no" title="Sensor-based 3D"></iframe></div>
+    </div>
+
+    <!-- PAGE 2 : video-based -->
+    <div class="solpage video">
+      <div class="txt">
+        <div class="sol-kick">TRADITIONAL · VIDEO-BASED</div>
+        <h2 class="sol-title">Sees everything.<br><span class="accent">Until the battery dies.</span></h2>
+        <p class="sol-desc">Court-grade forensic footage — but continuous cameras draw watts, not milliwatts. Days of parking <b>drain the truck battery</b>, and install means wiring a recorder into the cab.</p>
+        <div class="pc">
+          <div class="pc-col pros">
+            <div class="pc-h">PROS</div>
+            <div class="pc-i">Court-grade forensic footage</div>
+            <div class="pc-i">Captures face, plate &amp; action</div>
+          </div>
+          <div class="pc-col cons">
+            <div class="pc-h">CONS</div>
+            <div class="pc-i">Watts, not milliwatts — drains the battery</div>
+            <div class="pc-i">Complex install — recorder wired into the cab</div>
+          </div>
+        </div>
+      </div>
+      <div class="model"><iframe src="3D/cctv-camera-wire.html?base=0&fit=1.02&spin=1.4" scrolling="no" title="Video-based 3D"></iframe></div>
+    </div>
+
+    <!-- PAGE 3 : side-by-side scorecard (the gap) -->
+    <div class="mid2">
+      <div class="head">Two technologies. Two blind spots.</div>
+      <div class="quad">
+        <div class="q-line-y"></div>
+        <div class="q-line-x"></div>
+        <div class="q-mid-v"></div>
+        <div class="q-mid-h"></div>
+        <div class="q-ylab">FORENSIC CLARITY</div>
+        <div class="q-xlab">POWER EFFICIENCY</div>
+        <div class="q-hi-y">HIGH</div>
+        <div class="q-hi-x">HIGH</div>
+
+        <!-- top-left: high clarity, low efficiency -->
+        <div class="qc tl" style="--d:1.1s">
+          <iframe src="3D/cctv-camera-wire.html?mode=wireframe&zoom=0.75&base=0&spin=0" scrolling="no" title="Video-based 3D"></iframe>
+          <div class="cap">VIDEO-BASED<small>clarity — no endurance</small></div>
+        </div>
+
+        <!-- bottom-right: high efficiency, low clarity -->
+        <div class="qc br" style="--d:1.3s">
+          <iframe src="3D/fuel-sensor-wire.html?mode=wireframe&zoom=0.75&spin=0" scrolling="no" title="Sensor-based 3D"></iframe>
+          <div class="cap">SENSOR-BASED<small>endurance — no evidence</small></div>
+        </div>
+
+        <!-- top-right: the gap -->
+        <div class="qc tr" style="--d:1.6s">
+          <div class="gapbox">
+            <div class="g1">THE GAP</div>
+            <div class="g2">High clarity × high efficiency.<br>No product lives here — yet.</div>
+          </div>
+        </div>
+
+        <!-- bottom-left: worst of both -->
+        <div class="qc bl" style="--d:1.45s">
+          <div class="dead">LOW × LOW — NOT WORTH BUILDING</div>
+        </div>
+      </div>
+      <div class="foot">The industry needed both. <b>So we built both into one.</b></div>
+    </div>
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → · arrow keys</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=3;let cur=1;
+const meta={
+  1:{t:"— 02 · SENSOR-BASED SECURITY —",c:"red"},
+  2:{t:"— 02 · VIDEO-BASED SECURITY —",c:"blue"},
+  3:{t:"— THE FORCED TRADE-OFF —",c:"red"}
+};
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+function render(){
+  canvas.setAttribute('data-step',cur);
+  lbl.textContent=meta[cur].t;lbl.className='lbl '+meta[cur].c;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }
+/* deck advances by ← / → only — click does not navigate */
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

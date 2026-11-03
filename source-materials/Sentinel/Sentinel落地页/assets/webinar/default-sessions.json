@@ -1,0 +1,98 @@
+[
+  {
+    "id": "europe",
+    "region": "Europe",
+    "language": "English",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "thailand",
+    "region": "Thailand",
+    "language": "Thai",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "vietnam",
+    "region": "Vietnam",
+    "language": "Vietnamese",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "south-asia",
+    "region": "South Asia",
+    "language": "English",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "indonesia",
+    "region": "Indonesia",
+    "language": "Indonesian",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "southeast-asia",
+    "region": "Southeast Asia",
+    "language": "English",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "latam-spanish",
+    "region": "LATAM",
+    "language": "Spanish",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  },
+  {
+    "id": "latam-portuguese",
+    "region": "LATAM",
+    "language": "Portuguese",
+    "dateLabel": "Date to be announced",
+    "timeLabel": "Time & timezone to be announced",
+    "timezone": "",
+    "startISO": "",
+    "endISO": "",
+    "zoomUrl": "",
+    "replayUrl": ""
+  }
+]

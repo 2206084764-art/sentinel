@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Intent-Aware AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#050810;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;--red-glow:rgba(255,59,48,.5);
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);--glass:rgba(255,255,255,.03);
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.82) 100%);}
+
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;color:var(--green);padding-bottom:.5cqh;border-bottom:1px solid rgba(42,245,152,.3);text-shadow:0 0 10px rgba(42,245,152,.35);}
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 1.5cqh rgba(42,245,152,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.layer{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;}
+#canvas[data-step="1"] .l-false{opacity:1;visibility:visible;}
+#canvas[data-step="2"] .l-filter{opacity:1;visibility:visible;}
+#canvas[data-step="3"] .l-see{opacity:1;visibility:visible;}
+
+/* ---------- step 1 : see interpret understand + live demo ---------- */
+.l-see{z-index:5;}
+.ai-copy{position:absolute;top:14cqh;left:8cqh;width:64cqh;z-index:6;}
+.a-kick{font-size:1.5cqh;letter-spacing:.35em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:1.8cqh;opacity:0;transform:translateY(14px);transition:all .8s var(--apple) .3s;}
+.a-h1{font-size:5.6cqh;font-weight:900;letter-spacing:-.13cqh;line-height:1.05;color:#fff;opacity:0;transform:translateY(18px);transition:all .9s var(--apple) .45s;}
+.a-h1 .grad{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.a-sub{font-size:1.95cqh;color:var(--grey);line-height:1.55;margin-top:2.2cqh;opacity:0;transform:translateY(16px);transition:all .9s var(--apple) .65s;}
+.a-sub b{color:#fff;}
+#canvas[data-step="3"] .a-kick,#canvas[data-step="3"] .a-h1,#canvas[data-step="3"] .a-sub{opacity:1;transform:translateY(0);}
+
+.pipeline{position:absolute;left:8cqh;top:47cqh;width:64cqh;display:flex;flex-direction:column;gap:1.8cqh;z-index:6;}
+.stepbox{display:flex;align-items:center;gap:2cqh;padding:2cqh 2.4cqh;border-radius:1.6cqh;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.02);backdrop-filter:blur(8px);opacity:0;transform:translateX(-24px);transition:opacity .8s var(--apple) var(--d,1s),transform .8s var(--apple) var(--d,1s);}
+#canvas[data-step="3"] .stepbox{opacity:1;transform:translateX(0);}
+.stepbox .num{width:4.6cqh;height:4.6cqh;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8cqh;font-weight:900;border:1px solid rgba(42,245,152,.55);background:rgba(42,245,152,.08);color:var(--green);}
+.stepbox .tx b{display:block;font-size:2cqh;font-weight:800;color:#fff;line-height:1.15;}
+.stepbox .tx span{font-size:1.35cqh;color:rgba(255,255,255,.62);line-height:1.35;}
+
+.demo{position:absolute;top:14cqh;right:8cqh;width:74cqh;height:64cqh;border-radius:2cqh;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 3cqh 8cqh rgba(0,0,0,.6);opacity:0;transform:translateY(20px);transition:all 1.1s var(--apple) .55s;z-index:5;}
+#canvas[data-step="3"] .demo{opacity:1;transform:translateY(0);}
+.demo .poster{position:absolute;inset:0;background:url('Images/ai-still.jpg') center/cover;}
+.demo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;}
+.demo video.playing{opacity:1;}
+.demo .tag{position:absolute;top:2cqh;left:2.4cqh;font-size:1.25cqh;font-weight:700;letter-spacing:1.5px;color:var(--green);border:1px solid rgba(42,245,152,.5);background:rgba(5,8,16,.6);padding:.6cqh 1.4cqh;border-radius:30px;}
+.demo .foot{position:absolute;bottom:0;left:0;right:0;padding:2.6cqh 2.4cqh 1.8cqh;background:linear-gradient(to top,rgba(5,8,16,.9),transparent);font-size:1.35cqh;color:rgba(255,255,255,.8);}
+
+/* ---------- step 2 : the alert filter ---------- */
+.l-filter{z-index:5;}
+.f-head{position:absolute;top:9cqh;left:8cqh;max-width:78cqh;text-align:left;z-index:9;font-size:4.8cqh;font-weight:800;line-height:1.15;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .15s;}
+.f-sub{position:absolute;top:20cqh;left:8cqh;max-width:46cqh;text-align:left;z-index:9;font-size:1.7cqh;color:var(--grey);opacity:0;transition:opacity .8s ease .4s;}
+#canvas[data-step="2"] .f-head,#canvas[data-step="2"] .f-sub{opacity:1;transform:translateY(0);}
+.f-cols{display:flex;gap:2.6cqh;margin-top:4.4cqh;}
+.anim-embed{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:5;opacity:0;transition:opacity .9s var(--epic) .4s;}
+#canvas[data-step="2"] .anim-embed{opacity:1;transform:translateY(0);}
+.fcol{flex:1;border-radius:2cqh;padding:3cqh;display:flex;flex-direction:column;opacity:0;transform:translateY(22px);transition:opacity .8s var(--epic) var(--d,0s),transform .8s var(--epic) var(--d,0s);}
+#canvas[data-step="2"] .fcol{opacity:1;transform:translateY(0);}
+.fcol.ignore{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.018);}
+.fcol.alert{border:1px solid rgba(255,59,48,.45);background:linear-gradient(180deg,rgba(255,59,48,.07),rgba(255,255,255,.012));box-shadow:0 0 5cqh rgba(255,59,48,.08);}
+.fcol .fh{display:flex;align-items:center;gap:1.4cqh;margin-bottom:2.2cqh;}
+.fcol .fh .led{width:1.4cqh;height:1.4cqh;border-radius:50%;}
+.fcol.ignore .fh .led{background:var(--grey);opacity:.6;}
+.fcol.alert .fh .led{background:var(--red);box-shadow:0 0 1.6cqh var(--red-glow);animation:blink 1.3s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.fcol .fh b{font-size:2.2cqh;font-weight:800;letter-spacing:.5px;}
+.fcol.ignore .fh b{color:var(--grey);}
+.fcol.alert .fh b{color:var(--red);}
+.fitem{display:flex;align-items:center;padding:1.4cqh 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:1.65cqh;color:rgba(255,255,255,.82);}
+.fitem:last-child{border-bottom:none;}
+.fitem .gl{font-size:2cqh;flex-shrink:0;width:3cqh;text-align:center;}
+.fcol.ignore .fitem{color:rgba(255,255,255,.55);}
+.fcol .fverd{margin-top:auto;padding-top:2cqh;font-size:1.5cqh;font-style:italic;}
+.fcol.ignore .fverd{color:var(--grey);}
+.fcol.alert .fverd{color:rgba(255,255,255,.85);}
+.f-foot{position:absolute;bottom:5cqh;left:8cqh;text-align:left;z-index:9;font-size:2.1cqh;font-weight:700;font-style:italic;color:#fff;opacity:0;transform:translateY(12px);transition:all .9s var(--epic) 1.3s;}
+.f-foot b{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal;}
+#canvas[data-step="2"] .f-foot{opacity:1;transform:translateY(0);}
+.playbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:9cqh;height:9cqh;border-radius:50%;border:2px solid rgba(255,255,255,.7);background:rgba(5,8,16,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:3cqh;color:#fff;z-index:4;opacity:.92;transition:opacity .5s ease;pointer-events:none;animation:pulseplay 1.8s ease infinite;padding-left:.6cqh;}
+video.playing + .playbtn{opacity:0;}
+@keyframes pulseplay{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.09)}}
+
+/* ---------- step 1 : the false-alert problem — phone left, causes stacked right ---------- */
+.l-false{z-index:5;display:grid;grid-template-columns:40cqh 1fr;gap:7cqh;align-items:center;
+  padding:10cqh 8cqh 8cqh;text-align:left;}
+
+/* the phone: a lock screen being buried, notification after notification */
+.fa-phone{display:flex;flex-direction:column;align-items:center;gap:2.2cqh;
+  opacity:0;transform:translateY(18px);transition:all .9s var(--apple) .3s;}
+#canvas[data-step="1"] .fa-phone{opacity:1;transform:translateY(0);}
+.fa-phone.buzz{animation:fabuzz .34s ease;}
+@keyframes fabuzz{0%,100%{transform:translate(0,0)}20%{transform:translate(-.5cqh,.2cqh)}
+  45%{transform:translate(.45cqh,-.25cqh)}70%{transform:translate(-.3cqh,.15cqh)}}
+.pw{position:relative;width:32cqh;aspect-ratio:9/19.2;border-radius:5.2cqh;padding:1.2cqh;
+  background:linear-gradient(160deg,#2a3240,#0d1118 42%,#232b38);
+  box-shadow:0 4cqh 9cqh rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.07);}
+.pw::after{content:'';position:absolute;left:50%;bottom:1cqh;transform:translateX(-50%);
+  width:11cqh;height:.45cqh;border-radius:.45cqh;background:rgba(255,255,255,.3);z-index:6;}
+.pscreen{position:relative;width:100%;height:100%;border-radius:4.1cqh;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 0%,#16283c 0%,#0a0f18 55%,#05080f 100%);}
+.pisland{position:absolute;top:1.2cqh;left:50%;transform:translateX(-50%);width:9.6cqh;height:2.8cqh;
+  border-radius:1.6cqh;background:#000;z-index:5;}
+.plock{position:absolute;top:5.6cqh;left:0;right:0;text-align:center;z-index:1;}
+.plock .pday{font-size:1.15cqh;color:rgba(255,255,255,.6);letter-spacing:.04em;}
+.plock .pclock{font-size:5.4cqh;font-weight:300;color:#fff;line-height:1.05;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;}
+/* newest lands on top; the stack slides down and dims as it is pushed under */
+.pnotes{position:absolute;left:1.2cqh;right:1.2cqh;top:17cqh;bottom:7.5cqh;z-index:3;
+  display:flex;flex-direction:column;gap:1cqh;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 66%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 66%,transparent 100%);}
+.pnote{flex-shrink:0;display:flex;gap:1cqh;padding:1cqh 1.1cqh;border-radius:2cqh;
+  background:rgba(232,240,252,.13);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(14px);
+  animation:pnoteIn .5s var(--apple) both;}
+@keyframes pnoteIn{from{opacity:0;transform:translateY(-2.4cqh) scale(.94)}to{opacity:1;transform:none}}
+.pnote:nth-child(4){opacity:.62;}
+.pnote:nth-child(5){opacity:.34;}
+.pnote:nth-child(n+6){opacity:.16;}
+.pnote .pni{flex-shrink:0;width:4cqh;height:4cqh;border-radius:1.1cqh;display:flex;align-items:center;
+  justify-content:center;font-size:1.9cqh;font-weight:900;color:#fff;
+  background:linear-gradient(135deg,#FF6B5E,#FF3B30);}
+.pnote .pnb{min-width:0;flex:1;}
+.pnote .pnt{display:flex;justify-content:space-between;gap:.5cqh;font-size:1.02cqh;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.pnote .pnt em{font-style:normal;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:0;text-transform:none;}
+.pnote .pnh{font-size:1.32cqh;font-weight:700;color:#fff;margin-top:.25cqh;line-height:1.25;}
+.pnote .pnp{font-size:1.15cqh;color:rgba(255,255,255,.62);margin-top:.15cqh;line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcount{position:absolute;left:0;right:0;bottom:2.2cqh;z-index:4;text-align:center;font-size:1.2cqh;
+  font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.5);}
+.pcount b{color:var(--red);font-size:1.5cqh;font-weight:900;}
+/* R starts and stops the storm, so the presenter can talk over a quiet phone first */
+.fa-hint{display:flex;align-items:center;gap:1.1cqh;font-size:1.35cqh;font-weight:600;
+  color:rgba(255,255,255,.7);padding:.75cqh 1.4cqh;border-radius:30px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(13,18,28,.7);transition:all .35s var(--apple);}
+.fa-hint kbd{display:inline-flex;align-items:center;justify-content:center;min-width:2.8cqh;height:2.8cqh;
+  padding:0 .6cqh;border-radius:.7cqh;border:1px solid rgba(255,59,48,.5);background:rgba(255,59,48,.12);
+  color:#FF7A7A;font-family:ui-monospace,SFMono-Regular,monospace;font-weight:800;font-size:1.35cqh;}
+.fa-hint.on{color:#fff;border-color:rgba(255,59,48,.55);box-shadow:0 0 2.2cqh rgba(255,59,48,.22);}
+.fa-hint.on kbd{background:linear-gradient(135deg,#FF6B5E,#FF3B30);border-color:transparent;color:#fff;}
+
+/* right column: the causes, stacked */
+.fa-kick{font-size:1.4cqh;letter-spacing:.35em;text-transform:uppercase;font-weight:700;color:var(--red);
+  opacity:0;transform:translateY(12px);transition:all .8s var(--apple) .25s;}
+.fa-h1{font-size:4.6cqh;font-weight:900;letter-spacing:-.1cqh;line-height:1.05;color:#fff;margin-top:1.5cqh;
+  opacity:0;transform:translateY(16px);transition:all .9s var(--apple) .4s;}
+.fa-h1 .red{background:linear-gradient(135deg,#FF7A7A,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.fa-sub{font-size:1.7cqh;color:var(--grey);line-height:1.5;margin-top:1.6cqh;max-width:98cqh;
+  opacity:0;transition:opacity .9s ease .6s;}
+.fa-sub b{color:#fff;}
+#canvas[data-step="1"] .fa-kick,#canvas[data-step="1"] .fa-h1,#canvas[data-step="1"] .fa-sub{opacity:1;transform:translateY(0);}
+.fa-grid{display:flex;flex-direction:column;gap:1.5cqh;margin-top:3.2cqh;max-width:94cqh;}
+.fa-card{display:flex;align-items:center;gap:1.8cqh;border-radius:1.4cqh;
+  border:1px solid rgba(255,59,48,.34);background:linear-gradient(90deg,rgba(255,59,48,.09),rgba(255,255,255,.012));
+  padding:1.5cqh 2cqh;opacity:0;transform:translateX(18px);
+  transition:opacity .7s var(--epic) var(--d,.6s),transform .7s var(--epic) var(--d,.6s);}
+#canvas[data-step="1"] .fa-card{opacity:1;transform:translateX(0);}
+.fa-card .fa-led{flex-shrink:0;width:1.3cqh;height:1.3cqh;border-radius:50%;background:var(--red);
+  box-shadow:0 0 1.6cqh var(--red-glow);animation:blink 1.3s ease infinite;}
+.fa-card b{flex-shrink:0;width:21cqh;font-size:1.85cqh;font-weight:800;color:#fff;}
+.fa-card span{font-size:1.35cqh;color:rgba(255,255,255,.58);line-height:1.4;}
+.fa-foot{margin-top:3.2cqh;font-size:1.95cqh;font-weight:700;font-style:italic;color:#fff;
+  opacity:0;transform:translateY(12px);transition:all .9s var(--epic) 1.25s;}
+.fa-foot b{color:var(--red);font-style:normal;}
+#canvas[data-step="1"] .fa-foot{opacity:1;transform:translateY(0);}
+
+/* ---------- "won't trigger" note — shown on the runner page while R runs ---------- */
+.alert-note{position:absolute;left:50%;bottom:8cqh;transform:translate(-50%,14px);z-index:50;
+  display:flex;align-items:center;gap:1.3cqh;padding:1.3cqh 2.4cqh;border-radius:30px;
+  border:1px solid rgba(42,245,152,.5);background:rgba(5,8,16,.82);backdrop-filter:blur(8px);
+  box-shadow:0 0 4cqh rgba(42,245,152,.2);font-size:1.65cqh;font-weight:600;color:#fff;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s var(--epic);}
+.alert-note.show{opacity:1;transform:translate(-50%,0);}
+.alert-note svg{width:2.2cqh;height:2.2cqh;flex-shrink:0;}
+.alert-note b{color:var(--green);font-weight:800;}
+
+/* ---------- R / T control prompts (top-right, on the runner page) ---------- */
+.run-hint{position:absolute;top:10.5cqh;right:6cqh;z-index:12;display:flex;flex-direction:column;gap:1cqh;align-items:flex-start;opacity:0;transition:opacity .8s ease .5s;}
+#canvas[data-step="2"] .run-hint{opacity:1;}
+.run-hint>div{display:flex;align-items:center;gap:1cqh;font-size:1.5cqh;font-weight:600;color:rgba(255,255,255,.78);}
+.run-hint kbd{display:inline-flex;align-items:center;justify-content:center;min-width:3.2cqh;height:3.2cqh;padding:0 .7cqh;border-radius:.7cqh;border:1px solid rgba(42,245,152,.5);background:rgba(42,245,152,.1);color:var(--green);font-family:ui-monospace,SFMono-Regular,monospace;font-weight:800;font-size:1.5cqh;}
+
+/* ---------- red intent-alert note — pops up when the detection light turns red ---------- */
+.susp-note{position:absolute;left:50%;bottom:8cqh;transform:translate(-50%,14px);z-index:50;
+  display:flex;align-items:center;gap:1.3cqh;padding:1.3cqh 2.4cqh;border-radius:30px;
+  border:1px solid rgba(255,59,48,.55);background:rgba(5,8,16,.85);backdrop-filter:blur(8px);
+  box-shadow:0 0 4.5cqh rgba(255,59,48,.28);font-size:1.65cqh;font-weight:600;color:#fff;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s var(--epic);}
+.susp-note.show{opacity:1;transform:translate(-50%,0);}
+.susp-note svg{width:2.2cqh;height:2.2cqh;flex-shrink:0;}
+.susp-note b{color:var(--red);font-weight:800;}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl" id="lbl">— 06 · INTENT-AWARE AI —</div></div>
+
+  <!-- step 1 (NEW): the false-alert problem -->
+  <div class="layer l-false">
+    <div class="fa-phone" id="faPhone">
+      <div class="pw"><div class="pscreen">
+        <div class="pisland"></div>
+        <div class="plock"><div class="pday">Tuesday, 4 August</div><div class="pclock" id="faClock">02:14</div></div>
+        <div class="pnotes" id="faNotes"></div>
+        <div class="pcount"><b id="faCount">0</b> alerts since midnight</div>
+      </div></div>
+      <div class="fa-hint" id="faHint"><kbd>R</kbd><span id="faHintTx">Start the alert storm</span></div>
+    </div>
+
+    <div class="fa-copy">
+      <div class="fa-kick">Feature 02 &middot; Intent-Aware AI &middot; The Problem</div>
+      <h1 class="fa-h1">Motion alerts <span class="red">cry wolf.</span></h1>
+      <div class="fa-sub">Traditional motion detection fires on <b>anything that moves</b> &mdash; so your phone buzzes all night for things that were never a threat.</div>
+      <div class="fa-grid">
+        <div class="fa-card" style="--d:.5s"><div class="fa-led"></div><b>Animals</b><span>Cats, dogs and birds crossing the lot</span></div>
+        <div class="fa-card" style="--d:.62s"><div class="fa-led"></div><b>Human movement</b><span>Anyone simply walking past the trailer</span></div>
+        <div class="fa-card" style="--d:.74s"><div class="fa-led"></div><b>Headlights</b><span>Passing vehicles sweeping their beams</span></div>
+        <div class="fa-card" style="--d:.86s"><div class="fa-led"></div><b>Rain &amp; wind</b><span>Weather, shadows and swaying trees</span></div>
+      </div>
+      <div class="fa-foot">Dozens of false pings a night &mdash; until you stop looking. <b>That's alert fatigue.</b></div>
+    </div>
+  </div>
+
+  <!-- step 3 : it understands intent -->
+  <div class="layer l-see">
+    <div class="ai-copy">
+      <div class="a-kick">Feature 02 · Intent-Aware AI</div>
+      <h1 class="a-h1">It doesn't just see.<br><span class="grad">It understands intent.</span></h1>
+      <div class="a-sub">Most cameras alert on <b>motion</b> — so animals, headlights and rain bury you in <b>false alerts</b>. Sentinel's onboard AI reads <b>human posture and behavior</b> in real time, <b>filtering out the noise</b> and pinging you only when a real thief makes a move.</div>
+    </div>
+
+    <div class="pipeline">
+      <div class="stepbox" style="--d:.9s">
+        <div class="num">1</div>
+        <div class="tx"><b>See</b><span>Captures high-clarity video 24/7, in every lighting condition</span></div>
+      </div>
+      <div class="stepbox" style="--d:1.1s">
+        <div class="num">2</div>
+        <div class="tx"><b>Interpret</b><span>Analyzes motion, pose and scene context frame by frame</span></div>
+      </div>
+      <div class="stepbox" style="--d:1.3s">
+        <div class="num">3</div>
+        <div class="tx"><b>Understand</b><span>Judges intent — and alerts only when a real threat emerges</span></div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="poster"></div>
+      <video src="Videos/ai-pose.mp4" muted loop playsinline></video>
+      <div class="playbtn">▶</div>
+      <div class="tag">LIVE · POSTURE ANALYSIS</div>
+      <div class="foot">On-device skeletal tracking — reaching, crouching and loitering postures detected in real time.</div>
+    </div>
+  </div>
+
+  <!-- step 2 -->
+  <div class="layer l-filter">
+    <div class="f-head">The end of alert fatigue</div>
+    <div class="f-sub">Motion detection cries wolf. Intent detection calls once — when it matters.</div>
+
+    <iframe class="anim-embed" src="3D/truck-sentinel-runner.html" scrolling="no" title="Truck + Sentinel + Runner"></iframe>
+    <div class="alert-note" id="alertNote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2AF598" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>Passing by, running, wandering around the truck / fuel tank <b>will not trigger alerts.</b></span>
+    </div>
+    <div class="susp-note" id="suspNote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 9v5M12 16.5h.01"/></svg>
+      <span>Sentinel has intent-aware AI — <b>issuing alerts only when activities are suspicious.</b></span>
+    </div>
+
+    <div class="run-hint">
+      <div><kbd>R</kbd> Start wandering</div>
+      <div><kbd>T</kbd> Steal</div>
+      <div><kbd>S</kbd> Wireframe</div>
+    </div>
+    <div class="f-foot">When Sentinel calls, <b>it's real.</b></div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → keys · click video · R runs</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=3;let cur=1;
+const meta={
+  1:{t:"— 06 · THE FALSE-ALERT PROBLEM —"},
+  2:{t:"— ZERO ALERT FATIGUE —"},
+  3:{t:"— INTENT, NOT MOTION —"}
+};
+document.querySelectorAll('video').forEach(v=>v.addEventListener('timeupdate',function on(){if(v.currentTime>0.05){v.classList.add('playing');v.removeEventListener('timeupdate',on);}}));
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+function render(){
+  canvas.setAttribute('data-step',cur);
+  if(window.__faStream && cur!==1) window.__faStream.reset();
+  lbl.textContent=meta[cur].t;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+  updateNote();
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+const gatedVideo=document.querySelector('.demo video');
+let videoStarted=false;
+const alertNote=document.getElementById('alertNote'), suspNote=document.getElementById('suspNote'); let animRunning=false, animPath=null, animRed=false;
+function updateNote(){ if(alertNote) alertNote.classList.toggle('show', cur===2 && animRunning && animPath==='Wandering'); if(suspNote) suspNote.classList.toggle('show', cur===2 && animRed); }
+function navNext(){
+  if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} }
+}
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }
+document.addEventListener('click',()=>{ if(cur===3 && !videoStarted){ videoStarted=true; try{gatedVideo.play();}catch(_){} } });
+/* R = start / pause the embedded runner animation (relayed into the iframe) */
+function toggleAnim(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-toggle'},'*');}catch(_){} } }
+function toggleSteal(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-steal'},'*');}catch(_){} } }
+function toggleWire(){ const f=document.querySelector('.anim-embed'); if(f&&f.contentWindow){ try{f.contentWindow.postMessage({type:'runner-wire'},'*');}catch(_){} } }
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+  else if((e.key==='r'||e.key==='R') && cur===1){e.preventDefault();if(window.__faStream)window.__faStream.toggle();}
+  else if((e.key==='r'||e.key==='R') && cur===2){e.preventDefault();toggleAnim();}
+  else if((e.key==='t'||e.key==='T') && cur===2){e.preventDefault();toggleSteal();}
+  else if((e.key==='s'||e.key==='S') && cur===2){e.preventDefault();toggleWire();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{};
+  if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); }
+  else if(d.type==='deck-key' && cur===1){ if(d.key==='r'||d.key==='R'){ if(window.__faStream) window.__faStream.toggle(); } }
+  else if(d.type==='deck-key' && cur===2){ if(d.key==='r'||d.key==='R') toggleAnim(); else if(d.key==='t'||d.key==='T') toggleSteal(); else if(d.key==='s'||d.key==='S') toggleWire(); }
+  else if(d.type==='runner-state'){ animRunning=!!d.running; animPath=d.path||null; updateNote(); }
+  else if(d.type==='runner-red'){ animRed=!!d.red; updateNote(); }
+});
+/* ---- page 1: the phone being buried, one false alert after another ---- */
+(function(){
+  const phone=document.getElementById('faPhone'), notes=document.getElementById('faNotes'),
+        countEl=document.getElementById('faCount'), clockEl=document.getElementById('faClock');
+  if(!phone||!notes) return;
+  /* every one of these is a thing a motion-triggered camera fires on and shouldn't */
+  const CAUSES=[
+    'Cat crossing the lot','Vehicle passing on the access road','Person walking past the trailer',
+    'Rain on the lens','Dog near the rear axle','Branches moving in the wind',
+    'Headlight sweep from the gate','Someone crossing to the next bay','Bird landing on the mirror',
+    'Shadow shift under the trailer','Gust across the tarpaulin','Van reversing two bays over'
+  ];
+  const MAX=6;                       // deeper than this is off the bottom of the screen anyway
+  let n=0, ci=0, mins=134;           // 02:14 in minutes past midnight
+  const two=v=>String(v).padStart(2,'0');
+
+  function push(){
+    const cause=CAUSES[ci++ % CAUSES.length];
+    mins=(mins+2+Math.floor(3*((ci*37)%7)/7))%1440;      // deterministic drift, no Math.random
+    const hh=two(Math.floor(mins/60)), mm=two(mins%60);
+    const el=document.createElement('div');
+    el.className='pnote';
+    el.innerHTML='<div class="pni">!</div><div class="pnb">'
+      +'<div class="pnt"><span>Camera</span><em>now</em></div>'
+      +'<div class="pnh">Motion detected</div>'
+      +'<div class="pnp">'+cause+' &middot; '+hh+':'+mm+'</div></div>';
+    notes.insertBefore(el, notes.firstChild);
+    while(notes.children.length>MAX) notes.removeChild(notes.lastChild);
+    countEl.textContent = ++n;
+    if(clockEl) clockEl.textContent = hh+':'+mm;
+    phone.classList.remove('buzz'); void phone.offsetWidth; phone.classList.add('buzz');
+  }
+
+  const hint=document.getElementById('faHint'), hintTx=document.getElementById('faHintTx');
+  let timer=null;
+  function paint(){
+    if(!hint) return;
+    hint.classList.toggle('on', !!timer);
+    if(hintTx) hintTx.textContent = timer ? 'Stop the alert storm' : 'Start the alert storm';
+  }
+  function start(){ if(timer) return; push(); timer=setInterval(push,1150); paint(); }
+  function stop(){ clearInterval(timer); timer=null; paint(); }
+  function reset(){ stop(); notes.innerHTML=''; n=0; ci=0; mins=134;
+                    countEl.textContent='0'; if(clockEl) clockEl.textContent='02:14'; }
+  /* R drives it; leaving the page always resets to a quiet lock screen */
+  window.__faStream={ toggle(){ timer?stop():start(); }, reset:reset };
+  paint();
+})();
+
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

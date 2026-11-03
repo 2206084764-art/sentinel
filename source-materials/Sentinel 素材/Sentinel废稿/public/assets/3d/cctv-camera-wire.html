@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCTV Camera — 3D Model</title>
+<style>
+  html,body{ margin:0; padding:0; overflow:hidden; background:#0c0e11; font-family:-apple-system,"Segoe UI",Roboto,sans-serif; }
+  #info{ position:absolute; top:16px; left:16px; color:#e7eaed; z-index:10;
+    background:rgba(20,23,28,0.55); padding:13px 16px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); max-width:320px; }
+  #info h1{ margin:0 0 6px; font-size:15px; font-weight:700; letter-spacing:.3px; }
+  #info h1 .b{color:#49b6e8;} #info h1 .g{color:#9aca3c;}
+  #info p{ margin:3px 0; font-size:12px; color:#9aa0a7; line-height:1.55; }
+  #info .k{ color:#d6d9dc; }
+  #controls{ position:absolute; top:16px; right:16px; z-index:10; color:#d0d3d6; font-size:12px;
+    background:rgba(20,23,28,0.55); padding:12px 14px; border-radius:12px; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.09); display:flex; flex-direction:column; gap:9px; min-width:186px; }
+  #controls label{ display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
+  #controls .row{ display:flex; align-items:center; gap:8px; }
+  #controls select{ flex:1; font-size:12px; padding:3px 4px; border-radius:6px; border:1px solid rgba(255,255,255,0.15); background:#1a1d22; color:#e7eaed; cursor:pointer; }
+  #controls input[type=range]{ flex:1; }
+  #controls input[type=color]{ width:26px; height:20px; border:none; background:none; padding:0; cursor:pointer; }
+  #loading{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#9aa4b0; z-index:20; letter-spacing:.5px; }
+  .sep{ height:1px; background:rgba(255,255,255,0.08); margin:2px 0; }
+  #info,#controls,#loading{display:none!important;}
+  html,body{background:transparent!important;}
+</style>
+</head>
+<body>
+<div id="loading">Building model…</div>
+<div id="info">
+  <h1><span class="b">CCTV</span> <span class="g">Camera</span> — 3D</h1>
+  <p><span class="k">Bullet camera</span> · textured lens · wall bracket</p>
+  <p><span class="k">Drag</span> rotate · <span class="k">Scroll</span> zoom · <span class="k">Right-drag</span> pan</p>
+</div>
+<div id="controls">
+  <label><input type="checkbox" id="autoRotate" checked> Auto-rotate</label>
+  <div class="row"><span>Mode</span>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="wireframe">Wireframe</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+  <div class="row"><input type="color" id="tint" value="#ffffff"> <span>Housing tint</span></div>
+  <div class="row"><span>Pt size</span><input type="range" id="psize" min="0.004" max="0.03" step="0.002" value="0.012"></div>
+  <div class="sep"></div>
+  <div id="pcount" style="font-size:11px;color:#6b7178;"></div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+
+const CCTV_GLB_URL='./models/c9696bb4d4baf4b7.glb';
+
+/* ---------- Renderer / Scene / Camera ---------- */
+const renderer=new THREE.WebGLRenderer({ antialias:true, alpha:true }); renderer.setClearColor(0x000000,0);
+renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene=new THREE.Scene();
+const litBg=(function(){ const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  const r=g.createRadialGradient(512,400,60,512,512,760);
+  r.addColorStop(0,'#20252c'); r.addColorStop(0.6,'#0f1216'); r.addColorStop(1,'#070809');
+  g.fillStyle=r; g.fillRect(0,0,1024,1024); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t; })();
+const darkBg=new THREE.Color(0x080b10);
+scene.background=null;
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+
+const camera=new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(6,3.6,7.5);
+const controls=new OrbitControls(camera, renderer.domElement);
+controls.enableDamping=true; controls.dampingFactor=0.06;
+controls.minDistance=2.5; controls.maxDistance=30; controls.maxPolarAngle=Math.PI*0.6;
+controls.target.set(0,2.4,0); controls.autoRotate=true; controls.autoRotateSpeed=1.0;
+
+/* ---------- Lighting ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0x20262e,0.5));
+const key=new THREE.DirectionalLight(0xffffff,2.2); key.position.set(6,10,8); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=1; key.shadow.camera.far=40;
+key.shadow.camera.left=-7; key.shadow.camera.right=7; key.shadow.camera.top=7; key.shadow.camera.bottom=-7;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; scene.add(key);
+const fill=new THREE.DirectionalLight(0xbcd6ff,0.7); fill.position.set(-8,5,-5); scene.add(fill);
+const rim=new THREE.SpotLight(0xffffff,80,50,Math.PI/8,0.5,1.2); rim.position.set(-5,9,-10); scene.add(rim);
+
+/* ---------- Load the OBJ-derived GLB (embedded, textured lens) ---------- */
+const device=new THREE.Group(); scene.add(device);
+let loaded=false, tintMats=[];
+new GLTFLoader().load(CCTV_GLB_URL,(gltf)=>{
+  const root=gltf.scene;
+  root.traverse(o=>{ if(o.isMesh){
+    o.castShadow=o.receiveShadow=true;
+    if(!o.geometry.attributes.normal) o.geometry.computeVertexNormals();   // model had no normals
+    const m=o.material;
+    if(m){ m.metalness=Math.min(0.4, m.metalness??0.2); m.roughness=THREE.MathUtils.clamp(m.roughness??0.5,0.3,0.7);
+           m.envMapIntensity=1.2; if(m.map) m.map.colorSpace=THREE.SRGBColorSpace; tintMats.push(m); }
+  }});
+  // upright, centre, float at the orbit target
+  const bb=new THREE.Box3().setFromObject(root), size=bb.getSize(new THREE.Vector3()), ctr=bb.getCenter(new THREE.Vector3());
+  const s=4.6/Math.max(size.x,size.y,size.z);
+  root.scale.setScalar(s);
+  root.position.set(-ctr.x*s, 2.4-ctr.y*s, -ctr.z*s);
+  device.add(root);
+  loaded=true;
+  document.getElementById('loading').style.display='none';
+  applyEmbed();
+},undefined,(err)=>{ document.getElementById('loading').textContent='Could not parse the embedded model.'; });
+
+/* ---------- Ground: reflector + contact shadow ---------- */
+const FY=0.0;
+const mirror=new Reflector(new THREE.PlaneGeometry(70,70),{ clipBias:0.003,
+  textureWidth:innerWidth*Math.min(devicePixelRatio,2), textureHeight:innerHeight*Math.min(devicePixelRatio,2), color:0x2a2e33 });
+mirror.rotation.x=-Math.PI/2; mirror.position.y=FY; scene.add(mirror);
+const gloss=new THREE.Mesh(new THREE.PlaneGeometry(70,70), new THREE.MeshStandardMaterial({ color:0x0c0e11, metalness:0.55, roughness:0.36, transparent:true, opacity:0.55 }));
+gloss.rotation.x=-Math.PI/2; gloss.position.y=FY+0.001; scene.add(gloss);
+const shadowCatcher=new THREE.Mesh(new THREE.PlaneGeometry(30,30), new THREE.ShadowMaterial({ opacity:0.4 }));
+shadowCatcher.rotation.x=-Math.PI/2; shadowCatcher.position.y=FY+0.003; shadowCatcher.receiveShadow=true; scene.add(shadowCatcher);
+const groundEls=[mirror,gloss,shadowCatcher]; groundEls.forEach(e=>e.visible=false);
+
+/* ---------- Particle mode ---------- */
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_c=new THREE.Vector3(),_ab=new THREE.Vector3(),_ac=new THREE.Vector3();
+function area(geo){ const p=geo.attributes.position; if(!p) return 0; let A=0; const idx=geo.index;
+  const tri=(i,j,k)=>{ _a.fromBufferAttribute(p,i);_b.fromBufferAttribute(p,j);_c.fromBufferAttribute(p,k);
+    _ab.subVectors(_b,_a);_ac.subVectors(_c,_a); A+=_ab.cross(_ac).length()*0.5; };
+  if(idx){ for(let i=0;i<idx.count;i+=3) tri(idx.getX(i),idx.getX(i+1),idx.getX(i+2)); }
+  else{ for(let i=0;i<p.count;i+=3) tri(i,i+1,i+2); } return A; }
+let particleCloud=null;
+function buildParticles(){
+  scene.updateMatrixWorld(true);
+  const items=[]; let tot=0; const tp=new THREE.Vector3(),tq=new THREE.Quaternion(),ts=new THREE.Vector3();
+  device.traverse(o=>{ if(!o.isMesh||!o.geometry||!o.geometry.attributes.position) return;
+    o.matrixWorld.decompose(tp,tq,ts); const sa=(Math.abs(ts.x)+Math.abs(ts.y)+Math.abs(ts.z))/3;
+    const A=area(o.geometry)*sa*sa; if(A>0){ items.push({o,A}); tot+=A; } });
+  const TARGET=120000, pos=[], col=[]; const p=new THREE.Vector3(), C=new THREE.Color(), blue=new THREE.Color(0x8fd0ff), white=new THREE.Color(0xffffff);
+  for(const {o,A} of items){ let n=Math.max(6,Math.round(TARGET*A/tot));
+    let smp; try{ smp=new MeshSurfaceSampler(o).build(); }catch(e){ continue; }
+    for(let i=0;i<n;i++){ smp.sample(p); p.applyMatrix4(o.matrixWorld);
+      C.copy(blue).lerp(white, Math.random()*0.6);
+      pos.push(p.x,p.y,p.z); col.push(C.r,C.g,C.b); } }
+  const bg=new THREE.BufferGeometry();
+  bg.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  bg.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  particleCloud=new THREE.Points(bg,new THREE.PointsMaterial({ size:parseFloat(psizeEl.value), vertexColors:true, sizeAttenuation:true, transparent:true, opacity:0.95, depthWrite:true }));
+  scene.add(particleCloud);
+}
+
+/* ---------- Modes / UI (deck-style clean blue wireframe) ---------- */
+const modeEl=document.getElementById('mode'), psizeEl=document.getElementById('psize'),
+      pcountEl=document.getElementById('pcount');
+const wireMat=new THREE.LineBasicMaterial({ color:0xffffff });
+const ghostMat=new THREE.MeshBasicMaterial({ color:0xffffff, wireframe:true, transparent:true, opacity:0.07 });
+function clearWire(){ device.traverse(o=>{ if(o.isMesh && o.userData._mat){ o.material=o.userData._mat; o.userData._mat=null; if(o.userData._edges) o.userData._edges.visible=false; } }); }
+function applyWire(){ device.traverse(o=>{ if(o.isMesh && !o.userData._mat && !o.userData._isEdge){ o.userData._mat=o.material; o.material=ghostMat;
+  if(!o.userData._edges){ const e=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,14), wireMat); e.userData._isEdge=true; o.add(e); o.userData._edges=e; }
+  o.userData._edges.visible=true; } }); }
+function setMode(mode){
+  if(!loaded){ return; }
+  clearWire(); device.visible=true; if(particleCloud) particleCloud.visible=false;
+  scene.background=null; groundEls.forEach(e=> e.visible=false); pcountEl.textContent='';
+  if(mode==='wireframe'){ applyWire(); }
+  else if(mode==='particles'){ if(!particleCloud){ pcountEl.textContent='sampling…'; buildParticles(); }
+    particleCloud.visible=true; device.visible=false;
+    pcountEl.textContent=particleCloud.geometry.attributes.position.count.toLocaleString()+' particles'; }
+}
+modeEl.onchange=()=>setMode(modeEl.value);
+psizeEl.oninput=()=>{ if(particleCloud) particleCloud.material.size=parseFloat(psizeEl.value); };
+
+/* embed overrides: url-configurable mode/fit/zoom/spin, auto-rotate, no interaction. Runs after the model loads. */
+function applyEmbed(){
+  const __q=new URLSearchParams(location.search);
+  scene.updateMatrixWorld(true);
+  const __fit=__q.get('fit');
+  if(__fit!==null){
+    const bb=new THREE.Box3().setFromObject(device);
+    const c=bb.getCenter(new THREE.Vector3());
+    controls.target.copy(c);
+    const dy=parseFloat(__q.get('dy')||'0');
+    controls.target.y+=dy*(bb.max.y-bb.min.y);
+    const vHalf=camera.fov*Math.PI/360, hHalf=Math.atan(Math.tan(vHalf)*camera.aspect);
+    const tanV=Math.tan(vHalf), tanH=Math.tan(hHalf);
+    let need=0; const v=new THREE.Vector3();
+    device.traverse(o=>{ if(o.isMesh&&o.geometry){
+      if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();
+      const b=o.geometry.boundingBox;
+      for(let i=0;i<8;i++){
+        v.set(i&1?b.max.x:b.min.x, i&2?b.max.y:b.min.y, i&4?b.max.z:b.min.z).applyMatrix4(o.matrixWorld);
+        const rxz=Math.hypot(v.x-c.x, v.z-c.z);
+        const dv=rxz+Math.abs(v.y-controls.target.y)/tanV, dh=rxz+rxz/tanH;
+        if(dv>need)need=dv; if(dh>need)need=dh;
+      }
+    }});
+    const dist=need*(parseFloat(__fit)||1);
+    const dir=camera.position.clone().sub(c).normalize();
+    camera.position.copy(controls.target).add(dir.multiplyScalar(dist));
+  }else{
+    const __ty=__q.get('ty'); if(__ty!==null){ controls.target.y=parseFloat(__ty); }
+    const __zoom=parseFloat(__q.get('zoom')||'1');
+    if(__zoom!==1){ camera.position.sub(controls.target).multiplyScalar(__zoom).add(controls.target); }
+  }
+  const __mode=__q.get('mode')||'wireframe';
+  modeEl.value=__mode; setMode(__mode);
+  controls.enabled=false; const __sp=parseFloat(__q.get('spin')||'1.4'); controls.autoRotate=__sp>0; controls.autoRotateSpeed=__sp>0?__sp:1;
+}
+
+addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+(function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene,camera); })();
+</script>
+</body>
+</html>

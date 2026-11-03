@@ -1,0 +1,72 @@
+/* Alerts layout and cascade ported from Sentinel-Marketing.html; colors scoped to this landing page. */
+.alerts-slot{grid-column:1/-1;min-width:0}
+#main #alerts{--bg:#000;--green:#AACC03;--blue:#C4E63C;--grey:#AEB7AB;--grey-dim:rgba(174,183,171,.6);font-family:inherit;font-size:16px;line-height:1.5;color:#F6F8F2;padding:clamp(5rem,10vw,9rem) 0;position:relative;scroll-margin-top:120px}
+#main #alerts *,#main #alerts *::before,#main #alerts *::after{box-sizing:border-box;margin:0;padding:0}
+#main #alerts .wrap{width:100%;max-width:none;margin:0;padding:0}
+#main #alerts h2{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-.025em;line-height:1.08;margin:0;max-width:9.4em}
+#main #alerts .grad{background:linear-gradient(120deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+#main #alerts .eyebrow{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--green);margin:0 0 1.1rem}
+#main #alerts .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+#main #alerts .reveal.in{opacity:1;transform:none}
+#main #alerts .reveal.d1{transition-delay:.08s}
+#main #alerts .reveal.d2{transition-delay:.16s}
+#main #alerts .reveal.d3{transition-delay:.24s}
+#main #alerts{background:linear-gradient(180deg,var(--bg),#080b0a 45%,var(--bg));}
+#main #alerts .alert-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.6rem;align-items:center;}
+#main #alerts .alert-steps{margin-top:2.2rem;display:flex;flex-direction:column;gap:1.15rem;}
+#main #alerts .astep{display:flex;align-items:flex-start;gap:1rem;}
+#main #alerts .astep .n{flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:900;color:#071002;background:linear-gradient(135deg,var(--green),var(--blue));margin-top:2px;}
+#main #alerts .astep .tx b{display:block;font-size:1.02rem;font-weight:800;color:#F6F8F2;}
+#main #alerts .astep .tx span{display:block;font-size:.92rem;color:var(--grey);margin-top:.2rem;line-height:1.45;}
+#main #alerts .alert-cta{margin-top:2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
+#main #alerts .abtn{font:inherit;font-size:.9rem;font-weight:800;padding:.7rem 1.35rem;border-radius:100px;cursor:pointer;
+  border:0;color:#071002;background:linear-gradient(135deg,var(--green),var(--blue));transition:transform .2s;}
+#main #alerts .abtn:hover{transform:translateY(-2px);}
+#main #alerts .ahint{font-size:.82rem;color:var(--grey-dim);}
+#main #alerts .phone-wrap{display:flex;justify-content:center;}
+#main #alerts .phone{position:relative;width:300px;aspect-ratio:9/19.2;border-radius:46px;cursor:pointer;
+  background:linear-gradient(160deg,#283024,#080b0a 42%,#20281e);
+  padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.07);}
+#main #alerts .phone::after{content:'';position:absolute;left:50%;bottom:9px;transform:translateX(-50%);
+  width:104px;height:4px;border-radius:4px;background:rgba(255,255,255,.32);z-index:6;}
+#main #alerts .screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 0%,#172014 0%,#080b0a 55%,#000000 100%);}
+#main #alerts .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:86px;height:25px;
+  border-radius:14px;background:#000;z-index:5;}
+#main #alerts .lock{position:absolute;top:52px;left:0;right:0;text-align:center;}
+#main #alerts .lock .day{font-size:.76rem;color:rgba(255,255,255,.62);letter-spacing:.04em;}
+#main #alerts .lock .clock{font-size:3.6rem;font-weight:300;color:#F6F8F2;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+#main #alerts .notes{position:absolute;left:11px;right:11px;top:170px;display:flex;flex-direction:column;gap:9px;}
+#main #alerts .note{display:flex;gap:9px;padding:.65rem .7rem;border-radius:17px;
+  background:rgba(246,248,242,.13);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(14px);
+  opacity:0;transform:translateY(26px) scale(.95);}
+#main #alerts .phone.on .note{animation:sentinelAlertNoteIn .62s cubic-bezier(.16,1,.3,1) forwards;}
+#main #alerts .phone.on .note:nth-child(1){animation-delay:.05s;}
+#main #alerts .phone.on .note:nth-child(2){animation-delay:.55s;}
+#main #alerts .phone.on .note:nth-child(3){animation-delay:1.15s;}
+@keyframes sentinelAlertNoteIn{to{opacity:1;transform:none;}}
+#main #alerts .note .ni{flex-shrink:0;width:31px;height:31px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:.82rem;font-weight:900;color:#071002;background:linear-gradient(135deg,var(--green),var(--blue));}
+#main #alerts .note.warn .ni{background:linear-gradient(135deg,#FF6B5E,#FF3B30);color:#fff;}
+#main #alerts .note .nb{min-width:0;flex:1;}
+#main #alerts .note .nt{display:flex;justify-content:space-between;gap:.4rem;font-size:.66rem;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+#main #alerts .note .nt em{font-style:normal;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:0;text-transform:none;}
+#main #alerts .note .nh{font-size:.8rem;font-weight:700;color:#F6F8F2;margin-top:.18rem;line-height:1.25;}
+#main #alerts .note .np{font-size:.74rem;color:rgba(255,255,255,.66);margin-top:.1rem;line-height:1.3;}
+#main #alerts .note .thumb{margin-top:.42rem;height:52px;border-radius:9px;background-size:cover;background-position:center;
+  border:1px solid rgba(255,255,255,.16);position:relative;}
+#main #alerts .note .thumb::after{content:'▶';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:.62rem;color:#F6F8F2;background:rgba(0,0,0,.5);width:19px;height:19px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;}
+#main #alerts .tapme{position:absolute;left:0;right:0;bottom:58px;text-align:center;font-size:.72rem;
+  color:rgba(255,255,255,.42);letter-spacing:.1em;transition:opacity .4s;}
+#main #alerts .phone.on .tapme{opacity:0;}
+@media(max-width:900px){#main #alerts .alert-grid{grid-template-columns:1fr;}
+#main #alerts .phone{width:270px;}}
+#main #alerts :is(.abtn,.phone):focus-visible{outline:2px solid var(--green);outline-offset:5px}
+#main #alerts.is-reduced .reveal{opacity:1;transform:none;transition:none}
+#main #alerts.is-reduced .phone.on .note{animation:none;opacity:1;transform:none}
+#main #alerts.is-reduced .tapme{transition:none}
+#main #alerts.is-reduced .abtn:hover{transform:none}

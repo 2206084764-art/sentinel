@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — Global Pilots &amp; Proof</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#050810;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;--amber:#FFC53D;
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);
+  --epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.82) 100%);}
+
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;color:var(--green);padding-bottom:.5cqh;border-bottom:1px solid rgba(42,245,152,.3);text-shadow:0 0 10px rgba(42,245,152,.35);}
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--green),var(--blue));box-shadow:0 0 1.5cqh rgba(42,245,152,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.layer{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;}
+#canvas[data-step="1"] .l-reach{opacity:1;visibility:visible;}
+#canvas[data-step="2"] .l-caught{opacity:1;visibility:visible;}
+#canvas[data-step="3"] .l-story{opacity:1;visibility:visible;}
+#canvas[data-step="4"] .l-ledger{opacity:1;visibility:visible;}
+
+.pg{z-index:5;padding:9.5cqh 8cqh 8cqh;display:flex;flex-direction:column;justify-content:center;}
+.p-head{font-size:3.8cqh;font-weight:900;letter-spacing:-.09cqh;line-height:1.08;opacity:0;transform:translateY(13px);transition:all .8s var(--apple) .2s;}
+.p-head .grad{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.p-head .rd{color:var(--red);}
+.p-sub{font-size:1.6cqh;color:var(--grey);margin-top:1.1cqh;max-width:112cqh;line-height:1.5;opacity:0;transform:translateY(11px);transition:all .8s var(--apple) .35s;}
+.p-sub b{color:#fff;}
+#canvas[data-step] .p-head,#canvas[data-step] .p-sub{opacity:1;transform:translateY(0);}
+
+/* ---------- page 1 : global reach ---------- */
+.big3{display:flex;gap:2.2cqh;margin-top:3.2cqh;}
+.b3{flex:1;padding:2.2cqh 2.4cqh;border-radius:1.6cqh;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.022);backdrop-filter:blur(10px);opacity:0;transform:translateY(14px);transition:opacity .8s var(--apple) var(--d,.5s),transform .8s var(--apple) var(--d,.5s);}
+#canvas[data-step="1"] .b3{opacity:1;transform:translateY(0);}
+.b3 .v{font-size:4.6cqh;font-weight:900;letter-spacing:-.12cqh;line-height:1;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.b3 .v small{font-size:2cqh;font-weight:800;}
+.b3 .k{font-size:1.45cqh;font-weight:800;color:#fff;margin-top:1cqh;}
+.b3 .s{font-size:1.15cqh;color:var(--grey);margin-top:.4cqh;line-height:1.35;}
+.b3.hot{border-color:rgba(42,245,152,.4);background:linear-gradient(135deg,rgba(42,245,152,.09),rgba(42,245,152,.02));}
+
+.regions{display:flex;gap:1.6cqh;margin-top:2.6cqh;}
+.rg{flex:1;padding:1.5cqh 1.7cqh;border-radius:1.2cqh;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.02);opacity:0;transform:translateY(12px);transition:opacity .7s var(--apple) var(--d,1s),transform .7s var(--apple) var(--d,1s);}
+#canvas[data-step="1"] .rg{opacity:1;transform:translateY(0);}
+.rg .rn{font-size:1.3cqh;font-weight:800;letter-spacing:1.6px;color:var(--grey);}
+.rg .rv{font-size:1.95cqh;font-weight:900;color:#fff;margin-top:.7cqh;}
+.rg .ro{font-size:1.15cqh;font-weight:800;color:var(--green);margin-top:.5cqh;}
+.rg.lead{border-color:rgba(42,245,152,.35);background:rgba(42,245,152,.05);}
+
+.aug{margin-top:2.8cqh;padding:1.7cqh 2.2cqh;border-radius:1.3cqh;border:1px solid rgba(255,197,61,.32);background:linear-gradient(135deg,rgba(255,197,61,.08),rgba(255,197,61,.02));opacity:0;transition:opacity .8s ease 1.6s;}
+#canvas[data-step="1"] .aug{opacity:1;}
+.aug .at{font-size:1.35cqh;font-weight:800;color:var(--amber);letter-spacing:.4px;}
+.aug .an{display:flex;gap:2.4cqh;margin-top:1.1cqh;flex-wrap:wrap;}
+.aug .an span{font-size:1.25cqh;color:rgba(255,255,255,.8);}
+.aug .an span b{color:#fff;font-weight:800;}
+
+/* ---------- page 2 : the captures ---------- */
+.capwrap{display:flex;gap:3.4cqh;align-items:center;margin-top:2.8cqh;}
+.capgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1cqh;flex:0 0 96cqh;}
+.cap{position:relative;aspect-ratio:16/9;border-radius:.9cqh;overflow:hidden;border:1px solid rgba(255,59,48,.3);background:#0a0e16;opacity:0;transform:scale(.96);transition:opacity .6s var(--apple) var(--d,.5s),transform .6s var(--apple) var(--d,.5s);}
+#canvas[data-step="2"] .cap{opacity:1;transform:scale(1);}
+.cap img{width:100%;height:100%;object-fit:cover;}
+.cap::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 2.4cqh rgba(0,0,0,.5);}
+.capnote{flex:1;display:flex;flex-direction:column;gap:2.2cqh;opacity:0;transition:opacity .8s ease 1.5s;}
+#canvas[data-step="2"] .capnote{opacity:1;}
+.cn{display:flex;align-items:flex-start;gap:1cqh;font-size:1.45cqh;line-height:1.45;color:rgba(255,255,255,.72);}
+.cn i{margin-top:.5cqh;}
+.cn i{width:1.1cqh;height:1.1cqh;border-radius:50%;background:var(--red);box-shadow:0 0 1.2cqh rgba(255,59,48,.6);flex-shrink:0;}
+.cn b{color:#fff;font-weight:800;}
+
+/* ---------- pages 3 & 4 : video + panel ---------- */
+.vrow{display:flex;gap:3cqh;margin-top:2.8cqh;align-items:center;}
+.vbox{position:relative;flex:0 0 74cqh;align-self:center;aspect-ratio:16/9;border-radius:1.6cqh;overflow:hidden;border:1px solid rgba(255,255,255,.13);box-shadow:0 2.4cqh 6cqh rgba(0,0,0,.6);background:#05080f;opacity:0;transform:translateY(16px);transition:all .9s var(--apple) .5s;}
+#canvas[data-step="3"] .l-story .vbox,#canvas[data-step="4"] .l-ledger .vbox{opacity:1;transform:translateY(0);}
+.vbox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease;}
+.vbox video.playing{opacity:1;}
+.vbox .vposter{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.8);}
+.vbox .vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:8cqh;height:8cqh;border-radius:50%;border:2px solid rgba(255,255,255,.75);background:rgba(5,8,16,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:2.6cqh;padding-left:.5cqh;z-index:3;transition:opacity .45s ease;animation:pp 1.9s ease infinite;}
+@keyframes pp{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.08)}}
+.vbox video.playing ~ .vplay{opacity:0;}
+.vbox .vtag{position:absolute;left:1.8cqh;bottom:1.8cqh;z-index:4;display:flex;align-items:center;gap:.9cqh;font-size:1.2cqh;font-weight:800;letter-spacing:1.4px;color:#fff;background:rgba(5,8,16,.72);border:1px solid rgba(255,59,48,.5);padding:.65cqh 1.4cqh;border-radius:30px;}
+.vbox .vtag i{width:1cqh;height:1cqh;border-radius:50%;background:var(--red);animation:bl 1.4s ease infinite;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
+.vside{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
+
+/* story steps */
+.step{display:flex;gap:1.5cqh;margin-bottom:1.9cqh;opacity:0;transform:translateX(18px);transition:opacity .7s var(--apple) var(--d,.8s),transform .7s var(--apple) var(--d,.8s);}
+#canvas[data-step="3"] .step{opacity:1;transform:translateX(0);}
+.step .n{flex-shrink:0;width:3.2cqh;height:3.2cqh;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.35cqh;font-weight:900;color:#04121a;background:linear-gradient(135deg,var(--green),var(--blue));}
+.step .tx b{display:block;font-size:1.6cqh;font-weight:800;color:#fff;line-height:1.2;}
+.step .tx span{display:block;font-size:1.25cqh;color:var(--grey);margin-top:.35cqh;line-height:1.4;}
+.poster{margin-top:.6cqh;display:flex;align-items:center;gap:1.4cqh;padding:1.2cqh;border-radius:1.1cqh;border:1px solid rgba(42,245,152,.3);background:rgba(42,245,152,.05);opacity:0;transition:opacity .8s ease 1.9s;}
+#canvas[data-step="3"] .poster{opacity:1;}
+.poster img{width:9cqh;height:auto;max-height:11cqh;object-fit:contain;border-radius:.5cqh;}
+.poster .pt{font-size:1.25cqh;color:rgba(255,255,255,.8);line-height:1.4;}
+.poster .pt b{display:block;color:var(--green);font-weight:800;font-size:1.35cqh;margin-bottom:.3cqh;}
+
+/* ---------- page 4 : the ledger ---------- */
+.ba{display:flex;gap:1.6cqh;}
+.bacard{flex:1;padding:1.5cqh 1.7cqh;border-radius:1.2cqh;border:1px solid;opacity:0;transform:translateY(12px);transition:opacity .7s var(--apple) var(--d,.7s),transform .7s var(--apple) var(--d,.7s);}
+#canvas[data-step="4"] .bacard{opacity:1;transform:translateY(0);}
+.bacard.before{border-color:rgba(255,59,48,.38);background:rgba(255,59,48,.05);}
+.bacard.after{border-color:rgba(42,245,152,.4);background:rgba(42,245,152,.05);}
+.bacard .bt{font-size:1.15cqh;font-weight:800;letter-spacing:1.6px;margin-bottom:1cqh;}
+.bacard.before .bt{color:var(--red);} .bacard.after .bt{color:var(--green);}
+.bacard .bv{font-size:3.1cqh;font-weight:900;line-height:1;color:#fff;}
+.bacard .bv em{font-style:normal;font-size:1.5cqh;font-weight:800;color:rgba(255,255,255,.6);}
+.bacard .bs{font-size:1.15cqh;color:var(--grey);margin-top:.7cqh;line-height:1.4;}
+.gains{display:flex;gap:1.4cqh;margin-top:1.8cqh;}
+.gn{flex:1;text-align:center;padding:1.3cqh .8cqh;border-radius:1.1cqh;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.022);opacity:0;transform:translateY(12px);transition:opacity .7s var(--apple) var(--d,1.2s),transform .7s var(--apple) var(--d,1.2s);}
+#canvas[data-step="4"] .gn{opacity:1;transform:translateY(0);}
+.gn .gv{font-size:2.3cqh;font-weight:900;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;}
+.gn .gk{font-size:1.05cqh;color:var(--grey);margin-top:.6cqh;line-height:1.3;}
+.foot4{margin-top:1.8cqh;font-size:1.2cqh;color:var(--grey-dim);opacity:0;transition:opacity .8s ease 1.8s;}
+#canvas[data-step="4"] .foot4{opacity:1;}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl" id="lbl">— 12 · PROVEN IN THE FIELD —</div></div>
+
+  <!-- ============ PAGE 1 : global reach ============ -->
+  <div class="layer l-reach pg">
+    <div class="p-head">Not a concept. <span class="grad">Already earning orders.</span></div>
+    <div class="p-sub">Sentinel is still pre-launch — yet <b>21 customers across five regions</b> are running it on real fleets, and some have already paid for units of a product that hasn't shipped.</div>
+
+    <div class="big3">
+      <div class="b3" style="--d:.5s">
+        <div class="v">25<small> units</small></div>
+        <div class="k">In POC today</div>
+        <div class="s">21 customers · North America, Europe, LatAm, Middle East, Africa</div>
+      </div>
+      <div class="b3 hot" style="--d:.65s">
+        <div class="v">67<small> units</small></div>
+        <div class="k">Firm orders already placed</div>
+        <div class="s">Africa and the Middle East ordered first — before launch</div>
+      </div>
+      <div class="b3" style="--d:.8s">
+        <div class="v">3,800<small>+ units</small></div>
+        <div class="k">High-potential pipeline</div>
+        <div class="s">Counted to date · led by Africa and the Middle East</div>
+      </div>
+    </div>
+
+    <div class="regions">
+      <div class="rg" style="--d:1s"><div class="rn">NORTH AMERICA</div><div class="rv">2 · 2 units</div></div>
+      <div class="rg" style="--d:1.1s"><div class="rn">EUROPE</div><div class="rv">3 · 4 units</div></div>
+      <div class="rg" style="--d:1.2s"><div class="rn">LATIN AMERICA</div><div class="rv">5 · 5 units</div></div>
+      <div class="rg lead" style="--d:1.3s"><div class="rn">MIDDLE EAST</div><div class="rv">2 · 3 units</div><div class="ro">★ 10 ordered</div></div>
+      <div class="rg lead" style="--d:1.4s"><div class="rn">AFRICA</div><div class="rv">9 · 11 units</div><div class="ro">★ 57 ordered</div></div>
+    </div>
+
+    <div class="aug">
+      <div class="at">AUGUST · pilots expand to 49 customers / 61 units — with world-scale fleets queuing up to test:</div>
+      <div class="an">
+        <span><b>PEMEX</b> — Mexico national oil</span>
+        <span><b>FEMSA</b> — beverage logistics</span>
+        <span><b>Sigma Foods</b> — cold chain</span>
+        <span><b>Petronas</b> — Malaysia national oil</span>
+        <span><b>Petrolimex</b> — Vietnam fuels</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 2 : real captures ============ -->
+  <div class="layer l-caught pg">
+    <div class="p-head">Real thefts. <span class="rd">Caught on Sentinel.</span></div>
+    <div class="p-sub">One quarter of piloting has already caught <b>multiple genuine fuel-theft events</b> for customers across Africa — every frame stamped with time, plate and GPS.</div>
+
+    <div class="capwrap">
+    <div class="capgrid">
+      <div class="cap" style="--d:.5s"><img src="Images/cases/cap1.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.56s"><img src="Images/cases/cap2.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.62s"><img src="Images/cases/cap3.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.68s"><img src="Images/cases/cap4.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.74s"><img src="Images/cases/cap5.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.8s"><img src="Images/cases/cap6.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.86s"><img src="Images/cases/cap7.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.92s"><img src="Images/cases/cap8.jpg" alt="Fuel theft caught on camera"></div>
+      <div class="cap" style="--d:.98s"><img src="Images/cases/cap9.jpg" alt="Fuel theft caught on camera"></div>
+    </div>
+
+    <div class="capnote">
+      <div class="cn"><i></i><span><b>Multiple customers · multiple scenarios</b> — tanker roof, night, depot yards</span></div>
+      <div class="cn"><i></i><span>Every capture carries a <b>timestamp and GPS fix</b> — evidence, not just an alert</span></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 3 : the Ampenet story ============ -->
+  <div class="layer l-story pg">
+    <div class="p-head">Two units in. <span class="grad">Then the customer started selling for us.</span></div>
+    <div class="p-sub">Ampenet · Tanzania — from first catch to building their own Sentinel launch poster.</div>
+
+    <div class="vrow">
+      <div class="vbox">
+        <div class="vposter" style="background-image:url('Images/cases/cap1.jpg')"></div>
+        <video src="Videos/case-ampenet.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="vplay">▶</div>
+        <div class="vtag"><i></i>CAUGHT ON SENTINEL · EMPLOYEE SIPHONING</div>
+      </div>
+      <div class="vside">
+        <div class="step" style="--d:.8s"><div class="n">1</div><div class="tx"><b>2 units on test</b><span>One month on the vehicle — caught an employee siphoning fuel.</span></div></div>
+        <div class="step" style="--d:.95s"><div class="n">2</div><div class="tx"><b>Order raised to 17 units</b><span>Sold out to their own end customers before the stock even landed.</span></div></div>
+        <div class="step" style="--d:1.1s"><div class="n">3</div><div class="tx"><b>+50 more expected in August</b><span>Repeat volume, still pre-launch.</span></div></div>
+        <div class="poster">
+          <img src="Images/cases/poster-ampenet.jpg" alt="Ampenet's own Sentinel launch poster">
+          <div class="pt"><b>4 · They built their own launch poster</b>The customer now markets Sentinel to their market for us.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 4 : the ledger ============ -->
+  <div class="layer l-ledger pg">
+    <div class="p-head">One truck's ledger: <span class="grad">$206 a month → $5.</span></div>
+    <div class="p-sub">Texas · Kenya — measured on a single truck in their end customer's fleet, and confirmed by the customer.</div>
+
+    <div class="vrow">
+      <div class="vbox">
+        <div class="vposter" style="background-image:url('Images/cases/cap6.jpg')"></div>
+        <video src="Videos/case-caught.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="vplay">▶</div>
+        <div class="vtag"><i></i>AFTER INSTALL · THEFT CAUGHT IN THE ACT</div>
+      </div>
+      <div class="vside">
+        <div class="ba">
+          <div class="bacard before" style="--d:.7s">
+            <div class="bt">6 MONTHS BEFORE S5</div>
+            <div class="bv">26 <em>thefts</em></div>
+            <div class="bs">929 L stolen · <b style="color:#fff">$1,235.6</b> lost<br>≈ 4.33 thefts · 155 L · $206 every month</div>
+          </div>
+          <div class="bacard after" style="--d:.85s">
+            <div class="bt">4 MONTHS AFTER S5</div>
+            <div class="bv">2 <em>thefts</em></div>
+            <div class="bs">16 L stolen · <b style="color:#fff">$21</b> lost<br>≈ 0.5 thefts · 4 L · $5 every month</div>
+          </div>
+        </div>
+        <div class="gains">
+          <div class="gn" style="--d:1.2s"><div class="gv">↓88%</div><div class="gk">theft rate</div></div>
+          <div class="gn" style="--d:1.3s"><div class="gv">↓97%</div><div class="gk">loss per month</div></div>
+          <div class="gn" style="--d:1.4s"><div class="gv">$201</div><div class="gk">saved / month</div></div>
+          <div class="gn" style="--d:1.5s"><div class="gv">2 mo</div><div class="gk">payback</div></div>
+          <div class="gn" style="--d:1.6s"><div class="gv">603%</div><div class="gk">annual return</div></div>
+        </div>
+        <div class="foot4">Two documented March thefts alone — 98.55 L and 246.94 L — cost over $500. The fleet already ran a fuel-level sensor; it never caught the 5–6 L siphons. Return calculated at a $400 end price: $400 in, $2,412 saved per year.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → keys · click to play</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=4;let cur=1;
+const meta={
+  1:{t:"— 12 · PROVEN IN THE FIELD —"},
+  2:{t:"— CAUGHT IN THE ACT —"},
+  3:{t:"— THE AMPENET STORY —"},
+  4:{t:"— THE ECONOMICS —"}
+};
+document.querySelectorAll('video').forEach(v=>v.addEventListener('timeupdate',function on(){if(v.currentTime>0.05){v.classList.add('playing');v.removeEventListener('timeupdate',on);}}));
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+function render(){
+  canvas.setAttribute('data-step',cur);
+  lbl.textContent=meta[cur].t;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){} } }
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){} } }
+/* click plays the gated video on the page showing one — it never navigates */
+const vidStory=document.querySelector('.l-story video'), vidLedger=document.querySelector('.l-ledger video');
+let started={3:false,4:false};
+document.addEventListener('click',()=>{
+  const v = cur===3?vidStory : cur===4?vidLedger : null;
+  if(v && !started[cur]){ started[cur]=true; try{v.play();}catch(_){} }
+});
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+slide=5, state=player state playing, position_ms=2839
+slide=7, state=player state playing, position_ms=2987
+slide=9, state=player state playing, position_ms=2976
+slide=10, state=player state playing, position_ms=3017
+slide=12, state=player state playing, position_ms=2964
+slide=16, state=player state playing, position_ms=2949
+backward_navigation_slide=15
+forward_navigation_slide=16
+native_question_effects=3
+text_edit_confirmed=true
+disk_file_preserved=true
+reopened=Sentinel_S5_Webinar_Mac_Animated_Demo.pptx
+

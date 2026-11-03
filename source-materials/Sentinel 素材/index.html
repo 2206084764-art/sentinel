@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Sentinel Webinar | Always-On Vehicle Security | Streamax</title>
+<meta name="description" content="Explore Streamax Sentinel and discover Always-On Video, AI-powered detection, and vehicle security applications in our upcoming webinar.">
+<meta property="og:type" content="website"><meta property="og:title" content="Sentinel Webinar | Streamax"><meta property="og:description" content="Beyond the Ignition. Explore Always-On Video and AI-powered vehicle security."><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/outfit-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/company-chrome.css"><link rel="stylesheet" href="assets/css/site.css">
+</head><body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="intro" id="intro" hidden aria-label="Sentinel cinematic introduction">
+  <div class="intro-top"><span>STREAMAX PRESENTS</span><div><a href="#registration" class="intro-register" data-register>REGISTER NOW</a><button type="button" id="skip-intro">SKIP INTRO <span aria-hidden="true">↗</span></button></div></div>
+  <div class="scene intro-globe" id="intro-globe" data-scene="globe-only.html" data-title="Three-dimensional particle globe"></div>
+  <div class="intro-caption"><p id="intro-line">A new perspective on protection.</p><span>SENTINEL</span></div>
+</div>
+<canvas id="energy-canvas" aria-hidden="true"></canvas>
+<header class="header" id="streamaxHeader">
+<div class="wrap1600 cf">
+<div class="logo flex alignCenter"><a aria-label="Streamax home" href="https://www.streamax.com/"><img alt="Streamax" class="only_logo" src="data:image/webp;base64,UklGRvYEAABXRUJQVlA4WAoAAAAQAAAAkwAAEAAAQUxQSJsDAAABoEXbtmk7mrFt27Zt27Zt27Zt28a9ebHt1FPOje3xcfRK/xExASq9x//jV8fdpBUfPryKr//zirgeK+0DEv2v3QemlCnlsHQyaT18j/m/9hlOyfVK+B7WJtx/WqgYIRTzPSx009rjgz8XvZZ3akkpxh/2eM1+DVRhy8UrV69ZXr28r5Wkpl7HntOri0nKtfSUx+v1ej0ej8fr9XrObKwidfM69pxallOh2jy74/FsT+kgy16P596j+p9hkZsNOI+jZj+wT5EFt/OlxbgurRKEZHvtxHUuRRwD8LmJTbs/AAPDfoC7YVzk73YZfg3qau6WQcUBdvfu2rVrt9a6Cuzv1N6y1xOgpHJ16WzfqfsR4IpuALu7duq8ENjVuVPnhQCx8nbpbN+p5zngpKR0XoBFoSRFXANwJKm0B3i4ZOEi88L50ypJ0iL4JvvHQFtZxwSuyD7KZ1ght1fgZaK/4JIkZQGaS9IKoKhcPoZgmScC3MmlKt8AhkpSyre4nCppI3xPYJMNOCjbhL9glQN9hM2u1kBgukewxFQZ6GdqGxL7wT+USZVfArTM6g/PSsgywcgVq9aYV6/eDZDHTS+gmV3877BOxatWqVKlSuUGl4HakupvP3nKeoXpRZonsMZFT6CU1HL3KduZOgjPZR1r+29gYqI9hyMpJNsD49xsBVI7WyScbpU0HadaDC/SP3XXAyikFTj8o93wIpSVtBngvEI4CjBD2uToJTyVfbxvsFwnAgODAv39/3p2bbikEkDQ6AEDzW20Hp5neuauJxAvG/Bo5ICB5sY67Gi0D9idefzkkIkLTJa2wreoVrmAhQ4S/IAVCmWW/Vr4HE/26+FF1uchk2wmGGFlfwD8rdKdA5icZTMcThwSWYAR0gr4Hc+qH1DbQRzgjNyug49yeBaCsr+A1S56AKlmwV9yeBuCZW71A/hcT7UB3tcx5S1U0GGFa0BJqRLgV6dMmUoxtQN+xXAQyh+YU66Uw9LJVQs4XaOMZYX5wMXo72Cli+5AwiLA3qplLCutAa5JCrsC4HgKSZn8AGZJwvVxSVqLdczQwE05bY7radIB3JYTsN1UCxhhGgiUlR9uq0jV3gOMkPVkgMAyCvzh9Ovbu5Nk2e1c4OvXb/Yq63vDGOBI7S4F+96+e+uwh6RRt4w3by3f+IIvtlUCn2HMMZU1DKOLqZ1hGFUUeso9481byzdGkLeeQrV8j8+4WVL21e4bPnx1AABWUDggNAEAAJAIAJ0BKpQAEQA+GQyFQaEEzSAEAGEsoA6QD9QKUB+FduAbwB1gHoAfoB1onmAfzYmXRqVyD/oXTJmwxmDhg1cRChq1MURAwDTYdPQAAP7/e7MFYI2wuzTzQ4qFolm9haPWf41eV1ml4jdE5zM9ezeDA8Pj183uia3qsDDPV7tbbveP1Q0VH/cbjRO05hp/7ff//yspmf21mdK1wXro02gwXLnyfOLetMEJ31uj++m8q//8X9wcj2lH9QYprVtMxZUK6oav4X8sLXBSsG/eH8+aEbxHNxx0iSr/QrVrdNH9dEtFTBz/6MT+Gsd6vTSvwuRel4f5sXpQ+bv5og+ysP4MImZ4T7GF+b6a/0Jx11LWp1MQZX/l4Jln5EI/LwTQJp3EYL/8IH+YuTuiD5x7oA+T7gAA"/></a></div>
+<div class="right cf">
+<nav class="nav_con">
+<ul class="nav cf">
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/"><q>Home</q></a></div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/solutions.html" target="_self"><q>Solutions</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a>
+<a class="fnt16" href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/products.html" target="_self"><q>Products</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/products.html" target="_self">About Product</a>
+<a class="fnt16" href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/products.html" target="_self">About Product</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/technology.html" target="_self"><q>Technology</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+</div>
+<div class="mo_nav cf">
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/resources/blog.html" target="_self"><q>Resources</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a>
+<a class="fnt16" href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a>
+<a class="fnt16" href="https://www.streamax.com/resources/case.html" target="_self">Cases</a>
+<a class="fnt16" href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/case.html" target="_self">Cases</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+<li>
+<div class="TWnav"><a href="https://www.streamax.com/category/about.html" target="_self"><q>About</q><span></span></a><div class="TWnavBtn"></div></div>
+<div class="erNav">
+<a class="fnt16" href="https://www.streamax.com/category/about.html" target="_self">About Us</a>
+<a class="fnt16" href="https://www.streamax.com/about/events.html" target="_self">Events</a>
+</div>
+<div class="mo_nav cf">
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/category/about.html" target="_self">About Us</a><div class="THnavBtn"></div></div>
+</div>
+<div class="p">
+<div class="THnav"><a href="https://www.streamax.com/about/events.html" target="_self">Events</a><div class="THnavBtn"></div></div>
+</div>
+</div>
+</li>
+</ul>
+<div class="nav-submenu__cover"></div>
+</nav>
+<div class="lang_search flex alignCenter">
+<div class="lang cf mode_btn flex justifyCenter">
+<a href="https://www.streamax.com/category/contactform.html">
+<span>Get in Touch</span>
+<div class="frame-animation"></div>
+</a>
+</div>
+<div class="change">
+<svg class="icon" height="256" p-id="2883" t="1764158970741" version="1.1" viewbox="0 0 1024 1024" width="256" xmlns="http://www.w3.org/2000/svg"><path d="M523.377778 955.733333C278.755556 955.733333 79.644444 756.622222 79.644444 512c0-244.622222 199.111111-443.733333 443.733334-443.733333S967.111111 267.377778 967.111111 512c0 244.622222-199.111111 443.733333-443.733333 443.733333z m0-849.54074C299.614815 106.192593 117.57037 288.237037 117.57037 512c0 223.762963 182.044444 405.807407 405.807408 405.807407C747.140741 917.807407 929.185185 735.762963 929.185185 512c0-223.762963-182.044444-405.807407-405.807407-405.807407z" fill="" p-id="2884"></path><path d="M523.377778 955.733333c-127.051852 0-225.659259-195.318519-225.659259-443.733333 0-248.414815 98.607407-443.733333 225.659259-443.733333S749.037037 263.585185 749.037037 512c0 248.414815-100.503704 443.733333-225.659259 443.733333z m0-849.54074c-102.4 0-187.733333 185.837037-187.733334 405.807407 0 219.97037 85.333333 405.807407 187.733334 405.807407s187.733333-185.837037 187.733333-405.807407c0-219.97037-87.22963-405.807407-187.733333-405.807407z" fill="" p-id="2885"></path><path d="M523.377778 352.711111c-117.57037 0-235.140741-30.340741-339.437037-87.22963-9.481481-5.688889-13.274074-17.066667-7.585185-26.548148 5.688889-9.481481 17.066667-13.274074 26.548148-7.585185 96.711111 53.096296 208.592593 81.540741 320.474074 81.540741 113.777778 0 223.762963-28.444444 322.37037-83.437037 9.481481-5.688889 20.859259-1.896296 26.548148 7.585185 5.688889 9.481481 1.896296 20.859259-7.585185 26.548148-104.296296 58.785185-221.866667 89.125926-341.333333 89.125926zM197.214815 805.925926c-7.585185 0-13.274074-3.792593-17.066667-9.481482-5.688889-9.481481-1.896296-20.859259 7.585185-26.548148 102.4-54.992593 218.074074-85.333333 333.748148-85.333333 115.674074 0 231.348148 28.444444 333.748149 83.437037 9.481481 5.688889 13.274074 17.066667 7.585185 26.548148-5.688889 9.481481-17.066667 13.274074-26.548148 7.585185-96.711111-53.096296-204.8-79.644444-314.785186-79.644444-109.985185 0-219.97037 28.444444-316.681481 79.644444-1.896296 3.792593-3.792593 3.792593-7.585185 3.792593z" fill="" p-id="2886"></path><path d="M948.148148 534.755556H98.607407c-11.377778 0-18.962963-7.585185-18.962963-18.962963s7.585185-18.962963 18.962963-18.962963H948.148148c11.377778 0 18.962963 7.585185 18.962963 18.962963s-9.481481 18.962963-18.962963 18.962963z" fill="" p-id="2887"></path></svg>
+<div class="change_con">
+<a href="https://cn.streamax.com/" target="_blank">中文</a>
+<a href="https://streamax.com/jp" target="_blank">日本語</a>
+<a href="https://streamax.com/es" target="_blank">Español</a>
+<a href="https://streamax.com/pt" target="_blank">Português</a>
+</div>
+</div>
+<div class="search cf" style="display:none;">
+<a href="javascript:;"><svg p-id="9567" t="1755748336078" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M415.59889935 818.40673751c-103.69194019 0-207.38388041-39.48836529-286.31642412-118.42090898-157.86508737-157.87981634-157.86508737-414.78248979 0-572.66230613 157.85035841-157.85035841 414.76776082-157.90927428 572.64757719 0 157.86508737 157.87981634 157.86508737 414.78248979 0 572.66230613-78.93254368 78.93254368-182.63921287 118.42090898-286.33115307 118.42090898z m0-725.22496474c-82.09927197 0-164.21327292 31.25487175-226.70828746 93.74988629-125.00475803 125.00475803-125.00475803 328.44127481 0 453.44603281 125.01948701 124.9753001 328.41181686 125.03421596 453.43130386 0 125.00475803-125.00475803 125.00475803-328.44127481 0-453.44603281-62.5097435-62.49501453-144.60901547-93.74988627-226.7230164-93.74988629z" fill="#333333" p-id="9568"></path><path d="M973.48804978 1013.69813456c-10.78160515 0-21.57793927-4.10938229-29.79670383-12.34287584L658.31757585 715.95203069c-16.46698708-16.46698708-16.46698708-43.14114955 0-59.60813666s43.14114955-16.46698708 59.60813665 0l285.37377009 285.38849908c16.46698708 16.46698708 16.46698708 43.14114955 0 59.60813663a42.07329932 42.07329932 0 0 1-29.81143281 12.35760482z" fill="#333333" p-id="9569"></path></svg></a>
+</div>
+</div>
+<div class="nav_btn"><span></span></div>
+</div>
+</div>
+<div class="search-drop-down">
+<div class="search-wrapper">
+<span><a href="javascript:;" id="search-btn"><svg p-id="9567" t="1755748336078" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M415.59889935 818.40673751c-103.69194019 0-207.38388041-39.48836529-286.31642412-118.42090898-157.86508737-157.87981634-157.86508737-414.78248979 0-572.66230613 157.85035841-157.85035841 414.76776082-157.90927428 572.64757719 0 157.86508737 157.87981634 157.86508737 414.78248979 0 572.66230613-78.93254368 78.93254368-182.63921287 118.42090898-286.33115307 118.42090898z m0-725.22496474c-82.09927197 0-164.21327292 31.25487175-226.70828746 93.74988629-125.00475803 125.00475803-125.00475803 328.44127481 0 453.44603281 125.01948701 124.9753001 328.41181686 125.03421596 453.43130386 0 125.00475803-125.00475803 125.00475803-328.44127481 0-453.44603281-62.5097435-62.49501453-144.60901547-93.74988627-226.7230164-93.74988629z" fill="#ffffff" p-id="9568"></path><path d="M973.48804978 1013.69813456c-10.78160515 0-21.57793927-4.10938229-29.79670383-12.34287584L658.31757585 715.95203069c-16.46698708-16.46698708-16.46698708-43.14114955 0-59.60813666s43.14114955-16.46698708 59.60813665 0l285.37377009 285.38849908c16.46698708 16.46698708 16.46698708 43.14114955 0 59.60813663a42.07329932 42.07329932 0 0 1-29.81143281 12.35760482z" fill="#ffffff" p-id="9569"></path></svg></a></span>
+<div class="search-input">
+<input autocomplete="off" id="search" name="question" placeholder="Search..." type="text"/>
+<div class="errorMsg">检测到并清除了危险字符！</div>
+</div>
+<span id="close"><svg p-id="10614" t="1755765834589" version="1.1" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M585.412525 512.594747L973.601616 124.418586c19.600808-19.600808 19.600808-51.898182 0-71.49899l-2.120404-2.120404c-19.600808-19.600808-51.898182-19.600808-71.49899 0L511.793131 439.518384 123.61697 50.799192c-19.600808-19.600808-51.898182-19.600808-71.49899 0l-2.120404 2.120404c-20.11798 19.600808-20.11798 51.898182 0 71.49899l388.189091 388.189091L49.997576 900.783838c-19.587879 19.600808-19.587879 51.898182 0 71.49899l2.120404 2.120404c19.600808 19.600808 51.898182 19.600808 71.49899 0L511.793131 586.214141l388.189091 388.176162c19.600808 19.600808 51.898182 19.600808 71.49899 0l2.120404-2.120404c19.600808-19.600808 19.600808-51.898182 0-71.49899L585.412525 512.594747z m0 0" fill="#ffffff" p-id="10615"></path></svg></span>
+</div>
+</div>
+</header>
+<nav class="story-nav" aria-label="Sentinel page navigation">
+  <a href="#hero" class="story-brand">SENTINEL</a>
+  <div class="story-links"><a href="#explorer">Explore</a><a href="#aov">Technology</a><a href="#agenda">Agenda</a></div>
+  <a class="nav-register" href="#registration" data-register>REGISTER NOW <span aria-hidden="true">↗</span></a>
+  <span class="nav-progress" aria-hidden="true"></span>
+</nav>
+<main id="main-content">
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="hero-halo" aria-hidden="true"></div>
+  <div class="hero-content wrap">
+    <p class="eyebrow hero-enter">STREAMAX GLOBAL WEBINAR</p>
+    <h1 id="hero-title" class="hero-enter">SENTINEL</h1>
+    <p class="hero-subtitle hero-enter">Beyond the Ignition.</p>
+    <p class="hero-description hero-enter">Discover how Always-On Video and AI-powered detection can help fleets monitor and respond to vehicle security events.</p>
+    <div class="actions hero-enter"><a class="button magnetic" href="#registration" data-register>REGISTER NOW <span aria-hidden="true">↗</span></a><a class="button ghost" href="#explorer">EXPLORE SENTINEL <span aria-hidden="true">↓</span></a></div>
+  </div>
+  <div class="scene hero-scene" id="hero-scene" data-scene="product-view.html" data-title="Sentinel real three-dimensional product model">
+    <img class="scene-poster" src="assets/images/sentinel-side.webp" alt="Sentinel vehicle security camera" width="1800" height="1011" fetchpriority="high">
+    <span class="scene-status" role="status"></span>
+  </div>
+  <div class="hero-bottom wrap"><span>Always-On Video</span><span>Intent-Aware AI</span><span>Low-Light Visibility</span><a href="#challenges" aria-label="Explore vehicle security challenges">↓</a></div>
+</section>
+<section id="challenges" class="chapter challenges" aria-labelledby="challenges-title">
+  <div class="wrap"><h2 class="wide-title reveal" id="challenges-title">When Vehicles Stop,<br><span>Risks Don't.</span></h2>
+    <div class="threat-accordion" aria-label="Vehicle security scenarios">
+      <article class="threat-panel active" data-threat="cargo"><button class="threat-select" aria-expanded="true"><span>Cargo Theft</span><span aria-hidden="true">↗</span></button><div class="threat-media"><video data-src="assets/videos/cargo-theft-cctv.mp4" poster="assets/images/theft-cargo.webp" muted loop playsinline preload="none" data-video-id="cargo-context"></video><div class="scanlines" aria-hidden="true"></div></div><p>Unattended trailers. Unsecured yards.<br>A clearer view of the moments that matter.</p></article>
+      <article class="threat-panel" data-threat="fuel"><button class="threat-select" aria-expanded="false"><span>Fuel Theft</span><span aria-hidden="true">↗</span></button><div class="threat-media"><video data-src="assets/videos/theft-cctv.mp4" poster="assets/images/theft-fuel.webp" muted loop playsinline preload="none" data-video-id="fuel-context"></video><div class="scanlines" aria-hidden="true"></div></div><p>Small losses can be hard to explain.<br>Visual context helps teams investigate.</p></article>
+    </div><div class="media-caption"><span>Archive security footage. These clips were not recorded by Sentinel.</span><button class="text-button" id="toggle-threat-video">Pause footage</button></div>
+  </div>
+</section>
+<section class="gap-section" id="traditional" aria-labelledby="gap-title">
+  <div class="gap-pin"><div class="wrap"><h2 class="reveal" id="gap-title">Why Traditional<br>Solutions Fall Short.</h2></div>
+    <div class="gap-track">
+      <article class="gap-slide"><div class="scene" id="gap-camera" data-scene="cctv-camera-wire.html?base=0&amp;fit=1.1" data-title="Traditional camera three-dimensional illustration"><img class="scene-poster" src="assets/images/theft-cargo.webp" alt="Security camera reference footage" loading="lazy"></div><div class="gap-copy"><h3>Video needs context.<br>And a power plan.</h3><p>Recording can support an investigation. Parking coverage depends on the system, configuration and available power.</p></div></article>
+      <article class="gap-slide"><div class="scene" id="gap-sensor" data-scene="fuel-sensor-wire.html?base=0&amp;fit=1.2" data-title="Fuel sensor three-dimensional illustration"><img class="scene-poster" src="assets/images/truck-xray.webp" alt="Vehicle system illustration" loading="lazy"></div><div class="gap-copy"><h3>A signal tells you what.<br>Video adds perspective.</h3><p>Sensor readings can flag a change. Visual evidence can help teams understand the activity around it.</p></div></article>
+      <article class="gap-slide"><div class="scene" id="gap-sentinel" data-scene="product-view.html" data-title="Sentinel integrated vehicle security camera"><img class="scene-poster" src="assets/images/sentinel-front.webp" alt="Sentinel camera front view" loading="lazy"></div><div class="gap-copy"><h3>Designed around<br>the parked vehicle.</h3><p>Explore a different approach to video monitoring, detection and vehicle security.</p><a href="#explorer" class="text-button">Meet Sentinel <span aria-hidden="true">↗</span></a></div></article>
+    </div><div class="gap-navigation"><button type="button" data-gap-prev aria-label="Previous comparison">←</button><span>Camera / Sensor / Sentinel</span><button type="button" data-gap-next aria-label="Next comparison">→</button></div>
+  </div>
+</section>
+<section class="chapter explorer" id="explorer" aria-labelledby="explorer-title">
+  <div class="wrap"><div class="explorer-heading"><p class="eyebrow">A CLOSER LOOK</p><h2 id="explorer-title" class="reveal">Meet Sentinel.</h2><p class="lead reveal">A different perspective.<br>Every way you look at it.</p></div>
+    <div class="explorer-stage">
+      <div class="scene interactive-scene" id="explorer-scene" data-scene="product-view.html" data-title="Drag to rotate the Sentinel product model" data-interactive="true"><img class="scene-poster" src="assets/images/sentinel-front.webp" alt="Sentinel product exterior" loading="lazy"><span class="scene-status" role="status"></span></div>
+      <button class="hotspot hotspot-lens" data-hotspot="lens" aria-label="Explore the wide-angle lens"><span>+</span><span>Lens</span></button>
+      <button class="hotspot hotspot-connect" data-hotspot="connect" aria-label="Explore connectivity"><span>+</span><span>Connection</span></button>
+      <button class="hotspot hotspot-mount" data-hotspot="mount" aria-label="Explore the mounting system"><span>+</span><span>Mount</span></button>
+      <div class="hotspot-detail" id="hotspot-detail" aria-live="polite"><h3>Built for vehicle security.</h3><p>Select a point to explore the design. Drag the model to change your view.</p></div>
+      <div class="explorer-toolbar" aria-label="Product model controls"><button class="selected" data-model-view="exterior" aria-pressed="true">Exterior</button><button data-model-view="internal" aria-pressed="false">Inside Sentinel</button><button id="zoom-model" aria-pressed="false">Zoom +</button><button id="reset-model">Reset view</button></div>
+    </div><div class="media-caption"><span>Interactive model. Internal components are a conceptual illustration.</span><button class="text-button" data-load-scene="explorer-scene">Load 3D view</button></div>
+  </div>
+</section>
+<section class="aov" id="aov" aria-labelledby="aov-title">
+  <div class="aov-pin">
+    <div class="aov-copy wrap"><h2 id="aov-title">Beyond<br>Ignition-Off.</h2><div class="aov-steps"><article class="active"><h3>The journey pauses.</h3><p>Vehicle security continues to matter when the engine stops.</p></article><article><h3>A different recording rhythm.</h3><p>AOV uses low-frame-rate capture in low-activity conditions.</p></article><article><h3>More detail when triggered.</h3><p>Activity detection can trigger a transition to full-frame recording.</p></article></div></div>
+    <div class="scene aov-scene" id="aov-scene" data-scene="truck-day-night.html" data-title="Scroll-controlled day-to-night Sentinel truck scene"><img class="scene-poster" src="assets/images/truck-xray.webp" alt="Truck with Sentinel installation concept" loading="lazy"><span class="scene-status" role="status"></span></div>
+    <div class="day-night"><span>DAY</span><span class="day-night-line"></span><span>NIGHT</span></div>
+    <div class="aov-film"><video id="aov-film" data-src="assets/videos/aov-loop.mp4" poster="assets/images/aov-still.webp" muted playsinline controls preload="none" data-video-id="aov-demonstration"></video><span>AOV recording demonstration</span></div>
+  </div>
+</section>
+<section class="chapter night" id="night-vision" aria-labelledby="night-title"><div class="wrap">
+  <h2 id="night-title" class="reveal">See Beyond<br>the Darkness.</h2><p class="lead reveal">Look closer when the light fades.</p>
+  <div class="night-layout"><div class="night-compare" id="night-compare">
+    <img id="night-before" src="assets/images/nv-blacklight.webp" alt="Reference low-light camera image" width="1144" height="624" loading="lazy">
+    <div class="night-after"><img src="assets/images/nv-ultra.webp" alt="Sentinel low-light demonstration image" width="1276" height="603" loading="lazy"></div>
+    <div class="compare-line" aria-hidden="true"><span>↔</span></div>
+    <label class="visually-hidden" for="night-slider">Reveal Sentinel low-light image</label><input id="night-slider" type="range" min="0" max="100" value="52" aria-valuetext="52 percent Sentinel image">
+  </div><div class="night-controls"><p>Compare the supplied demonstration images.</p><div class="segmented"><button class="selected" data-night="standard" aria-pressed="true">Standard camera</button><button data-night="phone" aria-pressed="false">Smartphone</button></div><p class="fineprint">Reference imagery from separate supplied captures. This is a visual comparison, not a controlled performance test.</p></div></div>
+</div></section>
+<section class="ai" id="intent-ai" aria-labelledby="ai-title"><div class="ai-pin">
+  <div class="wrap ai-heading"><p class="eyebrow">INTENT-AWARE AI</p><h2 id="ai-title">Not Just Motion.<br>More Meaningful Detection.</h2></div>
+  <div class="scene ai-scene" id="ai-scene" data-scene="truck-sentinel-runner.html" data-title="Conceptual Sentinel suspicious-activity detection scene"><img class="scene-poster" src="assets/images/ai-still.webp" alt="Truck used in an AI posture demonstration" loading="lazy"><span class="scene-status" role="status"></span></div>
+  <div class="ai-concept"><span>Conceptual detection visualization</span><div class="actions"><button class="button ghost" data-run="pass">Walk past</button><button class="button ghost" data-run="steal">Approach the tank</button></div></div>
+  <div class="ai-video-panel"><video id="ai-film" data-src="assets/videos/ai-pose.mp4" poster="assets/images/ai-still.webp" muted playsinline controls preload="none" data-video-id="ai-pose-demonstration"></video><p>Actual supplied AI demonstration footage. Visual overlays in the 3D scene are illustrative.</p></div>
+  <p class="ai-bottom wrap">Movement is a signal.<br><span>Context makes it meaningful.</span></p>
+</div></section>
+<section class="chapter intelligence" id="intelligence" aria-labelledby="intelligence-title"><div class="wrap">
+  <h2 class="reveal" id="intelligence-title">One Connected <span class="inline-product"><img src="assets/images/sentinel-side.webp" alt="" loading="lazy"></span> System.</h2><p class="lead reveal">See the device.<br>Then consider the whole vehicle.</p>
+  <div class="intelligence-stage"><div class="scene" id="intelligence-scene" data-scene="sentinel-soc.html?el=15&amp;fit=1.1" data-title="Sentinel internal architecture and connected vehicle concept"><img class="scene-poster" src="assets/images/image-04.webp.jpg" alt="Sentinel integrated camera design" loading="lazy"><span class="scene-status" role="status"></span></div><div class="system-nodes"><button class="selected" data-system="device" aria-pressed="true">The device <span>Camera, positioning and connectivity</span></button><button data-system="fuel" aria-pressed="false">Fuel monitoring <span>Context around changes at the tank</span></button><button data-system="temperature" aria-pressed="false">Cargo conditions <span>A connected monitoring concept</span></button><button data-system="door" aria-pressed="false">Vehicle access <span>Context around the cargo door</span></button></div></div>
+  <p class="fineprint">Sensor integration is shown as a concept. Supported peripherals, interfaces and availability must be confirmed for each deployment.</p>
+</div></section>
+<section class="chapter installation" id="installation" aria-labelledby="installation-title"><div class="wrap">
+  <h2 id="installation-title" class="reveal">Designed for<br>Practical Deployment.</h2>
+  <div class="installation-layout"><div class="scene" id="installation-scene" data-scene="truck-sentinel-mount.html" data-title="Sentinel truck mounting and coverage illustration"><img class="scene-poster" src="assets/images/truck-xray.webp" alt="Truck mounting locations illustration" loading="lazy"><span class="scene-status" role="status"></span></div><div class="deployment-steps"><article class="deployment-card magnetic"><span aria-hidden="true">↗</span><h3>Position with purpose.</h3><p>Choose a suitable mounting position and confirm the area you need to monitor.</p></article><article class="deployment-card magnetic"><span aria-hidden="true">↗</span><h3>Connect correctly.</h3><p>Plan vehicle power, connectivity and storage with a qualified installer.</p></article><article class="deployment-card magnetic"><span aria-hidden="true">↗</span><h3>Calibrate. Then verify.</h3><p>Set detection zones and check the final camera view before deployment.</p></article></div></div><p class="fineprint">Coverage volumes are illustrative. Follow the applicable installation guide and professional installation requirements.</p>
+</div></section>
+<section class="chapter evidence" id="evidence" aria-labelledby="evidence-title"><div class="wrap">
+  <div class="evidence-intro"><h2 id="evidence-title" class="reveal">Protection in<br>the Real World.</h2><div class="scene evidence-globe" id="evidence-globe" data-scene="globe-only.html" data-title="Rotating three-dimensional globe"><img class="scene-poster" src="assets/images/world-dots.webp" alt="World map illustration" loading="lazy"></div></div>
+  <p class="preview-note">Internal preview only. Field images and video require customer approval and privacy review before external publication.</p>
+  <div class="evidence-gallery" aria-label="Supplied Sentinel field recordings">
+    <button class="gallery-feature" data-video="case-ampenet.mp4" data-video-title="Supplied field event footage" data-poster="cases/cap1.webp"><img src="assets/images/cases/cap1.webp" alt="Supplied Sentinel vehicle event recording" loading="lazy"><span class="play-circle" aria-hidden="true">↗</span><span class="gallery-caption">An event, with visual context.</span></button>
+    <div class="gallery-secondary"><button data-video="case-caught.mp4" data-video-title="Supplied night-time field footage" data-poster="cases/alert-night.webp"><img src="assets/images/cases/alert-night.webp" alt="Night-time vehicle security recording" loading="lazy"><span class="play-circle" aria-hidden="true">↗</span><span class="gallery-caption">A closer look after dark.</span></button><div class="gallery-detail"><h3>See the moment.<br>Review the context.</h3><p>Explore the supplied recordings. Customer identities and commercial results are omitted from this preview.</p></div></div>
+  </div>
+  <div class="image-rail" aria-label="Additional internal field images"><button data-image="assets/images/cases/cap2.webp" aria-label="Enlarge field image 2"><img src="assets/images/cases/cap2.webp" alt="Internal field recording view 2" loading="lazy"></button><button data-image="assets/images/cases/cap3.webp" aria-label="Enlarge field image 3"><img src="assets/images/cases/cap3.webp" alt="Internal field recording view 3" loading="lazy"></button><button data-image="assets/images/cases/cap4.webp" aria-label="Enlarge field image 4"><img src="assets/images/cases/cap4.webp" alt="Internal field recording view 4" loading="lazy"></button><button data-image="assets/images/cases/cap5.webp" aria-label="Enlarge field image 5"><img src="assets/images/cases/cap5.webp" alt="Internal field recording view 5" loading="lazy"></button><button data-image="assets/images/cases/cap6.webp" aria-label="Enlarge field image 6"><img src="assets/images/cases/cap6.webp" alt="Internal field recording view 6" loading="lazy"></button><button data-image="assets/images/cases/cap7.webp" aria-label="Enlarge field image 7"><img src="assets/images/cases/cap7.webp" alt="Internal field recording view 7" loading="lazy"></button><button data-image="assets/images/cases/cap8.webp" aria-label="Enlarge field image 8"><img src="assets/images/cases/cap8.webp" alt="Internal field recording view 8" loading="lazy"></button><button data-image="assets/images/cases/cap9.webp" aria-label="Enlarge field image 9"><img src="assets/images/cases/cap9.webp" alt="Internal field recording view 9" loading="lazy"></button></div>
+  <div class="rail-controls"><button data-rail="prev" aria-label="Previous field images">←</button><button data-rail="next" aria-label="Next field images">→</button></div>
+</div></section>
+<section class="chapter agenda" id="agenda" aria-labelledby="agenda-title"><div class="wrap">
+  <p class="eyebrow">THE WEBINAR</p><h2 id="agenda-title" class="reveal">Discover What's Possible<br>with Sentinel.</h2>
+  <div class="agenda-layout"><ol class="timeline"><li><span>01</span><div><h3>Vehicle Security Challenges</h3><p>Where parked fleets need greater visibility.</p></div></li><li><span>02</span><div><h3>Sentinel &amp; Core Technologies</h3><p>AOV, intent-aware detection and low-light visibility.</p></div></li><li><span>03</span><div><h3>Product Demonstrations</h3><p>Explore the hardware and the supplied recording examples.</p></div></li><li><span>04</span><div><h3>Applications &amp; Live Q&amp;A</h3><p>Discuss deployment needs with the Streamax team.</p></div></li></ol>
+  <aside class="speaker-panel"><div class="speaker-art" aria-hidden="true"><img src="assets/images/sentinel-front.webp" alt="" loading="lazy"></div><h3>Meet the people<br>behind Sentinel.</h3><p>Speakers and presentation language will be announced with the event schedule.</p><div id="speaker-list"></div><a href="#registration" class="text-button" data-register>REGISTER NOW <span aria-hidden="true">↗</span></a></aside></div>
+</div></section>
+<section class="registration chapter" id="registration" aria-labelledby="registration-title"><div class="wrap">
+  <h2 id="registration-title" class="reveal">A New Perspective.<br><span>Join the Webinar.</span></h2><p class="lead">Explore Sentinel with the Streamax team.</p>
+  <div id="webinar-sessions" class="session-grid"><article class="session-card"><h3>Global Webinar</h3><p>Schedule and registration details will be announced soon.</p></article></div>
+  <p class="registration-notice" id="registration-notice" role="status" tabindex="-1">Registration is not open yet. The official Zoom link will appear here when confirmed.</p>
+  <p class="fineprint">All times will be displayed in the selected timezone once the event schedule is confirmed.</p>
+</div></section>
+</main>
+<footer class="footer pb50 streamax-official-footer">
+<div class="wrap1600">
+<div class="footer_top flex flexWrap">
+<div class="left">
+<h3 class="fnt26">Contact Us</h3>
+<dl class="mt45">
+<dt class="fnt26 mb20">400-998-2970</dt>
+<dd class="fnt16">6 Temasek Blvd, 35-02 Suntec Tower 4, Singapore 038986, Singapore, SG</dd>
+</dl>
+</div>
+<div class="right flex flexWrap">
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/solutions.html" target="_self">Solutions</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/solutions.html" target="_self">About Solution</a>
+<a href="https://www.streamax.com/category/trucking-solution.html" target="_self">Trucking Solution</a>
+<a href="https://www.streamax.com/category/public-transit-solution.html" target="_self">Public Transit Solution</a>
+<a href="https://www.streamax.com/category/school-bus-solution.html" target="_self">School Bus Solution</a>
+<a href="https://www.streamax.com/category/taxi-solution.html" target="_self">Taxi Solution</a>
+<a href="https://www.streamax.com/category/mining-solution.html" target="_self">Mining Solution</a>
+<a href="https://www.streamax.com/category/oem-solution.html" target="_self">OEM Solution</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/products.html" target="_self">Products</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/products.html" target="_self">About Product</a>
+<a href="https://www.streamax.com/category/products-list.html" target="_self">View All Products</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/technology.html" target="_self">Technology</a></dt>
+<dd class="fnt16">
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/resources/blog.html" target="_self">Resources</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/resources/company-news.html" target="_self">Company News</a>
+<a href="https://www.streamax.com/resources/blog.html" target="_self">Blog</a>
+<a href="https://www.streamax.com/resources/case.html" target="_self">Cases</a>
+<a href="https://www.streamax.com/resources/faq.html" target="_self">FAQ</a>
+</dd>
+</dl>
+<dl>
+<dt class="fnt26 mb45"><a href="https://www.streamax.com/category/about.html" target="_self">About</a></dt>
+<dd class="fnt16">
+<a href="https://www.streamax.com/category/about.html" target="_self">About Us</a>
+<a href="https://www.streamax.com/about/events.html" target="_self">Events</a>
+</dd>
+</dl>
+</div>
+</div>
+<div class="footer_mind flex flexWrap alignCenter pt20 pb20 mt45">
+<div class="left fnt22">You can also follow us on social media</div>
+<div class="right flex flexWrap alignCenter">
+<a href="https://www.linkedin.com/company/streamax-technology/" target="_blank"><svg class="icon" height="200" p-id="6968" t="1758520778600" version="1.1" viewbox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M224 149.28a75.2 75.2 0 0 0-79.04 80A75.04 75.04 0 0 0 224 307.36a76.96 76.96 0 0 0 80-78.4 76.96 76.96 0 0 0-80-79.68zM878.72 874.72V575.04c0-148.8-74.08-216.96-172.96-216.96a176 176 0 0 0-149.28 80h-3.04l-6.88-69.12H416c1.92 44.48 4 98.08 4 161.12v344.64h150.24V583.36A112 112 0 0 1 576 544a80 80 0 0 1 76-58.88c54.4 0 76.16 44.48 76.16 109.6v280zM149.28 369.44h150.24v505.28H149.28z" fill="#828286" p-id="6969"></path></svg></a>
+<a href="https://www.youtube.com/@StreamaxMDVR" target="_blank"><svg class="icon" height="200" p-id="7968" t="1758520803422" version="1.1" viewbox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M1003.2 265.6c-11.2-44.8-46.4-78.4-91.2-91.2-80-20.8-400-20.8-400-20.8s-320 0-400 20.8c-44.8 11.2-78.4 46.4-91.2 91.2C0 345.6 0 512 0 512s0 166.4 20.8 246.4c11.2 44.8 46.4 78.4 91.2 91.2 80 20.8 400 20.8 400 20.8s320 0 400-20.8c44.8-11.2 78.4-46.4 91.2-91.2C1024 678.4 1024 512 1024 512s0-166.4-20.8-246.4z m-593.6 400V358.4L675.2 512l-265.6 153.6z" fill="#828286" p-id="7969"></path></svg></a>
+</div>
+</div>
+<div class="footer_bottom mt55">
+<div class="f_logo mb45"><a href="https://www.streamax.com/"><img alt="" src="assets/images/streamax-footer.png"/></a></div>
+<div class="a fnt16"><a href="https://www.streamax.com/category/cookie-policy.html">Cookie Policy</a><a href="https://www.streamax.com/privacy.html">Privacy Policy</a><a href="https://www.streamax.com/category/product-policy.html">Product Policy</a><a href="https://www.streamax.com/category/service-agreement.html">Service Agreement</a></div>
+<div class="p fnt14">Copyright 2014-2025 Streamax Technology Co.,Ltd</div>
+</div>
+</div>
+<div class="icp-row"><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备10239636号</a></div>
+</footer>
+<dialog id="media-dialog" aria-labelledby="media-dialog-title"><div class="dialog-top"><h2 id="media-dialog-title">Sentinel demonstration</h2><button id="close-dialog" aria-label="Close media">×</button></div><div class="dialog-content"></div><p>Internal demonstration preview. External publication permissions must be confirmed.</p></dialog>
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/company-chrome.js" defer></script>
+<script src="assets/js/webinar-config.js" defer></script>
+<script type="module" src="assets/js/app.js"></script>
+
+</body></html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — The Night Shift Nobody Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#050810;--green:#2AF598;--blue:#009EFD;--red:#FF3B30;--red-glow:rgba(255,59,48,.5);
+  --white:#fff;--grey:#A0AEC0;--grey-dim:rgba(160,174,192,.5);--glass:rgba(255,255,255,.03);
+  --card-solid:#0a0e16;--epic:cubic-bezier(.22,1,.36,1);--apple:cubic-bezier(.16,1,.3,1);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;font-family:var(--font);color:var(--white);user-select:none;}
+#canvas{position:relative;background:var(--bg-deep);aspect-ratio:16/9;width:100%;max-height:100vh;max-width:177.77vh;container-type:size;container-name:slide;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.8);}
+#canvas::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:4cqh 4cqh;}
+.redwash{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 60%,rgba(255,59,48,.12),transparent 62%);opacity:0;transition:opacity 1s ease;}
+#canvas[data-step="1"] .redwash,#canvas[data-step="2"] .redwash,#canvas[data-step="3"] .redwash{opacity:1;}
+.fx-scan{position:absolute;inset:0;z-index:40;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);opacity:.5;}
+.fx-vig{position:absolute;inset:0;z-index:41;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.82) 100%);}
+
+.hdr{position:absolute;top:0;left:0;width:100%;height:7.5cqh;display:flex;justify-content:center;align-items:center;z-index:46;}
+.hdr .lbl{font-size:1.35cqh;letter-spacing:3px;font-weight:700;padding-bottom:.5cqh;border-bottom:1px solid;transition:color .6s ease,border-color .6s ease;}
+.lbl.red{color:var(--red);border-color:rgba(255,59,48,.35);text-shadow:0 0 10px var(--red-glow);}
+.lbl.grey{color:var(--grey);border-color:rgba(160,174,192,.3);}
+.brand{position:absolute;top:2.5cqh;right:5cqh;font-size:1.2cqh;letter-spacing:2px;font-weight:800;color:rgba(255,255,255,.32);z-index:30;}
+.dots{position:absolute;bottom:2.2cqh;left:50%;transform:translateX(-50%);display:flex;gap:1.1cqh;z-index:50;}
+.dots i{width:.95cqh;height:.95cqh;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s var(--epic);}
+.dots i.on{background:linear-gradient(135deg,var(--red),#FF7A30);box-shadow:0 0 1.5cqh rgba(255,59,48,.5);transform:scale(1.15);}
+.hint{position:absolute;bottom:2.2cqh;right:4cqh;font-size:1cqh;color:rgba(255,255,255,.25);z-index:50;}
+
+.stage{position:absolute;top:8cqh;bottom:8cqh;left:8cqh;right:8cqh;z-index:10;}
+.layer{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s;}
+#canvas[data-step="1"] .l-threats{opacity:1;visibility:visible;}
+#canvas[data-step="2"] .l-scale{opacity:1;visibility:visible;}
+#canvas[data-step="3"] .l-case{opacity:1;visibility:visible;}
+
+/* ---------- step 1 : two threats (media on top, text below — nothing covered) ---------- */
+.l-threats{display:flex;flex-direction:column;justify-content:center;gap:2.6cqh;}
+.th-head{text-align:center;font-size:3.4cqh;font-weight:800;line-height:1.2;background:linear-gradient(135deg,#fff,#94A3B8);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;}
+#canvas[data-step="1"] .th-head{animation:fadein .7s ease .1s forwards;}
+.th-sub{text-align:center;font-size:1.7cqh;color:var(--grey);margin-top:-1.4cqh;opacity:0;}
+#canvas[data-step="1"] .th-sub{animation:fadein .7s ease .4s forwards;}
+.th-cards{display:flex;gap:2.6cqh;height:52cqh;}
+.tcard{flex:1;display:flex;flex-direction:column;position:relative;overflow:hidden;border:1px solid rgba(255,59,48,.3);border-radius:2cqh;background:var(--card-solid);opacity:0;}
+#canvas[data-step="1"] .tcard{animation:fadeup .7s var(--epic) forwards;}
+#canvas[data-step="1"] .tcard:nth-child(1){animation-delay:.55s;}
+#canvas[data-step="1"] .tcard:nth-child(2){animation-delay:.9s;}
+.tc-media{position:relative;flex:1;min-height:0;background:#000;}
+.tc-media video,.tc-media .pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background-size:cover;background-position:center;}
+.tc-media video{opacity:0;transition:opacity .8s ease;}
+.tc-media video.playing{opacity:1;}
+.tc-rec{position:absolute;top:1.8cqh;left:2.2cqh;z-index:3;display:flex;align-items:center;gap:1cqh;font-size:1.2cqh;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.85);background:rgba(5,8,16,.55);padding:.6cqh 1.4cqh;border-radius:30px;}
+.tc-rec i{width:1cqh;height:1cqh;border-radius:50%;background:var(--red);box-shadow:0 0 1.4cqh var(--red-glow);animation:blink 1.4s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.tc-body{flex:0 0 auto;padding:1.8cqh 2.6cqh 2cqh;background:rgba(8,12,20,.96);border-top:1px solid rgba(255,59,48,.22);text-align:left;}
+.tc-line{display:flex;flex-direction:column;align-items:flex-start;gap:.5cqh;margin-bottom:.7cqh;}
+.tc-tag{display:block;font-size:1.2cqh;font-weight:700;letter-spacing:2.5px;color:var(--red);text-shadow:0 0 10px var(--red-glow);}
+.tc-body h3{font-size:2.9cqh;font-weight:800;letter-spacing:-.5px;line-height:1.05;text-align:left;}
+.tc-body p{font-size:1.45cqh;color:rgba(255,255,255,.66);line-height:1.42;text-align:left;}
+.th-foot{text-align:center;font-size:2.3cqh;font-weight:700;font-style:italic;color:#fff;opacity:0;}
+#canvas[data-step="1"] .th-foot{animation:foothit .7s var(--epic) 1.5s forwards;}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes foothit{0%{opacity:0;transform:scale(.96)}55%{opacity:1;transform:scale(1.04);text-shadow:0 0 3cqh var(--red-glow)}100%{opacity:1;transform:scale(1);text-shadow:0 0 1.5cqh rgba(255,59,48,.4)}}
+
+/* ---------- step 2 : world map background ---------- */
+.worldmap{position:absolute;inset:0;z-index:2;opacity:0;visibility:hidden;transform:scale(1.04);transition:opacity 1.1s ease,transform 2.2s var(--apple),visibility 1.1s;pointer-events:none;}
+#canvas[data-step="2"] .worldmap{opacity:1;visibility:visible;transform:scale(1);}
+.wm-img{position:absolute;inset:0;background:url('Images/world-dots.png') center/100% 100% no-repeat;filter:brightness(1.35);}
+.wm-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,16,.78) 0%,rgba(5,8,16,.5) 34%,transparent 58%),linear-gradient(to bottom,rgba(5,8,16,.5),transparent 16%),radial-gradient(ellipse at 50% 30%,transparent 55%,rgba(5,8,16,.4) 100%);}
+.wspot{position:absolute;left:var(--x);top:var(--y);width:0;height:0;}
+.wspot i{position:absolute;border-radius:50%;border:1.5px solid rgba(255,59,48,.6);background:rgba(255,59,48,.09);}
+.wspot b{position:absolute;border-radius:50%;background:#FF3B30;box-shadow:0 0 1.6cqh rgba(255,59,48,.9);}
+.wspot span{position:absolute;left:2.4cqh;top:-2.6cqh;white-space:nowrap;font-size:1.15cqh;font-weight:800;letter-spacing:2px;color:rgba(255,120,110,.95);text-shadow:0 0 1cqh rgba(255,59,48,.5);}
+.wspot span.below{left:auto;right:2.4cqh;top:1.8cqh;}
+.wspot.heavy i{top:-3.2cqh;left:-3.2cqh;width:6.4cqh;height:6.4cqh;animation:wripple 1.5s cubic-bezier(.2,.6,.4,1) infinite var(--ad,0s);}
+.wspot.heavy i:nth-child(2){animation-delay:calc(var(--ad,0s) + .75s);}
+.wspot.heavy b{top:-.85cqh;left:-.85cqh;width:1.7cqh;height:1.7cqh;animation:wbeep 1.5s ease infinite var(--ad,0s);}
+.wspot.med i{top:-1.7cqh;left:-1.7cqh;width:3.4cqh;height:3.4cqh;border-color:rgba(216,64,50,.38);animation:wripple 3.2s cubic-bezier(.2,.6,.4,1) infinite var(--ad,0s);}
+.wspot.med b{top:-.5cqh;left:-.5cqh;width:1cqh;height:1cqh;background:#C93327;box-shadow:0 0 1.2cqh rgba(201,51,39,.8);animation:wbeep 3.2s ease infinite var(--ad,0s);}
+@keyframes wripple{0%{transform:scale(.25);opacity:1}100%{transform:scale(1.65);opacity:0}}
+@keyframes wbeep{0%,100%{transform:scale(1)}12%{transform:scale(1.45)}30%{transform:scale(1)}}
+.wm-legend{position:absolute;left:8cqh;top:9.5cqh;display:flex;gap:2.6cqh;align-items:center;font-size:1.15cqh;letter-spacing:1.5px;font-weight:700;color:rgba(255,255,255,.55);}
+.wm-legend .li{display:flex;align-items:center;gap:1cqh;}
+.wm-legend .dot{width:1.3cqh;height:1.3cqh;border-radius:50%;}
+.wm-legend .dot.h{background:#FF3B30;box-shadow:0 0 1.2cqh rgba(255,59,48,.8);}
+.wm-legend .dot.m{background:#C93327;opacity:.75;}
+
+/* ---------- step 2 : the scale (content in lower third — map stays visible above) ---------- */
+.l-scale{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:.5cqh;}
+.sc-head{text-align:center;font-size:3.4cqh;font-weight:800;line-height:1.25;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.85);opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .15s;}
+.sc-sub{text-align:center;font-size:1.75cqh;color:#c6d2de;text-shadow:0 1px 12px rgba(0,0,0,.85);margin-top:1.2cqh;opacity:0;transition:opacity .8s ease .4s;}
+.sc-sub b{color:var(--red);font-weight:800;}
+#canvas[data-step="2"] .sc-head,#canvas[data-step="2"] .sc-sub{opacity:1;transform:translateY(0);}
+.sc-grid{display:flex;gap:2.4cqh;margin-top:2.8cqh;height:26cqh;}
+.scard{flex:1;position:relative;border-radius:2cqh;border:1px solid rgba(255,255,255,.16);border-top-color:rgba(255,255,255,.28);background:linear-gradient(180deg,rgba(255,59,48,.06),rgba(13,18,28,.32));backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);box-shadow:0 2cqh 5cqh rgba(0,0,0,.45),inset 0 0 4cqh rgba(255,255,255,.02);padding:3.6cqh 2.8cqh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .8s var(--epic) var(--d,0s),transform .8s var(--epic) var(--d,0s);}
+#canvas[data-step="2"] .scard{opacity:1;transform:translateY(0);}
+.scard .n,.ccard .n{font-variant-numeric:tabular-nums;}
+.scard .n{font-size:5.6cqh;font-weight:900;letter-spacing:-.16cqh;line-height:1;color:var(--red);text-shadow:0 0 2.4cqh var(--red-glow);}
+.scard .h{font-size:1.7cqh;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1.5cqh;}
+.scard .c{font-size:1.35cqh;color:#b8c4d2;margin-top:.9cqh;line-height:1.45;max-width:34cqh;}
+.sc-src{text-align:center;font-size:1.05cqh;color:rgba(198,210,222,.55);text-shadow:0 1px 8px rgba(0,0,0,.9);margin-top:1.8cqh;letter-spacing:.5px;opacity:0;transition:opacity .9s ease 1.3s;}
+#canvas[data-step="2"] .sc-src{opacity:1;}
+
+/* ---------- step 3 : one real fleet ---------- */
+.l-case{display:flex;flex-direction:column;justify-content:center;}
+.ca-head{text-align:center;font-size:3.4cqh;font-weight:800;line-height:1.25;background:linear-gradient(135deg,#fff,#94A3B8);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(14px);transition:all .8s var(--epic) .15s;}
+.ca-sub{text-align:center;font-size:1.75cqh;color:var(--grey);margin-top:1.2cqh;opacity:0;transition:opacity .8s ease .4s;}
+#canvas[data-step="3"] .ca-head,#canvas[data-step="3"] .ca-sub{opacity:1;transform:translateY(0);}
+
+/* --- the siphoning scene --- */
+.case-scene{position:relative;height:46cqh;margin-top:2.6cqh;}
+.fuel{--fuel:#F0A335;--fuel-dim:rgba(240,163,53,.55);}
+
+/* fuel tank (truck saddle tank, horizontal cylinder) */
+.tank{position:absolute;left:3cqh;top:6cqh;width:56cqh;height:25cqh;border-radius:12.5cqh;background:linear-gradient(180deg,#232d3f 0%,#101828 46%,#1a2334 78%,#0b101c 100%);border:1px solid rgba(255,255,255,.16);box-shadow:0 2cqh 5cqh rgba(0,0,0,.55),inset 0 1.2cqh 2.4cqh rgba(255,255,255,.07),inset 0 -1.6cqh 3cqh rgba(0,0,0,.5);overflow:hidden;opacity:0;transform:translateY(18px);transition:opacity .8s var(--epic) .4s,transform .8s var(--epic) .4s;}
+#canvas[data-step="3"] .tank{opacity:1;transform:translateY(0);}
+.tank .strap{position:absolute;top:0;bottom:0;width:3cqh;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.11),rgba(255,255,255,.05));border-left:1px solid rgba(255,255,255,.07);border-right:1px solid rgba(0,0,0,.4);}
+.tank .strap.s1{left:8cqh;} .tank .strap.s2{right:8cqh;}
+.tank .liquid{position:absolute;left:0;right:0;bottom:0;height:74%;background:linear-gradient(180deg,var(--fuel-dim),rgba(150,85,15,.3) 70%);}
+.tank .liquid::before{content:'';position:absolute;top:-.5cqh;left:0;right:0;height:1cqh;background:rgba(255,200,110,.5);border-radius:50%;filter:blur(.3cqh);}
+#canvas[data-step="3"] .tank .liquid{animation:drain 10.8s var(--epic) 1.6s forwards;}
+@keyframes drain{from{height:74%}to{height:22%}}
+.tank .tx{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,.85);}
+.tank .t1{font-size:1.5cqh;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.75);}
+.tank .n{font-size:6.4cqh;font-weight:900;letter-spacing:-.16cqh;line-height:1.05;color:var(--fuel);text-shadow:0 0 2.6cqh rgba(240,163,53,.45);font-variant-numeric:tabular-nums;margin-top:.8cqh;}
+.tank .t2{font-size:1.35cqh;font-weight:700;letter-spacing:2.5px;color:var(--red);text-shadow:0 0 1.4cqh var(--red-glow);margin-top:1cqh;}
+
+/* siphon hose + flowing fuel */
+.hose-svg{position:absolute;left:0;top:0;width:92cqh;height:46cqh;overflow:visible;opacity:0;transition:opacity .8s ease 1.4s;}
+#canvas[data-step="3"] .hose-svg{opacity:1;}
+.hose-svg .tube{fill:none;stroke:#39465c;stroke-width:1.7;stroke-linecap:round;}
+.hose-svg .tube-hl{fill:none;stroke:rgba(255,255,255,.14);stroke-width:.35;stroke-linecap:round;}
+.hose-svg .flow{fill:none;stroke:var(--fuel,#F0A335);stroke-width:.85;stroke-linecap:round;stroke-dasharray:2.1 2.7;filter:drop-shadow(0 0 .6cqh rgba(240,163,53,.7));}
+#canvas[data-step="3"] .hose-svg .flow{animation:flowdash 1s linear infinite;}
+@keyframes flowdash{to{stroke-dashoffset:-9.6;}}
+
+/* drops + puddle + ground */
+.drop{position:absolute;left:70.2cqh;top:35.5cqh;width:1cqh;height:1.4cqh;border-radius:50% 50% 60% 60%;background:var(--fuel,#F0A335);box-shadow:0 0 1cqh rgba(240,163,53,.7);opacity:0;}
+#canvas[data-step="3"] .drop{animation:dropfall 1.15s ease-in infinite calc(2.7s + var(--dd,0s));}
+@keyframes dropfall{0%{transform:translateY(0) scale(.55);opacity:0}12%{opacity:1}82%{opacity:1}100%{transform:translateY(6.8cqh) scale(1);opacity:0}}
+.ground{position:absolute;left:4cqh;width:84cqh;bottom:2.2cqh;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22) 30%,rgba(255,255,255,.22) 82%,transparent);opacity:0;transition:opacity .8s ease 1s;}
+#canvas[data-step="3"] .ground{opacity:1;}
+.puddle{position:absolute;left:64.5cqh;bottom:1cqh;width:12.5cqh;height:2.6cqh;border-radius:50%;background:radial-gradient(ellipse at center,rgba(240,163,53,.75),rgba(240,163,53,.18) 62%,transparent);box-shadow:0 0 2cqh rgba(240,163,53,.35);opacity:0;transition:opacity .9s ease 3.9s;}
+#canvas[data-step="3"] .puddle{opacity:1;animation:puddlegrow 2.4s ease infinite 4.1s;}
+@keyframes puddlegrow{0%,100%{opacity:.75;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.16)}}
+
+/* right column — the per-truck math */
+.derive-col{position:absolute;right:0;top:0;width:62cqh;height:46cqh;display:flex;flex-direction:column;gap:2cqh;}
+.ccard{flex:1;display:flex;align-items:center;gap:2.6cqh;border-radius:1.8cqh;border:1px solid rgba(255,59,48,.28);background:linear-gradient(180deg,rgba(255,59,48,.06),rgba(13,18,28,.34));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1.6cqh 4cqh rgba(0,0,0,.4);padding:2cqh 3cqh;opacity:0;transform:translateX(28px);transition:opacity .8s var(--epic) var(--d,0s),transform .8s var(--epic) var(--d,0s);}
+#canvas[data-step="3"] .ccard{opacity:1;transform:translateX(0);}
+.ccard .nw{flex:0 0 18cqh;text-align:center;}
+.ccard .n{font-size:4.6cqh;font-weight:900;letter-spacing:-.12cqh;line-height:1;color:var(--red);text-shadow:0 0 2.2cqh var(--red-glow);}
+.ccard .n small{font-size:2.2cqh;font-weight:800;letter-spacing:0;}
+.ccard .tx{flex:1;}
+.ccard .f{font-size:1.1cqh;letter-spacing:1px;color:var(--grey-dim);font-family:ui-monospace,SFMono-Regular,monospace;margin-bottom:.7cqh;}
+.ccard .h{font-size:1.75cqh;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#fff;}
+.ccard .c{font-size:1.3cqh;color:#b8c4d2;margin-top:.6cqh;line-height:1.4;}
+.ca-foot{text-align:center;font-size:2.2cqh;font-weight:700;font-style:italic;color:#fff;margin-top:3cqh;opacity:0;}
+#canvas[data-step="3"] .ca-foot{animation:foothit .7s var(--epic) 2s forwards;}
+.ca-foot b{color:var(--red);font-style:normal;}
+</style>
+</head>
+<body>
+<div id="canvas" data-step="1">
+  <div class="redwash"></div>
+
+  <!-- world map background · step 2 only -->
+  <div class="worldmap">
+    <div class="wm-img"></div>
+    <div class="wm-scrim"></div>
+    <div class="wspot heavy" style="--x:19.53%;--y:39.33%"><i></i><i></i><b></b><span>MEXICO</span></div>
+    <div class="wspot heavy" style="--x:49.69%;--y:47.28%"><i></i><i></i><b></b><span>NIGERIA</span></div>
+    <div class="wspot heavy" style="--x:60%;--y:31.46%"><i></i><i></i><b></b><span>IRAQ</span></div>
+    <div class="wspot heavy" style="--x:33.07%;--y:51.97%;--ad:.5s"><i></i><i></i><b></b><span>BRAZIL</span></div>
+    <div class="wspot heavy" style="--x:48.02%;--y:22.19%;--ad:.9s"><i></i><i></i><b></b><span class="below">FRANCE</span></div>
+    <!-- Americas -->
+    <div class="wspot med" style="--x:19.01%;--y:29.96%;--ad:.2s"><i></i><b></b></div>   <!-- United States -->
+    <div class="wspot med" style="--x:23.18%;--y:43.82%;--ad:1.1s"><i></i><b></b></div>  <!-- Guatemala -->
+    <div class="wspot med" style="--x:28.54%;--y:50.09%;--ad:.6s"><i></i><b></b></div>   <!-- Colombia -->
+    <div class="wspot med" style="--x:31.25%;--y:47.28%;--ad:1.9s"><i></i><b></b></div>  <!-- Venezuela -->
+    <div class="wspot med" style="--x:28.12%;--y:59.93%;--ad:2.5s"><i></i><b></b></div>  <!-- Peru -->
+    <div class="wspot med" style="--x:29.95%;--y:74.91%;--ad:1.5s"><i></i><b></b></div>  <!-- Argentina -->
+    <!-- Europe -->
+    <div class="wspot med" style="--x:46.61%;--y:20.41%;--ad:.4s"><i></i><b></b></div>   <!-- UK -->
+    <div class="wspot med" style="--x:50.52%;--y:20.79%;--ad:2.8s"><i></i><b></b></div>  <!-- Germany -->
+    <div class="wspot med" style="--x:52.6%;--y:19.85%;--ad:.8s"><i></i><b></b></div>    <!-- Poland -->
+    <div class="wspot med" style="--x:54.58%;--y:23.6%;--ad:2.1s"><i></i><b></b></div>   <!-- Romania -->
+    <div class="wspot med" style="--x:46.77%;--y:26.69%;--ad:1.3s"><i></i><b></b></div>  <!-- Spain -->
+    <!-- Africa -->
+    <div class="wspot med" style="--x:52.86%;--y:32.77%;--ad:2.3s"><i></i><b></b></div>  <!-- Libya -->
+    <div class="wspot med" style="--x:47.4%;--y:47.28%;--ad:1s"><i></i><b></b></div>     <!-- Ghana -->
+    <div class="wspot med" style="--x:57.92%;--y:51.97%;--ad:.5s"><i></i><b></b></div>   <!-- Kenya -->
+    <div class="wspot med" style="--x:57.71%;--y:64.61%;--ad:2.7s"><i></i><b></b></div>  <!-- Mozambique -->
+    <div class="wspot med" style="--x:54.48%;--y:69.48%;--ad:1.4s"><i></i><b></b></div>  <!-- South Africa -->
+    <!-- Asia -->
+    <div class="wspot med" style="--x:68.23%;--y:39.51%;--ad:.3s"><i></i><b></b></div>   <!-- India -->
+    <div class="wspot med" style="--x:74.79%;--y:44.01%;--ad:1.8s"><i></i><b></b></div>  <!-- Thailand -->
+    <div class="wspot med" style="--x:77.08%;--y:42.6%;--ad:.7s"><i></i><b></b></div>    <!-- Vietnam -->
+    <div class="wspot med" style="--x:75.78%;--y:51.03%;--ad:2.4s"><i></i><b></b></div>  <!-- Malaysia -->
+    <div class="wspot med" style="--x:81.25%;--y:44.01%;--ad:1.2s"><i></i><b></b></div>  <!-- Philippines -->
+    <div class="wspot med" style="--x:76.51%;--y:55.24%;--ad:2s"><i></i><b></b></div>    <!-- Indonesia -->
+    <div class="wm-legend">
+      <div class="li"><span class="dot h"></span>SEVERE FUEL-THEFT ACTIVITY</div>
+      <div class="li"><span class="dot m"></span>RECORDED HOTSPOT</div>
+    </div>
+  </div>
+
+  <div class="brand">STREAMAX</div>
+  <div class="hdr"><div class="lbl red" id="lbl">— 01 · THE NIGHT SHIFT NOBODY WORKS —</div></div>
+
+  <div class="stage">
+
+    <!-- step 1 : the two threats -->
+    <div class="layer l-threats">
+      <div class="th-head">When the truck parks, the risk clocks in.</div>
+      <div class="th-sub">Two threats drain fleets every single night — and both strike when nobody is watching.</div>
+      <div class="th-cards">
+        <div class="tcard">
+          <div class="tc-media">
+            <div class="pic" style="background-image:url('Images/theft-cargo.jpg')"></div>
+            <video src="Videos/cargo theft cctv.mp4" muted loop playsinline preload="auto"></video>
+            <div class="tc-rec"><i></i>SECURITY FOOTAGE · 02:22 AM</div>
+          </div>
+          <div class="tc-body">
+            <div class="tc-line"><span class="tc-tag">THREAT 01</span><h3>Cargo Theft</h3></div>
+            <p>Rear doors forced open at truck stops and unsecured yards. Full trailers stripped in minutes — freight, margin, and customer trust gone by sunrise.</p>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tc-media">
+            <div class="pic" style="background-image:url('Images/theft-fuel.jpg')"></div>
+            <video src="Videos/theft-cctv.mp4" muted loop playsinline preload="auto"></video>
+            <div class="tc-rec"><i></i>SECURITY FOOTAGE · 03:47 AM</div>
+          </div>
+          <div class="tc-body">
+            <div class="tc-line"><span class="tc-tag">THREAT 02</span><h3>Fuel Theft</h3></div>
+            <p>Tanks siphoned quietly in the dark. A few hundred dollars per hit, repeated across the fleet, week after week — invisible until the fuel bill arrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- step 2 : scale of the problem -->
+    <div class="layer l-scale">
+      <div class="sc-head">The scale of the problem</div>
+      <div class="sc-sub">Fuel and cargo theft drain an estimated <b>$17–35 billion</b> from the industry every year — with <b>≈54,000 fuel-theft incidents</b> recorded globally, ≈4,500 every month.</div>
+      <div class="sc-grid">
+        <div class="scard" style="--d:.5s">
+          <div class="n roll" data-target="35" data-prefix="$" data-suffix="B">$0B</div>
+          <div class="h">Annual losses</div>
+          <div class="c">Upper estimate of combined fuel and cargo theft losses per year</div>
+        </div>
+        <div class="scard" style="--d:.7s">
+          <div class="n roll" data-target="65" data-suffix="%">0%</div>
+          <div class="h">Strikes trucks</div>
+          <div class="c">The majority of cargo theft happens on the truck — not in the warehouse</div>
+        </div>
+        <div class="scard" style="--d:.9s">
+          <div class="n roll" data-target="26" data-suffix="%">0%</div>
+          <div class="h">Facility theft</div>
+          <div class="c">Largest single theft type — from yards and facilities where trucks sit parked</div>
+        </div>
+      </div>
+      <div class="sc-src">Sources: WorldMetrics &amp; WifiTalents fuel-theft reports 2026 · InSight Crime · OilPrice — Mexico, Nigeria, Iraq, Indonesia &amp; Thailand account for ≈70% of global pipeline fuel theft</div>
+    </div>
+
+    <!-- step 3 : one real fleet -->
+    <div class="layer l-case">
+      <div class="ca-head">A real case: one fleet, six months</div>
+      <div class="ca-sub">A 10-truck fleet audited its fuel books — and found 900 litres missing.</div>
+
+      <div class="case-scene fuel">
+
+        <!-- fuel tank -->
+        <div class="tank">
+          <div class="liquid"></div>
+          <div class="strap s1"></div><div class="strap s2"></div>
+          <div class="tx">
+            <div class="t1">10 TRUCKS · 6 MONTHS</div>
+            <div class="n"><span class="roll" data-target="900">0</span> L</div>
+            <div class="t2">FUEL SIPHONED — UNNOTICED</div>
+          </div>
+        </div>
+
+        <!-- siphon hose with flowing fuel -->
+        <svg class="hose-svg" viewBox="0 0 92 46" preserveAspectRatio="none">
+          <path class="tube"    d="M48 29.2 L48 12 C48 6.2, 52 4.6, 56 5.6 C62 7.2, 70.6 9, 70.6 16 L70.6 34.5"/>
+          <path class="tube-hl" d="M48 29.2 L48 12 C48 6.2, 52 4.6, 56 5.6 C62 7.2, 70.6 9, 70.6 16 L70.6 34.5"/>
+          <path class="flow"    d="M48 29.2 L48 12 C48 6.2, 52 4.6, 56 5.6 C62 7.2, 70.6 9, 70.6 16 L70.6 34.5"/>
+        </svg>
+
+        <!-- drops, puddle, ground -->
+        <div class="drop" style="--dd:0s"></div>
+        <div class="drop" style="--dd:.38s"></div>
+        <div class="drop" style="--dd:.76s"></div>
+        <div class="ground"></div>
+        <div class="puddle"></div>
+
+        <!-- per-truck math, stacked right -->
+        <div class="derive-col">
+          <div class="ccard" style="--d:1s">
+            <div class="nw"><div class="n"><span class="roll" data-target="15">0</span><small> L</small></div></div>
+            <div class="tx">
+              <div class="f">900 L ÷ 10 TRUCKS ÷ 6 MONTHS</div>
+              <div class="h">Stolen per truck, per month</div>
+              <div class="c">Small enough to hide inside normal consumption — steady, quiet, every month</div>
+            </div>
+          </div>
+          <div class="ccard" style="--d:1.25s">
+            <div class="nw"><div class="n"><small>≈ $</small><span class="roll" data-target="23">0</span></div></div>
+            <div class="tx">
+              <div class="f">15 L × ~$1.5 / L DIESEL</div>
+              <div class="h">Lost per truck, per month</div>
+              <div class="c">At typical diesel prices — quietly billed to you as "consumption"</div>
+            </div>
+          </div>
+          <div class="ccard" style="--d:1.5s">
+            <div class="nw"><div class="n"><small>≈ $</small><span class="roll" data-target="270">0</span></div></div>
+            <div class="tx">
+              <div class="f">$23 × 12 MONTHS</div>
+              <div class="h">Lost per truck, per year</div>
+              <div class="c">From fuel alone — before cargo losses, claims and downtime</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ca-foot">Nobody saw it happen. <b>Not once, in six months.</b></div>
+    </div>
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="hint">← / → · arrow keys</div>
+  <div class="fx-scan"></div>
+  <div class="fx-vig"></div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const lbl=document.getElementById('lbl');
+const total=3;let cur=1;
+const meta={
+  1:{t:"— 01 · THE NIGHT SHIFT NOBODY WORKS —",c:"red"},
+  2:{t:"— A $35 BILLION LEAK —",c:"red"},
+  3:{t:"— ONE REAL FLEET · FUEL ALONE —",c:"red"}
+};
+const dotsBox=document.getElementById('dots');
+for(let i=0;i<total;i++){dotsBox.appendChild(document.createElement('i'));}
+const dots=[...dotsBox.children];
+/* synchronized start: wait until BOTH videos can play through, then start them TOGETHER */
+(function(){
+  const vids=[...document.querySelectorAll('video')];
+  let started=false;
+  function startAll(){
+    if(started)return;started=true;
+    vids.forEach(v=>{try{v.pause();v.currentTime=0;}catch(e){}});      /* reset every video first  */
+    vids.forEach(v=>{v.play().catch(()=>{});v.classList.add('playing');}); /* then start in the same tick */
+  }
+  const ready=vids.map(v=>new Promise(res=>{
+    if(v.readyState>=4)return res();                 /* HAVE_ENOUGH_DATA = buffered to play through */
+    v.addEventListener('canplaythrough',res,{once:true});
+    v.addEventListener('error',res,{once:true});      /* a missing/broken file won't hang the wait   */
+  }));
+  Promise.all(ready).then(startAll);                  /* the ONLY normal trigger: both are buffered  */
+  setTimeout(startAll,20000); /* long safety net only — no longer fires mid-buffer to stagger them */
+})();
+
+/* rolling odometer count-up: fast spin, then eases onto the target */
+function rollUp(scope,delay){
+  scope.querySelectorAll('.roll').forEach(el=>{
+    if(el._raf)cancelAnimationFrame(el._raf);
+    const t=+el.dataset.target,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+    const dur=1900,st=performance.now()+(delay||0);
+    function tick(now){
+      if(now<st){el._raf=requestAnimationFrame(tick);return;}
+      let p=Math.min((now-st)/dur,1);
+      const e=1-Math.pow(1-p,4);            /* ease-out quart — rolls fast, settles slow */
+      let val=t*e;
+      if(p<1){
+        /* while rolling, jitter the trailing digits so they visibly spin */
+        const spin=(1-e)*t*0.12;
+        val=Math.min(t,val+spin*Math.abs(Math.sin(now/23)));
+        el.textContent=pre+Math.round(val).toLocaleString('en-US')+suf;
+        el._raf=requestAnimationFrame(tick);
+      }else{
+        el.textContent=pre+t.toLocaleString('en-US')+suf;
+      }
+    }
+    el._raf=requestAnimationFrame(tick);
+  });
+}
+function render(){
+  canvas.setAttribute('data-step',cur);
+  lbl.textContent=meta[cur].t;lbl.className='lbl '+meta[cur].c;
+  dots.forEach((d,i)=>d.classList.toggle('on',i+1===cur));
+  if(cur===2)rollUp(document.querySelector('.l-scale'),450);
+  if(cur===3)rollUp(document.querySelector('.l-case'),700);
+}
+function go(dir){
+  if(dir==='next'&&cur<total)cur++;
+  else if(dir==='prev'&&cur>1)cur--;
+  render();
+}
+function navNext(){ if(cur<total){go('next');} else { try{parent.postMessage({type:'deck-next'},'*');}catch(_){}} }
+function navPrev(){ if(cur>1){go('prev');} else { try{parent.postMessage({type:'deck-prev'},'*');}catch(_){}} }
+/* deck advances by ← / → only — click does not navigate */
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','ArrowDown','PageDown'].includes(e.key)){e.preventDefault();navNext();}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();navPrev();}
+});
+window.addEventListener('message',e=>{ const d=e.data||{}; if(d.type==='deck-nav'){ d.dir==='prev'?navPrev():navNext(); } });
+window.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>{setTimeout(render,120);}));
+</script>
+</body>
+</html>

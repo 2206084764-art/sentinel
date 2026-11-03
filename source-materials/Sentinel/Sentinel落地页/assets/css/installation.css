@@ -1,0 +1,37 @@
+/* Original installation composition, using the landing page's section width and palette. */
+#main #installation{--bg:#000;--green:#AACC03;--blue:#C4E63C;--grey:#AEB7AB;--grey-dim:rgba(174,183,171,.6);color:#F6F8F2;font-family:inherit;font-size:16px;line-height:1.5;scroll-margin-top:110px;border-top:0;background:linear-gradient(180deg,#000,#080B0A 45%,#000)}
+#main #installation *,#main #installation *::before,#main #installation *::after{box-sizing:border-box;margin:0;padding:0}
+#main #installation .wrap{position:relative;width:100%;max-width:none;margin:0;padding:0;pointer-events:none;min-height:min(70vh,650px)}
+#main #installation h2{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-.025em;line-height:1.08}
+#main #installation .grad{background:linear-gradient(120deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+#main #installation .eyebrow{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:1.1rem}
+#main #installation .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+#main #installation .reveal.in{opacity:1;transform:none}
+#main #installation .reveal.d1{transition-delay:.08s}
+#main #installation .reveal.d2{transition-delay:.16s}
+#main #installation .reveal.d3{transition-delay:.24s}
+#main #installation .mount-grid{position:relative;z-index:2;width:100%;pointer-events:none}
+#main #installation .mount-copy,#main #installation .mount-toggles{pointer-events:auto}
+#main #installation .mount-copy{max-width:46%}
+#main #installation .mount-stage{position:absolute;inset:0;left:40%;z-index:1;pointer-events:auto}
+#main #installation .mount-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;opacity:0;pointer-events:none;transition:opacity .4s}
+#main #installation .mount-stage iframe.is-ready{opacity:1;pointer-events:auto}
+#main #installation .mount-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+#main #installation .mount-stage[data-state="ready"] .mount-poster{visibility:hidden}
+#main #installation .mount-facts{display:flex;gap:1.6rem;margin-top:2rem;flex-wrap:wrap}
+#main #installation .mount-facts b{display:block;font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+#main #installation .mount-facts span{display:block;font-size:.86rem;color:var(--grey);margin-top:.3rem;line-height:1.4}
+#main #installation .mount-toggles{position:relative;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-top:2.2rem}
+#main #installation .mbtn{font:inherit;font-size:.85rem;font-weight:800;padding:.6rem 1.1rem;border-radius:100px;cursor:pointer;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:var(--grey);transition:color .25s,border-color .25s,background .25s}
+#main #installation .mbtn:hover{color:#F6F8F2;border-color:rgba(170,204,3,.45)}
+#main #installation .mbtn.on{color:#071002;border-color:transparent;background:linear-gradient(135deg,var(--green),var(--blue))}
+#main #installation .mbtn:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+#main #installation .mhint{font-size:.78rem;color:var(--grey-dim)}
+#main #installation.is-reduced .reveal{opacity:1;transform:none;transition:none}
+#main #installation.is-reduced .mount-stage iframe{transition:none}
+@media(max-width:860px){
+ #main #installation .wrap{min-height:0}
+ #main #installation .mount-copy{max-width:100%}
+ #main #installation .mount-stage{position:relative;inset:auto;left:auto;width:100%;aspect-ratio:16/11;margin-top:2rem}
+ #main #installation .mount-toggles{margin-top:1.4rem}
+}

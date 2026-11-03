@@ -1,0 +1,15 @@
+/* HarmonyOS Sans. Copyright 2021 Huawei Device Co., Ltd. Original font files; see LICENSE.txt. */
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:100;font-display:swap;src:url("./HarmonyOS_Sans_Thin.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:300;font-display:swap;src:url("./HarmonyOS_Sans_Light.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:400;font-display:swap;src:url("./HarmonyOS_Sans_Regular.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:500;font-display:swap;src:url("./HarmonyOS_Sans_Medium.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:700;font-display:swap;src:url("./HarmonyOS_Sans_Bold.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans Web";font-style:normal;font-weight:900;font-display:swap;src:url("./HarmonyOS_Sans_Black.ttf") format("truetype")}
+@font-face{font-family:"HarmonyOS Sans SC Web";font-style:normal;font-weight:400;font-display:swap;src:url("./HarmonyOS_Sans_SC_Regular.ttf") format("truetype")}
+html,body,body *,body *::before,body *::after,
+html body #root,html body #root *,
+html body #streamaxHeader.header,html body #streamaxHeader.header *,
+html body #streamaxHeader.header .lang.mode_btn a,
+html body .streamax-official-footer,html body .streamax-official-footer *{
+  font-family:"HarmonyOS Sans Web","HarmonyOS Sans SC Web",sans-serif!important;
+}

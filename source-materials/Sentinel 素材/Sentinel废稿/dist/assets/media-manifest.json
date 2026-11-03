@@ -1,0 +1,367 @@
+{
+  "sourceRoot": "/Users/kevinwang/Documents/Streamax/Sentinel/Sentinel Keynote HTML",
+  "outputRoot": "/private/tmp/sentinel-prepared-assets",
+  "note": "Originals unchanged. ai-pose and cargo downscaled to H.264 720p; small clips preserve original resolution, including 640x360 CCTV. All complete durations retained. Copy only Images, Branding and Videos directories; first-pass and helper scripts are not site assets.",
+  "files": [
+    {
+      "file": "Images/ai-still.webp",
+      "source": "Images/ai-still.jpg",
+      "kind": "image",
+      "width": 1920,
+      "height": 1080,
+      "alpha": false,
+      "bytes": 431686,
+      "sourceBytes": 578636
+    },
+    {
+      "file": "Images/aov-still.webp",
+      "source": "Images/aov-still.jpg",
+      "kind": "image",
+      "width": 1392,
+      "height": 768,
+      "alpha": false,
+      "bytes": 87490,
+      "sourceBytes": 162714
+    },
+    {
+      "file": "Images/bg-beam.webp",
+      "source": "Images/bg-beam.jpg",
+      "kind": "image",
+      "width": 1920,
+      "height": 1080,
+      "alpha": false,
+      "bytes": 10440,
+      "sourceBytes": 75555
+    },
+    {
+      "file": "Images/cases/alert-night.webp",
+      "source": "Images/cases/alert-night.jpg",
+      "kind": "image",
+      "width": 560,
+      "height": 306,
+      "alpha": false,
+      "bytes": 11448,
+      "sourceBytes": 16961
+    },
+    {
+      "file": "Images/cases/cap1.webp",
+      "source": "Images/cases/cap1.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 44572,
+      "sourceBytes": 109526
+    },
+    {
+      "file": "Images/cases/cap2.webp",
+      "source": "Images/cases/cap2.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 65642,
+      "sourceBytes": 143301
+    },
+    {
+      "file": "Images/cases/cap3.webp",
+      "source": "Images/cases/cap3.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 76788,
+      "sourceBytes": 156012
+    },
+    {
+      "file": "Images/cases/cap4.webp",
+      "source": "Images/cases/cap4.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 41822,
+      "sourceBytes": 104617
+    },
+    {
+      "file": "Images/cases/cap5.webp",
+      "source": "Images/cases/cap5.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 67268,
+      "sourceBytes": 142860
+    },
+    {
+      "file": "Images/cases/cap6.webp",
+      "source": "Images/cases/cap6.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 62038,
+      "sourceBytes": 135587
+    },
+    {
+      "file": "Images/cases/cap7.webp",
+      "source": "Images/cases/cap7.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 53914,
+      "sourceBytes": 127437
+    },
+    {
+      "file": "Images/cases/cap8.webp",
+      "source": "Images/cases/cap8.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 34754,
+      "sourceBytes": 95509
+    },
+    {
+      "file": "Images/cases/cap9.webp",
+      "source": "Images/cases/cap9.jpg",
+      "kind": "image",
+      "width": 900,
+      "height": 507,
+      "alpha": false,
+      "bytes": 33368,
+      "sourceBytes": 91539
+    },
+    {
+      "file": "Images/cases/curve-0308.webp",
+      "source": "Images/cases/curve-0308.png",
+      "kind": "image",
+      "width": 1200,
+      "height": 274,
+      "alpha": true,
+      "bytes": 22880,
+      "sourceBytes": 92994
+    },
+    {
+      "file": "Images/cases/curve-0327.webp",
+      "source": "Images/cases/curve-0327.png",
+      "kind": "image",
+      "width": 1200,
+      "height": 276,
+      "alpha": false,
+      "bytes": 20596,
+      "sourceBytes": 93625
+    },
+    {
+      "file": "Images/cases/poster-ampenet.webp",
+      "source": "Images/cases/poster-ampenet.jpg",
+      "kind": "image",
+      "width": 959,
+      "height": 1200,
+      "alpha": false,
+      "bytes": 105614,
+      "sourceBytes": 311150
+    },
+    {
+      "file": "Images/hero-truck.webp",
+      "source": "Images/hero-truck.jpg",
+      "kind": "image",
+      "width": 1920,
+      "height": 960,
+      "alpha": false,
+      "bytes": 83288,
+      "sourceBytes": 275470
+    },
+    {
+      "file": "Images/nv-blacklight.webp",
+      "source": "Images/nv-blacklight.jpg",
+      "kind": "image",
+      "width": 1144,
+      "height": 624,
+      "alpha": false,
+      "bytes": 75658,
+      "sourceBytes": 133243
+    },
+    {
+      "file": "Images/nv-iphone.webp",
+      "source": "Images/nv-iphone.jpg",
+      "kind": "image",
+      "width": 1066,
+      "height": 774,
+      "alpha": false,
+      "bytes": 1796,
+      "sourceBytes": 14278
+    },
+    {
+      "file": "Images/nv-ultra.webp",
+      "source": "Images/nv-ultra.jpg",
+      "kind": "image",
+      "width": 1276,
+      "height": 603,
+      "alpha": false,
+      "bytes": 105692,
+      "sourceBytes": 172423
+    },
+    {
+      "file": "Images/sentinel-dim.webp",
+      "source": "Images/sentinel-dim.png",
+      "kind": "image",
+      "width": 1800,
+      "height": 1011,
+      "alpha": true,
+      "bytes": 40200,
+      "sourceBytes": 415100
+    },
+    {
+      "file": "Images/sentinel-front.webp",
+      "source": "Images/sentinel-front.png",
+      "kind": "image",
+      "width": 1800,
+      "height": 1011,
+      "alpha": true,
+      "bytes": 45260,
+      "sourceBytes": 500731
+    },
+    {
+      "file": "Images/sentinel-side.webp",
+      "source": "Images/sentinel-side.png",
+      "kind": "image",
+      "width": 1800,
+      "height": 1011,
+      "alpha": true,
+      "bytes": 39414,
+      "sourceBytes": 414441
+    },
+    {
+      "file": "Images/theft-cargo.webp",
+      "source": "Images/theft-cargo.jpg",
+      "kind": "image",
+      "width": 1920,
+      "height": 1080,
+      "alpha": false,
+      "bytes": 73200,
+      "sourceBytes": 161693
+    },
+    {
+      "file": "Images/theft-fuel.webp",
+      "source": "Images/theft-fuel.jpg",
+      "kind": "image",
+      "width": 640,
+      "height": 360,
+      "alpha": false,
+      "bytes": 12342,
+      "sourceBytes": 26750
+    },
+    {
+      "file": "Images/truck-xray.webp",
+      "source": "Images/truck-xray.png",
+      "kind": "image",
+      "width": 1800,
+      "height": 900,
+      "alpha": true,
+      "bytes": 136504,
+      "sourceBytes": 1042125
+    },
+    {
+      "file": "Images/world-dots.webp",
+      "source": "Images/world-dots.png",
+      "kind": "image",
+      "width": 1920,
+      "height": 1068,
+      "alpha": true,
+      "bytes": 65922,
+      "sourceBytes": 31257
+    },
+    {
+      "file": "Branding/streamax.webp",
+      "source": "Branding/streamax.png",
+      "kind": "image",
+      "width": 1000,
+      "height": 127,
+      "alpha": true,
+      "bytes": 11058,
+      "sourceBytes": 371547
+    },
+    {
+      "bytes": 20911209,
+      "codec": "avc1",
+      "duration": 37.8,
+      "file": "Videos/ai-pose.mp4",
+      "height": 720,
+      "width": 1280,
+      "source": "Videos/ai-pose.mp4",
+      "kind": "video",
+      "sourceBytes": 44800988,
+      "sourceDuration": 37.8,
+      "networkOptimized": true
+    },
+    {
+      "bytes": 3208165,
+      "codec": "avc1",
+      "duration": 30.986,
+      "file": "Videos/aov-loop.mp4",
+      "height": 768,
+      "width": 1392,
+      "source": "Videos/aov-loop.mp4",
+      "kind": "video",
+      "sourceBytes": 3212919,
+      "sourceDuration": 30.986,
+      "networkOptimized": true
+    },
+    {
+      "bytes": 24872372,
+      "codec": "avc1",
+      "duration": 26.733333333333334,
+      "file": "Videos/cargo theft cctv.mp4",
+      "height": 720,
+      "width": 1280,
+      "source": "Videos/cargo theft cctv.mp4",
+      "kind": "video",
+      "sourceBytes": 103025036,
+      "sourceDuration": 26.733333333333334,
+      "networkOptimized": true
+    },
+    {
+      "bytes": 3662825,
+      "codec": "avc1",
+      "duration": 7,
+      "file": "Videos/case-ampenet.mp4",
+      "height": 1080,
+      "width": 1920,
+      "source": "Videos/case-ampenet.mp4",
+      "kind": "video",
+      "sourceBytes": 3663113,
+      "sourceDuration": 7,
+      "networkOptimized": true
+    },
+    {
+      "bytes": 1216338,
+      "codec": "avc1",
+      "duration": 3.44,
+      "file": "Videos/case-caught.mp4",
+      "height": 830,
+      "width": 1920,
+      "source": "Videos/case-caught.mp4",
+      "kind": "video",
+      "sourceBytes": 1216420,
+      "sourceDuration": 3.44,
+      "networkOptimized": true
+    },
+    {
+      "bytes": 5934449,
+      "codec": "avc1",
+      "duration": 130.6551724137931,
+      "file": "Videos/theft-cctv.mp4",
+      "height": 360,
+      "width": 640,
+      "source": "Videos/theft-cctv.mp4",
+      "kind": "video",
+      "sourceBytes": 5931369,
+      "sourceDuration": 130.6551724137931,
+      "networkOptimized": true
+    }
+  ],
+  "totalBytes": 61666012,
+  "sourceBytes": 167846926
+}

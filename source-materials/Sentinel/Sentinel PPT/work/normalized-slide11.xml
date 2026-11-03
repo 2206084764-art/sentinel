@@ -1,0 +1,2882 @@
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+  <p:cSld>
+    <p:bg>
+      <p:bgPr>
+        <a:solidFill>
+          <a:srgbClr val="050810"/>
+        </a:solidFill>
+        <a:effectLst/>
+      </p:bgPr>
+    </p:bg>
+    <p:spTree>
+      <p:nvGrpSpPr>
+        <p:cNvPr id="1" name=""/>
+        <p:cNvGrpSpPr/>
+        <p:nvPr/>
+      </p:nvGrpSpPr>
+      <p:grpSpPr>
+        <a:xfrm>
+          <a:off x="0" y="0"/>
+          <a:ext cx="0" cy="0"/>
+          <a:chOff x="0" y="0"/>
+          <a:chExt cx="0" cy="0"/>
+        </a:xfrm>
+      </p:grpSpPr>
+      <p:pic>
+        <p:nvPicPr>
+          <p:cNvPr id="2" name="Image 0"/>
+          <p:cNvPicPr>
+            <a:picLocks noChangeAspect="1"/>
+          </p:cNvPicPr>
+          <p:nvPr/>
+        </p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId3"/>
+          <a:stretch>
+            <a:fillRect/>
+          </a:stretch>
+        </p:blipFill>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="502920" y="310896"/>
+            <a:ext cx="1115568" cy="141732"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+        </p:spPr>
+      </p:pic>
+      <p:cxnSp>
+        <p:nvCxnSpPr>
+          <p:cNvPr id="130" name="&#30452;&#32447;&#31661;&#22836;&#36830;&#25509;&#31526; 129">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F5040516-D894-4008-AA8F-2B50F2F1561A}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvCxnSpPr>
+            <a:stCxn id="118" idx="1"/>
+            <a:endCxn id="122" idx="3"/>
+          </p:cNvCxnSpPr>
+          <p:nvPr/>
+        </p:nvCxnSpPr>
+        <p:spPr>
+          <a:xfrm flipH="1">
+            <a:off x="3752850" y="5048250"/>
+            <a:ext cx="723900" cy="0"/>
+          </a:xfrm>
+          <a:prstGeom prst="straightConnector1">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2AF598"/>
+            </a:solidFill>
+            <a:tailEnd type="triangle" w="med" len="med"/>
+          </a:ln>
+        </p:spPr>
+      </p:cxnSp>
+      <p:cxnSp>
+        <p:nvCxnSpPr>
+          <p:cNvPr id="129" name="&#30452;&#32447;&#31661;&#22836;&#36830;&#25509;&#31526; 128">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F5F520BC-FD08-43B2-8975-7EA5D73317BA}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvCxnSpPr>
+            <a:stCxn id="114" idx="1"/>
+            <a:endCxn id="118" idx="3"/>
+          </p:cNvCxnSpPr>
+          <p:nvPr/>
+        </p:nvCxnSpPr>
+        <p:spPr>
+          <a:xfrm flipH="1">
+            <a:off x="7524750" y="5048250"/>
+            <a:ext cx="723900" cy="0"/>
+          </a:xfrm>
+          <a:prstGeom prst="straightConnector1">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2AF598"/>
+            </a:solidFill>
+            <a:tailEnd type="triangle" w="med" len="med"/>
+          </a:ln>
+        </p:spPr>
+      </p:cxnSp>
+      <p:cxnSp>
+        <p:nvCxnSpPr>
+          <p:cNvPr id="128" name="&#30452;&#32447;&#31661;&#22836;&#36830;&#25509;&#31526; 127">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A6F00E16-3546-43E8-9EA5-A997D63D1DF3}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvCxnSpPr>
+            <a:stCxn id="110" idx="2"/>
+            <a:endCxn id="114" idx="0"/>
+          </p:cNvCxnSpPr>
+          <p:nvPr/>
+        </p:nvCxnSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="9772650" y="3714750"/>
+            <a:ext cx="0" cy="762000"/>
+          </a:xfrm>
+          <a:prstGeom prst="straightConnector1">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2AF598"/>
+            </a:solidFill>
+            <a:tailEnd type="triangle" w="med" len="med"/>
+          </a:ln>
+        </p:spPr>
+      </p:cxnSp>
+      <p:cxnSp>
+        <p:nvCxnSpPr>
+          <p:cNvPr id="127" name="&#30452;&#32447;&#31661;&#22836;&#36830;&#25509;&#31526; 126">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6285C616-F5C3-4729-A023-879CB85658C0}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvCxnSpPr>
+            <a:stCxn id="106" idx="3"/>
+            <a:endCxn id="110" idx="1"/>
+          </p:cNvCxnSpPr>
+          <p:nvPr/>
+        </p:nvCxnSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="7524750" y="3143250"/>
+            <a:ext cx="723900" cy="0"/>
+          </a:xfrm>
+          <a:prstGeom prst="straightConnector1">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2AF598"/>
+            </a:solidFill>
+            <a:tailEnd type="triangle" w="med" len="med"/>
+          </a:ln>
+        </p:spPr>
+      </p:cxnSp>
+      <p:cxnSp>
+        <p:nvCxnSpPr>
+          <p:cNvPr id="126" name="&#30452;&#32447;&#31661;&#22836;&#36830;&#25509;&#31526; 125">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6FB6281E-55A5-4FAA-9B4A-B77F67692B7D}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvCxnSpPr>
+            <a:stCxn id="102" idx="3"/>
+            <a:endCxn id="106" idx="1"/>
+          </p:cNvCxnSpPr>
+          <p:nvPr/>
+        </p:nvCxnSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3752850" y="3143250"/>
+            <a:ext cx="723900" cy="0"/>
+          </a:xfrm>
+          <a:prstGeom prst="straightConnector1">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2AF598"/>
+            </a:solidFill>
+            <a:tailEnd type="triangle" w="med" len="med"/>
+          </a:ln>
+        </p:spPr>
+      </p:cxnSp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="132" name="Webinar title">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8C66016D-91F8-4BA9-8AB6-6EB4501E5F5B}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="685800" y="1285875"/>
+            <a:ext cx="10820400" cy="809625"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="3300" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Alert &amp; video review workflow</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="102" name="Workflow step 1">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8530D815-6F67-47EE-98B1-6E972E9CFCD8}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="704850" y="2571750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="103" name="Step number 1">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{AC5C67DA-D7C5-4509-86E5-953DDEB7D317}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="895350" y="2695575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>1</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="104" name="Step title 1">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E35379E3-FDD0-41CA-8462-D680FCCD0D3C}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1257300" y="2676525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Detection</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="105" name="Step description 1">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7AB39DB1-D7CB-4124-AF06-040C06F641F4}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="895350" y="3162300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Activity around the vehicle</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="106" name="Workflow step 2">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{DEF5E989-9DF3-43E2-BC99-F90294A6B148}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4476750" y="2571750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="107" name="Step number 2">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EC1AA4E4-8434-440E-A7C3-B12A393F0E9D}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4667250" y="2695575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>2</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="108" name="Step title 2">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{63F3A960-3DBC-4B1D-88EF-D948BE9EF274}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5029200" y="2676525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Event generation</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="109" name="Step description 2">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{4F3BCAB7-A16B-48D6-86DA-83459639A799}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4667250" y="3162300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Event record created</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="110" name="Workflow step 3">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{B5423FDE-EBC1-495A-9B81-36E31C2EF1A8}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8248650" y="2571750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="111" name="Step number 3">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{5848CBB5-A3F6-4C52-B1F5-950E1E1F6E64}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8439150" y="2695575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>3</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="112" name="Step title 3">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{AC8C9591-789D-44FA-B8A6-659BC9BB3A0C}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8801100" y="2676525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Video association</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="113" name="Step description 3">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E07A7322-E31B-4C6B-88B6-AF1B74226000}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8439150" y="3162300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Relevant footage attached</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="114" name="Workflow step 4">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{0B35B1BA-04C0-4BAE-904F-2BA360DEFC4A}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8248650" y="4476750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="115" name="Step number 4">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{D3890C64-A54F-467E-A382-20E332D7C412}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8439150" y="4600575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>4</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="116" name="Step title 4">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F86A8899-C95B-4230-B9F9-66450FB9F381}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8801100" y="4581525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Alert reception</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="117" name="Step description 4">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EC57C399-5528-4CDC-8CB3-4FD24D6435F4}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8439150" y="5067300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Fleet personnel notified</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="118" name="Workflow step 5">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7242B56B-85BC-47F5-BD6B-65E7530988E5}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4476750" y="4476750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="119" name="Step number 5">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{DC284226-1711-4CCA-8A2D-8D21C1AACC10}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4667250" y="4600575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>5</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="120" name="Step title 5">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BC9F5978-79D0-41FA-9A42-DE41C3161A72}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5029200" y="4581525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Event review</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="121" name="Step description 5">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{31E70C92-07F7-42CF-8BD4-D3AF475B2CFF}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4667250" y="5067300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Video and context checked</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="122" name="Workflow step 6">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BF9A5190-E726-4657-8147-08FCB794785B}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="704850" y="4476750"/>
+            <a:ext cx="3048000" cy="1143000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="101824"/>
+          </a:solidFill>
+          <a:ln w="11430">
+            <a:solidFill>
+              <a:srgbClr val="31465B"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="zh-CN" altLang="en-US"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="123" name="Step number 6">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{AEC09F67-F666-4573-9686-D26241582968}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="895350" y="4600575"/>
+            <a:ext cx="333375" cy="285750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1650" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="2AF598"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>6</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="124" name="Step title 6">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{894862B3-A9EA-4D96-88EB-70A848163329}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1257300" y="4581525"/>
+            <a:ext cx="2381250" cy="361950"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1725" b="1">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Operational follow-up</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="125" name="Step description 6">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{5C27AE5D-0F93-4A0E-8EF2-27EFB5C890CF}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="895350" y="5067300"/>
+            <a:ext cx="2667000" cy="438150"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1425" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Action under fleet procedures</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="131" name="Workflow qualification">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8BBC358B-E81D-4708-AB27-EE1B9810D17E}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr>
+            <a:spLocks noGrp="1"/>
+          </p:cNvSpPr>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="704850" y="6076950"/>
+            <a:ext cx="10668000" cy="381000"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln w="0">
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr anchor="ctr"/>
+          <a:lstStyle>
+            <a:defPPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:defPPr>
+            <a:lvl1pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl4pPr>
+            <a:lvl5pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl5pPr>
+            <a:lvl6pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl6pPr>
+            <a:lvl7pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl7pPr>
+            <a:lvl8pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl8pPr>
+            <a:lvl9pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:lvl9pPr>
+          </a:lstStyle>
+          <a:p>
+            <a:pPr>
+              <a:defRPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:defRPr>
+            </a:pPr>
+            <a:r>
+              <a:rPr sz="1500" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="A7B5C5"/>
+                </a:solidFill>
+              </a:rPr>
+              <a:t>Notification channels and follow-up depend on platform configuration and fleet procedures.</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="133" name="Slide number"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="11183112" y="274320"/>
+            <a:ext cx="548640" cy="228600"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr">
+            <a:noAutofit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:buNone/>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="en-US" sz="900" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="44566E"/>
+                </a:solidFill>
+                <a:latin typeface="Arial" panose="020B0604020202090204" pitchFamily="34" charset="0"/>
+                <a:ea typeface="Arial" panose="020B0604020202090204" pitchFamily="34" charset="-122"/>
+                <a:cs typeface="Arial" panose="020B0604020202090204" pitchFamily="34" charset="-120"/>
+              </a:rPr>
+              <a:t>11</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+    </p:spTree>
+  </p:cSld>
+  <p:clrMapOvr>
+    <a:masterClrMapping/>
+  </p:clrMapOvr>
+</p:sld>
