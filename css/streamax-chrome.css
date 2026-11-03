@@ -1153,3 +1153,15 @@
     margin: 0;
   }
 }
+
+/* Header Get in Touch group — slight right shift (robot + outline together) */
+@media (min-width: 701px) {
+  .sx-header .sx-contact {
+    transform: translateX(12px);
+  }
+}
+@media (max-width: 700px) {
+  .sx-header .sx-contact {
+    transform: translateX(5px);
+  }
+}
