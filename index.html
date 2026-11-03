@@ -65,29 +65,44 @@
   <a class="s5-poster-scroll" href="#problem">SCROLL TO DISCOVER <span aria-hidden="true">↓</span></a>
 </div>
 </section>
-<section class="section risk" id="problem">
-<div class="section-inner">
-<div class="copy appear">
-<div class="eyebrow">THE CHALLENGE</div>
-<h2>
-<span class="gradient-white">The truck is parked.</span><br/>
-<span class="gradient-green">The risk remains.</span>
-</h2>
-<div class="stats">
-<div class="stat">
-<strong class="gradient-green">~70%</strong>
-<p>of recorded global cargo theft incidents involved trucks in 2025.</p>
+<section class="section risk risk-poster" id="problem" aria-labelledby="risk-title">
+<style>
+#problem.risk-poster{isolation:isolate;display:block;min-height:0;padding:0;background:#06101a url('https://raw.githubusercontent.com/2206084764-art/sentinel/7b38bc4c2d2fa4f1e388ac92f536d160ecaface0/assets/images/hero-truck.webp') center center/cover no-repeat;color:#fff}
+#problem.risk-poster::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(1,7,13,.57),transparent 64%),linear-gradient(0deg,rgba(1,7,12,.98),transparent 50%)}
+#problem.risk-poster::after{display:none}
+#problem .risk-poster-inner{width:min(100%,1920px);margin:auto;padding:clamp(28px,3vw,58px) 4.8% 26px}
+#problem .risk-kicker{margin:0 0 16px;font-size:clamp(12px,1.3vw,23px);font-weight:650;letter-spacing:.04em}
+#problem .risk-kicker span{color:#b8ff46;margin-right:14px;font-weight:850}
+#problem.risk-poster h2{font-size:clamp(30px,4.1vw,79px);line-height:1.02;letter-spacing:-.045em;margin:0;font-weight:850;max-width:75%}
+#problem .risk-green{color:#b8ff46}
+#problem .risk-main-stat{margin-top:12px;width:57%}
+#problem .risk-main-stat strong{display:block;font-size:clamp(100px,18.5vw,355px);line-height:.88;letter-spacing:-.075em;font-weight:950;font-style:italic;background:linear-gradient(170deg,#fff,#d9dfe1 42%,#8d989e 95%);background-clip:text;-webkit-background-clip:text;color:transparent}
+#problem .risk-main-stat p{font-size:clamp(12px,1.45vw,27px);line-height:1.3;margin:12px 0 0;max-width:96%;font-weight:600;text-shadow:0 2px 8px #000}
+#problem .risk-fuel-stat{display:flex;align-items:center;gap:24px;margin:24px 0 26px;width:48%}
+#problem .risk-fuel-stat strong{color:#b8ff46;font-size:clamp(58px,7.3vw,140px);font-style:italic;letter-spacing:-.055em;font-weight:950;line-height:1}
+#problem .risk-fuel-stat p{border-left:1px solid #acb3b7;padding-left:22px;margin:0;font-size:clamp(12px,1.4vw,25px);line-height:1.3;font-weight:600}
+#problem .risk-evidence{display:grid;grid-template-columns:.95fr 1.2fr 1.2fr;gap:28px;align-items:center;border-top:1px solid #c6d1d5;padding-top:20px}
+#problem .risk-question{font-size:clamp(18px,1.9vw,35px);font-weight:750;line-height:1.15;margin:0;letter-spacing:-.025em}
+#problem .risk-example{display:grid;grid-template-columns:minmax(0,1fr) .44fr;gap:20px;align-items:center;margin:0;padding-left:28px;border-left:1px solid #879194;min-width:0}
+#problem .risk-example img{display:block;width:100%;aspect-ratio:16/7;object-fit:cover;border:1px solid #728082;border-radius:7px}
+#problem .risk-example figcaption{font-size:clamp(12px,1.18vw,22px);line-height:1.25;font-weight:650}
+#problem .risk-example figcaption::after{content:"";display:block;margin-top:12px;width:36px;height:3px;background:#b8ff46}
+#problem .risk-note{font-size:10px;color:#acb8bc;margin:14px 0 0}
+@media(min-width:1600px){#problem .risk-poster-inner{padding-top:42px}}
+@media(max-width:900px){#problem .risk-evidence{gap:16px;grid-template-columns:1fr 1fr}#problem .risk-question{grid-column:1/-1;max-width:540px}#problem .risk-example{padding-left:0;border:0}#problem .risk-fuel-stat{width:58%;gap:14px}#problem .risk-fuel-stat p{padding-left:14px}}
+@media(max-width:600px){#problem.risk-poster{background-size:auto 520px;background-position:62% 0;background-color:#06101a}#problem .risk-poster-inner{padding:30px 22px 24px}#problem.risk-poster h2{max-width:100%;font-size:clamp(29px,7.2vw,43px)}#problem .risk-main-stat{width:100%;margin-top:125px}#problem .risk-main-stat strong{font-size:29vw}#problem .risk-main-stat p{max-width:95%;font-size:14px}#problem .risk-fuel-stat{width:100%;margin:24px 0}#problem .risk-fuel-stat strong{font-size:21vw}#problem .risk-fuel-stat p{font-size:14px}#problem .risk-evidence{grid-template-columns:1fr;gap:20px}#problem .risk-question{font-size:23px}#problem .risk-example{grid-template-columns:1fr .5fr}#problem .risk-example figcaption{font-size:16px}}
+</style>
+<div class="risk-poster-inner">
+<p class="risk-kicker"><span>02 /</span> THE RISK</p>
+<h2 id="risk-title">The truck is parked.<br><span class="risk-green">The risk remains.</span></h2>
+<div class="risk-main-stat"><strong>~70%</strong><p>of recorded global cargo theft incidents involved trucks in 2025.</p></div>
+<div class="risk-fuel-stat"><strong>1,121</strong><p>commercial-vehicle fuel thefts recorded across EMEA in 2026.*</p></div>
+<div class="risk-evidence">
+<p class="risk-question">If fuel went missing overnight, what could your fleet review?</p>
+<figure class="risk-example"><img src="https://raw.githubusercontent.com/2206084764-art/sentinel/7b38bc4c2d2fa4f1e388ac92f536d160ecaface0/assets/images/theft-cargo.webp" alt="Cargo theft incident example" loading="lazy"><figcaption>Cargo theft<br>example</figcaption></figure>
+<figure class="risk-example"><img src="https://raw.githubusercontent.com/2206084764-art/sentinel/7b38bc4c2d2fa4f1e388ac92f536d160ecaface0/assets/images/theft-fuel.webp" alt="Fuel theft incident example" loading="lazy"><figcaption>Fuel theft<br>example</figcaption></figure>
 </div>
-<div class="stat">
-<strong class="gradient-green">1,121</strong>
-<p>commercial-vehicle fuel thefts recorded across EMEA in 2026.*</p>
-</div>
-</div>
-<div class="question">
-<span class="gradient-white">If fuel went missing overnight,</span><br/>
-<span class="gradient-green">what could your fleet review?</span>
-</div>
-</div>
+<p class="risk-note">Incident images are illustrative examples.</p>
 </div>
 </section>
 
