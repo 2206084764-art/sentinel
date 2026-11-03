@@ -149,7 +149,64 @@
 </article>
 <article class="fe-row" id="night" aria-labelledby="fe-title-03">
 <div class="fe-index"><small>Night Visibility</small><strong aria-hidden="true">03</strong></div>
-<div class="fe-body"><div class="fe-copy"><h2 id="fe-title-03">Visibility<br><em>after dark.</em></h2><div><p class="fe-description">Black Light Ultra supports human detection in low-light conditions, helping fleet teams review activity around parked vehicles at night.</p><p class="fe-benefits">Low-light human detection.<br>Video context after dark.</p><a class="fe-cta" href="#register">Watch the Night Demo at Launch <span aria-hidden="true">↗</span></a></div></div><div class="fe-media"><img src="assets/images/feature-night-hd.svg" alt="Concept illustration of human detection around a parked truck at night" width="1774" height="887" loading="lazy" decoding="async"></div><p class="fe-caption">LOW-LIGHT HUMAN DETECTION — Concept illustration; not actual camera footage.</p></div>
+<div class="fe-body"><div class="fe-copy"><h2 id="fe-title-03">Visibility<br><em>after dark.</em></h2><div><p class="fe-description">Black Light Ultra supports human detection in low-light conditions, helping fleet teams review activity around parked vehicles at night.</p><p class="fe-benefits">Low-light human detection.<br>Video context after dark.</p><a class="fe-cta" href="#register">Watch the Night Demo at Launch <span aria-hidden="true">↗</span></a></div></div><style>
+#night .nv-compare{--split:50%;position:relative;aspect-ratio:2/1;background:#10151a;overflow:hidden;border:1px solid #8eac30;border-radius:12px;isolation:isolate}
+#features #night .nv-compare img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+#night .nv-day{clip-path:inset(0 calc(100% - var(--split)) 0 0);z-index:1}
+#night .nv-divider{position:absolute;top:0;bottom:0;left:var(--split);width:1px;background:#b8ff46;z-index:3;pointer-events:none}
+#night .nv-divider span{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#b8ff46;color:#111;font-size:24px;box-shadow:0 0 0 5px #0b0d0f30}
+#night .nv-labels{position:absolute;z-index:3;left:16px;right:16px;top:16px;display:flex;justify-content:space-between;pointer-events:none}
+#night .nv-labels span{font-size:11px;font-weight:700;letter-spacing:.1em;color:white;background:#0b0d0fbd;padding:8px 12px;border-radius:3px}
+#night .nv-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:4;cursor:ew-resize;touch-action:pan-y}
+#night .nv-compare:focus-within{outline:2px solid #b8ff46;outline-offset:4px}
+#night .nv-tools{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:12px;color:#a8aeb0;font-size:12px}
+#night .nv-toggle{flex-shrink:0;border:1px solid #596347;border-radius:25px;background:transparent;color:#d7e5bd;padding:7px 12px;font:inherit;cursor:pointer}
+#night .nv-toggle:focus-visible{outline:2px solid #b8ff46;outline-offset:3px}
+@media(max-width:600px){#night .nv-labels{left:8px;right:8px;top:8px}#night .nv-labels span{font-size:9px;padding:5px 8px}#night .nv-divider span{width:34px;height:34px;font-size:19px}}
+</style>
+<div class="nv-compare" id="nv-compare">
+<img src="assets/images/night-compare-night-v2.svg" alt="AI-generated nighttime concept showing a person taking fuel from a parked truck, with face obscured" width="1774" height="887" loading="lazy" decoding="async">
+<img class="nv-day" src="assets/images/night-compare-day-v2.svg" alt="Matching daytime concept of the same scene" width="1774" height="887" loading="lazy" decoding="async">
+<div class="nv-labels" aria-hidden="true"><span>DAY</span><span>NIGHT</span></div>
+<div class="nv-divider" aria-hidden="true"><span>↔</span></div>
+<input class="nv-range" id="nv-range" type="range" min="0" max="100" value="50" aria-label="Day and night comparison. Adjust the divider to reveal each lighting condition.">
+</div>
+<div class="nv-tools"><span>Drag to explore day / night</span><button type="button" class="nv-toggle" id="nv-toggle" aria-pressed="true">Pause auto preview</button></div>
+<p class="fe-caption">AI-generated concept illustration. Same scene under simulated day / night lighting; not actual camera footage or a performance test.</p>
+<script>
+(()=>{
+const panel=document.getElementById('nv-compare'),range=document.getElementById('nv-range'),toggle=document.getElementById('nv-toggle');
+if(!panel||!range||!toggle)return;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+let enabled=!reduce.matches,visible=false,dragging=false,hover=false,frame=0,last=0,value=50,direction=1;
+function show(v){value=Math.max(0,Math.min(100,v));panel.style.setProperty('--split',value+'%');range.value=String(Math.round(value));}
+function button(){toggle.textContent=enabled?'Pause auto preview':'Play auto preview';toggle.setAttribute('aria-pressed',String(enabled));}
+function animate(now){
+const dt=last?Math.min(now-last,50):0;last=now;
+if(enabled&&visible&&!dragging&&!hover&&!document.hidden){
+value+=direction*dt*.009;
+if(value>=88){value=88;direction=-1;}
+if(value<=12){value=12;direction=1;}
+show(value);
+}
+frame=requestAnimationFrame(animate);
+}
+range.addEventListener('input',()=>{enabled=false;show(Number(range.value));button();});
+range.addEventListener('pointerdown',()=>{dragging=true;});
+window.addEventListener('pointerup',()=>{dragging=false;});
+range.addEventListener('pointercancel',()=>{dragging=false;});
+panel.addEventListener('mouseenter',()=>{hover=true;});
+panel.addEventListener('mouseleave',()=>{hover=false;});
+range.addEventListener('focus',()=>{hover=true;});
+range.addEventListener('blur',()=>{hover=false;});
+toggle.addEventListener('click',()=>{enabled=!enabled;button();});
+reduce.addEventListener('change',()=>{if(reduce.matches){enabled=false;button();}});
+if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;},{threshold:.1}).observe(panel);
+else visible=true;
+button();show(50);frame=requestAnimationFrame(animate);
+window.addEventListener('pagehide',()=>cancelAnimationFrame(frame),{once:true});
+})();
+</script></div>
 </article>
 </section>
 
